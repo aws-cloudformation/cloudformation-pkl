@@ -9,7 +9,7 @@ set -euo pipefail
 mkdir -p /tmp/pkl
 
 # Link Pkl modules so we can evaluate high level conversions
-ln -F -s -v -h $(realpath pkl) /tmp/pkl/modules
+ln -F -s -v -h $(realpath package) /tmp/pkl/modules
 
 name=$(basename ${1} | sed s/\.yaml/\.pkl/g)
 pklOutput="/tmp/pkl/${name}"

@@ -5,11 +5,11 @@
 set -eou pipefail
 
 # Create a directory for the pkl class based on the resource name
-dn=$(echo "$1" | awk -F '::' '/^AWS/ {print "pkl/" tolower($1) "/" tolower($2) }')
+dn=$(echo "$1" | awk -F '::' '/^AWS/ {print "package/" tolower($1) "/" tolower($2) }')
 mkdir -p "$dn"
 
 # The pkl class filename
-fn=$(echo "$1" | awk -F '::' '/^AWS/ {print "pkl/" tolower($1) "/" tolower($2) "/" tolower($3) ".pkl"}')
+fn=$(echo "$1" | awk -F '::' '/^AWS/ {print "package/" tolower($1) "/" tolower($2) "/" tolower($3) ".pkl"}')
 
 echo "${1}"
 
