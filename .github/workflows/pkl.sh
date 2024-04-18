@@ -21,7 +21,7 @@ chmod +x /tmp/pkl
 
 # Modify the PklProject file
 
-cat pkl/PklProject-template| sed s/VERSION/${SEMVER}/g > pkl/PklProject
+cat package/PklProject-template| sed s/VERSION/${SEMVER}/g > package/PklProject
 
 /tmp/pkl project package pkl
 gh release upload "${FIXED_REF}" .out/cloudformation@${SEMVER}/*
