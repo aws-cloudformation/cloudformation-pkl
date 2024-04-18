@@ -4,15 +4,15 @@
 
 set -eoux pipefail
 
-# refs/tags/v1.8.2-test1
+# refs/tags/cloudformation@0.1.0-test1
 echo "GITHUB_REF: ${GITHUB_REF}"
 
 FIXED_REF=${GITHUB_REF##*/}
-# v1.8.2-test1
+# cloudformation@0.1.0-test1
 echo "FIXED_REF: ${FIXED_REF}"
 
-SEMVER=$(echo ${FIXED_REF} | sed s/^v//g)
-# 1.8.2-test1
+SEMVER=$(echo ${FIXED_REF} | sed s/^cloudformation@//g)
+# 0.1.0-test1
 echo "SEMVER: ${SEMVER}"
 
 curl -L -o /tmp/pkl https://github.com/apple/pkl/releases/download/0.25.3/pkl-linux-amd64

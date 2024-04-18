@@ -2,9 +2,9 @@ amends "pkl:Project"
 
 package {
     name = "cloudformation"
-    baseUri = "package://github.com/aws-cloudformation/cloudformation-pkl/cloudformation"
+    baseUri = "package://github.com/aws-cloudformation/cloudformation-pkl"
     version = "VERSION"
-    packageZipUrl = "https://github.com/aws-cloudformation/cloudformation-pkl/releases/download/vVERSION/cloudformation@VERSION.zip"
-    sourceCode = "https://github.com/aws-cloudformation/rain"
-    sourceCodeUrlScheme = "\(sourceCode)/blob/v\(version)/package%{path}#L%{line}-%{endLine}"
+    packageZipUrl = "https://github.com/aws-cloudformation/cloudformation-pkl/releases/download/\(name)@\(version)/\(name)@\(version).zip"
+    sourceCode = "https://github.com/aws-cloudformation/cloudformation-pkl"
+    sourceCodeUrlScheme = "\(sourceCode)/blob/\(name)@\(version)%{path}#L%{line}-L%{endLine}"
 }
