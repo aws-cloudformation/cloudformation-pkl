@@ -2,7 +2,7 @@ amends "pkl:Project"
 
 package {
     name = "cloudformation"
-    baseUri = "package://github.com/aws-cloudformation/cloudformation-pkl"
+    baseUri = "package://github.com/aws-cloudformation/cloudformation-pkl/cloudformation"
     version = "VERSION"
     packageZipUrl = "https://github.com/aws-cloudformation/cloudformation-pkl/releases/download/\(name)@\(version)/\(name)@\(version).zip"
     sourceCode = "https://github.com/aws-cloudformation/cloudformation-pkl"
