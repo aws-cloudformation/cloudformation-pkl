@@ -5,16 +5,16 @@ module aws.ec2.transitgatewayroutetablepropagation
 
 import "../../cloudformation.pkl"
 
-/// Resource Type definition for AWS::EC2::TransitGatewayRouteTablePropagation
+/// AWS::EC2::TransitGatewayRouteTablePropagation Type
 open class TransitGatewayRouteTablePropagation extends cloudformation.Resource {
 
     Type = "AWS::EC2::TransitGatewayRouteTablePropagation"
 
 
-    /// 
+    /// The ID of transit gateway attachment.
     hidden TransitGatewayAttachmentId: String|Mapping
 
-    /// 
+    /// The ID of transit gateway route table.
     hidden TransitGatewayRouteTableId: String|Mapping
 
     Properties {

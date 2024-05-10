@@ -13,8 +13,8 @@ open class MissionProfileDataflowEdge {
 
 /// 
 open class MissionProfileStreamsKmsKey {
-    KmsAliasArn: (String|Mapping)?
-    KmsKeyArn: (String|Mapping)?
+    KmsAliasArn: (String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping)?
+    KmsKeyArn: (String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping)?
 }
 
 /// 
@@ -54,7 +54,7 @@ open class MissionProfile extends cloudformation.Resource {
     hidden Tags: (Listing<MissionProfileTag>)?
 
     /// 
-    hidden TrackingConfigArn: String|Mapping
+    hidden TrackingConfigArn: String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping
 
     Properties {
         ["ContactPostPassDurationSeconds"] = if (ContactPostPassDurationSeconds == null) null else ContactPostPassDurationSeconds

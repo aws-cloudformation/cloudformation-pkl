@@ -12,6 +12,7 @@ open class CampaignAgentlessDialerConfig {
 
 /// The configuration used for answering machine detection during outbound calls
 open class CampaignAnswerMachineDetectionConfig {
+    AwaitAnswerMachinePrompt: (Boolean|Mapping)?
     EnableAnswerMachineDetection: Boolean|Mapping
 }
 

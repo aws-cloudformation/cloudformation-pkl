@@ -96,6 +96,12 @@ open class InstanceSsmAssociation {
     DocumentName: String|Mapping
 }
 
+/// The current state of the instance
+open class InstanceState {
+    Code: (String|Mapping)?
+    Name: (String|Mapping)?
+}
+
 /// 
 open class InstanceTag {
     Key: String|Mapping

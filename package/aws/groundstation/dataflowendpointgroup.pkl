@@ -60,7 +60,7 @@ open class DataflowEndpointGroupRangedSocketAddress {
 
 /// 
 open class DataflowEndpointGroupSecurityDetails {
-    RoleArn: (String|Mapping)?
+    RoleArn: (String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping)?
     SecurityGroupIds: (Listing<String|Mapping>)?
     SubnetIds: (Listing<String|Mapping>)?
 }

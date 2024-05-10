@@ -21,19 +21,19 @@ open class Certificate extends cloudformation.Resource {
     hidden ActiveDate: (String|Mapping)?
 
     /// Specifies the certificate body to be imported.
-    hidden Certificate: String(matches(Regex(#"^[	\n -ÿ]*"#)))|Mapping
+    hidden Certificate: String(matches(Regex(#"^[\t\n\r\u0020-\u00FF]+$"#)))|Mapping
 
     /// Specifies the certificate chain to be imported.
-    hidden CertificateChain: (String(matches(Regex(#"^[	\n -ÿ]*"#)))|Mapping)?
+    hidden CertificateChain: (String(matches(Regex(#"^[\t\n\r\u0020-\u00FF]+$"#)))|Mapping)?
 
     /// A textual description for the certificate.
-    hidden Description: (String(matches(Regex(#"^[\w\- ]*$"#)))|Mapping)?
+    hidden Description: (String(matches(Regex(#"^[\u0021-\u007E]+$"#)))|Mapping)?
 
     /// Specifies the inactive date for the certificate.
     hidden InactiveDate: (String|Mapping)?
 
     /// Specifies the private key for the certificate.
-    hidden PrivateKey: (String(matches(Regex(#"^[	\n -ÿ]*"#)))|Mapping)?
+    hidden PrivateKey: (String(matches(Regex(#"^[\t\n\r\u0020-\u00FF]+$"#)))|Mapping)?
 
     /// Key-value pairs that can be used to group and search for certificates. Tags are metadata attached to certificates for any purpose.
     hidden Tags: (Listing<CertificateTag>)?
@@ -55,4 +55,4 @@ open class Certificate extends cloudformation.Resource {
 }
 
 
-typealias CertificateUsage = "SIGNING"|"ENCRYPTION"
+typealias CertificateUsage = "SIGNING"|"ENCRYPTION"|"TLS"

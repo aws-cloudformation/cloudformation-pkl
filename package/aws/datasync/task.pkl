@@ -113,9 +113,12 @@ open class TaskTaskReportConfigDestinationS3 {
     Subdirectory: (String(matches(Regex(#"^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$"#)))|Mapping)?
 }
 
+typealias TaskScheduleStatus = "ENABLED"|"DISABLED"
+
 /// Specifies the schedule you want your task to use for repeated executions.
 open class TaskTaskSchedule {
-    ScheduleExpression: String(matches(Regex(#"^[a-zA-Z0-9\ \_\*\?\,\|\^\-\/\#\s\(\)\+]*$"#)))|Mapping
+    ScheduleExpression: (String(matches(Regex(#"^[a-zA-Z0-9\ \_\*\?\,\|\^\-\/\#\s\(\)\+]*$"#)))|Mapping)?
+    Status: (TaskScheduleStatus|Mapping)?
 }
 
 /// Resource schema for AWS::DataSync::Task.

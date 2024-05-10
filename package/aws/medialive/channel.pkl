@@ -90,12 +90,14 @@ open class ChannelAudioCodecSettings {
 
 /// 
 open class ChannelAudioDescription {
+    AudioDashRoles: (Listing<String|Mapping>)?
     AudioNormalizationSettings: (ChannelAudioNormalizationSettings)?
     AudioSelectorName: (String|Mapping)?
     AudioType: (String|Mapping)?
     AudioTypeControl: (String|Mapping)?
     AudioWatermarkingSettings: (ChannelAudioWatermarkSettings)?
     CodecSettings: (ChannelAudioCodecSettings)?
+    DvbDashAccessibility: (String|Mapping)?
     LanguageCode: (String|Mapping)?
     LanguageCodeControl: (String|Mapping)?
     Name: (String|Mapping)?
@@ -235,8 +237,10 @@ open class ChannelBurnInDestinationSettings {
 /// 
 open class ChannelCaptionDescription {
     Accessibility: (String|Mapping)?
+    CaptionDashRoles: (Listing<String|Mapping>)?
     CaptionSelectorName: (String|Mapping)?
     DestinationSettings: (ChannelCaptionDestinationSettings)?
+    DvbDashAccessibility: (String|Mapping)?
     LanguageCode: (String|Mapping)?
     LanguageDescription: (String|Mapping)?
     Name: (String|Mapping)?
@@ -295,6 +299,21 @@ open class ChannelCaptionSelectorSettings {
 /// 
 open class ChannelCdiInputSpecification {
     Resolution: (String|Mapping)?
+}
+
+/// 
+open class ChannelCmafIngestGroupSettings {
+    Destination: (ChannelOutputLocationRef)?
+    NielsenId3Behavior: (String|Mapping)?
+    Scte35Type: (String|Mapping)?
+    SegmentLength: (Int|Mapping)?
+    SegmentLengthUnits: (String|Mapping)?
+    SendDelayMs: (Int|Mapping)?
+}
+
+/// 
+open class ChannelCmafIngestOutputSettings {
+    NameModifier: (String|Mapping)?
 }
 
 /// 
@@ -620,6 +639,8 @@ open class ChannelH265Settings {
     LookAheadRateControl: (String|Mapping)?
     MaxBitrate: (Int|Mapping)?
     MinIInterval: (Int|Mapping)?
+    MvOverPictureBoundaries: (String|Mapping)?
+    MvTemporalPredictor: (String|Mapping)?
     ParDenominator: (Int|Mapping)?
     ParNumerator: (Int|Mapping)?
     Profile: (String|Mapping)?
@@ -629,8 +650,12 @@ open class ChannelH265Settings {
     SceneChangeDetect: (String|Mapping)?
     Slices: (Int|Mapping)?
     Tier: (String|Mapping)?
+    TileHeight: (Int|Mapping)?
+    TilePadding: (String|Mapping)?
+    TileWidth: (Int|Mapping)?
     TimecodeBurninSettings: (ChannelTimecodeBurninSettings)?
     TimecodeInsertion: (String|Mapping)?
+    TreeblockSize: (String|Mapping)?
 }
 
 /// 
@@ -1076,6 +1101,7 @@ open class ChannelOutputGroup {
 /// 
 open class ChannelOutputGroupSettings {
     ArchiveGroupSettings: (ChannelArchiveGroupSettings)?
+    CmafIngestGroupSettings: (ChannelCmafIngestGroupSettings)?
     FrameCaptureGroupSettings: (ChannelFrameCaptureGroupSettings)?
     HlsGroupSettings: (ChannelHlsGroupSettings)?
     MediaPackageGroupSettings: (ChannelMediaPackageGroupSettings)?
@@ -1099,6 +1125,7 @@ open class ChannelOutputLockingSettings {
 /// 
 open class ChannelOutputSettings {
     ArchiveOutputSettings: (ChannelArchiveOutputSettings)?
+    CmafIngestOutputSettings: (ChannelCmafIngestOutputSettings)?
     FrameCaptureOutputSettings: (ChannelFrameCaptureOutputSettings)?
     HlsOutputSettings: (ChannelHlsOutputSettings)?
     MediaPackageOutputSettings: (ChannelMediaPackageOutputSettings)?

@@ -29,6 +29,7 @@ open class GlobalTableGlobalSecondaryIndex {
     IndexName: String|Mapping
     KeySchema: Listing<GlobalTableKeySchema>
     Projection: GlobalTableProjection
+    WriteOnDemandThroughputSettings: (GlobalTableWriteOnDemandThroughputSettings)?
     WriteProvisionedThroughputSettings: (GlobalTableWriteProvisionedThroughputSettings)?
 }
 
@@ -65,6 +66,11 @@ open class GlobalTableProjection {
 }
 
 /// 
+open class GlobalTableReadOnDemandThroughputSettings {
+    MaxReadRequestUnits: (Int|Mapping)?
+}
+
+/// 
 open class GlobalTableReadProvisionedThroughputSettings {
     ReadCapacityAutoScalingSettings: (GlobalTableCapacityAutoScalingSettings)?
     ReadCapacityUnits: (Int|Mapping)?
@@ -74,6 +80,7 @@ open class GlobalTableReadProvisionedThroughputSettings {
 open class GlobalTableReplicaGlobalSecondaryIndexSpecification {
     ContributorInsightsSpecification: (GlobalTableContributorInsightsSpecification)?
     IndexName: String|Mapping
+    ReadOnDemandThroughputSettings: (GlobalTableReadOnDemandThroughputSettings)?
     ReadProvisionedThroughputSettings: (GlobalTableReadProvisionedThroughputSettings)?
 }
 
@@ -89,6 +96,7 @@ open class GlobalTableReplicaSpecification {
     GlobalSecondaryIndexes: (Listing<GlobalTableReplicaGlobalSecondaryIndexSpecification>)?
     KinesisStreamSpecification: (GlobalTableKinesisStreamSpecification)?
     PointInTimeRecoverySpecification: (GlobalTablePointInTimeRecoverySpecification)?
+    ReadOnDemandThroughputSettings: (GlobalTableReadOnDemandThroughputSettings)?
     ReadProvisionedThroughputSettings: (GlobalTableReadProvisionedThroughputSettings)?
     Region: String|Mapping
     ReplicaStreamSpecification: (GlobalTableReplicaStreamSpecification)?
@@ -140,6 +148,11 @@ open class GlobalTableTimeToLiveSpecification {
 }
 
 /// 
+open class GlobalTableWriteOnDemandThroughputSettings {
+    MaxWriteRequestUnits: (Int|Mapping)?
+}
+
+/// 
 open class GlobalTableWriteProvisionedThroughputSettings {
     WriteCapacityAutoScalingSettings: (GlobalTableCapacityAutoScalingSettings)?
 }
@@ -181,6 +194,9 @@ open class GlobalTable extends cloudformation.Resource {
     hidden TimeToLiveSpecification: (GlobalTableTimeToLiveSpecification)?
 
     /// 
+    hidden WriteOnDemandThroughputSettings: (GlobalTableWriteOnDemandThroughputSettings)?
+
+    /// 
     hidden WriteProvisionedThroughputSettings: (GlobalTableWriteProvisionedThroughputSettings)?
 
     Properties {
@@ -194,6 +210,7 @@ open class GlobalTable extends cloudformation.Resource {
         ["StreamSpecification"] = if (StreamSpecification == null) null else StreamSpecification
         ["TableName"] = if (TableName == null) null else TableName
         ["TimeToLiveSpecification"] = if (TimeToLiveSpecification == null) null else TimeToLiveSpecification
+        ["WriteOnDemandThroughputSettings"] = if (WriteOnDemandThroughputSettings == null) null else WriteOnDemandThroughputSettings
         ["WriteProvisionedThroughputSettings"] = if (WriteProvisionedThroughputSettings == null) null else WriteProvisionedThroughputSettings
     }
 
