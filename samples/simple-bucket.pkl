@@ -1,0 +1,22 @@
+amends "@cfn/template.pkl"
+import "@cfn/cloudformation.pkl" as cfn
+import "@cfn/aws/s3/bucket.pkl" as bucket
+
+Description = "Create a bucket"
+
+Metadata { 
+    ["Foo"] = "bar"
+}
+
+Parameters {
+    ["Name"] {
+        Type = "String"
+        Default = "baz"
+    }
+}
+
+Resources {
+    ["TypedBucket"] = new bucket.Bucket {
+        BucketName = cfn.Ref("Name")
+    }
+}
