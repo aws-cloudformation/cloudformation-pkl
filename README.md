@@ -44,6 +44,8 @@ Resources:
         Ref: Name
 ```
 
+## CloudFormation package with a type for each AWS resource
+
 Here's an example of a file you could write using modules in the `cloudformation.pkl` package:
 
 ```pkl
@@ -82,6 +84,10 @@ dependencies {
     }
 }
 ```
+
+In the directory where you create `PklProject`, run `pkl project resolve`, which will auto-generate the `PklProject.deps.json` file. Then you can run `pkl eval my-template.pkl -f yaml` and the `@cfn` package will be downloaded in order to generate the output.
+
+## Patterns
 
 It's possible to build higher level patterns in Pkl. In the following example,
 we are building a VPC defined in `patterns/vpc.pkl`.
