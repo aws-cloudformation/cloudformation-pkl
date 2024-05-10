@@ -5,6 +5,17 @@ module aws.oam.link
 
 import "../../cloudformation.pkl"
 
+/// 
+open class LinkLinkConfiguration {
+    LogGroupConfiguration: (LinkLinkFilter)?
+    MetricConfiguration: (LinkLinkFilter)?
+}
+
+/// 
+open class LinkLinkFilter {
+    Filter: String|Mapping
+}
+
 typealias LinkResourceType = String|Mapping
 
 
@@ -18,6 +29,9 @@ open class Link extends cloudformation.Resource {
     hidden LabelTemplate: (String|Mapping)?
 
     /// 
+    hidden LinkConfiguration: (LinkLinkConfiguration)?
+
+    /// 
     hidden ResourceTypes: Listing<LinkResourceType>
 
     /// 
@@ -28,6 +42,7 @@ open class Link extends cloudformation.Resource {
 
     Properties {
         ["LabelTemplate"] = if (LabelTemplate == null) null else LabelTemplate
+        ["LinkConfiguration"] = if (LinkConfiguration == null) null else LinkConfiguration
         ["ResourceTypes"] = if (ResourceTypes == null) null else ResourceTypes
         ["SinkIdentifier"] = if (SinkIdentifier == null) null else SinkIdentifier
         ["Tags"] = if (Tags == null) null else Tags

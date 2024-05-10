@@ -14,6 +14,9 @@ open class DataSourceChunkingConfiguration {
 typealias DataSourceChunkingStrategy = String|Mapping
 
 
+typealias DataSourceDataDeletionPolicy = String|Mapping
+
+
 /// Specifies a raw data source location to ingest.
 open class DataSourceDataSourceConfiguration {
     S3Configuration: DataSourceS3DataSourceConfiguration
@@ -35,6 +38,7 @@ open class DataSourceFixedSizeChunkingConfiguration {
 /// Contains information about the S3 configuration of the data source.
 open class DataSourceS3DataSourceConfiguration {
     BucketArn: String(matches(Regex(#"^arn:aws(|-cn|-us-gov):s3:::[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$"#)))|Mapping
+    BucketOwnerAccountId: (String(matches(Regex(#"^[0-9]{12}$"#)))|Mapping)?
     InclusionPrefixes: (Listing<String|Mapping>)?
 }
 
@@ -55,6 +59,9 @@ open class DataSource extends cloudformation.Resource {
 
 
     /// 
+    hidden DataDeletionPolicy: (DataSourceDataDeletionPolicy)?
+
+    /// 
     hidden DataSourceConfiguration: DataSourceDataSourceConfiguration
 
     /// Description of the Resource.
@@ -73,6 +80,7 @@ open class DataSource extends cloudformation.Resource {
     hidden VectorIngestionConfiguration: (DataSourceVectorIngestionConfiguration)?
 
     Properties {
+        ["DataDeletionPolicy"] = if (DataDeletionPolicy == null) null else DataDeletionPolicy
         ["DataSourceConfiguration"] = if (DataSourceConfiguration == null) null else DataSourceConfiguration
         ["Description"] = if (Description == null) null else Description
         ["KnowledgeBaseId"] = if (KnowledgeBaseId == null) null else KnowledgeBaseId

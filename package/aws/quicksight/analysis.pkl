@@ -40,9 +40,9 @@ open class AnalysisAnalysisDefinition {
     Sheets: (Listing<AnalysisSheetDefinition>)?
 }
 
-/// 
+/// <p>Analysis error.</p>
 open class AnalysisAnalysisError {
-    Message: (String(matches(Regex(#".*\S.*"#)))|Mapping)?
+    Message: (String(matches(Regex(#"\S"#)))|Mapping)?
     Type: (AnalysisAnalysisErrorType)?
     ViolatedEntities: (Listing<AnalysisEntity>)?
 }
@@ -50,12 +50,12 @@ open class AnalysisAnalysisError {
 typealias AnalysisAnalysisErrorType = String|Mapping
 
 
-/// 
+/// <p>The source entity of an analysis.</p>
 open class AnalysisAnalysisSourceEntity {
     SourceTemplate: (AnalysisAnalysisSourceTemplate)?
 }
 
-/// 
+/// <p>The source template of an analysis.</p>
 open class AnalysisAnalysisSourceTemplate {
     Arn: String|Mapping
     DataSetReferences: Listing<AnalysisDataSetReference>
@@ -234,7 +234,7 @@ open class AnalysisBarChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias AnalysisBarsArrangement = String|Mapping
@@ -258,7 +258,7 @@ open class AnalysisBinWidthOptions {
 open class AnalysisBodySectionConfiguration {
     Content: AnalysisBodySectionContent
     PageBreakConfiguration: (AnalysisSectionPageBreakConfiguration)?
-    SectionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SectionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Style: (AnalysisSectionStyle)?
 }
 
@@ -321,7 +321,7 @@ open class AnalysisBoxPlotVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -377,7 +377,8 @@ open class AnalysisCategoryDrillDownFilter {
 open class AnalysisCategoryFilter {
     Column: AnalysisColumnIdentifier
     Configuration: AnalysisCategoryFilterConfiguration
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -512,7 +513,7 @@ open class AnalysisComboChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -617,7 +618,7 @@ open class AnalysisCurrencyDisplayFormatConfiguration {
     Prefix: (String|Mapping)?
     SeparatorConfiguration: (AnalysisNumericSeparatorConfiguration)?
     Suffix: (String|Mapping)?
-    Symbol: (String(matches(Regex(#"[A-Z]{3}"#)))|Mapping)?
+    Symbol: (String(matches(Regex(#"^[A-Z]{3}$"#)))|Mapping)?
 }
 
 /// 
@@ -669,7 +670,7 @@ open class AnalysisCustomContentVisual {
     DataSetIdentifier: String|Mapping
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -799,10 +800,10 @@ open class AnalysisDataSetIdentifierDeclaration {
     Identifier: String|Mapping
 }
 
-/// 
+/// <p>Dataset reference.</p>
 open class AnalysisDataSetReference {
     DataSetArn: String|Mapping
-    DataSetPlaceholder: String(matches(Regex(#".*\S.*"#)))|Mapping
+    DataSetPlaceholder: String(matches(Regex(#"\S"#)))|Mapping
 }
 
 typealias AnalysisDateAggregationFunction = String|Mapping
@@ -850,9 +851,9 @@ open class AnalysisDateTimeHierarchy {
     HierarchyId: String|Mapping
 }
 
-/// 
+/// <p>A date-time parameter.</p>
 open class AnalysisDateTimeParameter {
-    Name: String(matches(Regex(#".*\S.*"#)))|Mapping
+    Name: String(matches(Regex(#"\S"#)))|Mapping
     Values: Listing<String|Mapping>
 }
 
@@ -887,9 +888,9 @@ open class AnalysisDecimalDefaultValues {
     StaticValues: (Listing<Number|Mapping>)?
 }
 
-/// 
+/// <p>A decimal parameter.</p>
 open class AnalysisDecimalParameter {
-    Name: String(matches(Regex(#".*\S.*"#)))|Mapping
+    Name: String(matches(Regex(#"\S"#)))|Mapping
     Values: Listing<Number|Mapping>
 }
 
@@ -911,6 +912,43 @@ open class AnalysisDecimalPlacesConfiguration {
 open class AnalysisDecimalValueWhenUnsetConfiguration {
     CustomValue: (Number|Mapping)?
     ValueWhenUnsetOption: (AnalysisValueWhenUnsetOption)?
+}
+
+/// 
+open class AnalysisDefaultDateTimePickerControlOptions {
+    DisplayOptions: (AnalysisDateTimePickerControlDisplayOptions)?
+    Type: (AnalysisSheetControlDateTimePickerType)?
+}
+
+/// 
+open class AnalysisDefaultFilterControlConfiguration {
+    ControlOptions: AnalysisDefaultFilterControlOptions
+    Title: String|Mapping
+}
+
+/// 
+open class AnalysisDefaultFilterControlOptions {
+    DefaultDateTimePickerOptions: (AnalysisDefaultDateTimePickerControlOptions)?
+    DefaultDropdownOptions: (AnalysisDefaultFilterDropDownControlOptions)?
+    DefaultListOptions: (AnalysisDefaultFilterListControlOptions)?
+    DefaultRelativeDateTimeOptions: (AnalysisDefaultRelativeDateTimeControlOptions)?
+    DefaultSliderOptions: (AnalysisDefaultSliderControlOptions)?
+    DefaultTextAreaOptions: (AnalysisDefaultTextAreaControlOptions)?
+    DefaultTextFieldOptions: (AnalysisDefaultTextFieldControlOptions)?
+}
+
+/// 
+open class AnalysisDefaultFilterDropDownControlOptions {
+    DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
+    SelectableValues: (AnalysisFilterSelectableValues)?
+    Type: (AnalysisSheetControlListType)?
+}
+
+/// 
+open class AnalysisDefaultFilterListControlOptions {
+    DisplayOptions: (AnalysisListControlDisplayOptions)?
+    SelectableValues: (AnalysisFilterSelectableValues)?
+    Type: (AnalysisSheetControlListType)?
 }
 
 /// 
@@ -942,8 +980,33 @@ open class AnalysisDefaultPaginatedLayoutConfiguration {
 }
 
 /// 
+open class AnalysisDefaultRelativeDateTimeControlOptions {
+    DisplayOptions: (AnalysisRelativeDateTimeControlDisplayOptions)?
+}
+
+/// 
 open class AnalysisDefaultSectionBasedLayoutConfiguration {
     CanvasSizeOptions: AnalysisSectionBasedLayoutCanvasSizeOptions
+}
+
+/// 
+open class AnalysisDefaultSliderControlOptions {
+    DisplayOptions: (AnalysisSliderControlDisplayOptions)?
+    MaximumValue: Number|Mapping
+    MinimumValue: Number|Mapping
+    StepSize: Number|Mapping
+    Type: (AnalysisSheetControlSliderType)?
+}
+
+/// 
+open class AnalysisDefaultTextAreaControlOptions {
+    Delimiter: (String|Mapping)?
+    DisplayOptions: (AnalysisTextAreaControlDisplayOptions)?
+}
+
+/// 
+open class AnalysisDefaultTextFieldControlOptions {
+    DisplayOptions: (AnalysisTextFieldControlDisplayOptions)?
 }
 
 /// 
@@ -998,12 +1061,12 @@ open class AnalysisDynamicDefaultValue {
 open class AnalysisEmptyVisual {
     Actions: (Listing<AnalysisVisualCustomAction>)?
     DataSetIdentifier: String|Mapping
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
 open class AnalysisEntity {
-    Path: (String(matches(Regex(#".*\S.*"#)))|Mapping)?
+    Path: (String(matches(Regex(#"\S"#)))|Mapping)?
 }
 
 /// 
@@ -1109,7 +1172,7 @@ open class AnalysisFilledMapVisual {
     ConditionalFormatting: (AnalysisFilledMapConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1125,6 +1188,7 @@ open class AnalysisFilter {
 
 /// 
 open class AnalysisFilterControl {
+    CrossSheet: (AnalysisFilterCrossSheetControl)?
     DateTimePicker: (AnalysisFilterDateTimePickerControl)?
     Dropdown: (AnalysisFilterDropDownControl)?
     List: (AnalysisFilterListControl)?
@@ -1135,10 +1199,17 @@ open class AnalysisFilterControl {
 }
 
 /// 
+open class AnalysisFilterCrossSheetControl {
+    CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
 open class AnalysisFilterDateTimePickerControl {
     DisplayOptions: (AnalysisDateTimePickerControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (AnalysisSheetControlDateTimePickerType)?
 }
@@ -1147,9 +1218,9 @@ open class AnalysisFilterDateTimePickerControl {
 open class AnalysisFilterDropDownControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
     DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisFilterSelectableValues)?
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (AnalysisSheetControlListType)?
 }
@@ -1157,7 +1228,7 @@ open class AnalysisFilterDropDownControl {
 /// 
 open class AnalysisFilterGroup {
     CrossDataset: AnalysisCrossDatasetTypes
-    FilterGroupId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterGroupId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Filters: Listing<AnalysisFilter>
     ScopeConfiguration: AnalysisFilterScopeConfiguration
     Status: (AnalysisWidgetStatus)?
@@ -1175,9 +1246,9 @@ open class AnalysisFilterListConfiguration {
 open class AnalysisFilterListControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
     DisplayOptions: (AnalysisListControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisFilterSelectableValues)?
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (AnalysisSheetControlListType)?
 }
@@ -1200,8 +1271,8 @@ open class AnalysisFilterOperationTargetVisualsConfiguration {
 /// 
 open class AnalysisFilterRelativeDateTimeControl {
     DisplayOptions: (AnalysisRelativeDateTimeControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
@@ -1219,10 +1290,10 @@ open class AnalysisFilterSelectableValues {
 /// 
 open class AnalysisFilterSliderControl {
     DisplayOptions: (AnalysisSliderControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MaximumValue: Number|Mapping
     MinimumValue: Number|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     StepSize: Number|Mapping
     Title: String|Mapping
     Type: (AnalysisSheetControlSliderType)?
@@ -1232,16 +1303,16 @@ open class AnalysisFilterSliderControl {
 open class AnalysisFilterTextAreaControl {
     Delimiter: (String|Mapping)?
     DisplayOptions: (AnalysisTextAreaControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
 /// 
 open class AnalysisFilterTextFieldControl {
     DisplayOptions: (AnalysisTextFieldControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
@@ -1278,7 +1349,7 @@ typealias AnalysisFontWeightName = String|Mapping
 
 /// 
 open class AnalysisForecastComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     CustomSeasonalityValue: (Number|Mapping)?
     LowerBoundary: (Number|Mapping)?
     Name: (String|Mapping)?
@@ -1328,7 +1399,7 @@ open class AnalysisFreeFormLayoutConfiguration {
 open class AnalysisFreeFormLayoutElement {
     BackgroundStyle: (AnalysisFreeFormLayoutElementBackgroundStyle)?
     BorderStyle: (AnalysisFreeFormLayoutElementBorderStyle)?
-    ElementId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ElementId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ElementType: AnalysisLayoutElementType
     Height: String|Mapping
     LoadingAnimation: (AnalysisLoadingAnimation)?
@@ -1411,7 +1482,7 @@ open class AnalysisFunnelChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1467,7 +1538,7 @@ open class AnalysisGaugeChartVisual {
     ConditionalFormatting: (AnalysisGaugeChartConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1528,7 +1599,7 @@ open class AnalysisGeospatialMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1580,7 +1651,7 @@ open class AnalysisGridLayoutConfiguration {
 open class AnalysisGridLayoutElement {
     ColumnIndex: (Number|Mapping)?
     ColumnSpan: Number|Mapping
-    ElementId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ElementId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ElementType: AnalysisLayoutElementType
     RowIndex: (Number|Mapping)?
     RowSpan: Number|Mapping
@@ -1594,7 +1665,7 @@ open class AnalysisGridLayoutScreenCanvasSizeOptions {
 
 /// 
 open class AnalysisGrowthRateComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     PeriodSize: (Number|Mapping)?
     Time: (AnalysisDimensionField)?
@@ -1604,7 +1675,7 @@ open class AnalysisGrowthRateComputation {
 /// 
 open class AnalysisHeaderFooterSectionConfiguration {
     Layout: AnalysisSectionLayoutConfiguration
-    SectionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SectionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Style: (AnalysisSectionStyle)?
 }
 
@@ -1647,7 +1718,7 @@ open class AnalysisHeatMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1689,7 +1760,7 @@ open class AnalysisHistogramVisual {
     ChartConfiguration: (AnalysisHistogramConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias AnalysisHorizontalTextAlignment = String|Mapping
@@ -1711,7 +1782,7 @@ open class AnalysisInsightVisual {
     InsightConfiguration: (AnalysisInsightConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1720,9 +1791,9 @@ open class AnalysisIntegerDefaultValues {
     StaticValues: (Listing<Number|Mapping>)?
 }
 
-/// 
+/// <p>An integer parameter.</p>
 open class AnalysisIntegerParameter {
-    Name: String(matches(Regex(#".*\S.*"#)))|Mapping
+    Name: String(matches(Regex(#"\S"#)))|Mapping
     Values: Listing<Number|Mapping>
 }
 
@@ -1834,7 +1905,7 @@ open class AnalysisKPIVisual {
     ConditionalFormatting: (AnalysisKPIConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1974,7 +2045,7 @@ open class AnalysisLineChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias AnalysisLineInterpolation = String|Mapping
@@ -2011,7 +2082,7 @@ open class AnalysisLoadingAnimation {
 
 /// 
 open class AnalysisLocalNavigationConfiguration {
-    TargetSheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    TargetSheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2036,7 +2107,7 @@ open class AnalysisMaximumLabelType {
 
 /// 
 open class AnalysisMaximumMinimumComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Time: (AnalysisDimensionField)?
     Type: AnalysisMaximumMinimumComputationType
@@ -2056,7 +2127,7 @@ open class AnalysisMeasureField {
 
 /// 
 open class AnalysisMetricComparisonComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     FromValue: (AnalysisMeasureField)?
     Name: (String|Mapping)?
     TargetValue: (AnalysisMeasureField)?
@@ -2124,7 +2195,8 @@ open class AnalysisNumericEqualityDrillDownFilter {
 open class AnalysisNumericEqualityFilter {
     AggregationFunction: (AnalysisAggregationFunction)?
     Column: AnalysisColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MatchOperator: AnalysisNumericEqualityMatchOperator
     NullOption: AnalysisFilterNullOption
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
@@ -2149,7 +2221,8 @@ open class AnalysisNumericFormatConfiguration {
 open class AnalysisNumericRangeFilter {
     AggregationFunction: (AnalysisAggregationFunction)?
     Column: AnalysisColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     IncludeMaximum: (Boolean|Mapping)?
     IncludeMinimum: (Boolean|Mapping)?
     NullOption: AnalysisFilterNullOption
@@ -2246,7 +2319,7 @@ open class AnalysisParameterControl {
 /// 
 open class AnalysisParameterDateTimePickerControl {
     DisplayOptions: (AnalysisDateTimePickerControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2263,7 +2336,7 @@ open class AnalysisParameterDeclaration {
 open class AnalysisParameterDropDownControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
     DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisParameterSelectableValues)?
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
@@ -2274,7 +2347,7 @@ open class AnalysisParameterDropDownControl {
 open class AnalysisParameterListControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
     DisplayOptions: (AnalysisListControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisParameterSelectableValues)?
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
@@ -2292,7 +2365,7 @@ open class AnalysisParameterSliderControl {
     DisplayOptions: (AnalysisSliderControlDisplayOptions)?
     MaximumValue: Number|Mapping
     MinimumValue: Number|Mapping
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     StepSize: Number|Mapping
     Title: String|Mapping
@@ -2302,7 +2375,7 @@ open class AnalysisParameterSliderControl {
 open class AnalysisParameterTextAreaControl {
     Delimiter: (String|Mapping)?
     DisplayOptions: (AnalysisTextAreaControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2310,7 +2383,7 @@ open class AnalysisParameterTextAreaControl {
 /// 
 open class AnalysisParameterTextFieldControl {
     DisplayOptions: (AnalysisTextFieldControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2318,7 +2391,7 @@ open class AnalysisParameterTextFieldControl {
 typealias AnalysisParameterValueType = String|Mapping
 
 
-/// 
+/// <p>A list of Amazon QuickSight parameters and the list's override values.</p>
 open class AnalysisParameters {
     DateTimeParameters: (Listing<AnalysisDateTimeParameter>)?
     DecimalParameters: (Listing<AnalysisDecimalParameter>)?
@@ -2349,7 +2422,7 @@ open class AnalysisPercentileAggregation {
 
 /// 
 open class AnalysisPeriodOverPeriodComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Time: (AnalysisDimensionField)?
     Value: (AnalysisMeasureField)?
@@ -2357,7 +2430,7 @@ open class AnalysisPeriodOverPeriodComputation {
 
 /// 
 open class AnalysisPeriodToDateComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     PeriodTimeGranularity: (AnalysisTimeGranularity)?
     Time: (AnalysisDimensionField)?
@@ -2406,7 +2479,7 @@ open class AnalysisPieChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2571,7 +2644,7 @@ open class AnalysisPivotTableVisual {
     ConditionalFormatting: (AnalysisPivotTableConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2663,7 +2736,7 @@ open class AnalysisRadarChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2681,7 +2754,7 @@ open class AnalysisReferenceLine {
 
 /// 
 open class AnalysisReferenceLineCustomLabelConfiguration {
-    CustomLabel: String(matches(Regex(#".*\S.*"#)))|Mapping
+    CustomLabel: String(matches(Regex(#"\S"#)))|Mapping
 }
 
 /// 
@@ -2755,8 +2828,9 @@ typealias AnalysisRelativeDateType = String|Mapping
 open class AnalysisRelativeDatesFilter {
     AnchorDateConfiguration: AnalysisAnchorDateConfiguration
     Column: AnalysisColumnIdentifier
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
     ExcludePeriodConfiguration: (AnalysisExcludePeriodConfiguration)?
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MinimumGranularity: (AnalysisTimeGranularity)?
     NullOption: AnalysisFilterNullOption
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
@@ -2771,7 +2845,7 @@ typealias AnalysisRelativeFontSize = String|Mapping
 typealias AnalysisResizeOption = String|Mapping
 
 
-/// 
+/// <p>Permission for the resource.</p>
 open class AnalysisResourcePermission {
     Actions: Listing<String|Mapping>
     Principal: String|Mapping
@@ -2831,7 +2905,7 @@ open class AnalysisSankeyDiagramVisual {
     ChartConfiguration: (AnalysisSankeyDiagramChartConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2878,7 +2952,7 @@ open class AnalysisScatterPlotVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2967,10 +3041,15 @@ open class AnalysisShapeConditionalFormat {
     BackgroundColor: AnalysisConditionalFormattingColor
 }
 
-/// 
+/// <p>A <i>sheet</i>, which is an object that contains a set of visuals that
+///
+///             are viewed together on one page in Amazon QuickSight. Every analysis and dashboard
+///             contains at least one sheet. Each sheet contains at least one visualization widget, for
+///             example a chart, pivot table, or narrative insight. Sheets can be associated with other
+///             components, such as controls, filters, and so on.</p>
 open class AnalysisSheet {
     Name: (String|Mapping)?
-    SheetId: (String(matches(Regex(#"[\w\-]+"#)))|Mapping)?
+    SheetId: (String(matches(Regex(#"^[\w\-]+$"#)))|Mapping)?
 }
 
 typealias AnalysisSheetContentType = String|Mapping
@@ -3010,7 +3089,7 @@ open class AnalysisSheetDefinition {
     Name: (String|Mapping)?
     ParameterControls: (Listing<AnalysisParameterControl>)?
     SheetControlLayouts: (Listing<AnalysisSheetControlLayout>)?
-    SheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     TextBoxes: (Listing<AnalysisSheetTextBox>)?
     Title: (String|Mapping)?
     Visuals: (Listing<AnalysisVisual>)?
@@ -3030,13 +3109,13 @@ open class AnalysisSheetElementRenderingRule {
 /// 
 open class AnalysisSheetTextBox {
     Content: (String|Mapping)?
-    SheetTextBoxId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetTextBoxId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
 open class AnalysisSheetVisualScopingConfiguration {
     Scope: AnalysisFilterVisualScope
-    SheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     VisualIds: (Listing<String|Mapping>)?
 }
 
@@ -3113,9 +3192,9 @@ open class AnalysisStringFormatConfiguration {
     NumericFormatConfiguration: (AnalysisNumericFormatConfiguration)?
 }
 
-/// 
+/// <p>A string parameter.</p>
 open class AnalysisStringParameter {
-    Name: String(matches(Regex(#".*\S.*"#)))|Mapping
+    Name: String(matches(Regex(#"\S"#)))|Mapping
     Values: Listing<String|Mapping>
 }
 
@@ -3344,10 +3423,12 @@ open class AnalysisTableVisual {
     ConditionalFormatting: (AnalysisTableConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
-/// 
+/// <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
+///
+///             resource.</p>
 open class AnalysisTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -3404,7 +3485,8 @@ open class AnalysisTimeBasedForecastProperties {
 /// 
 open class AnalysisTimeEqualityFilter {
     Column: AnalysisColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
     RollingDate: (AnalysisRollingDateConfiguration)?
     TimeGranularity: (AnalysisTimeGranularity)?
@@ -3425,8 +3507,9 @@ open class AnalysisTimeRangeDrillDownFilter {
 /// 
 open class AnalysisTimeRangeFilter {
     Column: AnalysisColumnIdentifier
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
     ExcludePeriodConfiguration: (AnalysisExcludePeriodConfiguration)?
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     IncludeMaximum: (Boolean|Mapping)?
     IncludeMinimum: (Boolean|Mapping)?
     NullOption: AnalysisFilterNullOption
@@ -3465,7 +3548,8 @@ typealias AnalysisTopBottomComputationType = String|Mapping
 open class AnalysisTopBottomFilter {
     AggregationSortConfigurations: Listing<AnalysisAggregationSortConfiguration>
     Column: AnalysisColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Limit: (Number|Mapping)?
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
     TimeGranularity: (AnalysisTimeGranularity)?
@@ -3474,7 +3558,7 @@ open class AnalysisTopBottomFilter {
 /// 
 open class AnalysisTopBottomMoversComputation {
     Category: (AnalysisDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MoverSize: (Number|Mapping)?
     Name: (String|Mapping)?
     SortOrder: (AnalysisTopBottomSortOrder)?
@@ -3486,7 +3570,7 @@ open class AnalysisTopBottomMoversComputation {
 /// 
 open class AnalysisTopBottomRankedComputation {
     Category: (AnalysisDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     ResultSize: (Number|Mapping)?
     Type: AnalysisTopBottomComputationType
@@ -3498,7 +3582,7 @@ typealias AnalysisTopBottomSortOrder = String|Mapping
 
 /// 
 open class AnalysisTotalAggregationComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Value: (AnalysisMeasureField)?
 }
@@ -3562,7 +3646,7 @@ open class AnalysisTreeMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -3583,11 +3667,11 @@ open class AnalysisUnaggregatedField {
 /// 
 open class AnalysisUniqueValuesComputation {
     Category: (AnalysisDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
 }
 
-/// 
+/// <p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p>
 open class AnalysisValidationStrategy {
     Mode: AnalysisValidationStrategyMode
 }
@@ -3639,7 +3723,7 @@ open class AnalysisVisual {
 /// 
 open class AnalysisVisualCustomAction {
     ActionOperations: Listing<AnalysisVisualCustomActionOperation>
-    CustomActionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: String|Mapping
     Status: (AnalysisWidgetStatus)?
     Trigger: AnalysisVisualCustomActionTrigger
@@ -3682,9 +3766,15 @@ open class AnalysisWaterfallChartAggregatedFieldWells {
 }
 
 /// 
+open class AnalysisWaterfallChartColorConfiguration {
+    GroupColorConfiguration: (AnalysisWaterfallChartGroupColorConfiguration)?
+}
+
+/// 
 open class AnalysisWaterfallChartConfiguration {
     CategoryAxisDisplayOptions: (AnalysisAxisDisplayOptions)?
     CategoryAxisLabelOptions: (AnalysisChartAxisLabelOptions)?
+    ColorConfiguration: (AnalysisWaterfallChartColorConfiguration)?
     DataLabels: (AnalysisDataLabelOptions)?
     FieldWells: (AnalysisWaterfallChartFieldWells)?
     Legend: (AnalysisLegendOptions)?
@@ -3698,6 +3788,13 @@ open class AnalysisWaterfallChartConfiguration {
 /// 
 open class AnalysisWaterfallChartFieldWells {
     WaterfallChartAggregatedFieldWells: (AnalysisWaterfallChartAggregatedFieldWells)?
+}
+
+/// 
+open class AnalysisWaterfallChartGroupColorConfiguration {
+    NegativeBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
+    PositiveBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
+    TotalBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
 }
 
 /// 
@@ -3718,7 +3815,7 @@ open class AnalysisWaterfallVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -3782,7 +3879,7 @@ open class AnalysisWordCloudVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias AnalysisWordCloudWordCasing = String|Mapping
@@ -3804,7 +3901,7 @@ open class Analysis extends cloudformation.Resource {
 
 
     /// 
-    hidden AnalysisId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    hidden AnalysisId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 
     /// 
     hidden AwsAccountId: String(matches(Regex(#"^[0-9]{12}$"#)))|Mapping
@@ -3812,10 +3909,10 @@ open class Analysis extends cloudformation.Resource {
     /// 
     hidden Definition: (AnalysisAnalysisDefinition)?
 
-    /// 
+    /// <p>Errors associated with the analysis.</p>
     hidden Errors: (Listing<AnalysisAnalysisError>)?
 
-    /// 
+    /// <p>The descriptive name of the analysis.</p>
     hidden Name: String|Mapping
 
     /// 
@@ -3824,7 +3921,7 @@ open class Analysis extends cloudformation.Resource {
     /// 
     hidden Permissions: (Listing<AnalysisResourcePermission>)?
 
-    /// 
+    /// <p>A list of the associated sheets with the unique identifier and name of each sheet.</p>
     hidden Sheets: (Listing<AnalysisSheet>)?
 
     /// 
@@ -3836,7 +3933,7 @@ open class Analysis extends cloudformation.Resource {
     /// 
     hidden Tags: (Listing<AnalysisTag>)?
 
-    /// 
+    /// <p>The ARN of the theme of the analysis.</p>
     hidden ThemeArn: (String|Mapping)?
 
     /// 

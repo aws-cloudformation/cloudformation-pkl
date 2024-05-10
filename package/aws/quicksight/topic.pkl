@@ -167,6 +167,7 @@ open class TopicTopicCalculatedField {
     ColumnDataRole: (TopicColumnDataRole)?
     ComparativeOrder: (TopicComparativeOrder)?
     DefaultFormatting: (TopicDefaultFormatting)?
+    DisableIndexing: (Boolean|Mapping)?
     Expression: String|Mapping
     IsIncludedInTopic: (Boolean|Mapping)?
     NeverAggregateInFilter: (Boolean|Mapping)?
@@ -203,6 +204,7 @@ open class TopicTopicColumn {
     ColumnSynonyms: (Listing<String|Mapping>)?
     ComparativeOrder: (TopicComparativeOrder)?
     DefaultFormatting: (TopicDefaultFormatting)?
+    DisableIndexing: (Boolean|Mapping)?
     IsIncludedInTopic: (Boolean|Mapping)?
     NeverAggregateInFilter: (Boolean|Mapping)?
     NonAdditive: (Boolean|Mapping)?

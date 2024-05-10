@@ -11,8 +11,11 @@ typealias ApplicationApprovedOrigins = String|Mapping
 /// 
 open class ApplicationExternalUrlConfig {
     AccessUrl: String(matches(Regex(#"^\w+\:\/\/.*$"#)))|Mapping
-    ApprovedOrigins: Listing<ApplicationApprovedOrigins>
+    ApprovedOrigins: (Listing<ApplicationApprovedOrigins>)?
 }
+
+typealias ApplicationPermissions = String|Mapping
+
 
 /// A label for tagging Application resources
 open class ApplicationTag {
@@ -33,10 +36,13 @@ open class Application extends cloudformation.Resource {
     hidden Description: String|Mapping
 
     /// The name of the application.
-    hidden Name: String(matches(Regex(#"^[a-zA-Z0-9/\._\-]+$"#)))|Mapping
+    hidden Name: String(matches(Regex(#"^[a-zA-Z0-9\/\._ \-]+$"#)))|Mapping
 
     /// The namespace of the application.
     hidden Namespace: (String(matches(Regex(#"^[a-zA-Z0-9/\._\-]+$"#)))|Mapping)?
+
+    /// The configuration of events or requests that the application has access to.
+    hidden Permissions: (Listing<ApplicationPermissions>)?
 
     /// The tags (keys and values) associated with the application.
     hidden Tags: (Listing<ApplicationTag>)?
@@ -46,6 +52,7 @@ open class Application extends cloudformation.Resource {
         ["Description"] = if (Description == null) null else Description
         ["Name"] = if (Name == null) null else Name
         ["Namespace"] = if (Namespace == null) null else Namespace
+        ["Permissions"] = if (Permissions == null) null else Permissions
         ["Tags"] = if (Tags == null) null else Tags
     }
 

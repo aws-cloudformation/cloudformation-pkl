@@ -122,7 +122,7 @@ open class ConfigTrackingConfig {
 
 /// 
 open class ConfigUplinkEchoConfig {
-    AntennaUplinkConfigArn: (String|Mapping)?
+    AntennaUplinkConfigArn: (String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping)?
     Enabled: (Boolean|Mapping)?
 }
 

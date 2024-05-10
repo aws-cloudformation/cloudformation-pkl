@@ -5,12 +5,15 @@ module aws.quicksight.theme
 
 import "../../cloudformation.pkl"
 
-/// 
+/// <p>The display options for tile borders for visuals.</p>
 open class ThemeBorderStyle {
     Show: (Boolean|Mapping)?
 }
 
-/// 
+/// <p>The theme colors that are used for data colors in charts. The colors description is a
+///
+///             hexadecimal color code that consists of six alphanumerical characters, prefixed with
+///                 <code>#</code>, for example #37BFF5. </p>
 open class ThemeDataColorPalette {
     Colors: (Listing<String|Mapping>)?
     EmptyFillColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
@@ -22,17 +25,17 @@ open class ThemeFont {
     FontFamily: (String|Mapping)?
 }
 
-/// 
+/// <p>The display options for gutter spacing between tiles on a sheet.</p>
 open class ThemeGutterStyle {
     Show: (Boolean|Mapping)?
 }
 
-/// 
+/// <p>The display options for margins around the outside edge of sheets.</p>
 open class ThemeMarginStyle {
     Show: (Boolean|Mapping)?
 }
 
-/// 
+/// <p>Permission for the resource.</p>
 open class ThemeResourcePermission {
     Actions: Listing<String|Mapping>
     Principal: String|Mapping
@@ -41,19 +44,23 @@ open class ThemeResourcePermission {
 typealias ThemeResourceStatus = String|Mapping
 
 
-/// 
+/// <p>The theme display options for sheets. </p>
 open class ThemeSheetStyle {
     Tile: (ThemeTileStyle)?
     TileLayout: (ThemeTileLayoutStyle)?
 }
 
-/// 
+/// <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
+///
+///             resource.</p>
 open class ThemeTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// 
+/// <p>The theme configuration. This configuration contains all of the display properties for
+///
+///             a theme.</p>
 open class ThemeThemeConfiguration {
     DataColorPalette: (ThemeDataColorPalette)?
     Sheet: (ThemeSheetStyle)?
@@ -61,9 +68,9 @@ open class ThemeThemeConfiguration {
     UIColorPalette: (ThemeUIColorPalette)?
 }
 
-/// 
+/// <p>Theme error.</p>
 open class ThemeThemeError {
-    Message: (String(matches(Regex(#".*\S.*"#)))|Mapping)?
+    Message: (String(matches(Regex(#"\S"#)))|Mapping)?
     Type: (ThemeThemeErrorType)?
 }
 
@@ -73,10 +80,10 @@ typealias ThemeThemeErrorType = String|Mapping
 typealias ThemeThemeType = String|Mapping
 
 
-/// 
+/// <p>A version of a theme.</p>
 open class ThemeThemeVersion {
     Arn: (String|Mapping)?
-    BaseThemeId: (String(matches(Regex(#"[\w\-]+"#)))|Mapping)?
+    BaseThemeId: (String(matches(Regex(#"^[\w\-]+$"#)))|Mapping)?
     Configuration: (ThemeThemeConfiguration)?
     CreatedTime: (String|Mapping)?
     Description: (String|Mapping)?
@@ -85,13 +92,13 @@ open class ThemeThemeVersion {
     VersionNumber: (Number|Mapping)?
 }
 
-/// 
+/// <p>The display options for the layout of tiles on a sheet.</p>
 open class ThemeTileLayoutStyle {
     Gutter: (ThemeGutterStyle)?
     Margin: (ThemeMarginStyle)?
 }
 
-/// 
+/// <p>Display options related to tiles on a sheet.</p>
 open class ThemeTileStyle {
     Border: (ThemeBorderStyle)?
 }
@@ -101,7 +108,12 @@ open class ThemeTypography {
     FontFamilies: (Listing<ThemeFont>)?
 }
 
-/// 
+/// <p>The theme colors that apply to UI and to charts, excluding data colors. The colors
+///
+///             description is a hexadecimal color code that consists of six alphanumerical characters,
+///             prefixed with <code>#</code>, for example #37BFF5. For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User
+///                 Guide.</i>
+///          </p>
 open class ThemeUIColorPalette {
     Accent: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     AccentForeground: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
@@ -131,7 +143,7 @@ open class Theme extends cloudformation.Resource {
     hidden AwsAccountId: String(matches(Regex(#"^[0-9]{12}$"#)))|Mapping
 
     /// 
-    hidden BaseThemeId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    hidden BaseThemeId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 
     /// 
     hidden Configuration: ThemeThemeConfiguration
@@ -146,7 +158,7 @@ open class Theme extends cloudformation.Resource {
     hidden Tags: (Listing<ThemeTag>)?
 
     /// 
-    hidden ThemeId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    hidden ThemeId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 
     /// 
     hidden VersionDescription: (String|Mapping)?

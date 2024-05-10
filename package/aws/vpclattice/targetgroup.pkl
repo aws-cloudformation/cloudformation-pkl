@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias HealthCheckConfigProtocol = "HTTP"|"HTTPS"
 
-typealias HealthCheckConfigProtocolVersion = "HTTP1"|"HTTP2"|"GRPC"
+typealias HealthCheckConfigProtocolVersion = "HTTP1"|"HTTP2"
 
 /// 
 open class TargetGroupHealthCheckConfig {

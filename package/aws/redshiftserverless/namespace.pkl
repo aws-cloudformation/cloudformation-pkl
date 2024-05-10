@@ -29,6 +29,13 @@ typealias NamespaceNamespaceStatus = String|Mapping
 
 
 /// 
+open class NamespaceSnapshotCopyConfiguration {
+    DestinationKmsKeyId: (String|Mapping)?
+    DestinationRegion: String|Mapping
+    SnapshotRetentionPeriod: (Int|Mapping)?
+}
+
+/// 
 open class NamespaceTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -82,6 +89,9 @@ open class Namespace extends cloudformation.Resource {
     /// The ARN for the Redshift application that integrates with IAM Identity Center.
     hidden RedshiftIdcApplicationArn: (String|Mapping)?
 
+    /// The snapshot copy configurations for the namespace.
+    hidden SnapshotCopyConfigurations: (Listing<NamespaceSnapshotCopyConfiguration>)?
+
     /// The list of tags for the namespace.
     hidden Tags: (Listing<NamespaceTag>)?
 
@@ -100,6 +110,7 @@ open class Namespace extends cloudformation.Resource {
         ["NamespaceName"] = if (NamespaceName == null) null else NamespaceName
         ["NamespaceResourcePolicy"] = if (NamespaceResourcePolicy == null) null else NamespaceResourcePolicy
         ["RedshiftIdcApplicationArn"] = if (RedshiftIdcApplicationArn == null) null else RedshiftIdcApplicationArn
+        ["SnapshotCopyConfigurations"] = if (SnapshotCopyConfigurations == null) null else SnapshotCopyConfigurations
         ["Tags"] = if (Tags == null) null else Tags
     }
 

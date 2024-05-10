@@ -29,6 +29,9 @@ open class Connector extends cloudformation.Resource {
     /// Specifies the logging role for the connector.
     hidden LoggingRole: (String(matches(Regex(#"arn:.*role/.*"#)))|Mapping)?
 
+    /// Security policy for SFTP Connector
+    hidden SecurityPolicyName: (String(matches(Regex(#"TransferSFTPConnectorSecurityPolicy-[A-Za-z0-9-]+"#)))|Mapping)?
+
     /// Configuration for an SFTP connector.
     hidden SftpConfig: (Dynamic)?
 
@@ -42,6 +45,7 @@ open class Connector extends cloudformation.Resource {
         ["AccessRole"] = if (AccessRole == null) null else AccessRole
         ["As2Config"] = if (As2Config == null) null else As2Config
         ["LoggingRole"] = if (LoggingRole == null) null else LoggingRole
+        ["SecurityPolicyName"] = if (SecurityPolicyName == null) null else SecurityPolicyName
         ["SftpConfig"] = if (SftpConfig == null) null else SftpConfig
         ["Tags"] = if (Tags == null) null else Tags
         ["Url"] = if (Url == null) null else Url

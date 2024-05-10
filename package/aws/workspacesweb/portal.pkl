@@ -14,6 +14,9 @@ typealias PortalBrowserType = String|Mapping
 typealias PortalEncryptionContextMap = Mapping<String, Any>
 
 
+typealias PortalInstanceType = String|Mapping
+
+
 typealias PortalPortalStatus = String|Mapping
 
 
@@ -48,7 +51,13 @@ open class Portal extends cloudformation.Resource {
     hidden DisplayName: (String(matches(Regex(#"^.+$"#)))|Mapping)?
 
     /// 
+    hidden InstanceType: (PortalInstanceType)?
+
+    /// 
     hidden IpAccessSettingsArn: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]*:[a-zA-Z0-9]{1,12}:[a-zA-Z]+(\/[a-fA-F0-9\-]{36})+$"#)))|Mapping)?
+
+    /// 
+    hidden MaxConcurrentSessions: (Number|Mapping)?
 
     /// 
     hidden NetworkSettingsArn: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]*:[a-zA-Z0-9]{1,12}:[a-zA-Z]+(\/[a-fA-F0-9\-]{36})+$"#)))|Mapping)?
@@ -71,7 +80,9 @@ open class Portal extends cloudformation.Resource {
         ["BrowserSettingsArn"] = if (BrowserSettingsArn == null) null else BrowserSettingsArn
         ["CustomerManagedKey"] = if (CustomerManagedKey == null) null else CustomerManagedKey
         ["DisplayName"] = if (DisplayName == null) null else DisplayName
+        ["InstanceType"] = if (InstanceType == null) null else InstanceType
         ["IpAccessSettingsArn"] = if (IpAccessSettingsArn == null) null else IpAccessSettingsArn
+        ["MaxConcurrentSessions"] = if (MaxConcurrentSessions == null) null else MaxConcurrentSessions
         ["NetworkSettingsArn"] = if (NetworkSettingsArn == null) null else NetworkSettingsArn
         ["Tags"] = if (Tags == null) null else Tags
         ["TrustStoreArn"] = if (TrustStoreArn == null) null else TrustStoreArn

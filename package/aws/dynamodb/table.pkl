@@ -38,6 +38,7 @@ open class TableGlobalSecondaryIndex {
     ContributorInsightsSpecification: (TableContributorInsightsSpecification)?
     IndexName: String|Mapping
     KeySchema: Listing<TableKeySchema>
+    OnDemandThroughput: (TableOnDemandThroughput)?
     Projection: TableProjection
     ProvisionedThroughput: (TableProvisionedThroughput)?
 }
@@ -77,6 +78,12 @@ open class TableLocalSecondaryIndex {
     IndexName: String|Mapping
     KeySchema: Listing<TableKeySchema>
     Projection: TableProjection
+}
+
+/// 
+open class TableOnDemandThroughput {
+    MaxReadRequestUnits: (Int|Mapping)?
+    MaxWriteRequestUnits: (Int|Mapping)?
 }
 
 /// The settings used to enable point in time recovery.
@@ -201,6 +208,9 @@ open class Table extends cloudformation.Resource {
     /// Local secondary indexes to be created on the table. You can create up to 5 local secondary indexes. Each index is scoped to a given hash key value. The size of each hash key can be up to 10 gigabytes.
     hidden LocalSecondaryIndexes: (Listing<TableLocalSecondaryIndex>)?
 
+    /// 
+    hidden OnDemandThroughput: (TableOnDemandThroughput)?
+
     /// The settings used to enable point in time recovery.
     hidden PointInTimeRecoverySpecification: (TablePointInTimeRecoverySpecification)?
 
@@ -248,6 +258,7 @@ open class Table extends cloudformation.Resource {
         ["KeySchema"] = if (KeySchema == null) null else KeySchema
         ["KinesisStreamSpecification"] = if (KinesisStreamSpecification == null) null else KinesisStreamSpecification
         ["LocalSecondaryIndexes"] = if (LocalSecondaryIndexes == null) null else LocalSecondaryIndexes
+        ["OnDemandThroughput"] = if (OnDemandThroughput == null) null else OnDemandThroughput
         ["PointInTimeRecoverySpecification"] = if (PointInTimeRecoverySpecification == null) null else PointInTimeRecoverySpecification
         ["ProvisionedThroughput"] = if (ProvisionedThroughput == null) null else ProvisionedThroughput
         ["ResourcePolicy"] = if (ResourcePolicy == null) null else ResourcePolicy

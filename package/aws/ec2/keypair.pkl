@@ -5,31 +5,45 @@ module aws.ec2.keypair
 
 import "../../cloudformation.pkl"
 
-/// A key-value pair to associate with a resource.
+/// Specifies a tag. For more information, see [Add tags to a resource](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#cloudformation-add-tag-specifications).
 open class KeyPairTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// The AWS::EC2::KeyPair creates an SSH key pair
+/// Specifies a key pair for use with an EC2long instance as follows:
+///
+///   +  To import an existing key pair, include the ``PublicKeyMaterial`` property.
+///   +  To create a new key pair, omit the ``PublicKeyMaterial`` property.
+///   
+///  When you import an existing key pair, you specify the public key material for the key. We assume that you have the private key material for the key. CFNlong does not create or return the private key material when you import a key pair.
+///  When you create a new key pair, the private key is saved to SYSlong Parameter Store, using a parameter with the following name: ``/ec2/keypair/{key_pair_id}``. For more information about retrieving private key, and the required permissions, see [Create a key pair using](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#create-key-pair-cloudformation) in the *User Guide*.
+///  When CFN deletes a key pair that was created or imported by a stack, it also deletes the parameter that was used to store the private key material in Parameter Store.
 open class KeyPair extends cloudformation.Resource {
 
     Type = "AWS::EC2::KeyPair"
 
 
-    /// The format of the private key
+    /// The format of the key pair.
+    ///
+    ///  Default: ``pem``
     hidden KeyFormat: (KeyPairKeyFormat|Mapping)?
 
-    /// The name of the SSH key pair
+    /// A unique name for the key pair.
+    ///
+    ///  Constraints: Up to 255 ASCII characters
     hidden KeyName: String|Mapping
 
-    /// The crypto-system used to generate a key pair.
+    /// The type of key pair. Note that ED25519 keys are not supported for Windows instances.
+    ///
+    ///  If the ``PublicKeyMaterial`` property is specified, the ``KeyType`` property is ignored, and the key type is inferred from the ``PublicKeyMaterial`` value.
+    ///  Default: ``rsa``
     hidden KeyType: (KeyPairKeyType|Mapping)?
 
-    /// Plain text public key to import
+    /// The public key material. The ``PublicKeyMaterial`` property is used to import a key pair. If this property is not specified, then a new key pair will be created.
     hidden PublicKeyMaterial: (String|Mapping)?
 
-    /// An array of key-value pairs to apply to this resource.
+    /// The tags to apply to the key pair.
     hidden Tags: (Listing<KeyPairTag>)?
 
     Properties {

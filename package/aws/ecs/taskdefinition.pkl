@@ -131,7 +131,9 @@ open class TaskDefinitionFSxAuthorizationConfig {
     Domain: String|Mapping
 }
 
-/// 
+/// This parameter is specified when you're using [Amazon FSx for Windows File Server](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html) file system for task storage.
+///
+///  For more information and the input format, see [Amazon FSx for Windows File Server volumes](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html) in the *Amazon Elastic Container Service Developer Guide*.
 open class TaskDefinitionFSxWindowsFileServerVolumeConfiguration {
     AuthorizationConfig: (TaskDefinitionFSxAuthorizationConfig)?
     FileSystemId: String|Mapping
@@ -446,9 +448,7 @@ open class TaskDefinition extends cloudformation.Resource {
     /// The task launch types the task definition was validated against. The valid values are ``EC2``, ``FARGATE``, and ``EXTERNAL``. For more information, see [Amazon ECS launch types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html) in the *Amazon Elastic Container Service Developer Guide*.
     hidden RequiresCompatibilities: (Listing<String|Mapping>)?
 
-    /// The operating system that your tasks definitions run on. A platform family is specified only for tasks using the Fargate launch type. 
-    ///
-    ///  When you specify a task definition in a service, this value must match the ``runtimePlatform`` value of the service.
+    /// The operating system that your tasks definitions run on. A platform family is specified only for tasks using the Fargate launch type.
     hidden RuntimePlatform: (TaskDefinitionRuntimePlatform)?
 
     /// The metadata that you apply to the task definition to help you categorize and organize them. Each tag consists of a key and an optional value. You define both of them.

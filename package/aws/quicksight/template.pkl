@@ -201,7 +201,7 @@ open class TemplateBarChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias TemplateBarsArrangement = String|Mapping
@@ -225,7 +225,7 @@ open class TemplateBinWidthOptions {
 open class TemplateBodySectionConfiguration {
     Content: TemplateBodySectionContent
     PageBreakConfiguration: (TemplateSectionPageBreakConfiguration)?
-    SectionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SectionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Style: (TemplateSectionStyle)?
 }
 
@@ -288,7 +288,7 @@ open class TemplateBoxPlotVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -344,7 +344,8 @@ open class TemplateCategoryDrillDownFilter {
 open class TemplateCategoryFilter {
     Column: TemplateColumnIdentifier
     Configuration: TemplateCategoryFilterConfiguration
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -400,12 +401,12 @@ open class TemplateColumnConfiguration {
     Role: (TemplateColumnRole)?
 }
 
-/// 
+/// <p>A structure describing the name, data type, and geographic role of the columns.</p>
 open class TemplateColumnGroupColumnSchema {
     Name: (String|Mapping)?
 }
 
-/// 
+/// <p>The column group schema.</p>
 open class TemplateColumnGroupSchema {
     ColumnGroupColumnSchemaList: (Listing<TemplateColumnGroupColumnSchema>)?
     Name: (String|Mapping)?
@@ -427,7 +428,7 @@ open class TemplateColumnIdentifier {
 typealias TemplateColumnRole = String|Mapping
 
 
-/// 
+/// <p>The column schema.</p>
 open class TemplateColumnSchema {
     DataType: (String|Mapping)?
     GeographicRole: (String|Mapping)?
@@ -497,7 +498,7 @@ open class TemplateComboChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -602,7 +603,7 @@ open class TemplateCurrencyDisplayFormatConfiguration {
     Prefix: (String|Mapping)?
     SeparatorConfiguration: (TemplateNumericSeparatorConfiguration)?
     Suffix: (String|Mapping)?
-    Symbol: (String(matches(Regex(#"[A-Z]{3}"#)))|Mapping)?
+    Symbol: (String(matches(Regex(#"^[A-Z]{3}$"#)))|Mapping)?
 }
 
 /// 
@@ -654,7 +655,7 @@ open class TemplateCustomContentVisual {
     DataSetIdentifier: String|Mapping
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -778,20 +779,20 @@ open class TemplateDataPathValue {
     FieldValue: (String|Mapping)?
 }
 
-/// 
+/// <p>Dataset configuration.</p>
 open class TemplateDataSetConfiguration {
     ColumnGroupSchemaList: (Listing<TemplateColumnGroupSchema>)?
     DataSetSchema: (TemplateDataSetSchema)?
     Placeholder: (String|Mapping)?
 }
 
-/// 
+/// <p>Dataset reference.</p>
 open class TemplateDataSetReference {
     DataSetArn: String|Mapping
-    DataSetPlaceholder: String(matches(Regex(#".*\S.*"#)))|Mapping
+    DataSetPlaceholder: String(matches(Regex(#"\S"#)))|Mapping
 }
 
-/// 
+/// <p>Dataset schema.</p>
 open class TemplateDataSetSchema {
     ColumnSchemaList: (Listing<TemplateColumnSchema>)?
 }
@@ -893,6 +894,43 @@ open class TemplateDecimalValueWhenUnsetConfiguration {
 }
 
 /// 
+open class TemplateDefaultDateTimePickerControlOptions {
+    DisplayOptions: (TemplateDateTimePickerControlDisplayOptions)?
+    Type: (TemplateSheetControlDateTimePickerType)?
+}
+
+/// 
+open class TemplateDefaultFilterControlConfiguration {
+    ControlOptions: TemplateDefaultFilterControlOptions
+    Title: String|Mapping
+}
+
+/// 
+open class TemplateDefaultFilterControlOptions {
+    DefaultDateTimePickerOptions: (TemplateDefaultDateTimePickerControlOptions)?
+    DefaultDropdownOptions: (TemplateDefaultFilterDropDownControlOptions)?
+    DefaultListOptions: (TemplateDefaultFilterListControlOptions)?
+    DefaultRelativeDateTimeOptions: (TemplateDefaultRelativeDateTimeControlOptions)?
+    DefaultSliderOptions: (TemplateDefaultSliderControlOptions)?
+    DefaultTextAreaOptions: (TemplateDefaultTextAreaControlOptions)?
+    DefaultTextFieldOptions: (TemplateDefaultTextFieldControlOptions)?
+}
+
+/// 
+open class TemplateDefaultFilterDropDownControlOptions {
+    DisplayOptions: (TemplateDropDownControlDisplayOptions)?
+    SelectableValues: (TemplateFilterSelectableValues)?
+    Type: (TemplateSheetControlListType)?
+}
+
+/// 
+open class TemplateDefaultFilterListControlOptions {
+    DisplayOptions: (TemplateListControlDisplayOptions)?
+    SelectableValues: (TemplateFilterSelectableValues)?
+    Type: (TemplateSheetControlListType)?
+}
+
+/// 
 open class TemplateDefaultFreeFormLayoutConfiguration {
     CanvasSizeOptions: TemplateFreeFormLayoutCanvasSizeOptions
 }
@@ -921,8 +959,33 @@ open class TemplateDefaultPaginatedLayoutConfiguration {
 }
 
 /// 
+open class TemplateDefaultRelativeDateTimeControlOptions {
+    DisplayOptions: (TemplateRelativeDateTimeControlDisplayOptions)?
+}
+
+/// 
 open class TemplateDefaultSectionBasedLayoutConfiguration {
     CanvasSizeOptions: TemplateSectionBasedLayoutCanvasSizeOptions
+}
+
+/// 
+open class TemplateDefaultSliderControlOptions {
+    DisplayOptions: (TemplateSliderControlDisplayOptions)?
+    MaximumValue: Number|Mapping
+    MinimumValue: Number|Mapping
+    StepSize: Number|Mapping
+    Type: (TemplateSheetControlSliderType)?
+}
+
+/// 
+open class TemplateDefaultTextAreaControlOptions {
+    Delimiter: (String|Mapping)?
+    DisplayOptions: (TemplateTextAreaControlDisplayOptions)?
+}
+
+/// 
+open class TemplateDefaultTextFieldControlOptions {
+    DisplayOptions: (TemplateTextFieldControlDisplayOptions)?
 }
 
 /// 
@@ -977,12 +1040,12 @@ open class TemplateDynamicDefaultValue {
 open class TemplateEmptyVisual {
     Actions: (Listing<TemplateVisualCustomAction>)?
     DataSetIdentifier: String|Mapping
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
 open class TemplateEntity {
-    Path: (String(matches(Regex(#".*\S.*"#)))|Mapping)?
+    Path: (String(matches(Regex(#"\S"#)))|Mapping)?
 }
 
 /// 
@@ -1088,7 +1151,7 @@ open class TemplateFilledMapVisual {
     ConditionalFormatting: (TemplateFilledMapConditionalFormatting)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1104,6 +1167,7 @@ open class TemplateFilter {
 
 /// 
 open class TemplateFilterControl {
+    CrossSheet: (TemplateFilterCrossSheetControl)?
     DateTimePicker: (TemplateFilterDateTimePickerControl)?
     Dropdown: (TemplateFilterDropDownControl)?
     List: (TemplateFilterListControl)?
@@ -1114,10 +1178,17 @@ open class TemplateFilterControl {
 }
 
 /// 
+open class TemplateFilterCrossSheetControl {
+    CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
 open class TemplateFilterDateTimePickerControl {
     DisplayOptions: (TemplateDateTimePickerControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (TemplateSheetControlDateTimePickerType)?
 }
@@ -1126,9 +1197,9 @@ open class TemplateFilterDateTimePickerControl {
 open class TemplateFilterDropDownControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
     DisplayOptions: (TemplateDropDownControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateFilterSelectableValues)?
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (TemplateSheetControlListType)?
 }
@@ -1136,7 +1207,7 @@ open class TemplateFilterDropDownControl {
 /// 
 open class TemplateFilterGroup {
     CrossDataset: TemplateCrossDatasetTypes
-    FilterGroupId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterGroupId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Filters: Listing<TemplateFilter>
     ScopeConfiguration: TemplateFilterScopeConfiguration
     Status: (TemplateWidgetStatus)?
@@ -1154,9 +1225,9 @@ open class TemplateFilterListConfiguration {
 open class TemplateFilterListControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
     DisplayOptions: (TemplateListControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateFilterSelectableValues)?
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
     Type: (TemplateSheetControlListType)?
 }
@@ -1179,8 +1250,8 @@ open class TemplateFilterOperationTargetVisualsConfiguration {
 /// 
 open class TemplateFilterRelativeDateTimeControl {
     DisplayOptions: (TemplateRelativeDateTimeControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
@@ -1198,10 +1269,10 @@ open class TemplateFilterSelectableValues {
 /// 
 open class TemplateFilterSliderControl {
     DisplayOptions: (TemplateSliderControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MaximumValue: Number|Mapping
     MinimumValue: Number|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     StepSize: Number|Mapping
     Title: String|Mapping
     Type: (TemplateSheetControlSliderType)?
@@ -1211,16 +1282,16 @@ open class TemplateFilterSliderControl {
 open class TemplateFilterTextAreaControl {
     Delimiter: (String|Mapping)?
     DisplayOptions: (TemplateTextAreaControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
 /// 
 open class TemplateFilterTextFieldControl {
     DisplayOptions: (TemplateTextFieldControlDisplayOptions)?
-    FilterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
-    SourceFilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Title: String|Mapping
 }
 
@@ -1257,7 +1328,7 @@ typealias TemplateFontWeightName = String|Mapping
 
 /// 
 open class TemplateForecastComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     CustomSeasonalityValue: (Number|Mapping)?
     LowerBoundary: (Number|Mapping)?
     Name: (String|Mapping)?
@@ -1307,7 +1378,7 @@ open class TemplateFreeFormLayoutConfiguration {
 open class TemplateFreeFormLayoutElement {
     BackgroundStyle: (TemplateFreeFormLayoutElementBackgroundStyle)?
     BorderStyle: (TemplateFreeFormLayoutElementBorderStyle)?
-    ElementId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ElementId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ElementType: TemplateLayoutElementType
     Height: String|Mapping
     LoadingAnimation: (TemplateLoadingAnimation)?
@@ -1390,7 +1461,7 @@ open class TemplateFunnelChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1446,7 +1517,7 @@ open class TemplateGaugeChartVisual {
     ConditionalFormatting: (TemplateGaugeChartConditionalFormatting)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1507,7 +1578,7 @@ open class TemplateGeospatialMapVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1559,7 +1630,7 @@ open class TemplateGridLayoutConfiguration {
 open class TemplateGridLayoutElement {
     ColumnIndex: (Number|Mapping)?
     ColumnSpan: Number|Mapping
-    ElementId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ElementId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ElementType: TemplateLayoutElementType
     RowIndex: (Number|Mapping)?
     RowSpan: Number|Mapping
@@ -1573,7 +1644,7 @@ open class TemplateGridLayoutScreenCanvasSizeOptions {
 
 /// 
 open class TemplateGrowthRateComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     PeriodSize: (Number|Mapping)?
     Time: (TemplateDimensionField)?
@@ -1583,7 +1654,7 @@ open class TemplateGrowthRateComputation {
 /// 
 open class TemplateHeaderFooterSectionConfiguration {
     Layout: TemplateSectionLayoutConfiguration
-    SectionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SectionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Style: (TemplateSectionStyle)?
 }
 
@@ -1626,7 +1697,7 @@ open class TemplateHeatMapVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1668,7 +1739,7 @@ open class TemplateHistogramVisual {
     ChartConfiguration: (TemplateHistogramConfiguration)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias TemplateHorizontalTextAlignment = String|Mapping
@@ -1690,7 +1761,7 @@ open class TemplateInsightVisual {
     InsightConfiguration: (TemplateInsightConfiguration)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1807,7 +1878,7 @@ open class TemplateKPIVisual {
     ConditionalFormatting: (TemplateKPIConditionalFormatting)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -1947,7 +2018,7 @@ open class TemplateLineChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias TemplateLineInterpolation = String|Mapping
@@ -1984,7 +2055,7 @@ open class TemplateLoadingAnimation {
 
 /// 
 open class TemplateLocalNavigationConfiguration {
-    TargetSheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    TargetSheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2009,7 +2080,7 @@ open class TemplateMaximumLabelType {
 
 /// 
 open class TemplateMaximumMinimumComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Time: (TemplateDimensionField)?
     Type: TemplateMaximumMinimumComputationType
@@ -2029,7 +2100,7 @@ open class TemplateMeasureField {
 
 /// 
 open class TemplateMetricComparisonComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     FromValue: (TemplateMeasureField)?
     Name: (String|Mapping)?
     TargetValue: (TemplateMeasureField)?
@@ -2097,7 +2168,8 @@ open class TemplateNumericEqualityDrillDownFilter {
 open class TemplateNumericEqualityFilter {
     AggregationFunction: (TemplateAggregationFunction)?
     Column: TemplateColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MatchOperator: TemplateNumericEqualityMatchOperator
     NullOption: TemplateFilterNullOption
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
@@ -2122,7 +2194,8 @@ open class TemplateNumericFormatConfiguration {
 open class TemplateNumericRangeFilter {
     AggregationFunction: (TemplateAggregationFunction)?
     Column: TemplateColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     IncludeMaximum: (Boolean|Mapping)?
     IncludeMinimum: (Boolean|Mapping)?
     NullOption: TemplateFilterNullOption
@@ -2219,7 +2292,7 @@ open class TemplateParameterControl {
 /// 
 open class TemplateParameterDateTimePickerControl {
     DisplayOptions: (TemplateDateTimePickerControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2236,7 +2309,7 @@ open class TemplateParameterDeclaration {
 open class TemplateParameterDropDownControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
     DisplayOptions: (TemplateDropDownControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateParameterSelectableValues)?
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
@@ -2247,7 +2320,7 @@ open class TemplateParameterDropDownControl {
 open class TemplateParameterListControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
     DisplayOptions: (TemplateListControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateParameterSelectableValues)?
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
@@ -2265,7 +2338,7 @@ open class TemplateParameterSliderControl {
     DisplayOptions: (TemplateSliderControlDisplayOptions)?
     MaximumValue: Number|Mapping
     MinimumValue: Number|Mapping
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     StepSize: Number|Mapping
     Title: String|Mapping
@@ -2275,7 +2348,7 @@ open class TemplateParameterSliderControl {
 open class TemplateParameterTextAreaControl {
     Delimiter: (String|Mapping)?
     DisplayOptions: (TemplateTextAreaControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2283,7 +2356,7 @@ open class TemplateParameterTextAreaControl {
 /// 
 open class TemplateParameterTextFieldControl {
     DisplayOptions: (TemplateTextFieldControlDisplayOptions)?
-    ParameterControlId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     Title: String|Mapping
 }
@@ -2314,7 +2387,7 @@ open class TemplatePercentileAggregation {
 
 /// 
 open class TemplatePeriodOverPeriodComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Time: (TemplateDimensionField)?
     Value: (TemplateMeasureField)?
@@ -2322,7 +2395,7 @@ open class TemplatePeriodOverPeriodComputation {
 
 /// 
 open class TemplatePeriodToDateComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     PeriodTimeGranularity: (TemplateTimeGranularity)?
     Time: (TemplateDimensionField)?
@@ -2371,7 +2444,7 @@ open class TemplatePieChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2536,7 +2609,7 @@ open class TemplatePivotTableVisual {
     ConditionalFormatting: (TemplatePivotTableConditionalFormatting)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2628,7 +2701,7 @@ open class TemplateRadarChartVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2646,7 +2719,7 @@ open class TemplateReferenceLine {
 
 /// 
 open class TemplateReferenceLineCustomLabelConfiguration {
-    CustomLabel: String(matches(Regex(#".*\S.*"#)))|Mapping
+    CustomLabel: String(matches(Regex(#"\S"#)))|Mapping
 }
 
 /// 
@@ -2720,8 +2793,9 @@ typealias TemplateRelativeDateType = String|Mapping
 open class TemplateRelativeDatesFilter {
     AnchorDateConfiguration: TemplateAnchorDateConfiguration
     Column: TemplateColumnIdentifier
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
     ExcludePeriodConfiguration: (TemplateExcludePeriodConfiguration)?
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MinimumGranularity: (TemplateTimeGranularity)?
     NullOption: TemplateFilterNullOption
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
@@ -2736,7 +2810,7 @@ typealias TemplateRelativeFontSize = String|Mapping
 typealias TemplateResizeOption = String|Mapping
 
 
-/// 
+/// <p>Permission for the resource.</p>
 open class TemplateResourcePermission {
     Actions: Listing<String|Mapping>
     Principal: String|Mapping
@@ -2796,7 +2870,7 @@ open class TemplateSankeyDiagramVisual {
     ChartConfiguration: (TemplateSankeyDiagramChartConfiguration)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2843,7 +2917,7 @@ open class TemplateScatterPlotVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -2932,10 +3006,15 @@ open class TemplateShapeConditionalFormat {
     BackgroundColor: TemplateConditionalFormattingColor
 }
 
-/// 
+/// <p>A <i>sheet</i>, which is an object that contains a set of visuals that
+///
+///             are viewed together on one page in Amazon QuickSight. Every analysis and dashboard
+///             contains at least one sheet. Each sheet contains at least one visualization widget, for
+///             example a chart, pivot table, or narrative insight. Sheets can be associated with other
+///             components, such as controls, filters, and so on.</p>
 open class TemplateSheet {
     Name: (String|Mapping)?
-    SheetId: (String(matches(Regex(#"[\w\-]+"#)))|Mapping)?
+    SheetId: (String(matches(Regex(#"^[\w\-]+$"#)))|Mapping)?
 }
 
 typealias TemplateSheetContentType = String|Mapping
@@ -2975,7 +3054,7 @@ open class TemplateSheetDefinition {
     Name: (String|Mapping)?
     ParameterControls: (Listing<TemplateParameterControl>)?
     SheetControlLayouts: (Listing<TemplateSheetControlLayout>)?
-    SheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     TextBoxes: (Listing<TemplateSheetTextBox>)?
     Title: (String|Mapping)?
     Visuals: (Listing<TemplateVisual>)?
@@ -2995,13 +3074,13 @@ open class TemplateSheetElementRenderingRule {
 /// 
 open class TemplateSheetTextBox {
     Content: (String|Mapping)?
-    SheetTextBoxId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetTextBoxId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
 open class TemplateSheetVisualScopingConfiguration {
     Scope: TemplateFilterVisualScope
-    SheetId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    SheetId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     VisualIds: (Listing<String|Mapping>)?
 }
 
@@ -3303,10 +3382,12 @@ open class TemplateTableVisual {
     ConditionalFormatting: (TemplateTableConditionalFormatting)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
-/// 
+/// <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
+///
+///             resource.</p>
 open class TemplateTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -3315,9 +3396,9 @@ open class TemplateTag {
 typealias TemplateTargetVisualOptions = String|Mapping
 
 
-/// 
+/// <p>List of errors that occurred when the template version creation failed.</p>
 open class TemplateTemplateError {
-    Message: (String(matches(Regex(#".*\S.*"#)))|Mapping)?
+    Message: (String(matches(Regex(#"\S"#)))|Mapping)?
     Type: (TemplateTemplateErrorType)?
     ViolatedEntities: (Listing<TemplateEntity>)?
 }
@@ -3325,24 +3406,24 @@ open class TemplateTemplateError {
 typealias TemplateTemplateErrorType = String|Mapping
 
 
-/// 
+/// <p>The source analysis of the template.</p>
 open class TemplateTemplateSourceAnalysis {
     Arn: String|Mapping
     DataSetReferences: Listing<TemplateDataSetReference>
 }
 
-/// 
+/// <p>The source entity of the template.</p>
 open class TemplateTemplateSourceEntity {
     SourceAnalysis: (TemplateTemplateSourceAnalysis)?
     SourceTemplate: (TemplateTemplateSourceTemplate)?
 }
 
-/// 
+/// <p>The source template of the template.</p>
 open class TemplateTemplateSourceTemplate {
     Arn: String|Mapping
 }
 
-/// 
+/// <p>A version of a template.</p>
 open class TemplateTemplateVersion {
     CreatedTime: (String|Mapping)?
     DataSetConfigurations: (Listing<TemplateDataSetConfiguration>)?
@@ -3415,7 +3496,8 @@ open class TemplateTimeBasedForecastProperties {
 /// 
 open class TemplateTimeEqualityFilter {
     Column: TemplateColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
     RollingDate: (TemplateRollingDateConfiguration)?
     TimeGranularity: (TemplateTimeGranularity)?
@@ -3436,8 +3518,9 @@ open class TemplateTimeRangeDrillDownFilter {
 /// 
 open class TemplateTimeRangeFilter {
     Column: TemplateColumnIdentifier
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
     ExcludePeriodConfiguration: (TemplateExcludePeriodConfiguration)?
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     IncludeMaximum: (Boolean|Mapping)?
     IncludeMinimum: (Boolean|Mapping)?
     NullOption: TemplateFilterNullOption
@@ -3476,7 +3559,8 @@ typealias TemplateTopBottomComputationType = String|Mapping
 open class TemplateTopBottomFilter {
     AggregationSortConfigurations: Listing<TemplateAggregationSortConfiguration>
     Column: TemplateColumnIdentifier
-    FilterId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Limit: (Number|Mapping)?
     ParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
     TimeGranularity: (TemplateTimeGranularity)?
@@ -3485,7 +3569,7 @@ open class TemplateTopBottomFilter {
 /// 
 open class TemplateTopBottomMoversComputation {
     Category: (TemplateDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     MoverSize: (Number|Mapping)?
     Name: (String|Mapping)?
     SortOrder: (TemplateTopBottomSortOrder)?
@@ -3497,7 +3581,7 @@ open class TemplateTopBottomMoversComputation {
 /// 
 open class TemplateTopBottomRankedComputation {
     Category: (TemplateDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     ResultSize: (Number|Mapping)?
     Type: TemplateTopBottomComputationType
@@ -3509,7 +3593,7 @@ typealias TemplateTopBottomSortOrder = String|Mapping
 
 /// 
 open class TemplateTotalAggregationComputation {
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
     Value: (TemplateMeasureField)?
 }
@@ -3573,7 +3657,7 @@ open class TemplateTreeMapVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -3594,11 +3678,11 @@ open class TemplateUnaggregatedField {
 /// 
 open class TemplateUniqueValuesComputation {
     Category: (TemplateDimensionField)?
-    ComputationId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    ComputationId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: (String|Mapping)?
 }
 
-/// 
+/// <p>The option to relax the validation that is required to create and update analyses, dashboards, and templates with definition objects. When you set this value to <code>LENIENT</code>, validation is skipped for specific errors.</p>
 open class TemplateValidationStrategy {
     Mode: TemplateValidationStrategyMode
 }
@@ -3650,7 +3734,7 @@ open class TemplateVisual {
 /// 
 open class TemplateVisualCustomAction {
     ActionOperations: Listing<TemplateVisualCustomActionOperation>
-    CustomActionId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     Name: String|Mapping
     Status: (TemplateWidgetStatus)?
     Trigger: TemplateVisualCustomActionTrigger
@@ -3693,9 +3777,15 @@ open class TemplateWaterfallChartAggregatedFieldWells {
 }
 
 /// 
+open class TemplateWaterfallChartColorConfiguration {
+    GroupColorConfiguration: (TemplateWaterfallChartGroupColorConfiguration)?
+}
+
+/// 
 open class TemplateWaterfallChartConfiguration {
     CategoryAxisDisplayOptions: (TemplateAxisDisplayOptions)?
     CategoryAxisLabelOptions: (TemplateChartAxisLabelOptions)?
+    ColorConfiguration: (TemplateWaterfallChartColorConfiguration)?
     DataLabels: (TemplateDataLabelOptions)?
     FieldWells: (TemplateWaterfallChartFieldWells)?
     Legend: (TemplateLegendOptions)?
@@ -3709,6 +3799,13 @@ open class TemplateWaterfallChartConfiguration {
 /// 
 open class TemplateWaterfallChartFieldWells {
     WaterfallChartAggregatedFieldWells: (TemplateWaterfallChartAggregatedFieldWells)?
+}
+
+/// 
+open class TemplateWaterfallChartGroupColorConfiguration {
+    NegativeBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
+    PositiveBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
+    TotalBarColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
 }
 
 /// 
@@ -3729,7 +3826,7 @@ open class TemplateWaterfallVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 /// 
@@ -3793,7 +3890,7 @@ open class TemplateWordCloudVisual {
     ColumnHierarchies: (Listing<TemplateColumnHierarchy>)?
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
-    VisualId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
 typealias TemplateWordCloudWordCasing = String|Mapping
@@ -3833,7 +3930,7 @@ open class Template extends cloudformation.Resource {
     hidden Tags: (Listing<TemplateTag>)?
 
     /// 
-    hidden TemplateId: String(matches(Regex(#"[\w\-]+"#)))|Mapping
+    hidden TemplateId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 
     /// 
     hidden ValidationStrategy: (TemplateValidationStrategy)?

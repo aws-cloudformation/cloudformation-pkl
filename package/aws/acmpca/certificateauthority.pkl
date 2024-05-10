@@ -27,7 +27,7 @@ typealias CertificateAuthorityArn = String|Mapping
 open class CertificateAuthorityCrlConfiguration {
     CrlDistributionPointExtensionConfiguration: (CertificateAuthorityCrlDistributionPointExtensionConfiguration)?
     CustomCname: (String|Mapping)?
-    Enabled: (Boolean|Mapping)?
+    Enabled: Boolean|Mapping
     ExpirationInDays: (Int|Mapping)?
     S3BucketName: (String|Mapping)?
     S3ObjectAcl: (String|Mapping)?
@@ -61,7 +61,7 @@ typealias CertificateAuthorityDnsName = String|Mapping
 
 /// Structure that contains X.509 EdiPartyName information.
 open class CertificateAuthorityEdiPartyName {
-    NameAssigner: String|Mapping
+    NameAssigner: (String|Mapping)?
     PartyName: String|Mapping
 }
 
@@ -95,7 +95,7 @@ open class CertificateAuthorityKeyUsage {
 
 /// Helps to configure online certificate status protocol (OCSP) responder for your certificate authority
 open class CertificateAuthorityOcspConfiguration {
-    Enabled: (Boolean|Mapping)?
+    Enabled: Boolean|Mapping
     OcspCustomCname: (String|Mapping)?
 }
 
@@ -138,7 +138,7 @@ typealias CertificateAuthoritySubjectInformationAccess = Listing<(CertificateAut
 
 /// 
 open class CertificateAuthorityTag {
-    Key: (String|Mapping)?
+    Key: String|Mapping
     Value: (String|Mapping)?
 }
 

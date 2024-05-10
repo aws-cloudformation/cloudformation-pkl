@@ -21,7 +21,7 @@ open class Profile extends cloudformation.Resource {
 
 
     /// AS2 identifier agreed with a trading partner.
-    hidden As2Id: String|Mapping
+    hidden As2Id: String(matches(Regex(#"^[\u0020-\u007E\s]*$"#)))|Mapping
 
     /// List of the certificate IDs associated with this profile to be used for encryption and signing of AS2 messages.
     hidden CertificateIds: (Listing<ProfileCertificateId>)?

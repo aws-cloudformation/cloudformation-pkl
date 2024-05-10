@@ -78,7 +78,7 @@ amends "pkl:Project"
 
 dependencies {
     ["cfn"] {
-        uri = "package://github.com/aws-cloudformation/rain/releases/download/v1.8.3/cloudformation@1.8.3"
+        uri = "package://github.com/aws-cloudformation/cloudformation-pkl/releases/download/v1.8.3/cloudformation@1.8.3"
     }
 }
 ```

@@ -20,7 +20,7 @@ open class CustomerGateway extends cloudformation.Resource {
     /// For devices that support BGP, the customer gateway's BGP ASN.
     ///
     ///  Default: 65000
-    hidden BgpAsn: Int|Mapping
+    hidden BgpAsn: (Int|Mapping)?
 
     /// 
     hidden CertificateArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z-]*)?:acm:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:certificate\/[a-zA-Z0-9-_]+$"#)))|Mapping)?

@@ -21,10 +21,10 @@ open class Agreement extends cloudformation.Resource {
     hidden AccessRole: String(matches(Regex(#"arn:.*role/.*"#)))|Mapping
 
     /// Specifies the base directory for the agreement.
-    hidden BaseDirectory: String(matches(Regex(#"^$|/.*"#)))|Mapping
+    hidden BaseDirectory: String(matches(Regex(#"^(|/.*)$"#)))|Mapping
 
     /// A textual description for the agreement.
-    hidden Description: (String(matches(Regex(#"^[\w\- ]*$"#)))|Mapping)?
+    hidden Description: (String(matches(Regex(#"^[\u0021-\u007E]+$"#)))|Mapping)?
 
     /// A unique identifier for the local profile.
     hidden LocalProfileId: String(matches(Regex(#"^p-([0-9a-f]{17})$"#)))|Mapping

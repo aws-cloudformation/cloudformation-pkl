@@ -141,6 +141,9 @@ open class Agent extends cloudformation.Resource {
     /// 
     hidden Tags: (AgentTagsMap)?
 
+    /// 
+    hidden TestAliasTags: (AgentTagsMap)?
+
     Properties {
         ["ActionGroups"] = if (ActionGroups == null) null else ActionGroups
         ["AgentName"] = if (AgentName == null) null else AgentName
@@ -155,6 +158,7 @@ open class Agent extends cloudformation.Resource {
         ["PromptOverrideConfiguration"] = if (PromptOverrideConfiguration == null) null else PromptOverrideConfiguration
         ["SkipResourceInUseCheckOnDelete"] = if (SkipResourceInUseCheckOnDelete == null) null else SkipResourceInUseCheckOnDelete
         ["Tags"] = if (Tags == null) null else Tags
+        ["TestAliasTags"] = if (TestAliasTags == null) null else TestAliasTags
     }
 
 }

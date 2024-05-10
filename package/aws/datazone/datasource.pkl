@@ -52,6 +52,7 @@ typealias DataSourceFormName = String|Mapping
 
 /// 
 open class DataSourceGlueRunConfigurationInput {
+    AutoImportDataQualityResult: (Boolean|Mapping)?
     DataAccessRole: (DataSourceDataAccessRole)?
     RelationalFilterConfigurations: Listing<DataSourceRelationalFilterConfiguration>
 }
@@ -122,7 +123,7 @@ typealias DataSourceTimezone = String|Mapping
 typealias DataSourceTypeRevision = String|Mapping
 
 
-/// Definition of AWS::DataZone::DataSource Resource Type
+/// A data source is used to import technical metadata of assets (data) from the source databases or data warehouses into Amazon DataZone. 
 open class DataSource extends cloudformation.Resource {
 
     Type = "AWS::DataZone::DataSource"
