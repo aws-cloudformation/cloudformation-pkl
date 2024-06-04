@@ -18,8 +18,16 @@ open class AgentAPISchemaS3 {
     S3: AgentS3Identifier
 }
 
+typealias AgentActionGroupExecutor = AgentActionGroupExecutorLambda|AgentActionGroupExecutorCustomControl
+
+
 /// 
-open class AgentActionGroupExecutor {
+open class AgentActionGroupExecutorCustomControl {
+    CustomControl: AgentCustomControlMethod
+}
+
+/// 
+open class AgentActionGroupExecutorLambda {
     Lambda: String(matches(Regex(#"^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$"#)))|Mapping
 }
 
@@ -36,6 +44,7 @@ open class AgentAgentActionGroup {
     ActionGroupState: (AgentActionGroupState)?
     ApiSchema: (AgentAPISchema)?
     Description: (String|Mapping)?
+    FunctionSchema: (AgentFunctionSchema)?
     ParentActionGroupSignature: (AgentActionGroupSignature)?
     SkipResourceInUseCheckOnDelete: (Boolean|Mapping)?
 }
@@ -53,6 +62,21 @@ typealias AgentAgentStatus = String|Mapping
 typealias AgentCreationMode = String|Mapping
 
 
+typealias AgentCustomControlMethod = String|Mapping
+
+
+/// Function definition
+open class AgentFunction {
+    Description: (String|Mapping)?
+    Name: String(matches(Regex(#"^([0-9a-zA-Z][_-]?){1,100}$"#)))|Mapping
+    Parameters: (AgentParameterMap)?
+}
+
+/// Schema of Functions
+open class AgentFunctionSchema {
+    Functions: Listing<AgentFunction>
+}
+
 /// Configuration for inference in prompt configuration
 open class AgentInferenceConfiguration {
     MaximumLength: (Number|Mapping)?
@@ -63,6 +87,16 @@ open class AgentInferenceConfiguration {
 }
 
 typealias AgentKnowledgeBaseState = String|Mapping
+
+
+/// Parameter detail
+open class AgentParameterDetail {
+    Description: (String|Mapping)?
+    Required: (Boolean|Mapping)?
+    Type: AgentType
+}
+
+typealias AgentParameterMap = Mapping<String, Any>
 
 
 /// BasePromptConfiguration per Prompt Type.
@@ -96,6 +130,9 @@ open class AgentS3Identifier {
 typealias AgentTagsMap = Mapping<String, Any>
 
 
+typealias AgentType = String|Mapping
+
+
 /// Definition of AWS::Bedrock::Agent Resource Type
 open class Agent extends cloudformation.Resource {
 
@@ -109,7 +146,7 @@ open class Agent extends cloudformation.Resource {
     hidden AgentName: String(matches(Regex(#"^([0-9a-zA-Z][_-]?){1,100}$"#)))|Mapping
 
     /// ARN of a IAM role.
-    hidden AgentResourceRoleArn: (String(matches(Regex(#"^arn:aws(-[^:]+)?:iam::([0-9]{12})?:role/(service-role/)?AmazonBedrockExecutionRoleForAgents.+$"#)))|Mapping)?
+    hidden AgentResourceRoleArn: (String|Mapping)?
 
     /// Specifies whether to automatically prepare after creating or updating the agent.
     hidden AutoPrepare: (Boolean|Mapping)?

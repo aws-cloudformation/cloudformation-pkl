@@ -95,6 +95,6 @@ open class Database extends cloudformation.Resource {
 }
 
 
-typealias DatabaseRelationalDatabaseBlueprintId = "mysql_5_7"|"mysql_8_0"|"postgres_11"|"postgres_12"|"postgres_13"|"postgres_14"|"postgres_15"|"postgres_16"
+typealias DatabaseRelationalDatabaseBlueprintId = "mysql_5_7"|"mysql_5_7.44-rds"|"mysql_8_0"|"postgres_11"|"postgres_11_22-rds"|"postgres_12"|"postgres_13"|"postgres_14"|"postgres_15"|"postgres_16"
 
 typealias DatabaseRelationalDatabaseBundleId = "micro_2_0"|"micro_ha_2_0"|"small_2_0"|"small_ha_2_0"|"medium_2_0"|"medium_ha_2_0"|"large_2_0"|"large_ha_2_0"

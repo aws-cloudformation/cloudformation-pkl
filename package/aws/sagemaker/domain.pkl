@@ -43,10 +43,14 @@ open class DomainDefaultEbsStorageSettings {
 
 /// A collection of settings that apply to spaces of Amazon SageMaker Studio. These settings are specified when the Create/Update Domain API is called.
 open class DomainDefaultSpaceSettings {
+    CustomFileSystemConfigs: (Listing<DomainCustomFileSystemConfig>)?
+    CustomPosixUserConfig: (DomainCustomPosixUserConfig)?
     ExecutionRole: String(matches(Regex(#"^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$"#)))|Mapping
+    JupyterLabAppSettings: (DomainJupyterLabAppSettings)?
     JupyterServerAppSettings: (DomainJupyterServerAppSettings)?
     KernelGatewayAppSettings: (DomainKernelGatewayAppSettings)?
     SecurityGroups: (Listing<String|Mapping>)?
+    SpaceStorageSettings: (DomainDefaultSpaceStorageSettings)?
 }
 
 /// Default storage settings for a space.

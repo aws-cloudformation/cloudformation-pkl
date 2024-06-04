@@ -87,7 +87,13 @@ typealias EnvironmentLoggingEnabled = Boolean|Mapping
 typealias EnvironmentLoggingLevel = String|Mapping
 
 
+typealias EnvironmentMaxWebservers = Int|Mapping
+
+
 typealias EnvironmentMaxWorkers = Int|Mapping
+
+
+typealias EnvironmentMinWebservers = Int|Mapping
 
 
 typealias EnvironmentMinWorkers = Int|Mapping
@@ -197,7 +203,13 @@ open class Environment extends cloudformation.Resource {
     hidden LoggingConfiguration: (EnvironmentLoggingConfiguration)?
 
     /// 
+    hidden MaxWebservers: (EnvironmentMaxWebservers)?
+
+    /// 
     hidden MaxWorkers: (EnvironmentMaxWorkers)?
+
+    /// 
+    hidden MinWebservers: (EnvironmentMinWebservers)?
 
     /// 
     hidden MinWorkers: (EnvironmentMinWorkers)?
@@ -250,7 +262,9 @@ open class Environment extends cloudformation.Resource {
         ["ExecutionRoleArn"] = if (ExecutionRoleArn == null) null else ExecutionRoleArn
         ["KmsKey"] = if (KmsKey == null) null else KmsKey
         ["LoggingConfiguration"] = if (LoggingConfiguration == null) null else LoggingConfiguration
+        ["MaxWebservers"] = if (MaxWebservers == null) null else MaxWebservers
         ["MaxWorkers"] = if (MaxWorkers == null) null else MaxWorkers
+        ["MinWebservers"] = if (MinWebservers == null) null else MinWebservers
         ["MinWorkers"] = if (MinWorkers == null) null else MinWorkers
         ["Name"] = if (Name == null) null else Name
         ["NetworkConfiguration"] = if (NetworkConfiguration == null) null else NetworkConfiguration

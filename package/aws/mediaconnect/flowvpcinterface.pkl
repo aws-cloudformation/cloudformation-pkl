@@ -17,7 +17,7 @@ open class FlowVpcInterface extends cloudformation.Resource {
     /// Immutable and has to be a unique against other VpcInterfaces in this Flow.
     hidden Name: String|Mapping
 
-    /// Role Arn MediaConnect can assumes to create ENIs in customer's account.
+    /// Role Arn MediaConnect can assume to create ENIs in customer's account.
     hidden RoleArn: String|Mapping
 
     /// Security Group IDs to be used on ENI.

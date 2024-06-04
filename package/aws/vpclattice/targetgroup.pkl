@@ -44,7 +44,7 @@ typealias TargetGroupConfigIpAddressType = "IPV4"|"IPV6"
 
 typealias TargetGroupConfigLambdaEventStructureVersion = "V1"|"V2"
 
-typealias TargetGroupConfigProtocol = "HTTP"|"HTTPS"
+typealias TargetGroupConfigProtocol = "HTTP"|"HTTPS"|"TCP"
 
 typealias TargetGroupConfigProtocolVersion = "HTTP1"|"HTTP2"|"GRPC"
 

@@ -47,7 +47,7 @@ typealias EventSourceMappingMaximumConcurrency = Int|Mapping
 
 /// A destination for events that failed processing.
 open class EventSourceMappingOnFailure {
-    Destination: (String(matches(Regex(#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso)?(-isob)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping)?
+    Destination: (String(matches(Regex(#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping)?
 }
 
 /// (Amazon SQS only) The scaling configuration for the event source. To remove the configuration, pass an empty value.
@@ -76,13 +76,13 @@ open class EventSourceMappingSourceAccessConfiguration {
 /// The ``AWS::Lambda::EventSourceMapping`` resource creates a mapping between an event source and an LAMlong function. LAM reads items from the event source and triggers the function.
 ///
 ///  For details about each event source type, see the following topics. In particular, each of the topics describes the required and optional parameters for the specific event source. 
-///   +  [Configuring a Dynamo DB stream as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html#services-dynamodb-eventsourcemapping)
-///   +  [Configuring a Kinesis stream as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-eventsourcemapping)
-///   +  [Configuring an SQS queue as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-eventsource)
-///   +  [Configuring an MQ broker as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#services-mq-eventsourcemapping)
-///   +  [Configuring MSK as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html)
-///   +  [Configuring Self-Managed Apache Kafka as an event source](https://docs.aws.amazon.com/lambda/latest/dg/kafka-smaa.html)
-///   +  [Configuring Amazon DocumentDB as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-documentdb.html)
+///   +   [Configuring a Dynamo DB stream as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html#services-dynamodb-eventsourcemapping) 
+///   +   [Configuring a Kinesis stream as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-eventsourcemapping) 
+///   +   [Configuring an SQS queue as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-eventsource) 
+///   +   [Configuring an MQ broker as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#services-mq-eventsourcemapping) 
+///   +   [Configuring MSK as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html) 
+///   +   [Configuring Self-Managed Apache Kafka as an event source](https://docs.aws.amazon.com/lambda/latest/dg/kafka-smaa.html) 
+///   +   [Configuring Amazon DocumentDB as an event source](https://docs.aws.amazon.com/lambda/latest/dg/with-documentdb.html)
 open class EventSourceMapping extends cloudformation.Resource {
 
     Type = "AWS::Lambda::EventSourceMapping"
@@ -93,13 +93,13 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The maximum number of records in each batch that Lambda pulls from your stream or queue and sends to your function. Lambda passes all of the records in the batch to the function in a single call, up to the payload limit for synchronous invocation (6 MB).
     ///
-    ///   +   *Amazon Kinesis* ? Default 100. Max 10,000.
-    ///   +   *Amazon DynamoDB Streams* ? Default 100. Max 10,000.
-    ///   +   *Amazon Simple Queue Service* ? Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.
-    ///   +   *Amazon Managed Streaming for Apache Kafka* ? Default 100. Max 10,000.
-    ///   +   *Self-managed Apache Kafka* ? Default 100. Max 10,000.
-    ///   +   *Amazon MQ (ActiveMQ and RabbitMQ)* ? Default 100. Max 10,000.
-    ///   +   *DocumentDB* ? Default 100. Max 10,000.
+    ///   +   *Amazon Kinesis* – Default 100. Max 10,000.
+    ///   +   *Amazon DynamoDB Streams* – Default 100. Max 10,000.
+    ///   +   *Amazon Simple Queue Service* – Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.
+    ///   +   *Amazon Managed Streaming for Apache Kafka* – Default 100. Max 10,000.
+    ///   +   *Self-managed Apache Kafka* – Default 100. Max 10,000.
+    ///   +   *Amazon MQ (ActiveMQ and RabbitMQ)* – Default 100. Max 10,000.
+    ///   +   *DocumentDB* – Default 100. Max 10,000.
     hidden BatchSize: (Int|Mapping)?
 
     /// (Kinesis and DynamoDB Streams only) If the function returns an error, split the batch in two and retry. The default value is false.
@@ -118,13 +118,13 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The Amazon Resource Name (ARN) of the event source.
     ///
-    ///   +   *Amazon Kinesis* ? The ARN of the data stream or a stream consumer.
-    ///   +   *Amazon DynamoDB Streams* ? The ARN of the stream.
-    ///   +   *Amazon Simple Queue Service* ? The ARN of the queue.
-    ///   +   *Amazon Managed Streaming for Apache Kafka* ? The ARN of the cluster or the ARN of the VPC connection (for [cross-account event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc)).
-    ///   +   *Amazon MQ* ? The ARN of the broker.
-    ///   +   *Amazon DocumentDB* ? The ARN of the DocumentDB change stream.
-    hidden EventSourceArn: (String(matches(Regex(#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso)?(-isob)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping)?
+    ///   +   *Amazon Kinesis* – The ARN of the data stream or a stream consumer.
+    ///   +   *Amazon DynamoDB Streams* – The ARN of the stream.
+    ///   +   *Amazon Simple Queue Service* – The ARN of the queue.
+    ///   +   *Amazon Managed Streaming for Apache Kafka* – The ARN of the cluster or the ARN of the VPC connection (for [cross-account event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc)).
+    ///   +   *Amazon MQ* – The ARN of the broker.
+    ///   +   *Amazon DocumentDB* – The ARN of the DocumentDB change stream.
+    hidden EventSourceArn: (String(matches(Regex(#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping)?
 
     /// An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see [Lambda event filtering](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html).
     hidden FilterCriteria: (EventSourceMappingFilterCriteria)?
@@ -132,13 +132,13 @@ open class EventSourceMapping extends cloudformation.Resource {
     /// The name or ARN of the Lambda function.
     ///
     ///   **Name formats**
-    ///  +   *Function name* ? ``MyFunction``.
-    ///   +   *Function ARN* ? ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction``.
-    ///   +   *Version or Alias ARN* ? ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD``.
-    ///   +   *Partial ARN* ? ``123456789012:function:MyFunction``.
+    ///  +   *Function name* – ``MyFunction``.
+    ///   +   *Function ARN* – ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction``.
+    ///   +   *Version or Alias ARN* – ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD``.
+    ///   +   *Partial ARN* – ``123456789012:function:MyFunction``.
     ///   
     ///  The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.
-    hidden FunctionName: String(matches(Regex(#"(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?(-iso)?(-isob)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?"#)))|Mapping
+    hidden FunctionName: String(matches(Regex(#"(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?"#)))|Mapping
 
     /// (Streams and SQS) A list of current response type enums applied to the event source mapping.
     ///
@@ -147,9 +147,9 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function.
     ///
-    ///  *Default (, , event sources)*: 0
-    ///  *Default (, Kafka, , event sources)*: 500 ms
-    ///  *Related setting:* For SQS event sources, when you set ``BatchSize`` to a value greater than 10, you must set ``MaximumBatchingWindowInSeconds`` to at least 1.
+    ///   *Default (, , event sources)*: 0
+    ///   *Default (, Kafka, , event sources)*: 500 ms
+    ///   *Related setting:* For SQS event sources, when you set ``BatchSize`` to a value greater than 10, you must set ``MaximumBatchingWindowInSeconds`` to at least 1.
     hidden MaximumBatchingWindowInSeconds: (Int|Mapping)?
 
     /// (Kinesis and DynamoDB Streams only) Discard records older than the specified age. The default value is -1, which sets the maximum age to infinite. When the value is set to infinite, Lambda never discards old records.
@@ -180,9 +180,9 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB.
     ///
-    ///   +  *LATEST* - Read only new records.
-    ///   +  *TRIM_HORIZON* - Process all available records.
-    ///   +  *AT_TIMESTAMP* - Specify a time from which to start reading records.
+    ///   +   *LATEST* - Read only new records.
+    ///   +   *TRIM_HORIZON* - Process all available records.
+    ///   +   *AT_TIMESTAMP* - Specify a time from which to start reading records.
     hidden StartingPosition: (String(matches(Regex(#"(LATEST|TRIM_HORIZON|AT_TIMESTAMP)+"#)))|Mapping)?
 
     /// With ``StartingPosition`` set to ``AT_TIMESTAMP``, the time from which to start reading, in Unix time seconds. ``StartingPositionTimestamp`` cannot be in the future.

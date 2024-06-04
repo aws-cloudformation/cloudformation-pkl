@@ -5,37 +5,37 @@ module aws.quicksight.datasource
 
 import "../../cloudformation.pkl"
 
-/// <p>Amazon Elasticsearch Service parameters.</p>
+/// <p>The parameters for OpenSearch.</p>
 open class DataSourceAmazonElasticsearchParameters {
     Domain: String|Mapping
 }
 
-/// <p>Amazon OpenSearch Service parameters.</p>
+/// <p>The parameters for OpenSearch.</p>
 open class DataSourceAmazonOpenSearchParameters {
     Domain: String|Mapping
 }
 
-/// <p>Amazon Athena parameters.</p>
+/// <p>Parameters for Amazon Athena.</p>
 open class DataSourceAthenaParameters {
     RoleArn: (String|Mapping)?
     WorkGroup: (String|Mapping)?
 }
 
-/// <p>Amazon Aurora parameters.</p>
+/// <p>Parameters for Amazon Aurora.</p>
 open class DataSourceAuroraParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>Amazon Aurora with PostgreSQL compatibility parameters.</p>
+/// <p>Parameters for Amazon Aurora PostgreSQL-Compatible Edition.</p>
 open class DataSourceAuroraPostgreSqlParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>AWS IoT Analytics parameters.</p>
+/// <p>The parameters for IoT Analytics.</p>
 open class DataSourceAwsIotAnalyticsParameters {
     DataSetName: String|Mapping
 }
@@ -51,9 +51,9 @@ open class DataSourceCredentialPair {
 ///
 ///             valid, only one of the attributes can be non-null.</p>
 open class DataSourceDataSourceCredentials {
-    CopySourceArn: (String(matches(Regex(#"^arn:[-a-z0-9]*:quicksight:[-a-z0-9]*:[0-9]{12}:datasource/.+"#)))|Mapping)?
+    CopySourceArn: (String(matches(Regex(#"^arn:[-a-z0-9]*:quicksight:[-a-z0-9]*:[0-9]{12}:datasource/.+$"#)))|Mapping)?
     CredentialPair: (DataSourceCredentialPair)?
-    SecretArn: (String(matches(Regex(#"^arn:[-a-z0-9]*:secretsmanager:[-a-z0-9]*:[0-9]{12}:secret:.+"#)))|Mapping)?
+    SecretArn: (String(matches(Regex(#"^arn:[-a-z0-9]*:secretsmanager:[-a-z0-9]*:[0-9]{12}:secret:.+$"#)))|Mapping)?
 }
 
 /// <p>Error information for the data source creation or update.</p>
@@ -95,11 +95,16 @@ open class DataSourceDataSourceParameters {
 typealias DataSourceDataSourceType = String|Mapping
 
 
-/// <p>Databricks parameters.</p>
+/// <p>The parameters that are required to connect to a Databricks data source.</p>
 open class DataSourceDatabricksParameters {
     Host: String|Mapping
     Port: Number|Mapping
     SqlEndpointPath: String|Mapping
+}
+
+/// <p>The parameters for an IAM Identity Center configuration.</p>
+open class DataSourceIdentityCenterConfiguration {
+    EnableIdentityPropagation: (Boolean|Mapping)?
 }
 
 /// <p>Amazon S3 manifest file location.</p>
@@ -108,55 +113,67 @@ open class DataSourceManifestFileLocation {
     Key: String|Mapping
 }
 
-/// <p>MariaDB parameters.</p>
+/// <p>The parameters for MariaDB.</p>
 open class DataSourceMariaDbParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>MySQL parameters.</p>
+/// <p>The parameters for MySQL.</p>
 open class DataSourceMySqlParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// 
+/// <p>The parameters for Oracle.</p>
 open class DataSourceOracleParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>PostgreSQL parameters.</p>
+/// <p>The parameters for PostgreSQL.</p>
 open class DataSourcePostgreSqlParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>Presto parameters.</p>
+/// <p>The parameters for Presto.</p>
 open class DataSourcePrestoParameters {
     Catalog: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>Amazon RDS parameters.</p>
+/// <p>The parameters for Amazon RDS.</p>
 open class DataSourceRdsParameters {
     Database: String|Mapping
     InstanceId: String|Mapping
 }
 
-/// <p>Amazon Redshift parameters. The <code>ClusterId</code> field can be blank if
+/// <p>A structure that grants Amazon QuickSight access to your cluster and make a call to the <code>redshift:GetClusterCredentials</code> API. For more information on the <code>redshift:GetClusterCredentials</code> API, see <a href="https://docs.aws.amazon.com/redshift/latest/APIReference/API_GetClusterCredentials.html">
 ///
-///             <code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and
-///             <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>
+///                <code>GetClusterCredentials</code>
+///             </a>.</p>
+open class DataSourceRedshiftIAMParameters {
+    AutoCreateDatabaseUser: (Boolean|Mapping)?
+    DatabaseGroups: (Listing<String|Mapping>)?
+    DatabaseUser: (String|Mapping)?
+    RoleArn: String|Mapping
+}
+
+/// <p>The parameters for Amazon Redshift. The <code>ClusterId</code> field can be blank if
+///
+///             <code>Host</code> and <code>Port</code> are both set. The <code>Host</code> and <code>Port</code> fields can be blank if the <code>ClusterId</code> field is set.</p>
 open class DataSourceRedshiftParameters {
     ClusterId: (String|Mapping)?
     Database: String|Mapping
     Host: (String|Mapping)?
+    IAMParameters: (DataSourceRedshiftIAMParameters)?
+    IdentityCenterConfiguration: (DataSourceIdentityCenterConfiguration)?
     Port: (Number|Mapping)?
 }
 
@@ -164,45 +181,46 @@ open class DataSourceRedshiftParameters {
 open class DataSourceResourcePermission {
     Actions: Listing<String|Mapping>
     Principal: String|Mapping
+    Resource: (String|Mapping)?
 }
 
 typealias DataSourceResourceStatus = String|Mapping
 
 
-/// <p>S3 parameters.</p>
+/// <p>The parameters for S3.</p>
 open class DataSourceS3Parameters {
     ManifestFileLocation: DataSourceManifestFileLocation
     RoleArn: (String|Mapping)?
 }
 
-/// <p>Snowflake parameters.</p>
+/// <p>The parameters for Snowflake.</p>
 open class DataSourceSnowflakeParameters {
     Database: String|Mapping
     Host: String|Mapping
     Warehouse: String|Mapping
 }
 
-/// <p>Spark parameters.</p>
+/// <p>The parameters for Spark.</p>
 open class DataSourceSparkParameters {
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>SQL Server parameters.</p>
+/// <p>The parameters for SQL Server.</p>
 open class DataSourceSqlServerParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>Secure Socket Layer (SSL) properties that apply when QuickSight connects to your
+/// <p>Secure Socket Layer (SSL) properties that apply when Amazon QuickSight connects to your
 ///
 ///             underlying data source.</p>
 open class DataSourceSslProperties {
     DisableSsl: (Boolean|Mapping)?
 }
 
-/// <p>Starburst parameters.</p>
+/// <p>The parameters that are required to connect to a Starburst data source.</p>
 open class DataSourceStarburstParameters {
     Catalog: String|Mapping
     Host: String|Mapping
@@ -221,14 +239,14 @@ open class DataSourceTag {
     Value: String|Mapping
 }
 
-/// <p>Teradata parameters.</p>
+/// <p>The parameters for Teradata.</p>
 open class DataSourceTeradataParameters {
     Database: String|Mapping
     Host: String|Mapping
     Port: Number|Mapping
 }
 
-/// <p>Trino parameters.</p>
+/// <p>The parameters that are required to connect to a Trino data source.</p>
 open class DataSourceTrinoParameters {
     Catalog: String|Mapping
     Host: String|Mapping
@@ -273,20 +291,20 @@ open class DataSource extends cloudformation.Resource {
     /// 
     hidden ErrorInfo: (DataSourceDataSourceErrorInfo)?
 
-    /// <p>A display name for the data source.</p>
-    hidden Name: (String|Mapping)?
+    /// 
+    hidden Name: String|Mapping
 
-    /// <p>A list of resource permissions on the data source.</p>
+    /// 
     hidden Permissions: (Listing<DataSourceResourcePermission>)?
 
     /// 
     hidden SslProperties: (DataSourceSslProperties)?
 
-    /// <p>Contains a map of the key-value pairs for the resource tag or tags assigned to the data source.</p>
+    /// 
     hidden Tags: (Listing<DataSourceTag>)?
 
     /// 
-    hidden TypeProperty: (DataSourceDataSourceType)?
+    hidden TypeProperty: DataSourceDataSourceType
 
     /// 
     hidden VpcConnectionProperties: (DataSourceVpcConnectionProperties)?

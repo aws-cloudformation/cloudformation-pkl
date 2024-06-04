@@ -10,10 +10,13 @@ open class PlaybackConfigurationAdMarkerPassthrough {
     Enabled: (Boolean|Mapping)?
 }
 
-typealias AvailSuppressionMode = "OFF"|"BEHIND_LIVE_EDGE"
+typealias AvailSuppressionFillPolicy = "PARTIAL_AVAIL"|"FULL_AVAIL_ONLY"
+
+typealias AvailSuppressionMode = "OFF"|"BEHIND_LIVE_EDGE"|"AFTER_LIVE_EDGE"
 
 /// The configuration for avail suppression, also known as ad suppression. For more information about ad suppression, see Ad Suppression (https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html).
 open class PlaybackConfigurationAvailSuppression {
+    FillPolicy: (AvailSuppressionFillPolicy|Mapping)?
     Mode: (AvailSuppressionMode|Mapping)?
     Value: (String|Mapping)?
 }

@@ -59,6 +59,12 @@ open class BudgetNotificationWithSubscribers {
 }
 
 /// 
+open class BudgetResourceTag {
+    Key: String|Mapping
+    Value: (String|Mapping)?
+}
+
+/// 
 open class BudgetSpend {
     Amount: Number|Mapping
     Unit: String|Mapping
@@ -88,9 +94,13 @@ open class Budget extends cloudformation.Resource {
     /// 
     hidden NotificationsWithSubscribers: (Listing<BudgetNotificationWithSubscribers>)?
 
+    /// 
+    hidden ResourceTags: (Listing<BudgetResourceTag>)?
+
     Properties {
         ["Budget"] = if (Budget == null) null else Budget
         ["NotificationsWithSubscribers"] = if (NotificationsWithSubscribers == null) null else NotificationsWithSubscribers
+        ["ResourceTags"] = if (ResourceTags == null) null else ResourceTags
     }
 
 }

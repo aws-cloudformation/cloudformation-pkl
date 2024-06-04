@@ -17,8 +17,17 @@ open class EventBus extends cloudformation.Resource {
     Type = "AWS::Events::EventBus"
 
 
+    /// Dead Letter Queue for the event bus.
+    hidden DeadLetterConfig: (Dynamic)?
+
+    /// The description of the event bus.
+    hidden Description: (String|Mapping)?
+
     /// If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.
     hidden EventSourceName: (String|Mapping)?
+
+    /// Kms Key Identifier used to encrypt events at rest in the event bus.
+    hidden KmsKeyIdentifier: (String|Mapping)?
 
     /// The name of the event bus.
     hidden Name: String|Mapping
@@ -30,7 +39,10 @@ open class EventBus extends cloudformation.Resource {
     hidden Tags: (Listing<EventBusTag>)?
 
     Properties {
+        ["DeadLetterConfig"] = if (DeadLetterConfig == null) null else DeadLetterConfig
+        ["Description"] = if (Description == null) null else Description
         ["EventSourceName"] = if (EventSourceName == null) null else EventSourceName
+        ["KmsKeyIdentifier"] = if (KmsKeyIdentifier == null) null else KmsKeyIdentifier
         ["Name"] = if (Name == null) null else Name
         ["Policy"] = if (Policy == null) null else Policy
         ["Tags"] = if (Tags == null) null else Tags

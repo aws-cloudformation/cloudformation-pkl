@@ -17,8 +17,11 @@ open class DataSetCastColumnTypeOperation {
     ColumnName: String|Mapping
     Format: (String|Mapping)?
     NewColumnType: DataSetColumnDataType
-    SubType: (DataSetColumnSubDataType)?
+    SubType: (DataSetColumnDataSubType)?
 }
+
+typealias DataSetColumnDataSubType = String|Mapping
+
 
 typealias DataSetColumnDataType = String|Mapping
 
@@ -36,23 +39,33 @@ open class DataSetColumnGroup {
     GeoSpatialColumnGroup: (DataSetGeoSpatialColumnGroup)?
 }
 
-/// 
+/// <p>A rule defined to grant access on one or more restricted columns.
+///
+///             Each dataset can have multiple rules.
+///             To create a restricted column, you add it to one or more rules.
+///             Each rule must contain at least one column and at least one user or group.
+///             To be able to see a restricted column, a user or group needs to be added
+///             to a rule for that column.</p>
 open class DataSetColumnLevelPermissionRule {
     ColumnNames: (Listing<String|Mapping>)?
     Principals: (Listing<String|Mapping>)?
 }
 
-typealias DataSetColumnSubDataType = String|Mapping
-
-
-/// <p>A tag for a column in a <a>TagColumnOperation</a> structure. This is a
+/// <p>A tag for a column in a
 ///
+///             <code>
+///                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TagColumnOperation.html">TagColumnOperation</a>
+///             </code>
+///             structure. This is a
 ///             variant type structure. For this structure to be valid, only one of the attributes can
 ///             be non-null.</p>
 open class DataSetColumnTag {
     ColumnDescription: (DataSetColumnDescription)?
     ColumnGeographicRole: (DataSetGeoSpatialDataRole)?
 }
+
+typealias DataSetColumnTagName = String|Mapping
+
 
 /// <p>A transform operation that creates calculated columns. Columns created in one such
 ///
@@ -72,18 +85,18 @@ open class DataSetCustomSql {
 typealias DataSetDataSetImportMode = String|Mapping
 
 
-/// <p>The dataset refresh properties for the dataset.</p>
+/// <p>The refresh properties of a dataset.</p>
 open class DataSetDataSetRefreshProperties {
-    RefreshConfiguration: (DataSetRefreshConfiguration)?
+    RefreshConfiguration: DataSetRefreshConfiguration
 }
 
-/// <p>The dataset usage configuration for the dataset.</p>
+/// <p>The usage configuration to apply to child datasets that reference this dataset as a source.</p>
 open class DataSetDataSetUsageConfiguration {
     DisableUseAsDirectQuerySource: (Boolean|Mapping)?
     DisableUseAsImportedSource: (Boolean|Mapping)?
 }
 
-/// <p>A parameter created in the dataset that could be of any one data type such as string, integer, decimal or datetime.</p>
+/// <p>A dataset parameter.</p>
 open class DataSetDatasetParameter {
     DateTimeDatasetParameter: (DataSetDateTimeDatasetParameter)?
     DecimalDatasetParameter: (DataSetDecimalDatasetParameter)?
@@ -91,49 +104,37 @@ open class DataSetDatasetParameter {
     StringDatasetParameter: (DataSetStringDatasetParameter)?
 }
 
-typealias DataSetDatasetParameterId = String|Mapping
-
-
-typealias DataSetDatasetParameterName = String|Mapping
-
-
 typealias DataSetDatasetParameterValueType = String|Mapping
 
 
-/// <p>A parameter created in the dataset of date time data type.</p>
+/// <p>A date time parameter for a dataset.</p>
 open class DataSetDateTimeDatasetParameter {
     DefaultValues: (DataSetDateTimeDatasetParameterDefaultValues)?
-    Id: DataSetDatasetParameterId
-    Name: DataSetDatasetParameterName
+    Id: String(matches(Regex(#"^[a-zA-Z0-9-]+$"#)))|Mapping
+    Name: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     TimeGranularity: (DataSetTimeGranularity)?
     ValueType: DataSetDatasetParameterValueType
 }
 
-/// <p>List of default values defined for a given string date time parameter type. Currently only static values are supported.</p>
+/// <p>The default values of a date time parameter.</p>
 open class DataSetDateTimeDatasetParameterDefaultValues {
-    StaticValues: (DataSetDateTimeDatasetParameterValueList)?
+    StaticValues: (Listing<String|Mapping>)?
 }
 
-typealias DataSetDateTimeDatasetParameterValueList = Listing<(String|Mapping)?>
-
-
-/// <p>A parameter created in the dataset of decimal data type.</p>
+/// <p>A decimal parameter for a dataset.</p>
 open class DataSetDecimalDatasetParameter {
     DefaultValues: (DataSetDecimalDatasetParameterDefaultValues)?
-    Id: DataSetDatasetParameterId
-    Name: DataSetDatasetParameterName
+    Id: String(matches(Regex(#"^[a-zA-Z0-9-]+$"#)))|Mapping
+    Name: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     ValueType: DataSetDatasetParameterValueType
 }
 
-/// <p>List of default values defined for a given decimal dataset parameter type. Currently only static values are supported.</p>
+/// <p>The default values of a decimal parameter.</p>
 open class DataSetDecimalDatasetParameterDefaultValues {
-    StaticValues: (DataSetDecimalDatasetParameterValueList)?
+    StaticValues: (Listing<Number|Mapping>)?
 }
 
-typealias DataSetDecimalDatasetParameterValueList = Listing<(Number|Mapping)?>
-
-
-/// 
+/// <p>A FieldFolder element is a folder that contains fields and nested subfolders.</p>
 open class DataSetFieldFolder {
     Columns: (Listing<String|Mapping>)?
     Description: (String|Mapping)?
@@ -163,9 +164,9 @@ typealias DataSetGeoSpatialCountryCode = String|Mapping
 typealias DataSetGeoSpatialDataRole = String|Mapping
 
 
-/// <p>Incremental Refresh</p>
+/// <p>The incremental refresh configuration for a dataset.</p>
 open class DataSetIncrementalRefresh {
-    LookbackWindow: (DataSetLookbackWindow)?
+    LookbackWindow: DataSetLookbackWindow
 }
 
 /// <p>Wait policy to use when creating/updating dataset. Default is to wait for SPICE ingestion to finish with timeout of 36 hours.</p>
@@ -177,40 +178,37 @@ open class DataSetIngestionWaitPolicy {
 /// <p>Metadata for a column that is used as the input of a transform operation.</p>
 open class DataSetInputColumn {
     Name: String|Mapping
-    SubType: (DataSetColumnSubDataType)?
+    SubType: (DataSetColumnDataSubType)?
     Type: DataSetInputColumnDataType
 }
 
 typealias DataSetInputColumnDataType = String|Mapping
 
 
-/// <p>A parameter created in the dataset of integer data type.</p>
+/// <p>An integer parameter for a dataset.</p>
 open class DataSetIntegerDatasetParameter {
     DefaultValues: (DataSetIntegerDatasetParameterDefaultValues)?
-    Id: DataSetDatasetParameterId
-    Name: DataSetDatasetParameterName
+    Id: String(matches(Regex(#"^[a-zA-Z0-9-]+$"#)))|Mapping
+    Name: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     ValueType: DataSetDatasetParameterValueType
 }
 
-/// <p>List of default values defined for a given integer dataset parameter type. Currently only static values are supported.</p>
+/// <p>The default values of an integer parameter.</p>
 open class DataSetIntegerDatasetParameterDefaultValues {
-    StaticValues: (DataSetIntegerDatasetParameterValueList)?
+    StaticValues: (Listing<Number|Mapping>)?
 }
 
-typealias DataSetIntegerDatasetParameterValueList = Listing<(Number|Mapping)?>
-
-
-/// <p>Join instruction.</p>
+/// <p>The instructions associated with a join. </p>
 open class DataSetJoinInstruction {
     LeftJoinKeyProperties: (DataSetJoinKeyProperties)?
-    LeftOperand: String(matches(Regex(#"[0-9a-zA-Z-]*"#)))|Mapping
+    LeftOperand: String(matches(Regex(#"^[0-9a-zA-Z-]*$"#)))|Mapping
     OnClause: String|Mapping
     RightJoinKeyProperties: (DataSetJoinKeyProperties)?
-    RightOperand: String(matches(Regex(#"[0-9a-zA-Z-]*"#)))|Mapping
+    RightOperand: String(matches(Regex(#"^[0-9a-zA-Z-]*$"#)))|Mapping
     Type: DataSetJoinType
 }
 
-/// 
+/// <p>Properties associated with the columns participating in a join.</p>
 open class DataSetJoinKeyProperties {
     UniqueKey: (Boolean|Mapping)?
 }
@@ -238,37 +236,40 @@ typealias DataSetLogicalTableMap = Mapping<String, Any>
 open class DataSetLogicalTableSource {
     DataSetArn: (String|Mapping)?
     JoinInstruction: (DataSetJoinInstruction)?
-    PhysicalTableId: (String(matches(Regex(#"[0-9a-zA-Z-]*"#)))|Mapping)?
+    PhysicalTableId: (String(matches(Regex(#"^[0-9a-zA-Z-]*$"#)))|Mapping)?
 }
 
-/// 
+/// <p>The lookback window setup of an incremental refresh configuration.</p>
 open class DataSetLookbackWindow {
-    ColumnName: (String|Mapping)?
-    Size: (Number|Mapping)?
-    SizeUnit: (DataSetSizeUnit)?
+    ColumnName: String|Mapping
+    Size: Number|Mapping
+    SizeUnit: DataSetLookbackWindowSizeUnit
 }
 
-/// 
+typealias DataSetLookbackWindowSizeUnit = String|Mapping
+
+
+/// <p>The configuration that overrides the existing default values for a dataset parameter that is inherited from another dataset.</p>
 open class DataSetNewDefaultValues {
-    DateTimeStaticValues: (DataSetDateTimeDatasetParameterValueList)?
-    DecimalStaticValues: (DataSetDecimalDatasetParameterValueList)?
-    IntegerStaticValues: (DataSetIntegerDatasetParameterValueList)?
-    StringStaticValues: (DataSetStringDatasetParameterValueList)?
+    DateTimeStaticValues: (Listing<String|Mapping>)?
+    DecimalStaticValues: (Listing<Number|Mapping>)?
+    IntegerStaticValues: (Listing<Number|Mapping>)?
+    StringStaticValues: (Listing<String|Mapping>)?
 }
 
 /// <p>Output column.</p>
 open class DataSetOutputColumn {
     Description: (String|Mapping)?
     Name: (String|Mapping)?
-    SubType: (DataSetColumnSubDataType)?
+    SubType: (DataSetColumnDataSubType)?
     Type: (DataSetColumnDataType)?
 }
 
-/// <p>A transform operation that overrides the dataset parameter values defined in another dataset.</p>
+/// <p>A transform operation that overrides the dataset parameter values that are defined in another dataset.</p>
 open class DataSetOverrideDatasetParameterOperation {
     NewDefaultValues: (DataSetNewDefaultValues)?
-    NewParameterName: (DataSetDatasetParameterName)?
-    ParameterName: DataSetDatasetParameterName
+    NewParameterName: (String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping)?
+    ParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
 }
 
 /// <p>A view of a data source that contains information about the shape of the data in the
@@ -291,9 +292,9 @@ open class DataSetProjectOperation {
     ProjectedColumns: Listing<String|Mapping>
 }
 
-/// <p> Refresh Configuration.</p>
+/// <p>The refresh configuration of a dataset.</p>
 open class DataSetRefreshConfiguration {
-    IncrementalRefresh: (DataSetIncrementalRefresh)?
+    IncrementalRefresh: DataSetIncrementalRefresh
 }
 
 /// <p>A physical table type for relational data sources.</p>
@@ -317,7 +318,13 @@ open class DataSetResourcePermission {
     Principal: String|Mapping
 }
 
-/// <p>The row-level security configuration for the dataset.</p>
+/// <p>Information about a dataset that contains permissions for row-level security (RLS).
+///
+///             The permissions dataset maps fields to users or groups. For more information, see
+///             <a href="https://docs.aws.amazon.com/quicksight/latest/user/restrict-access-to-a-data-set-using-row-level-security.html">Using Row-Level Security (RLS) to Restrict Access to a Dataset</a> in the <i>Amazon QuickSight User
+///                 Guide</i>.</p>
+///          <p>The option to deny permissions by setting <code>PermissionPolicy</code> to <code>DENY_ACCESS</code> is
+///             not supported for new RLS datasets.</p>
 open class DataSetRowLevelPermissionDataSet {
     Arn: String|Mapping
     FormatVersion: (DataSetRowLevelPermissionFormatVersion)?
@@ -332,14 +339,14 @@ typealias DataSetRowLevelPermissionFormatVersion = String|Mapping
 typealias DataSetRowLevelPermissionPolicy = String|Mapping
 
 
-/// <p>The configuration of tags on a dataset to set row-level security.</p>
+/// <p>The configuration of tags on a dataset to set row-level security. </p>
 open class DataSetRowLevelPermissionTagConfiguration {
     Status: (DataSetStatus)?
-    TagRuleConfigurations: (Listing<DataSetRowLevelPermissionTagRuleConfiguration>)?
+    TagRuleConfigurations: (Listing<Dynamic>)?
     TagRules: Listing<DataSetRowLevelPermissionTagRule>
 }
 
-/// <p>Permission for the resource.</p>
+/// <p>A set of rules associated with a tag.</p>
 open class DataSetRowLevelPermissionTagRule {
     ColumnName: String|Mapping
     MatchAllValue: (String|Mapping)?
@@ -347,37 +354,28 @@ open class DataSetRowLevelPermissionTagRule {
     TagMultiValueDelimiter: (String|Mapping)?
 }
 
-typealias DataSetRowLevelPermissionTagRuleConfiguration = Listing<(String|Mapping)?>
-
-
-/// <p>A physical table type for as S3 data source.</p>
+/// <p>A physical table type for an S3 data source.</p>
 open class DataSetS3Source {
     DataSourceArn: String|Mapping
     InputColumns: Listing<DataSetInputColumn>
     UploadSettings: (DataSetUploadSettings)?
 }
 
-typealias DataSetSizeUnit = String|Mapping
-
-
 typealias DataSetStatus = String|Mapping
 
 
-/// <p>A parameter created in the dataset of string data type.</p>
+/// <p>A string parameter for a dataset.</p>
 open class DataSetStringDatasetParameter {
     DefaultValues: (DataSetStringDatasetParameterDefaultValues)?
-    Id: DataSetDatasetParameterId
-    Name: DataSetDatasetParameterName
+    Id: String(matches(Regex(#"^[a-zA-Z0-9-]+$"#)))|Mapping
+    Name: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
     ValueType: DataSetDatasetParameterValueType
 }
 
-/// <p>List of default values defined for a given string dataset parameter type. Currently only static values are supported.</p>
+/// <p>The default values of a string parameter.</p>
 open class DataSetStringDatasetParameterDefaultValues {
-    StaticValues: (DataSetStringDatasetParameterValueList)?
+    StaticValues: (Listing<String|Mapping>)?
 }
-
-typealias DataSetStringDatasetParameterValueList = Listing<(String|Mapping)?>
-
 
 /// <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
 ///
@@ -410,6 +408,13 @@ open class DataSetTransformOperation {
     ProjectOperation: (DataSetProjectOperation)?
     RenameColumnOperation: (DataSetRenameColumnOperation)?
     TagColumnOperation: (DataSetTagColumnOperation)?
+    UntagColumnOperation: (DataSetUntagColumnOperation)?
+}
+
+/// <p>A transform operation that removes tags associated with a column.</p>
+open class DataSetUntagColumnOperation {
+    ColumnName: String|Mapping
+    TagNames: Listing<DataSetColumnTagName>
 }
 
 /// <p>Information about the format for a source file or files.</p>
@@ -430,10 +435,13 @@ open class DataSet extends cloudformation.Resource {
     /// 
     hidden AwsAccountId: (String(matches(Regex(#"^[0-9]{12}$"#)))|Mapping)?
 
-    /// <p>Groupings of columns that work together in certain QuickSight features. Currently, only geospatial hierarchy is supported.</p>
+    /// <p>Groupings of columns that work together in certain Amazon QuickSight features. Currently, only geospatial hierarchy is supported.</p>
     hidden ColumnGroups: (Listing<DataSetColumnGroup>)?
 
-    /// 
+    /// <p>A set of one or more definitions of a <code>
+    ///
+    ///                <a href="https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnLevelPermissionRule.html">ColumnLevelPermissionRule</a>
+    ///             </code>.</p>
     hidden ColumnLevelPermissionRules: (Listing<DataSetColumnLevelPermissionRule>)?
 
     /// 
@@ -445,7 +453,7 @@ open class DataSet extends cloudformation.Resource {
     /// 
     hidden DataSetUsageConfiguration: (DataSetDataSetUsageConfiguration)?
 
-    /// <p>The parameters declared in the dataset.</p>
+    /// <p>The parameter declarations of the dataset.</p>
     hidden DatasetParameters: (Listing<DataSetDatasetParameter>)?
 
     /// 

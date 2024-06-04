@@ -69,4 +69,4 @@ open class Listener extends cloudformation.Resource {
 }
 
 
-typealias ListenerProtocol = "HTTP"|"HTTPS"
+typealias ListenerProtocol = "HTTP"|"HTTPS"|"TLS_PASSTHROUGH"
