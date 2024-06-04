@@ -62,6 +62,9 @@ open class Job extends cloudformation.Resource {
     hidden LogUri: (String|Mapping)?
 
     /// 
+    hidden MaintenanceWindow: (String|Mapping)?
+
+    /// 
     hidden MaxCapacity: (Number|Mapping)?
 
     /// 
@@ -104,6 +107,7 @@ open class Job extends cloudformation.Resource {
         ["ExecutionProperty"] = if (ExecutionProperty == null) null else ExecutionProperty
         ["GlueVersion"] = if (GlueVersion == null) null else GlueVersion
         ["LogUri"] = if (LogUri == null) null else LogUri
+        ["MaintenanceWindow"] = if (MaintenanceWindow == null) null else MaintenanceWindow
         ["MaxCapacity"] = if (MaxCapacity == null) null else MaxCapacity
         ["MaxRetries"] = if (MaxRetries == null) null else MaxRetries
         ["Name"] = if (Name == null) null else Name

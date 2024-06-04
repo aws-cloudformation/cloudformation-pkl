@@ -5,63 +5,30 @@ module aws.quicksight.vpcconnection
 
 import "../../cloudformation.pkl"
 
-typealias VPCConnectionArn = String|Mapping
-
-
-typealias VPCConnectionDnsResolvers = Listing<(String|Mapping)?>
-
-
-typealias NetworkInterfaceStatus = "CREATING"|"AVAILABLE"|"CREATION_FAILED"|"UPDATING"|"UPDATE_FAILED"|"DELETING"|"DELETED"|"DELETION_FAILED"|"DELETION_SCHEDULED"|"ATTACHMENT_FAILED_ROLLBACK_FAILED"
-
-/// 
+/// <p>The structure that contains information about a network interface.</p>
 open class VPCConnectionNetworkInterface {
     AvailabilityZone: (String|Mapping)?
     ErrorMessage: (String|Mapping)?
-    NetworkInterfaceId: (VPCConnectionNetworkInterfaceId)?
-    Status: (NetworkInterfaceStatus|Mapping)?
-    SubnetId: (VPCConnectionSubnetId)?
+    NetworkInterfaceId: (String(matches(Regex(#"^eni-[0-9a-z]*$"#)))|Mapping)?
+    Status: (VPCConnectionNetworkInterfaceStatus)?
+    SubnetId: (String(matches(Regex(#"^subnet-[0-9a-z]*$"#)))|Mapping)?
 }
 
-typealias VPCConnectionNetworkInterfaceId = String|Mapping
+typealias VPCConnectionNetworkInterfaceStatus = String|Mapping
 
 
-typealias VPCConnectionNetworkInterfaces = Listing<(VPCConnectionNetworkInterface)?>
-
-
-typealias VPCConnectionRoleArn = String|Mapping
-
-
-typealias VPCConnectionSecurityGroupId = String|Mapping
-
-
-typealias VPCConnectionSecurityGroupIds = Listing<(VPCConnectionSecurityGroupId)?>
-
-
-typealias VPCConnectionSubnetId = String|Mapping
-
-
-typealias VPCConnectionSubnetIds = Listing<(VPCConnectionSubnetId)?>
-
-
-/// 
+/// <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
+///
+///             resource.</p>
 open class VPCConnectionTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-typealias VPCConnectionTags = Listing<(VPCConnectionTag)?>
-
-
 typealias VPCConnectionVPCConnectionAvailabilityStatus = String|Mapping
 
 
-typealias VPCConnectionVPCConnectionId = String|Mapping
-
-
 typealias VPCConnectionVPCConnectionResourceStatus = String|Mapping
-
-
-typealias VPCConnectionVPCId = String|Mapping
 
 
 /// Definition of the AWS::QuickSight::VPCConnection Resource Type.
@@ -77,25 +44,25 @@ open class VPCConnection extends cloudformation.Resource {
     hidden AwsAccountId: (String(matches(Regex(#"^[0-9]{12}$"#)))|Mapping)?
 
     /// 
-    hidden DnsResolvers: (VPCConnectionDnsResolvers)?
+    hidden DnsResolvers: (Listing<String|Mapping>)?
 
     /// 
     hidden Name: (String|Mapping)?
 
     /// 
-    hidden RoleArn: (VPCConnectionRoleArn)?
+    hidden RoleArn: (String|Mapping)?
 
     /// 
-    hidden SecurityGroupIds: (VPCConnectionSecurityGroupIds)?
+    hidden SecurityGroupIds: (Listing<String|Mapping>)?
 
     /// 
-    hidden SubnetIds: (VPCConnectionSubnetIds)?
+    hidden SubnetIds: (Listing<String|Mapping>)?
 
     /// 
-    hidden Tags: (VPCConnectionTags)?
+    hidden Tags: (Listing<VPCConnectionTag>)?
 
     /// 
-    hidden VPCConnectionId: (VPCConnectionVPCConnectionId)?
+    hidden VPCConnectionId: (String(matches(Regex(#"[\w\-]+"#)))|Mapping)?
 
     Properties {
         ["AvailabilityStatus"] = if (AvailabilityStatus == null) null else AvailabilityStatus

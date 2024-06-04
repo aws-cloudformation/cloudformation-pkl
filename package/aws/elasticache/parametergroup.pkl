@@ -17,16 +17,16 @@ open class ParameterGroup extends cloudformation.Resource {
     Type = "AWS::ElastiCache::ParameterGroup"
 
 
-    /// 
+    /// The name of the cache parameter group family that this cache parameter group is compatible with.
     hidden CacheParameterGroupFamily: String|Mapping
 
-    /// 
+    /// The description for this cache parameter group.
     hidden Description: String|Mapping
 
-    /// 
+    /// A comma-delimited list of parameter name/value pairs. For more information see ModifyCacheParameterGroup in the Amazon ElastiCache API Reference Guide.
     hidden PropertiesProperty: (ParameterGroupParameterGroupProperties)?
 
-    /// 
+    /// Tags are composed of a Key/Value pair. You can use tags to categorize and track each parameter group. The tag value null is permitted.
     hidden Tags: (Listing<ParameterGroupTag>)?
 
     Properties {

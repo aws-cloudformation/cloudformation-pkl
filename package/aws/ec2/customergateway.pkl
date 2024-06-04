@@ -23,6 +23,9 @@ open class CustomerGateway extends cloudformation.Resource {
     hidden BgpAsn: (Int|Mapping)?
 
     /// 
+    hidden BgpAsnExtended: (Number|Mapping)?
+
+    /// 
     hidden CertificateArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z-]*)?:acm:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:certificate\/[a-zA-Z0-9-_]+$"#)))|Mapping)?
 
     /// The name of customer gateway device.
@@ -39,6 +42,7 @@ open class CustomerGateway extends cloudformation.Resource {
 
     Properties {
         ["BgpAsn"] = if (BgpAsn == null) null else BgpAsn
+        ["BgpAsnExtended"] = if (BgpAsnExtended == null) null else BgpAsnExtended
         ["CertificateArn"] = if (CertificateArn == null) null else CertificateArn
         ["DeviceName"] = if (DeviceName == null) null else DeviceName
         ["IpAddress"] = if (IpAddress == null) null else IpAddress

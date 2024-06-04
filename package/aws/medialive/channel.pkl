@@ -195,6 +195,7 @@ open class ChannelAvailBlanking {
 /// 
 open class ChannelAvailConfiguration {
     AvailSettings: (ChannelAvailSettings)?
+    Scte35SegmentationScope: (String|Mapping)?
 }
 
 /// 

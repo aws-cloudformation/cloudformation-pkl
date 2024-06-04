@@ -5,6 +5,12 @@ module aws.chatbot.slackchannelconfiguration
 
 import "../../cloudformation.pkl"
 
+/// 
+open class SlackChannelConfigurationTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// Resource schema for AWS::Chatbot::SlackChannelConfiguration.
 open class SlackChannelConfiguration extends cloudformation.Resource {
 
@@ -32,6 +38,9 @@ open class SlackChannelConfiguration extends cloudformation.Resource {
     /// ARNs of SNS topics which delivers notifications to AWS Chatbot, for example CloudWatch alarm notifications.
     hidden SnsTopicArns: (Listing<String|Mapping>)?
 
+    /// The tags to add to the configuration
+    hidden Tags: (Listing<SlackChannelConfigurationTag>)?
+
     /// Enables use of a user role requirement in your chat configuration
     hidden UserRoleRequired: (Boolean|Mapping)?
 
@@ -43,6 +52,7 @@ open class SlackChannelConfiguration extends cloudformation.Resource {
         ["SlackChannelId"] = if (SlackChannelId == null) null else SlackChannelId
         ["SlackWorkspaceId"] = if (SlackWorkspaceId == null) null else SlackWorkspaceId
         ["SnsTopicArns"] = if (SnsTopicArns == null) null else SnsTopicArns
+        ["Tags"] = if (Tags == null) null else Tags
         ["UserRoleRequired"] = if (UserRoleRequired == null) null else UserRoleRequired
     }
 

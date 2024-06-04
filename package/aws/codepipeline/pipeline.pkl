@@ -53,6 +53,11 @@ open class PipelineEncryptionKey {
 }
 
 /// 
+open class PipelineFailureConditions {
+    Result: String|Mapping
+}
+
+/// 
 open class PipelineGitBranchFilterCriteria {
     Excludes: (Listing<String|Mapping>)?
     Includes: (Listing<String|Mapping>)?
@@ -112,6 +117,7 @@ open class PipelineStageDeclaration {
     Actions: Listing<PipelineActionDeclaration>
     Blockers: (Listing<PipelineBlockerDeclaration>)?
     Name: String|Mapping
+    OnFailure: (PipelineFailureConditions)?
 }
 
 /// 

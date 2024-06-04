@@ -17,8 +17,11 @@ open class IdentitySourceCognitoUserPoolConfiguration {
     UserPoolArn: String(matches(Regex(#"^arn:[a-zA-Z0-9-]+:cognito-idp:(([a-zA-Z0-9-]+:\d{12}:userpool/[\w-]+_[0-9a-zA-Z]+))$"#)))|Mapping
 }
 
+typealias IdentitySourceIdentitySourceConfiguration = IdentitySourceIdentitySourceConfigurationCognitoUserPoolConfiguration
+
+
 /// 
-open class IdentitySourceIdentitySourceConfiguration {
+open class IdentitySourceIdentitySourceConfigurationCognitoUserPoolConfiguration {
     CognitoUserPoolConfiguration: IdentitySourceCognitoUserPoolConfiguration
 }
 

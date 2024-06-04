@@ -5,6 +5,12 @@ module aws.chatbot.microsoftteamschannelconfiguration
 
 import "../../cloudformation.pkl"
 
+/// 
+open class MicrosoftTeamsChannelConfigurationTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// Resource schema for AWS::Chatbot::MicrosoftTeamsChannelConfiguration.
 open class MicrosoftTeamsChannelConfiguration extends cloudformation.Resource {
 
@@ -26,6 +32,9 @@ open class MicrosoftTeamsChannelConfiguration extends cloudformation.Resource {
     /// ARNs of SNS topics which delivers notifications to AWS Chatbot, for example CloudWatch alarm notifications.
     hidden SnsTopicArns: (Listing<String|Mapping>)?
 
+    /// The tags to add to the configuration
+    hidden Tags: (Listing<MicrosoftTeamsChannelConfigurationTag>)?
+
     /// The id of the Microsoft Teams team
     hidden TeamId: String(matches(Regex(#"^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$"#)))|Mapping
 
@@ -44,6 +53,7 @@ open class MicrosoftTeamsChannelConfiguration extends cloudformation.Resource {
         ["IamRoleArn"] = if (IamRoleArn == null) null else IamRoleArn
         ["LoggingLevel"] = if (LoggingLevel == null) null else LoggingLevel
         ["SnsTopicArns"] = if (SnsTopicArns == null) null else SnsTopicArns
+        ["Tags"] = if (Tags == null) null else Tags
         ["TeamId"] = if (TeamId == null) null else TeamId
         ["TeamsChannelId"] = if (TeamsChannelId == null) null else TeamsChannelId
         ["TeamsTenantId"] = if (TeamsTenantId == null) null else TeamsTenantId

@@ -29,6 +29,12 @@ open class BudgetsActionIamActionDefinition {
 }
 
 /// 
+open class BudgetsActionResourceTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
+/// 
 open class BudgetsActionScpActionDefinition {
     PolicyId: String|Mapping
     TargetIds: Listing<String|Mapping>
@@ -79,6 +85,9 @@ open class BudgetsAction extends cloudformation.Resource {
     hidden NotificationType: BudgetsActionNotificationType|Mapping
 
     /// 
+    hidden ResourceTags: (Listing<BudgetsActionResourceTag>)?
+
+    /// 
     hidden Subscribers: Listing<BudgetsActionSubscriber>
 
     Properties {
@@ -89,6 +98,7 @@ open class BudgetsAction extends cloudformation.Resource {
         ["Definition"] = if (Definition == null) null else Definition
         ["ExecutionRoleArn"] = if (ExecutionRoleArn == null) null else ExecutionRoleArn
         ["NotificationType"] = if (NotificationType == null) null else NotificationType
+        ["ResourceTags"] = if (ResourceTags == null) null else ResourceTags
         ["Subscribers"] = if (Subscribers == null) null else Subscribers
     }
 

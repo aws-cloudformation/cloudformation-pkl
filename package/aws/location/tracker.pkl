@@ -47,7 +47,7 @@ open class Tracker extends cloudformation.Resource {
     /// 
     hidden PricingPlan: (TrackerPricingPlan)?
 
-    /// 
+    /// This shape is deprecated since 2022-02-01: Deprecated. No longer allowed.
     hidden PricingPlanDataSource: (String|Mapping)?
 
     /// An array of key-value pairs to apply to this resource.

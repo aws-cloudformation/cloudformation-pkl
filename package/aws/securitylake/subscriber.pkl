@@ -22,17 +22,10 @@ open class SubscriberCustomLogSource {
     SourceVersion: (String(matches(Regex(#"^[A-Za-z0-9\-\.\_]*$"#)))|Mapping)?
 }
 
-typealias SubscriberSource = SubscriberSource0|SubscriberSource1
-
-
 /// 
-open class SubscriberSource0 {
-    AwsLogSource: SubscriberAwsLogSource
-}
-
-/// 
-open class SubscriberSource1 {
-    CustomLogSource: SubscriberCustomLogSource
+open class SubscriberSource {
+    AwsLogSource: (SubscriberAwsLogSource)?
+    CustomLogSource: (SubscriberCustomLogSource)?
 }
 
 /// 

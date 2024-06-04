@@ -11,6 +11,8 @@ typealias FirewallRuleBlockOverrideDnsType = "CNAME"
 
 typealias FirewallRuleBlockResponse = "NODATA"|"NXDOMAIN"|"OVERRIDE"
 
+typealias FirewallRuleFirewallDomainRedirectionAction = "INSPECT_REDIRECTION_DOMAIN"|"TRUST_REDIRECTION_DOMAIN"
+
 /// Firewall Rule associating the Rule Group to a Domain List
 open class FirewallRuleGroupFirewallRule {
     Action: FirewallRuleAction|Mapping
@@ -19,6 +21,7 @@ open class FirewallRuleGroupFirewallRule {
     BlockOverrideTtl: (Int|Mapping)?
     BlockResponse: (FirewallRuleBlockResponse|Mapping)?
     FirewallDomainListId: String|Mapping
+    FirewallDomainRedirectionAction: (FirewallRuleFirewallDomainRedirectionAction|Mapping)?
     Priority: Int|Mapping
     Qtype: (String|Mapping)?
 }

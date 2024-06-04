@@ -5,6 +5,9 @@ module aws.mediapackagev2.originendpoint
 
 import "../../cloudformation.pkl"
 
+typealias OriginEndpointAdMarkerDash = String|Mapping
+
+
 typealias OriginEndpointAdMarkerHls = String|Mapping
 
 
@@ -12,6 +15,39 @@ typealias OriginEndpointCmafEncryptionMethod = String|Mapping
 
 
 typealias OriginEndpointContainerType = String|Mapping
+
+
+typealias OriginEndpointDashDrmSignaling = String|Mapping
+
+
+/// <p>Retrieve the DASH manifest configuration.</p>
+open class OriginEndpointDashManifestConfiguration {
+    DrmSignaling: (OriginEndpointDashDrmSignaling)?
+    FilterConfiguration: (OriginEndpointFilterConfiguration)?
+    ManifestName: String(matches(Regex(#"^[a-zA-Z0-9_-]+$"#)))|Mapping
+    ManifestWindowSeconds: (Int|Mapping)?
+    MinBufferTimeSeconds: (Int|Mapping)?
+    MinUpdatePeriodSeconds: (Int|Mapping)?
+    PeriodTriggers: (Listing<OriginEndpointDashPeriodTrigger>)?
+    ScteDash: (OriginEndpointScteDash)?
+    SegmentTemplateFormat: (OriginEndpointDashSegmentTemplateFormat)?
+    SuggestedPresentationDelaySeconds: (Int|Mapping)?
+    UtcTiming: (OriginEndpointDashUtcTiming)?
+}
+
+typealias OriginEndpointDashPeriodTrigger = String|Mapping
+
+
+typealias OriginEndpointDashSegmentTemplateFormat = String|Mapping
+
+
+/// <p>Determines the type of UTC timing included in the DASH Media Presentation Description (MPD).</p>
+open class OriginEndpointDashUtcTiming {
+    TimingMode: (OriginEndpointDashUtcTimingMode)?
+    TimingSource: (String|Mapping)?
+}
+
+typealias OriginEndpointDashUtcTimingMode = String|Mapping
 
 
 typealias OriginEndpointDrmSystem = String|Mapping
@@ -78,6 +114,11 @@ open class OriginEndpointScte {
     ScteFilter: (Listing<OriginEndpointScteFilter>)?
 }
 
+/// <p>The SCTE configuration.</p>
+open class OriginEndpointScteDash {
+    AdMarkerDash: (OriginEndpointAdMarkerDash)?
+}
+
 typealias OriginEndpointScteFilter = String|Mapping
 
 
@@ -130,6 +171,9 @@ open class OriginEndpoint extends cloudformation.Resource {
     /// 
     hidden ContainerType: (OriginEndpointContainerType)?
 
+    /// <p>A DASH manifest configuration.</p>
+    hidden DashManifests: (Listing<OriginEndpointDashManifestConfiguration>)?
+
     /// <p>Enter any descriptive text that helps you to identify the origin endpoint.</p>
     hidden Description: (String|Mapping)?
 
@@ -155,6 +199,7 @@ open class OriginEndpoint extends cloudformation.Resource {
         ["ChannelGroupName"] = if (ChannelGroupName == null) null else ChannelGroupName
         ["ChannelName"] = if (ChannelName == null) null else ChannelName
         ["ContainerType"] = if (ContainerType == null) null else ContainerType
+        ["DashManifests"] = if (DashManifests == null) null else DashManifests
         ["Description"] = if (Description == null) null else Description
         ["HlsManifests"] = if (HlsManifests == null) null else HlsManifests
         ["LowLatencyHlsManifests"] = if (LowLatencyHlsManifests == null) null else LowLatencyHlsManifests

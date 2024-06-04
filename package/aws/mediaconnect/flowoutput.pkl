@@ -5,6 +5,21 @@ module aws.mediaconnect.flowoutput
 
 import "../../cloudformation.pkl"
 
+/// The definition of a media stream that is associated with the output.
+open class FlowOutputDestinationConfiguration {
+    DestinationIp: String|Mapping
+    DestinationPort: Int|Mapping
+    Interface: FlowOutputInterface
+}
+
+typealias EncodingParametersEncoderProfile = "main"|"high"
+
+/// A collection of parameters that determine how MediaConnect will convert the content. These fields only apply to outputs on flows that have a CDI source.
+open class FlowOutputEncodingParameters {
+    CompressionFactor: Number|Mapping
+    EncoderProfile: (EncodingParametersEncoderProfile|Mapping)?
+}
+
 typealias EncryptionAlgorithm = "aes128"|"aes192"|"aes256"
 
 typealias EncryptionKeyType = "static-key"|"srt-password"
@@ -15,6 +30,21 @@ open class FlowOutputEncryption {
     KeyType: (EncryptionKeyType|Mapping)?
     RoleArn: String|Mapping
     SecretArn: String|Mapping
+}
+
+/// The VPC interface that you want to use for the media stream associated with the output.
+open class FlowOutputInterface {
+    Name: String|Mapping
+}
+
+typealias MediaStreamOutputConfigurationEncodingName = "jxsv"|"raw"|"smpte291"|"pcm"
+
+/// The media stream that is associated with the output, and the parameters for that association.
+open class FlowOutputMediaStreamOutputConfiguration {
+    DestinationConfigurations: (Listing<FlowOutputDestinationConfiguration>)?
+    EncodingName: MediaStreamOutputConfigurationEncodingName|Mapping
+    EncodingParameters: (FlowOutputEncodingParameters)?
+    MediaStreamName: String|Mapping
 }
 
 /// The settings for attaching a VPC interface to an output.
@@ -45,6 +75,9 @@ open class FlowOutput extends cloudformation.Resource {
 
     /// The maximum latency in milliseconds. This parameter applies only to RIST-based and Zixi-based streams.
     hidden MaxLatency: (Int|Mapping)?
+
+    /// The definition for each media stream that is associated with the output.
+    hidden MediaStreamOutputConfigurations: (Listing<FlowOutputMediaStreamOutputConfiguration>)?
 
     /// The minimum latency in milliseconds.
     hidden MinLatency: (Int|Mapping)?
@@ -77,6 +110,7 @@ open class FlowOutput extends cloudformation.Resource {
         ["Encryption"] = if (Encryption == null) null else Encryption
         ["FlowArn"] = if (FlowArn == null) null else FlowArn
         ["MaxLatency"] = if (MaxLatency == null) null else MaxLatency
+        ["MediaStreamOutputConfigurations"] = if (MediaStreamOutputConfigurations == null) null else MediaStreamOutputConfigurations
         ["MinLatency"] = if (MinLatency == null) null else MinLatency
         ["Name"] = if (Name == null) null else Name
         ["Port"] = if (Port == null) null else Port
@@ -90,4 +124,4 @@ open class FlowOutput extends cloudformation.Resource {
 }
 
 
-typealias FlowOutputProtocol = "zixi-push"|"rtp-fec"|"rtp"|"zixi-pull"|"rist"|"fujitsu-qos"|"srt-listener"|"srt-caller"
+typealias FlowOutputProtocol = "zixi-push"|"rtp-fec"|"rtp"|"zixi-pull"|"rist"|"fujitsu-qos"|"srt-listener"|"srt-caller"|"st2110-jpegxs"|"cdi"

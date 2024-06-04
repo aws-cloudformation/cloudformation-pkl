@@ -5,6 +5,12 @@ module aws.eks.addon
 
 import "../../cloudformation.pkl"
 
+/// A pod identity to associate with an add-on.
+open class AddonPodIdentityAssociation {
+    RoleArn: String(matches(Regex(#"^arn:aws(-cn|-us-gov|-iso(-[a-z])?)?:iam::\d{12}:(role)\/*"#)))|Mapping
+    ServiceAccount: String|Mapping
+}
+
 /// A key-value pair to associate with a resource.
 open class AddonTag {
     Key: String|Mapping
@@ -29,6 +35,9 @@ open class Addon extends cloudformation.Resource {
     /// The configuration values to use with the add-on
     hidden ConfigurationValues: (String|Mapping)?
 
+    /// An array of pod identities to apply to this add-on.
+    hidden PodIdentityAssociations: (Listing<AddonPodIdentityAssociation>)?
+
     /// PreserveOnDelete parameter value
     hidden PreserveOnDelete: (Boolean|Mapping)?
 
@@ -46,6 +55,7 @@ open class Addon extends cloudformation.Resource {
         ["AddonVersion"] = if (AddonVersion == null) null else AddonVersion
         ["ClusterName"] = if (ClusterName == null) null else ClusterName
         ["ConfigurationValues"] = if (ConfigurationValues == null) null else ConfigurationValues
+        ["PodIdentityAssociations"] = if (PodIdentityAssociations == null) null else PodIdentityAssociations
         ["PreserveOnDelete"] = if (PreserveOnDelete == null) null else PreserveOnDelete
         ["ResolveConflicts"] = if (ResolveConflicts == null) null else ResolveConflicts
         ["ServiceAccountRoleArn"] = if (ServiceAccountRoleArn == null) null else ServiceAccountRoleArn
