@@ -63,6 +63,18 @@ open class Output {
     Export: Export?
 }
 
+function Base64(valueToEncode: RefString): Mapping = new Mapping {
+    ["Fn::Base64"] = valueToEncode
+}
+
+function Cidr(ipBlock: RefString, count: RefString, cidrBits: RefString): Mapping = new Mapping {
+    ["Fn::Cidr"] = new Listing {
+        ipBlock
+        count
+        cidrBits
+    }
+}
+
 function Ref(to: String): Mapping = new Mapping {
     ["Ref"] = to
 }
@@ -104,10 +116,28 @@ function GetAZs(region: String): Mapping = new Mapping {
     ["Fn::GetAZs"] = region
 }
 
+function ImportValue(sharedValueToImport: RefString): Mapping = new Mapping {
+    ["Fn::ImportValue"] = sharedValueToImport
+}
+
+function Join(delimiter: RefString, list: Mapping): Mapping = new Mapping {
+    ["Fn::Join"] = new Listing {
+        index
+        list
+    }
+}
+
 function Select(index: Int, list: Mapping): Mapping = new Mapping {
     ["Fn::Select"] = new Listing {
         index
         list
+    }
+}
+
+function Split(delimiter: RefString, sourceString: RefString): Mapping = new Mapping {
+    ["Fn::Split"] = new Listing {
+        delimiter
+        sourceString
     }
 }
 
