@@ -120,14 +120,14 @@ function ImportValue(sharedValueToImport: RefString): Mapping = new Mapping {
     ["Fn::ImportValue"] = sharedValueToImport
 }
 
-function Join(delimiter: RefString, list: Mapping): Mapping = new Mapping {
+function Join(delimiter: RefString, list: Listing): Mapping = new Mapping {
     ["Fn::Join"] = new Listing {
-        index
+        delimiter
         list
     }
 }
 
-function Select(index: Int, list: Mapping): Mapping = new Mapping {
+function Select(index: Int, list: Listing): Mapping = new Mapping {
     ["Fn::Select"] = new Listing {
         index
         list
