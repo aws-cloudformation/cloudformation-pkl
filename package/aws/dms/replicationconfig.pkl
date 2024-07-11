@@ -35,9 +35,6 @@ open class ReplicationConfig extends cloudformation.Resource {
     /// 
     hidden ComputeConfig: (ReplicationConfigComputeConfig)?
 
-    /// The Amazon Resource Name (ARN) of the Replication Config
-    hidden ReplicationConfigArn: (String|Mapping)?
-
     /// A unique identifier of replication configuration
     hidden ReplicationConfigIdentifier: (String|Mapping)?
 
@@ -67,7 +64,6 @@ open class ReplicationConfig extends cloudformation.Resource {
 
     Properties {
         ["ComputeConfig"] = if (ComputeConfig == null) null else ComputeConfig
-        ["ReplicationConfigArn"] = if (ReplicationConfigArn == null) null else ReplicationConfigArn
         ["ReplicationConfigIdentifier"] = if (ReplicationConfigIdentifier == null) null else ReplicationConfigIdentifier
         ["ReplicationSettings"] = if (ReplicationSettings == null) null else ReplicationSettings
         ["ReplicationType"] = if (ReplicationType == null) null else ReplicationType

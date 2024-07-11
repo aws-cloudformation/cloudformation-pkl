@@ -5,7 +5,7 @@ module aws.codepipeline.pipeline
 
 import "../../cloudformation.pkl"
 
-/// 
+/// Represents information about an action declaration.
 open class PipelineActionDeclaration {
     ActionTypeId: PipelineActionTypeId
     Configuration: (Dynamic)?
@@ -14,171 +14,181 @@ open class PipelineActionDeclaration {
     Namespace: (String|Mapping)?
     OutputArtifacts: (Listing<PipelineOutputArtifact>)?
     Region: (String|Mapping)?
-    RoleArn: (String|Mapping)?
+    RoleArn: (String(matches(Regex(#"arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*"#)))|Mapping)?
     RunOrder: (Int|Mapping)?
     TimeoutInMinutes: (Int|Mapping)?
 }
 
-/// 
+typealias ActionTypeIdCategory = "Source"|"Build"|"Test"|"Deploy"|"Invoke"|"Approval"
+
+/// Represents information about an action type.
 open class PipelineActionTypeId {
-    Category: String|Mapping
+    Category: ActionTypeIdCategory|Mapping
     Owner: String|Mapping
     Provider: String|Mapping
     Version: String|Mapping
 }
 
-/// 
+typealias ArtifactStoreType = "S3"
+
+/// The S3 bucket where artifacts for the pipeline are stored.
 open class PipelineArtifactStore {
     EncryptionKey: (PipelineEncryptionKey)?
     Location: String|Mapping
-    Type: String|Mapping
+    Type: ArtifactStoreType|Mapping
 }
 
-/// 
+/// A mapping of artifactStore objects and their corresponding AWS Regions. There must be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
 open class PipelineArtifactStoreMap {
     ArtifactStore: PipelineArtifactStore
     Region: String|Mapping
 }
 
-/// 
+typealias BlockerDeclarationType = "Schedule"
+
+/// Reserved for future use.
 open class PipelineBlockerDeclaration {
     Name: String|Mapping
-    Type: String|Mapping
+    Type: BlockerDeclarationType|Mapping
 }
 
-/// 
+/// Represents information about the key used to encrypt data in the artifact store, such as an AWS Key Management Service (AWS KMS) key
 open class PipelineEncryptionKey {
     Id: String|Mapping
     Type: String|Mapping
 }
 
-/// 
+typealias FailureConditionsResult = "ROLLBACK"
+
+/// The configuration that specifies the result, such as rollback, to occur upon stage failure
 open class PipelineFailureConditions {
-    Result: String|Mapping
+    Result: (FailureConditionsResult|Mapping)?
 }
 
-/// 
+/// The Git repository branches specified as filter criteria to start the pipeline.
 open class PipelineGitBranchFilterCriteria {
     Excludes: (Listing<String|Mapping>)?
     Includes: (Listing<String|Mapping>)?
 }
 
-/// 
+/// A type of trigger configuration for Git-based source actions.
 open class PipelineGitConfiguration {
     PullRequest: (Listing<PipelineGitPullRequestFilter>)?
     Push: (Listing<PipelineGitPushFilter>)?
     SourceActionName: String|Mapping
 }
 
-/// 
+/// The Git repository file paths specified as filter criteria to start the pipeline.
 open class PipelineGitFilePathFilterCriteria {
     Excludes: (Listing<String|Mapping>)?
     Includes: (Listing<String|Mapping>)?
 }
 
-/// 
+/// The event criteria for the pull request trigger configuration, such as the lists of branches or file paths to include and exclude.
 open class PipelineGitPullRequestFilter {
     Branches: (PipelineGitBranchFilterCriteria)?
     Events: (Listing<String|Mapping>)?
     FilePaths: (PipelineGitFilePathFilterCriteria)?
 }
 
-/// 
+/// The event criteria that specify when a specified repository event will start the pipeline for the specified trigger configuration, such as the lists of Git tags to include and exclude.
 open class PipelineGitPushFilter {
     Branches: (PipelineGitBranchFilterCriteria)?
     FilePaths: (PipelineGitFilePathFilterCriteria)?
     Tags: (PipelineGitTagFilterCriteria)?
 }
 
-/// 
+/// The Git tags specified as filter criteria for whether a Git tag repository event will start the pipeline.
 open class PipelineGitTagFilterCriteria {
     Excludes: (Listing<String|Mapping>)?
     Includes: (Listing<String|Mapping>)?
 }
 
-/// 
+/// Represents information about an artifact to be worked on, such as a test or build artifact.
 open class PipelineInputArtifact {
     Name: String|Mapping
 }
 
-/// 
+/// Represents information about the output of an action.
 open class PipelineOutputArtifact {
     Name: String|Mapping
 }
 
-/// 
+typealias PipelineTriggerDeclarationProviderType = "CodeStarSourceConnection"
+
+/// Represents information about the specified trigger configuration, such as the filter criteria and the source stage for the action that contains the trigger.
 open class PipelinePipelineTriggerDeclaration {
     GitConfiguration: (PipelineGitConfiguration)?
-    ProviderType: String|Mapping
+    ProviderType: PipelineTriggerDeclarationProviderType|Mapping
 }
 
-/// 
+/// Represents information about a stage and its definition.
 open class PipelineStageDeclaration {
     Actions: Listing<PipelineActionDeclaration>
     Blockers: (Listing<PipelineBlockerDeclaration>)?
     Name: String|Mapping
-    OnFailure: (PipelineFailureConditions)?
+    OnFailure: (Dynamic)?
 }
 
-/// 
+/// The name of the pipeline in which you want to disable the flow of artifacts from one stage to another.
 open class PipelineStageTransition {
     Reason: String|Mapping
     StageName: String|Mapping
 }
 
-/// 
+/// A tag is a key-value pair that is used to manage the resource.
 open class PipelineTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// 
+/// A variable declared at the pipeline level.
 open class PipelineVariableDeclaration {
     DefaultValue: (String|Mapping)?
     Description: (String|Mapping)?
     Name: String|Mapping
 }
 
-/// Resource Type definition for AWS::CodePipeline::Pipeline
+/// The AWS::CodePipeline::Pipeline resource creates a CodePipeline pipeline that describes how software changes go through a release process.
 open class Pipeline extends cloudformation.Resource {
 
     Type = "AWS::CodePipeline::Pipeline"
 
 
-    /// 
+    /// The S3 bucket where artifacts for the pipeline are stored.
     hidden ArtifactStore: (PipelineArtifactStore)?
 
-    /// 
+    /// A mapping of artifactStore objects and their corresponding AWS Regions. There must be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
     hidden ArtifactStores: (Listing<PipelineArtifactStoreMap>)?
 
-    /// 
+    /// Represents the input of a DisableStageTransition action.
     hidden DisableInboundStageTransitions: (Listing<PipelineStageTransition>)?
 
-    /// 
-    hidden ExecutionMode: (String|Mapping)?
+    /// The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+    hidden ExecutionMode: (PipelineExecutionMode|Mapping)?
 
-    /// 
+    /// The name of the pipeline.
     hidden Name: (String|Mapping)?
 
-    /// 
-    hidden PipelineType: (String|Mapping)?
+    /// CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can tailor your pipeline features and cost to the needs of your applications.
+    hidden PipelineType: (PipelinePipelineType|Mapping)?
 
-    /// 
+    /// Indicates whether to rerun the CodePipeline pipeline after you update it.
     hidden RestartExecutionOnUpdate: (Boolean|Mapping)?
 
-    /// 
-    hidden RoleArn: String|Mapping
+    /// The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no actionRoleArn, or to use to assume roles for actions with an actionRoleArn
+    hidden RoleArn: String(matches(Regex(#"arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*"#)))|Mapping
 
-    /// 
+    /// Represents information about a stage and its definition.
     hidden Stages: Listing<PipelineStageDeclaration>
 
-    /// 
+    /// Specifies the tags applied to the pipeline.
     hidden Tags: (Listing<PipelineTag>)?
 
-    /// 
+    /// The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
     hidden Triggers: (Listing<PipelinePipelineTriggerDeclaration>)?
 
-    /// 
+    /// A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and underscore characters, and the values must match [A-Za-z0-9@\-_]+.
     hidden Variables: (Listing<PipelineVariableDeclaration>)?
 
     Properties {
@@ -197,3 +207,8 @@ open class Pipeline extends cloudformation.Resource {
     }
 
 }
+
+
+typealias PipelineExecutionMode = "QUEUED"|"SUPERSEDED"|"PARALLEL"
+
+typealias PipelinePipelineType = "V1"|"V2"

@@ -17,6 +17,7 @@ open class ApplicationApplicationCodeConfiguration {
 open class ApplicationApplicationConfiguration {
     ApplicationCodeConfiguration: (ApplicationApplicationCodeConfiguration)?
     ApplicationSnapshotConfiguration: (ApplicationApplicationSnapshotConfiguration)?
+    ApplicationSystemRollbackConfiguration: (ApplicationApplicationSystemRollbackConfiguration)?
     EnvironmentProperties: (ApplicationEnvironmentProperties)?
     FlinkApplicationConfiguration: (ApplicationFlinkApplicationConfiguration)?
     SqlApplicationConfiguration: (ApplicationSqlApplicationConfiguration)?
@@ -40,6 +41,11 @@ open class ApplicationApplicationRestoreConfiguration {
 /// Describes whether snapshots are enabled for a Flink-based Kinesis Data Analytics application.
 open class ApplicationApplicationSnapshotConfiguration {
     SnapshotsEnabled: Boolean|Mapping
+}
+
+/// Describes whether system initiated rollbacks are enabled for a Flink-based Kinesis Data Analytics application.
+open class ApplicationApplicationSystemRollbackConfiguration {
+    RollbackEnabled: Boolean|Mapping
 }
 
 typealias ApplicationArn = String|Mapping

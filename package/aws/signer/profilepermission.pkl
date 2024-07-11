@@ -18,7 +18,7 @@ open class ProfilePermission extends cloudformation.Resource {
     hidden Principal: String|Mapping
 
     /// 
-    hidden ProfileName: String|Mapping
+    hidden ProfileName: String(matches(Regex(#"^[0-9a-zA-Z_]{2,64}$"#)))|Mapping
 
     /// 
     hidden ProfileVersion: (String(matches(Regex(#"^[0-9a-zA-Z]{10}$"#)))|Mapping)?

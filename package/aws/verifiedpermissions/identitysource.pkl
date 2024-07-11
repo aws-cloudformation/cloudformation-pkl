@@ -17,7 +17,7 @@ open class IdentitySourceCognitoUserPoolConfiguration {
     UserPoolArn: String(matches(Regex(#"^arn:[a-zA-Z0-9-]+:cognito-idp:(([a-zA-Z0-9-]+:\d{12}:userpool/[\w-]+_[0-9a-zA-Z]+))$"#)))|Mapping
 }
 
-typealias IdentitySourceIdentitySourceConfiguration = IdentitySourceIdentitySourceConfigurationCognitoUserPoolConfiguration
+typealias IdentitySourceIdentitySourceConfiguration = IdentitySourceIdentitySourceConfigurationCognitoUserPoolConfiguration|IdentitySourceIdentitySourceConfigurationOpenIdConnectConfiguration
 
 
 /// 
@@ -26,11 +26,55 @@ open class IdentitySourceIdentitySourceConfigurationCognitoUserPoolConfiguration
 }
 
 /// 
+open class IdentitySourceIdentitySourceConfigurationOpenIdConnectConfiguration {
+    OpenIdConnectConfiguration: IdentitySourceOpenIdConnectConfiguration
+}
+
+/// 
 open class IdentitySourceIdentitySourceDetails {
     ClientIds: (Listing<String|Mapping>)?
     DiscoveryUrl: (String(matches(Regex(#"^https://.*$"#)))|Mapping)?
     OpenIdIssuer: (IdentitySourceOpenIdIssuer)?
     UserPoolArn: (String(matches(Regex(#"^arn:[a-zA-Z0-9-]+:cognito-idp:(([a-zA-Z0-9-]+:\d{12}:userpool/[\w-]+_[0-9a-zA-Z]+))$"#)))|Mapping)?
+}
+
+/// 
+open class IdentitySourceOpenIdConnectAccessTokenConfiguration {
+    Audiences: (Listing<String|Mapping>)?
+    PrincipalIdClaim: (String|Mapping)?
+}
+
+/// 
+open class IdentitySourceOpenIdConnectConfiguration {
+    EntityIdPrefix: (String|Mapping)?
+    GroupConfiguration: (IdentitySourceOpenIdConnectGroupConfiguration)?
+    Issuer: String(matches(Regex(#"^https://.*$"#)))|Mapping
+    TokenSelection: IdentitySourceOpenIdConnectTokenSelection
+}
+
+/// 
+open class IdentitySourceOpenIdConnectGroupConfiguration {
+    GroupClaim: String|Mapping
+    GroupEntityType: String(matches(Regex(#"^([_a-zA-Z][_a-zA-Z0-9]*::)*[_a-zA-Z][_a-zA-Z0-9]*$"#)))|Mapping
+}
+
+/// 
+open class IdentitySourceOpenIdConnectIdentityTokenConfiguration {
+    ClientIds: (Listing<String|Mapping>)?
+    PrincipalIdClaim: (String|Mapping)?
+}
+
+typealias IdentitySourceOpenIdConnectTokenSelection = IdentitySourceOpenIdConnectTokenSelectionAccessTokenOnly|IdentitySourceOpenIdConnectTokenSelectionIdentityTokenOnly
+
+
+/// 
+open class IdentitySourceOpenIdConnectTokenSelectionAccessTokenOnly {
+    AccessTokenOnly: IdentitySourceOpenIdConnectAccessTokenConfiguration
+}
+
+/// 
+open class IdentitySourceOpenIdConnectTokenSelectionIdentityTokenOnly {
+    IdentityTokenOnly: IdentitySourceOpenIdConnectIdentityTokenConfiguration
 }
 
 typealias IdentitySourceOpenIdIssuer = String|Mapping

@@ -47,13 +47,13 @@ open class Filter extends cloudformation.Resource {
     hidden Description: (String|Mapping)?
 
     /// 
-    hidden DetectorId: (String|Mapping)?
+    hidden DetectorId: String|Mapping
 
     /// 
     hidden FindingCriteria: FilterFindingCriteria
 
     /// 
-    hidden Name: (String|Mapping)?
+    hidden Name: String|Mapping
 
     /// 
     hidden Rank: (Int|Mapping)?

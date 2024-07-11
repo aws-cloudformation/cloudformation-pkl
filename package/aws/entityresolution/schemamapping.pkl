@@ -20,6 +20,9 @@ typealias SchemaMappingEntityName = String|Mapping
 typealias SchemaMappingHasWorkflows = Boolean|Mapping
 
 
+typealias SchemaMappingHashed = Boolean|Mapping
+
+
 typealias SchemaMappingMappedInputFields = Listing<(SchemaMappingSchemaInputAttribute)?>
 
 
@@ -30,6 +33,7 @@ typealias SchemaMappingSchemaAttributeType = String|Mapping
 open class SchemaMappingSchemaInputAttribute {
     FieldName: SchemaMappingAttributeName
     GroupName: (SchemaMappingAttributeName)?
+    Hashed: (SchemaMappingHashed)?
     MatchKey: (SchemaMappingAttributeName)?
     SubType: (String|Mapping)?
     Type: SchemaMappingSchemaAttributeType

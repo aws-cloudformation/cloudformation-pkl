@@ -70,7 +70,7 @@ open class Broker extends cloudformation.Resource {
     hidden AuthenticationStrategy: (String|Mapping)?
 
     /// 
-    hidden AutoMinorVersionUpgrade: Boolean|Mapping
+    hidden AutoMinorVersionUpgrade: (Boolean|Mapping)?
 
     /// 
     hidden BrokerName: String|Mapping
@@ -94,7 +94,7 @@ open class Broker extends cloudformation.Resource {
     hidden EngineType: String|Mapping
 
     /// 
-    hidden EngineVersion: String|Mapping
+    hidden EngineVersion: (String|Mapping)?
 
     /// 
     hidden HostInstanceType: String|Mapping

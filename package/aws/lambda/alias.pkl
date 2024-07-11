@@ -5,17 +5,17 @@ module aws.lambda.alias
 
 import "../../cloudformation.pkl"
 
-/// 
+/// The traffic-shifting configuration of a Lambda function alias.
 open class AliasAliasRoutingConfiguration {
-    AdditionalVersionWeights: Listing<AliasVersionWeight>
+    AdditionalVersionWeights: (Listing<AliasVersionWeight>)?
 }
 
-/// 
+/// A provisioned concurrency configuration for a function's alias.
 open class AliasProvisionedConcurrencyConfiguration {
     ProvisionedConcurrentExecutions: Int|Mapping
 }
 
-/// 
+/// The traffic-shifting configuration of a Lambda function alias.
 open class AliasVersionWeight {
     FunctionVersion: String|Mapping
     FunctionWeight: Number|Mapping
@@ -27,22 +27,22 @@ open class Alias extends cloudformation.Resource {
     Type = "AWS::Lambda::Alias"
 
 
-    /// 
+    /// A description of the alias.
     hidden Description: (String|Mapping)?
 
-    /// 
+    /// The name of the Lambda function.
     hidden FunctionName: String|Mapping
 
-    /// 
+    /// The function version that the alias invokes.
     hidden FunctionVersion: String|Mapping
 
-    /// 
+    /// The name of the alias.
     hidden Name: String|Mapping
 
-    /// 
+    /// Specifies a provisioned concurrency configuration for a function's alias.
     hidden ProvisionedConcurrencyConfig: (AliasProvisionedConcurrencyConfiguration)?
 
-    /// 
+    /// The routing configuration of the alias.
     hidden RoutingConfig: (AliasAliasRoutingConfiguration)?
 
     Properties {

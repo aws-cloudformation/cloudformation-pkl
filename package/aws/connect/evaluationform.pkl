@@ -5,23 +5,23 @@ module aws.connect.evaluationform
 
 import "../../cloudformation.pkl"
 
-/// The evaluation form base item.
+/// An item at the root level. All items must be sections.
 open class EvaluationFormEvaluationFormBaseItem {
     Section: EvaluationFormEvaluationFormSection
 }
 
-/// The evaluation form item.
+/// Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.
 open class EvaluationFormEvaluationFormItem {
     Question: (EvaluationFormEvaluationFormQuestion)?
     Section: (EvaluationFormEvaluationFormSection)?
 }
 
-/// The automation properties for the numeric question.
+/// Information about the automation configuration in numeric questions.
 open class EvaluationFormEvaluationFormNumericQuestionAutomation {
     PropertyValue: EvaluationFormNumericQuestionPropertyValueAutomation
 }
 
-/// The option ranges used for scoring in numeric questions.
+/// Information about the option range used for scoring in numeric questions.
 open class EvaluationFormEvaluationFormNumericQuestionOption {
     AutomaticFail: (Boolean|Mapping)?
     MaxValue: Int|Mapping
@@ -29,7 +29,7 @@ open class EvaluationFormEvaluationFormNumericQuestionOption {
     Score: (EvaluationFormScore)?
 }
 
-/// The properties of the numeric question.
+/// Information about properties for a numeric question in an evaluation form.
 open class EvaluationFormEvaluationFormNumericQuestionProperties {
     Automation: (EvaluationFormEvaluationFormNumericQuestionAutomation)?
     MaxValue: Int|Mapping
@@ -39,7 +39,7 @@ open class EvaluationFormEvaluationFormNumericQuestionProperties {
 
 typealias EvaluationFormQuestionQuestionType = "NUMERIC"|"SINGLESELECT"|"TEXT"
 
-/// The evaluation form question.
+/// Information about a question from an evaluation form.
 open class EvaluationFormEvaluationFormQuestion {
     Instructions: (String|Mapping)?
     NotApplicableEnabled: (Boolean|Mapping)?
@@ -50,13 +50,13 @@ open class EvaluationFormEvaluationFormQuestion {
     Weight: (EvaluationFormWeight)?
 }
 
-/// The properties of the question.
+/// Information about properties for a question in an evaluation form. The question type properties must be either for a numeric question or a single select question.
 open class EvaluationFormEvaluationFormQuestionTypeProperties {
     Numeric: (EvaluationFormEvaluationFormNumericQuestionProperties)?
     SingleSelect: (EvaluationFormEvaluationFormSingleSelectQuestionProperties)?
 }
 
-/// The evaluation form section.
+/// Information about a section from an evaluation form. A section can contain sections and/or questions. Evaluation forms can only contain sections and subsections (two level nesting).
 open class EvaluationFormEvaluationFormSection {
     Instructions: (String|Mapping)?
     Items: (Listing<EvaluationFormEvaluationFormItem>)?
@@ -65,18 +65,18 @@ open class EvaluationFormEvaluationFormSection {
     Weight: (EvaluationFormWeight)?
 }
 
-/// The automation properties for the single-select question.
+/// Information about the automation configuration in single select questions. Automation options are evaluated in order, and the first matched option is applied. If no automation option matches, and there is a default option, then the default option is applied.
 open class EvaluationFormEvaluationFormSingleSelectQuestionAutomation {
     DefaultOptionRefId: (EvaluationFormRefId)?
     Options: Listing<EvaluationFormEvaluationFormSingleSelectQuestionAutomationOption>
 }
 
-/// The automation option for the single-select question.
+/// The automation options of the single select question.
 open class EvaluationFormEvaluationFormSingleSelectQuestionAutomationOption {
     RuleCategory: EvaluationFormSingleSelectQuestionRuleCategoryAutomation
 }
 
-/// The option for a question.
+/// Information about the automation configuration in single select questions.
 open class EvaluationFormEvaluationFormSingleSelectQuestionOption {
     AutomaticFail: (Boolean|Mapping)?
     RefId: EvaluationFormRefId
@@ -86,7 +86,7 @@ open class EvaluationFormEvaluationFormSingleSelectQuestionOption {
 
 typealias EvaluationFormSingleSelectQuestionPropertiesDisplayAs = "DROPDOWN"|"RADIO"
 
-/// The properties of the single-select question.
+/// Information about the options in single select questions.
 open class EvaluationFormEvaluationFormSingleSelectQuestionProperties {
     Automation: (EvaluationFormEvaluationFormSingleSelectQuestionAutomation)?
     DisplayAs: (EvaluationFormSingleSelectQuestionPropertiesDisplayAs|Mapping)?
@@ -95,7 +95,7 @@ open class EvaluationFormEvaluationFormSingleSelectQuestionProperties {
 
 typealias NumericQuestionPropertyValueAutomationLabel = "OVERALL_CUSTOMER_SENTIMENT_SCORE"|"OVERALL_AGENT_SENTIMENT_SCORE"|"NON_TALK_TIME"|"NON_TALK_TIME_PERCENTAGE"|"NUMBER_OF_INTERRUPTIONS"|"CONTACT_DURATION"|"AGENT_INTERACTION_DURATION"|"CUSTOMER_HOLD_TIME"
 
-/// The automation property name of the question.
+/// Information about the property value used in automation of a numeric questions.
 open class EvaluationFormNumericQuestionPropertyValueAutomation {
     Label: NumericQuestionPropertyValueAutomationLabel|Mapping
 }
@@ -110,7 +110,7 @@ typealias ScoringStrategyMode = "QUESTION_ONLY"|"SECTION_ONLY"
 
 typealias ScoringStrategyStatus = "ENABLED"|"DISABLED"
 
-/// The scoring strategy.
+/// A scoring strategy of the evaluation form.
 open class EvaluationFormScoringStrategy {
     Mode: ScoringStrategyMode|Mapping
     Status: ScoringStrategyStatus|Mapping
@@ -118,7 +118,9 @@ open class EvaluationFormScoringStrategy {
 
 typealias SingleSelectQuestionRuleCategoryAutomationCondition = "PRESENT"|"NOT_PRESENT"
 
-/// The automation option based on Rules categories.
+/// Information about the automation option based on a rule category for a single select question.
+///
+///   *Length Constraints*: Minimum length of 1. Maximum length of 50.
 open class EvaluationFormSingleSelectQuestionRuleCategoryAutomation {
     Category: String|Mapping
     Condition: SingleSelectQuestionRuleCategoryAutomationCondition|Mapping
@@ -134,31 +136,38 @@ open class EvaluationFormTag {
 typealias EvaluationFormWeight = Number|Mapping
 
 
-/// Resource Type definition for AWS::Connect::EvaluationForm
+/// Creates an evaluation form for the specified CON instance.
 open class EvaluationForm extends cloudformation.Resource {
 
     Type = "AWS::Connect::EvaluationForm"
 
 
     /// The description of the evaluation form.
+    ///
+    ///   *Length Constraints*: Minimum length of 0. Maximum length of 1024.
     hidden Description: (String|Mapping)?
 
-    /// The Amazon Resource Name (ARN) of the instance.
+    /// The identifier of the Amazon Connect instance.
     hidden InstanceArn: String(matches(Regex(#"^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*$"#)))|Mapping
 
-    /// The list of evaluation form items.
+    /// Items that are part of the evaluation form. The total number of sections and questions must not exceed 100 each. Questions must be contained in a section.
+    ///
+    ///   *Minimum size*: 1
+    ///   *Maximum size*: 100
     hidden Items: Listing<EvaluationFormEvaluationFormBaseItem>
 
-    /// The scoring strategy.
+    /// A scoring strategy of the evaluation form.
     hidden ScoringStrategy: (EvaluationFormScoringStrategy)?
 
     /// The status of the evaluation form.
+    ///
+    ///   *Allowed values*: ``DRAFT`` | ``ACTIVE``
     hidden Status: EvaluationFormStatus|Mapping
 
-    /// One or more tags.
+    /// The tags used to organize, track, or control access for this resource. For example, { "tags": {"key1":"value1", "key2":"value2"} }.
     hidden Tags: (Listing<EvaluationFormTag>)?
 
-    /// The title of the evaluation form.
+    /// A title of the evaluation form.
     hidden Title: String|Mapping
 
     Properties {

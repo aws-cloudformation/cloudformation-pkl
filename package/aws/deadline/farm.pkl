@@ -5,6 +5,12 @@ module aws.deadline.farm
 
 import "../../cloudformation.pkl"
 
+/// A key-value pair to associate with a resource.
+open class FarmTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// Definition of AWS::Deadline::Farm Resource Type
 open class Farm extends cloudformation.Resource {
 
@@ -20,10 +26,14 @@ open class Farm extends cloudformation.Resource {
     /// 
     hidden KmsKeyArn: (String(matches(Regex(#"^arn:aws[-a-z]*:kms:.*:key/.*"#)))|Mapping)?
 
+    /// An array of key-value pairs to apply to this resource.
+    hidden Tags: (Listing<FarmTag>)?
+
     Properties {
         ["Description"] = if (Description == null) null else Description
         ["DisplayName"] = if (DisplayName == null) null else DisplayName
         ["KmsKeyArn"] = if (KmsKeyArn == null) null else KmsKeyArn
+        ["Tags"] = if (Tags == null) null else Tags
     }
 
 }

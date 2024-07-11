@@ -11,6 +11,9 @@ typealias SigningProfileArn = String|Mapping
 typealias SigningProfilePlatformId = String|Mapping
 
 
+typealias SigningProfileProfileName = String|Mapping
+
+
 typealias SigningProfileProfileVersion = String|Mapping
 
 

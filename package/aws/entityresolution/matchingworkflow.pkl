@@ -58,14 +58,15 @@ open class MatchingWorkflowProviderProperties {
     ProviderServiceArn: String|Mapping
 }
 
-typealias ResolutionTechniquesResolutionType = "RULE_MATCHING"|"ML_MATCHING"|"PROVIDER"
-
 /// 
 open class MatchingWorkflowResolutionTechniques {
     ProviderProperties: (MatchingWorkflowProviderProperties)?
-    ResolutionType: (ResolutionTechniquesResolutionType|Mapping)?
+    ResolutionType: (MatchingWorkflowResolutionType)?
     RuleBasedProperties: (MatchingWorkflowRuleBasedProperties)?
 }
+
+typealias MatchingWorkflowResolutionType = String|Mapping
+
 
 /// 
 open class MatchingWorkflowRule {
@@ -75,9 +76,12 @@ open class MatchingWorkflowRule {
 
 typealias RuleBasedPropertiesAttributeMatchingModel = "ONE_TO_ONE"|"MANY_TO_MANY"
 
+typealias RuleBasedPropertiesMatchPurpose = "IDENTIFIER_GENERATION"|"INDEXING"
+
 /// 
 open class MatchingWorkflowRuleBasedProperties {
     AttributeMatchingModel: RuleBasedPropertiesAttributeMatchingModel|Mapping
+    MatchPurpose: (RuleBasedPropertiesMatchPurpose|Mapping)?
     Rules: Listing<MatchingWorkflowRule>
 }
 

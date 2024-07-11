@@ -76,7 +76,7 @@ open class Method extends cloudformation.Resource {
     /// The method's authorization type. This parameter is required. For valid values, see [Method](https://docs.aws.amazon.com/apigateway/latest/api/API_Method.html) in the *API Gateway API Reference*.
     ///
     ///   If you specify the ``AuthorizerId`` property, specify ``CUSTOM`` or ``COGNITO_USER_POOLS`` for this property.
-    hidden AuthorizationType: (MethodAuthorizationType|Mapping)?
+    hidden AuthorizationType: (String|Mapping)?
 
     /// The identifier of an authorizer to use on this method. The method's authorization type must be ``CUSTOM`` or ``COGNITO_USER_POOLS``.
     hidden AuthorizerId: (String|Mapping)?
@@ -126,8 +126,6 @@ open class Method extends cloudformation.Resource {
 
 }
 
-
-typealias MethodAuthorizationType = "NONE"|"AWS_IAM"|"CUSTOM"|"COGNITO_USER_POOLS"
 
 typealias MethodMethodRequestModels = Mapping<String, Any>
 

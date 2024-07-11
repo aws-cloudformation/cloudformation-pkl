@@ -6,6 +6,20 @@ module aws.rolesanywhere.profile
 import "../../cloudformation.pkl"
 
 /// 
+open class ProfileAttributeMapping {
+    CertificateField: ProfileCertificateField
+    MappingRules: Listing<ProfileMappingRule>
+}
+
+typealias ProfileCertificateField = String|Mapping
+
+
+/// 
+open class ProfileMappingRule {
+    Specifier: String|Mapping
+}
+
+/// 
 open class ProfileTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -16,6 +30,9 @@ open class Profile extends cloudformation.Resource {
 
     Type = "AWS::RolesAnywhere::Profile"
 
+
+    /// 
+    hidden AttributeMappings: (Listing<ProfileAttributeMapping>)?
 
     /// 
     hidden DurationSeconds: (Number|Mapping)?
@@ -42,6 +59,7 @@ open class Profile extends cloudformation.Resource {
     hidden Tags: (Listing<ProfileTag>)?
 
     Properties {
+        ["AttributeMappings"] = if (AttributeMappings == null) null else AttributeMappings
         ["DurationSeconds"] = if (DurationSeconds == null) null else DurationSeconds
         ["Enabled"] = if (Enabled == null) null else Enabled
         ["ManagedPolicyArns"] = if (ManagedPolicyArns == null) null else ManagedPolicyArns

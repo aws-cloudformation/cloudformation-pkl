@@ -5,13 +5,15 @@ module aws.ec2.vpngateway
 
 import "../../cloudformation.pkl"
 
-/// 
+/// Specifies a tag. For more information, see [Add tags to a resource](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#cloudformation-add-tag-specifications).
 open class VPNGatewayTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// Schema for EC2 VPN Gateway
+/// Specifies a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.
+///
+///  For more information, see [](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the *User Guide*.
 open class VPNGateway extends cloudformation.Resource {
 
     Type = "AWS::EC2::VPNGateway"

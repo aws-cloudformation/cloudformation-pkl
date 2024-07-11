@@ -8,6 +8,12 @@ import "../../cloudformation.pkl"
 typealias LicenseEndpointLicenseEndpointStatus = String|Mapping
 
 
+/// A key-value pair to associate with a resource.
+open class LicenseEndpointTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// Definition of AWS::Deadline::LicenseEndpoint Resource Type
 open class LicenseEndpoint extends cloudformation.Resource {
 
@@ -20,12 +26,16 @@ open class LicenseEndpoint extends cloudformation.Resource {
     /// 
     hidden SubnetIds: Listing<String|Mapping>
 
+    /// An array of key-value pairs to apply to this resource.
+    hidden Tags: (Listing<LicenseEndpointTag>)?
+
     /// 
     hidden VpcId: String|Mapping
 
     Properties {
         ["SecurityGroupIds"] = if (SecurityGroupIds == null) null else SecurityGroupIds
         ["SubnetIds"] = if (SubnetIds == null) null else SubnetIds
+        ["Tags"] = if (Tags == null) null else Tags
         ["VpcId"] = if (VpcId == null) null else VpcId
     }
 

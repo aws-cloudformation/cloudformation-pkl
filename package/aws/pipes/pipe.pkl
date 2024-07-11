@@ -77,6 +77,16 @@ open class PipeDeadLetterConfig {
     Arn: (String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)$"#)))|Mapping)?
 }
 
+/// 
+open class PipeDimensionMapping {
+    DimensionName: String|Mapping
+    DimensionValue: String|Mapping
+    DimensionValueType: PipeDimensionValueType
+}
+
+typealias PipeDimensionValueType = String|Mapping
+
+
 typealias PipeDynamoDBStreamStartPosition = String|Mapping
 
 
@@ -138,6 +148,9 @@ open class PipeEcsTaskOverride {
     TaskRoleArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$"#)))|Mapping)?
 }
 
+typealias PipeEpochTimeUnit = String|Mapping
+
+
 /// 
 open class PipeFilter {
     Pattern: (String|Mapping)?
@@ -191,6 +204,22 @@ open class PipeMSKAccessCredentialsSaslScram512Auth {
 
 typealias PipeMSKStartPosition = String|Mapping
 
+
+typealias PipeMeasureValueType = String|Mapping
+
+
+/// 
+open class PipeMultiMeasureAttributeMapping {
+    MeasureValue: String|Mapping
+    MeasureValueType: PipeMeasureValueType
+    MultiMeasureAttributeName: String|Mapping
+}
+
+/// 
+open class PipeMultiMeasureMapping {
+    MultiMeasureAttributeMappings: Listing<PipeMultiMeasureAttributeMapping>
+    MultiMeasureName: String|Mapping
+}
 
 /// 
 open class PipeNetworkConfiguration {
@@ -387,6 +416,7 @@ open class PipePipeTargetParameters {
     SageMakerPipelineParameters: (PipePipeTargetSageMakerPipelineParameters)?
     SqsQueueParameters: (PipePipeTargetSqsQueueParameters)?
     StepFunctionStateMachineParameters: (PipePipeTargetStateMachineParameters)?
+    TimestreamParameters: (PipePipeTargetTimestreamParameters)?
 }
 
 /// 
@@ -413,6 +443,18 @@ open class PipePipeTargetSqsQueueParameters {
 /// 
 open class PipePipeTargetStateMachineParameters {
     InvocationType: (PipePipeTargetInvocationType)?
+}
+
+/// 
+open class PipePipeTargetTimestreamParameters {
+    DimensionMappings: Listing<PipeDimensionMapping>
+    EpochTimeUnit: (PipeEpochTimeUnit)?
+    MultiMeasureMappings: (Listing<PipeMultiMeasureMapping>)?
+    SingleMeasureMappings: (Listing<PipeSingleMeasureMapping>)?
+    TimeFieldType: (PipeTimeFieldType)?
+    TimeValue: String|Mapping
+    TimestampFormat: (String|Mapping)?
+    VersionValue: String|Mapping
 }
 
 /// 
@@ -492,12 +534,22 @@ typealias PipeSelfManagedKafkaStartPosition = String|Mapping
 
 
 /// 
+open class PipeSingleMeasureMapping {
+    MeasureName: String|Mapping
+    MeasureValue: String|Mapping
+    MeasureValueType: PipeMeasureValueType
+}
+
+/// 
 open class PipeTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
 typealias PipeTagMap = Mapping<String, Any>
+
+
+typealias PipeTimeFieldType = String|Mapping
 
 
 /// Definition of AWS::Pipes::Pipe Resource Type

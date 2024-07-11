@@ -111,6 +111,7 @@ open class ProjectProjectSourceVersion {
 open class ProjectProjectTriggers {
     BuildType: (String|Mapping)?
     FilterGroups: (Listing<ProjectFilterGroup>)?
+    ScopeConfiguration: (ProjectScopeConfiguration)?
     Webhook: (Boolean|Mapping)?
 }
 
@@ -125,6 +126,11 @@ open class ProjectS3LogsConfig {
     EncryptionDisabled: (Boolean|Mapping)?
     Location: (String|Mapping)?
     Status: String|Mapping
+}
+
+/// 
+open class ProjectScopeConfiguration {
+    Name: String|Mapping
 }
 
 /// 

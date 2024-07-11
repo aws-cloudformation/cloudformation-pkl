@@ -30,7 +30,7 @@ open class Configuration extends cloudformation.Resource {
     hidden EngineType: String|Mapping
 
     /// 
-    hidden EngineVersion: String|Mapping
+    hidden EngineVersion: (String|Mapping)?
 
     /// 
     hidden Name: String|Mapping

@@ -5,6 +5,9 @@ module aws.sagemaker.domain
 
 import "../../cloudformation.pkl"
 
+typealias DomainAppType = String|Mapping
+
+
 /// The CodeEditor app settings.
 open class DomainCodeEditorAppSettings {
     CustomImages: (Listing<DomainCustomImage>)?
@@ -98,6 +101,9 @@ open class DomainKernelGatewayAppSettings {
     DefaultResourceSpec: (DomainResourceSpec)?
 }
 
+typealias DomainMlTools = String|Mapping
+
+
 /// A collection of settings that apply to an RSessionGateway app.
 open class DomainRSessionAppSettings {
     CustomImages: (Listing<DomainCustomImage>)?
@@ -147,6 +153,12 @@ typealias DomainSpaceEbsVolumeSizeInGb = Int|Mapping
 typealias DomainStudioLifecycleConfigArn = String|Mapping
 
 
+/// Studio settings. If these settings are applied on a user level, they take priority over the settings applied on a domain level.
+open class DomainStudioWebPortalSettings {
+    HiddenAppTypes: (Listing<DomainAppType>)?
+    HiddenMlTools: (Listing<DomainMlTools>)?
+}
+
 /// 
 open class DomainTag {
     Key: String|Mapping
@@ -171,6 +183,7 @@ open class DomainUserSettings {
     SharingSettings: (DomainSharingSettings)?
     SpaceStorageSettings: (DomainDefaultSpaceStorageSettings)?
     StudioWebPortal: (UserSettingsStudioWebPortal|Mapping)?
+    StudioWebPortalSettings: (DomainStudioWebPortalSettings)?
 }
 
 /// Resource Type definition for AWS::SageMaker::Domain

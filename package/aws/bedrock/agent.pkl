@@ -77,6 +77,12 @@ open class AgentFunctionSchema {
     Functions: Listing<AgentFunction>
 }
 
+/// Configuration for a guardrail.
+open class AgentGuardrailConfiguration {
+    GuardrailIdentifier: (String(matches(Regex(#"^(([a-z0-9]+)|(arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}:[0-9]{12}:guardrail/[a-z0-9]+))$"#)))|Mapping)?
+    GuardrailVersion: (String(matches(Regex(#"^(([0-9]{1,8})|(DRAFT))$"#)))|Mapping)?
+}
+
 /// Configuration for inference in prompt configuration
 open class AgentInferenceConfiguration {
     MaximumLength: (Number|Mapping)?
@@ -160,6 +166,9 @@ open class Agent extends cloudformation.Resource {
     /// ARN or name of a Bedrock model.
     hidden FoundationModel: (String(matches(Regex(#"^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}:(([0-9]{12}:custom-model/[a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}(([:][a-z0-9-]{1,63}){0,2})?/[a-z0-9]{12})|(:foundation-model/([a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}([.]?[a-z0-9-]{1,63})([:][a-z0-9-]{1,63}){0,2})))|(([a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}([.]?[a-z0-9-]{1,63})([:][a-z0-9-]{1,63}){0,2}))|(([0-9a-zA-Z][_-]?)+)$"#)))|Mapping)?
 
+    /// 
+    hidden GuardrailConfiguration: (AgentGuardrailConfiguration)?
+
     /// Max Session Time.
     hidden IdleSessionTTLInSeconds: (Number|Mapping)?
 
@@ -189,6 +198,7 @@ open class Agent extends cloudformation.Resource {
         ["CustomerEncryptionKeyArn"] = if (CustomerEncryptionKeyArn == null) null else CustomerEncryptionKeyArn
         ["Description"] = if (Description == null) null else Description
         ["FoundationModel"] = if (FoundationModel == null) null else FoundationModel
+        ["GuardrailConfiguration"] = if (GuardrailConfiguration == null) null else GuardrailConfiguration
         ["IdleSessionTTLInSeconds"] = if (IdleSessionTTLInSeconds == null) null else IdleSessionTTLInSeconds
         ["Instruction"] = if (Instruction == null) null else Instruction
         ["KnowledgeBases"] = if (KnowledgeBases == null) null else KnowledgeBases
