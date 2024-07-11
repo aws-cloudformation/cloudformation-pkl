@@ -49,6 +49,9 @@ typealias ApplicationCpuSize = String|Mapping
 typealias ApplicationDiskSize = String|Mapping
 
 
+typealias ApplicationDiskType = String|Mapping
+
+
 typealias ApplicationEncryptionKeyArn = String|Mapping
 
 
@@ -150,6 +153,7 @@ typealias ApplicationUriString = String|Mapping
 open class ApplicationWorkerConfiguration {
     Cpu: ApplicationCpuSize
     Disk: (ApplicationDiskSize)?
+    DiskType: (ApplicationDiskType)?
     Memory: ApplicationMemorySize
 }
 

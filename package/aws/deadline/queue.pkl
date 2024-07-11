@@ -30,6 +30,12 @@ open class QueuePosixUser {
 typealias QueueRunAs = String|Mapping
 
 
+/// A key-value pair to associate with a resource.
+open class QueueTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// 
 open class QueueWindowsUser {
     PasswordArn: String(matches(Regex(#"^arn:(aws[a-zA-Z-]*):secretsmanager:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:secret:[a-zA-Z0-9-/_+=.@]{1,2028}$"#)))|Mapping
@@ -69,6 +75,9 @@ open class Queue extends cloudformation.Resource {
     /// 
     hidden RoleArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z-]*):iam::\d{12}:role(/[!-.0-~]+)*/[\w+=,.@-]+$"#)))|Mapping)?
 
+    /// An array of key-value pairs to apply to this resource.
+    hidden Tags: (Listing<QueueTag>)?
+
     Properties {
         ["AllowedStorageProfileIds"] = if (AllowedStorageProfileIds == null) null else AllowedStorageProfileIds
         ["DefaultBudgetAction"] = if (DefaultBudgetAction == null) null else DefaultBudgetAction
@@ -79,6 +88,7 @@ open class Queue extends cloudformation.Resource {
         ["JobRunAsUser"] = if (JobRunAsUser == null) null else JobRunAsUser
         ["RequiredFileSystemLocationNames"] = if (RequiredFileSystemLocationNames == null) null else RequiredFileSystemLocationNames
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
+        ["Tags"] = if (Tags == null) null else Tags
     }
 
 }

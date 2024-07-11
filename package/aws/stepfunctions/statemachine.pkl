@@ -16,6 +16,15 @@ typealias StateMachineDefinition = Dynamic
 typealias StateMachineDefinitionSubstitutions = Mapping<String, Any>
 
 
+typealias EncryptionConfigurationType = "CUSTOMER_MANAGED_KMS_KEY"|"AWS_OWNED_KEY"
+
+/// 
+open class StateMachineEncryptionConfiguration {
+    KmsDataKeyReusePeriodSeconds: (Int|Mapping)?
+    KmsKeyId: (String|Mapping)?
+    Type: EncryptionConfigurationType|Mapping
+}
+
 /// 
 open class StateMachineLogDestination {
     CloudWatchLogsLogGroup: (StateMachineCloudWatchLogsLogGroup)?
@@ -67,6 +76,9 @@ open class StateMachine extends cloudformation.Resource {
     hidden DefinitionSubstitutions: (StateMachineDefinitionSubstitutions)?
 
     /// 
+    hidden EncryptionConfiguration: (StateMachineEncryptionConfiguration)?
+
+    /// 
     hidden LoggingConfiguration: (StateMachineLoggingConfiguration)?
 
     /// 
@@ -89,6 +101,7 @@ open class StateMachine extends cloudformation.Resource {
         ["DefinitionS3Location"] = if (DefinitionS3Location == null) null else DefinitionS3Location
         ["DefinitionString"] = if (DefinitionString == null) null else DefinitionString
         ["DefinitionSubstitutions"] = if (DefinitionSubstitutions == null) null else DefinitionSubstitutions
+        ["EncryptionConfiguration"] = if (EncryptionConfiguration == null) null else EncryptionConfiguration
         ["LoggingConfiguration"] = if (LoggingConfiguration == null) null else LoggingConfiguration
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["StateMachineName"] = if (StateMachineName == null) null else StateMachineName

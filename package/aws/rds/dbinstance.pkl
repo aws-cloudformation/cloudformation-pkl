@@ -5,7 +5,7 @@ module aws.rds.dbinstance
 
 import "../../cloudformation.pkl"
 
-/// Returns the details of the DB instance?s server certificate.
+/// The details of the DB instance?s server certificate.
 ///
 ///  For more information, see [Using SSL/TLS to encrypt a connection to a DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) in the *Amazon RDS User Guide* and [Using SSL/TLS to encrypt a connection to a DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html) in the *Amazon Aurora User Guide*.
 open class DBInstanceCertificateDetails {
@@ -50,7 +50,7 @@ open class DBInstanceProcessorFeature {
 
 /// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
 ///
-///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide.*
+///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
 open class DBInstanceTag {
     Key: String|Mapping
     Value: (String|Mapping)?
@@ -467,6 +467,15 @@ open class DBInstance extends cloudformation.Resource {
     ///   +   ``sqlserver-web``
     hidden Engine: (String|Mapping)?
 
+    /// The life cycle type for this DB instance.
+    ///
+    ///   By default, this value is set to ``open-source-rds-extended-support``, which enrolls your DB instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by setting the value to ``open-source-rds-extended-support-disabled``. In this case, creating the DB instance will fail if the DB major version is past its end of standard support date.
+    ///   This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle type is managed by the DB cluster.
+    ///  You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support, you can run the selected major engine version on your DB instance past the end of standard support for that engine version. For more information, see [Using Amazon RDS Extended Support](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html) in the *Amazon RDS User Guide*.
+    ///  Valid Values: ``open-source-rds-extended-support | open-source-rds-extended-support-disabled`` 
+    ///  Default: ``open-source-rds-extended-support``
+    hidden EngineLifecycleSupport: (String|Mapping)?
+
     /// The version number of the database engine to use.
     ///
     ///  For a list of valid engine versions, use the ``DescribeDBEngineVersions`` action.
@@ -498,7 +507,8 @@ open class DBInstance extends cloudformation.Resource {
 
     /// The ARN of the AWS KMS key that's used to encrypt the DB instance, such as ``arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef``. If you enable the StorageEncrypted property but don't specify this property, AWS CloudFormation uses the default KMS key. If you specify this property, you must set the StorageEncrypted property to true. 
     ///
-    ///  If you specify the ``SourceDBInstanceIdentifier`` property, the value is inherited from the source DB instance if the read replica is created in the same region.
+    ///  If you specify the ``SourceDBInstanceIdentifier`` or ``SourceDbiResourceId`` property, don't specify this property. The value is inherited from the source DB instance, and if the DB instance is encrypted, the specified ``KmsKeyId`` property is used. However, if the source DB instance is in a different AWS Region, you must specify a KMS key ID.
+    ///  If you specify the ``SourceDBInstanceAutomatedBackupsArn`` property, don't specify this property. The value is inherited from the source DB instance automated backup, and if the automated backup is encrypted, the specified ``KmsKeyId`` property is used.
     ///  If you create an encrypted read replica in a different AWS Region, then you must specify a KMS key for the destination AWS Region. KMS encryption keys are specific to the region that they're created in, and you can't use encryption keys from one region in another region.
     ///  If you specify the ``DBSnapshotIdentifier`` property, don't specify this property. The ``StorageEncrypted`` property value is inherited from the snapshot. If the DB instance is encrypted, the specified ``KmsKeyId`` property is also inherited from the snapshot.
     ///  If you specify ``DBSecurityGroups``, AWS CloudFormation ignores this property. To specify both a security group and this property, you must use a VPC security group. For more information about Amazon RDS and VPC, see [Using Amazon RDS with Amazon VPC](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.html) in the *Amazon RDS User Guide*.
@@ -739,7 +749,8 @@ open class DBInstance extends cloudformation.Resource {
     /// If you want to create a read replica DB instance, specify the ID of the source DB instance. Each DB instance can have a limited number of read replicas. For more information, see [Working with Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/DeveloperGuide/USER_ReadRepl.html) in the *Amazon RDS User Guide*.
     ///
     ///  For information about constraints that apply to DB instance identifiers, see [Naming constraints in Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html#RDS_Limits.Constraints) in the *Amazon RDS User Guide*.
-    ///  The ``SourceDBInstanceIdentifier`` property determines whether a DB instance is a read replica. If you remove the ``SourceDBInstanceIdentifier`` property from your template and then update your stack, AWS CloudFormation promotes the Read Replica to a standalone DB instance.
+    ///  The ``SourceDBInstanceIdentifier`` property determines whether a DB instance is a read replica. If you remove the ``SourceDBInstanceIdentifier`` property from your template and then update your stack, AWS CloudFormation promotes the read replica to a standalone DB instance.
+    ///  If you specify the ``UseLatestRestorableTime`` or ``RestoreTime`` properties in conjunction with the ``SourceDBInstanceIdentifier`` property, RDS restores the DB instance to the requested point in time, thereby creating a new DB instance.
     ///    +  If you specify a source DB instance that uses VPC security groups, we recommend that you specify the ``VPCSecurityGroups`` property. If you don't specify the property, the read replica inherits the value of the ``VPCSecurityGroups`` property from the source DB when you create the replica. However, if you update the stack, AWS CloudFormation reverts the replica's ``VPCSecurityGroups`` property to the default value because it's not defined in the stack's template. This change might cause unexpected issues.
     ///   +  Read replicas don't support deletion policies. AWS CloudFormation ignores any deletion policy that's associated with a read replica.
     ///   +  If you specify ``SourceDBInstanceIdentifier``, don't specify the ``DBSnapshotIdentifier`` property. You can't create a read replica from a snapshot.
@@ -757,7 +768,8 @@ open class DBInstance extends cloudformation.Resource {
     /// A value that indicates whether the DB instance is encrypted. By default, it isn't encrypted.
     ///
     ///  If you specify the ``KmsKeyId`` property, then you must enable encryption.
-    ///  If you specify the ``SourceDBInstanceIdentifier`` property, don't specify this property. The value is inherited from the source DB instance, and if the DB instance is encrypted, the specified ``KmsKeyId`` property is used.
+    ///  If you specify the ``SourceDBInstanceIdentifier`` or ``SourceDbiResourceId`` property, don't specify this property. The value is inherited from the source DB instance, and if the DB instance is encrypted, the specified ``KmsKeyId`` property is used.
+    ///  If you specify the ``SourceDBInstanceAutomatedBackupsArn`` property, don't specify this property. The value is inherited from the source DB instance automated backup. 
     ///  If you specify ``DBSnapshotIdentifier`` property, don't specify this property. The value is inherited from the snapshot.
     ///   *Amazon Aurora* 
     ///  Not applicable. The encryption for DB instances is managed by the DB cluster.
@@ -851,6 +863,7 @@ open class DBInstance extends cloudformation.Resource {
         ["EnablePerformanceInsights"] = if (EnablePerformanceInsights == null) null else EnablePerformanceInsights
         ["Endpoint"] = if (Endpoint == null) null else Endpoint
         ["Engine"] = if (Engine == null) null else Engine
+        ["EngineLifecycleSupport"] = if (EngineLifecycleSupport == null) null else EngineLifecycleSupport
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["Iops"] = if (Iops == null) null else Iops
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId

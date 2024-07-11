@@ -5,7 +5,7 @@ module aws.rds.optiongroup
 
 import "../../cloudformation.pkl"
 
-/// The OptionConfiguration property type specifies an individual option, and its settings, within an AWS::RDS::OptionGroup resource.
+/// The ``OptionConfiguration`` property type specifies an individual option, and its settings, within an ``AWS::RDS::OptionGroup`` resource.
 open class OptionGroupOptionConfiguration {
     DBSecurityGroupMemberships: (Listing<String|Mapping>)?
     OptionName: String|Mapping
@@ -15,40 +15,64 @@ open class OptionGroupOptionConfiguration {
     VpcSecurityGroupMemberships: (Listing<String|Mapping>)?
 }
 
-/// The OptionSetting property type specifies the value for an option within an OptionSetting property.
+/// The ``OptionSetting`` property type specifies the value for an option within an ``OptionSetting`` property.
 open class OptionGroupOptionSetting {
     Name: (String|Mapping)?
     Value: (String|Mapping)?
 }
 
-/// A key-value pair to associate with a resource.
+/// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
+///
+///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
 open class OptionGroupTag {
     Key: String|Mapping
     Value: (String|Mapping)?
 }
 
-/// The AWS::RDS::OptionGroup resource creates an option group, to enable and configure features that are specific to a particular DB engine.
+/// The ``AWS::RDS::OptionGroup`` resource creates or updates an option group, to enable and configure features that are specific to a particular DB engine.
 open class OptionGroup extends cloudformation.Resource {
 
     Type = "AWS::RDS::OptionGroup"
 
 
-    /// Indicates the name of the engine that this option group can be applied to.
+    /// Specifies the name of the engine that this option group should be associated with.
+    ///
+    ///  Valid Values: 
+    ///   +   ``mariadb`` 
+    ///   +   ``mysql`` 
+    ///   +   ``oracle-ee`` 
+    ///   +   ``oracle-ee-cdb`` 
+    ///   +   ``oracle-se2`` 
+    ///   +   ``oracle-se2-cdb`` 
+    ///   +   ``postgres`` 
+    ///   +   ``sqlserver-ee`` 
+    ///   +   ``sqlserver-se`` 
+    ///   +   ``sqlserver-ex`` 
+    ///   +   ``sqlserver-web``
     hidden EngineName: String|Mapping
 
-    /// Indicates the major engine version associated with this option group.
+    /// Specifies the major version of the engine that this option group should be associated with.
     hidden MajorEngineVersion: String|Mapping
 
-    /// Indicates what options are available in the option group.
+    /// A list of options and the settings for each option.
     hidden OptionConfigurations: (Listing<OptionGroupOptionConfiguration>)?
 
-    /// Provides a description of the option group.
+    /// The description of the option group.
     hidden OptionGroupDescription: String|Mapping
 
-    /// Specifies the name of the option group.
+    /// The name of the option group to be created.
+    ///
+    ///  Constraints:
+    ///   +  Must be 1 to 255 letters, numbers, or hyphens
+    ///   +  First character must be a letter
+    ///   +  Can't end with a hyphen or contain two consecutive hyphens
+    ///   
+    ///  Example: ``myoptiongroup`` 
+    ///  If you don't specify a value for ``OptionGroupName`` property, a name is automatically created for the option group.
+    ///   This value is stored as a lowercase string.
     hidden OptionGroupName: (String|Mapping)?
 
-    /// An array of key-value pairs to apply to this resource.
+    /// An optional array of key-value pairs to apply to this option group.
     hidden Tags: (Listing<OptionGroupTag>)?
 
     Properties {

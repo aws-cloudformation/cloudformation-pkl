@@ -89,6 +89,9 @@ open class Cluster extends cloudformation.Resource {
     /// 
     hidden AccessConfig: (ClusterAccessConfig)?
 
+    /// Set this value to false to avoid creating the default networking addons when the cluster is created.
+    hidden BootstrapSelfManagedAddons: (Boolean|Mapping)?
+
     /// 
     hidden EncryptionConfig: (Listing<ClusterEncryptionConfig>)?
 
@@ -118,6 +121,7 @@ open class Cluster extends cloudformation.Resource {
 
     Properties {
         ["AccessConfig"] = if (AccessConfig == null) null else AccessConfig
+        ["BootstrapSelfManagedAddons"] = if (BootstrapSelfManagedAddons == null) null else BootstrapSelfManagedAddons
         ["EncryptionConfig"] = if (EncryptionConfig == null) null else EncryptionConfig
         ["KubernetesNetworkConfig"] = if (KubernetesNetworkConfig == null) null else KubernetesNetworkConfig
         ["Logging"] = if (Logging == null) null else Logging

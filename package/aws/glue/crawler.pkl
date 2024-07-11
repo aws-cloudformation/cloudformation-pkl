@@ -38,6 +38,7 @@ open class CrawlerIcebergTarget {
 /// 
 open class CrawlerJdbcTarget {
     ConnectionName: (String|Mapping)?
+    EnableAdditionalMetadata: (Listing<String|Mapping>)?
     Exclusions: (Listing<String|Mapping>)?
     Path: (String|Mapping)?
 }

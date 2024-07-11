@@ -20,6 +20,9 @@ open class StackSetAutoDeployment {
 typealias StackSetCapability = String|Mapping
 
 
+typealias StackSetConcurrencyMode = String|Mapping
+
+
 typealias DeploymentTargetsAccountFilterType = "NONE"|"UNION"|"INTERSECTION"|"DIFFERENCE"
 
 ///  The AWS OrganizationalUnitIds or Accounts for which to create stack instances in the specified Regions.
@@ -32,6 +35,7 @@ open class StackSetDeploymentTargets {
 
 /// The user-specified preferences for how AWS CloudFormation performs a stack set operation.
 open class StackSetOperationPreferences {
+    ConcurrencyMode: (StackSetConcurrencyMode)?
     FailureToleranceCount: (Int|Mapping)?
     FailureTolerancePercentage: (Int|Mapping)?
     MaxConcurrentCount: (Int|Mapping)?

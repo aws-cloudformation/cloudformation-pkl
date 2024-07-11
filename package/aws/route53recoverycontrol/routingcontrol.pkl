@@ -12,10 +12,10 @@ open class RoutingControl extends cloudformation.Resource {
 
 
     /// Arn associated with Control Panel
-    hidden ClusterArn: (String|Mapping)?
+    hidden ClusterArn: (String(matches(Regex(#"^[A-Za-z0-9:\/_-]*$"#)))|Mapping)?
 
     /// The Amazon Resource Name (ARN) of the control panel.
-    hidden ControlPanelArn: (String|Mapping)?
+    hidden ControlPanelArn: (String(matches(Regex(#"^[A-Za-z0-9:\/_-]*$"#)))|Mapping)?
 
     /// The name of the routing control. You can use any non-white space character in the name.
     hidden Name: String|Mapping

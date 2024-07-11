@@ -34,10 +34,13 @@ open class PipelineVpcEndpoint {
     VpcOptions: (PipelineVpcOptions)?
 }
 
+typealias VpcOptionsVpcEndpointManagement = "CUSTOMER"|"SERVICE"
+
 /// Container for the values required to configure VPC access for the pipeline. If you don't specify these values, OpenSearch Ingestion Service creates the pipeline with a public endpoint.
 open class PipelineVpcOptions {
     SecurityGroupIds: (Listing<String|Mapping>)?
     SubnetIds: Listing<String|Mapping>
+    VpcEndpointManagement: (VpcOptionsVpcEndpointManagement|Mapping)?
 }
 
 /// An OpenSearch Ingestion Service Data Prepper pipeline running Data Prepper.

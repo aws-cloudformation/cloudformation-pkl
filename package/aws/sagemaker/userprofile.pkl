@@ -5,6 +5,9 @@ module aws.sagemaker.userprofile
 
 import "../../cloudformation.pkl"
 
+typealias UserProfileAppType = String|Mapping
+
+
 /// The CodeEditor app settings.
 open class UserProfileCodeEditorAppSettings {
     CustomImages: (Listing<UserProfileCustomImage>)?
@@ -71,6 +74,9 @@ open class UserProfileKernelGatewayAppSettings {
     DefaultResourceSpec: (UserProfileResourceSpec)?
 }
 
+typealias UserProfileMlTools = String|Mapping
+
+
 typealias RStudioServerProAppSettingsAccessStatus = "ENABLED"|"DISABLED"
 
 typealias RStudioServerProAppSettingsUserGroup = "R_STUDIO_ADMIN"|"R_STUDIO_USER"
@@ -105,6 +111,12 @@ typealias UserProfileSpaceEbsVolumeSizeInGb = Int|Mapping
 typealias UserProfileStudioLifecycleConfigArn = String|Mapping
 
 
+/// Studio settings. If these settings are applied on a user level, they take priority over the settings applied on a domain level.
+open class UserProfileStudioWebPortalSettings {
+    HiddenAppTypes: (Listing<UserProfileAppType>)?
+    HiddenMlTools: (Listing<UserProfileMlTools>)?
+}
+
 /// 
 open class UserProfileTag {
     Key: String|Mapping
@@ -128,6 +140,7 @@ open class UserProfileUserSettings {
     SharingSettings: (UserProfileSharingSettings)?
     SpaceStorageSettings: (UserProfileDefaultSpaceStorageSettings)?
     StudioWebPortal: (UserSettingsStudioWebPortal|Mapping)?
+    StudioWebPortalSettings: (UserProfileStudioWebPortalSettings)?
 }
 
 /// Resource Type definition for AWS::SageMaker::UserProfile

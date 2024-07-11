@@ -17,12 +17,18 @@ open class ConfigurationSetEventDestinationDimensionConfiguration {
     DimensionValueSource: String|Mapping
 }
 
+/// An object that contains Event bus ARN associated with the event bridge destination.
+open class ConfigurationSetEventDestinationEventBridgeDestination {
+    EventBusArn: String(matches(Regex(#"^arn:aws[a-z0-9-]*:events:[a-z0-9-]+:\d{12}:event-bus/[^:]+$"#)))|Mapping
+}
+
 typealias EventDestinationMatchingEventTypes = "send"|"reject"|"bounce"|"complaint"|"delivery"|"open"|"click"|"renderingFailure"|"deliveryDelay"|"subscription"
 
 /// 
 open class ConfigurationSetEventDestinationEventDestination {
     CloudWatchDestination: (ConfigurationSetEventDestinationCloudWatchDestination)?
     Enabled: (Boolean|Mapping)?
+    EventBridgeDestination: (ConfigurationSetEventDestinationEventBridgeDestination)?
     KinesisFirehoseDestination: (ConfigurationSetEventDestinationKinesisFirehoseDestination)?
     MatchingEventTypes: Listing<EventDestinationMatchingEventTypes|Mapping>
     Name: (String(matches(Regex(#"^[a-zA-Z0-9_-]{0,64}$"#)))|Mapping)?

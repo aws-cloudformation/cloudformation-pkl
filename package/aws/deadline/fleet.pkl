@@ -127,6 +127,12 @@ open class FleetServiceManagedEc2InstanceMarketOptions {
 typealias FleetServiceManagedFleetOperatingSystemFamily = String|Mapping
 
 
+/// A key-value pair to associate with a resource.
+open class FleetTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// 
 open class FleetVCpuCountRange {
     Max: (Int|Mapping)?
@@ -160,6 +166,9 @@ open class Fleet extends cloudformation.Resource {
     /// 
     hidden RoleArn: String(matches(Regex(#"^arn:(aws[a-zA-Z-]*):iam::\d{12}:role(/[!-.0-~]+)*/[\w+=,.@-]+$"#)))|Mapping
 
+    /// An array of key-value pairs to apply to this resource.
+    hidden Tags: (Listing<FleetTag>)?
+
     Properties {
         ["Configuration"] = if (Configuration == null) null else Configuration
         ["Description"] = if (Description == null) null else Description
@@ -168,6 +177,7 @@ open class Fleet extends cloudformation.Resource {
         ["MaxWorkerCount"] = if (MaxWorkerCount == null) null else MaxWorkerCount
         ["MinWorkerCount"] = if (MinWorkerCount == null) null else MinWorkerCount
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
+        ["Tags"] = if (Tags == null) null else Tags
     }
 
 }

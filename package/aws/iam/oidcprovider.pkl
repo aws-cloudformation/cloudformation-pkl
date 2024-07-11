@@ -24,7 +24,7 @@ open class OIDCProvider extends cloudformation.Resource {
     hidden Tags: (Listing<OIDCProviderTag>)?
 
     /// 
-    hidden ThumbprintList: Listing<String|Mapping>
+    hidden ThumbprintList: (Listing<String|Mapping>)?
 
     /// 
     hidden Url: (String|Mapping)?

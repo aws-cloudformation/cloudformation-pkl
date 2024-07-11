@@ -36,8 +36,15 @@ open class FileSystemLustreConfiguration {
     ExportPath: (String|Mapping)?
     ImportPath: (String|Mapping)?
     ImportedFileChunkSize: (Int|Mapping)?
+    MetadataConfiguration: (FileSystemMetadataConfiguration)?
     PerUnitStorageThroughput: (Int|Mapping)?
     WeeklyMaintenanceStartTime: (String|Mapping)?
+}
+
+/// 
+open class FileSystemMetadataConfiguration {
+    Iops: (Int|Mapping)?
+    Mode: (String|Mapping)?
 }
 
 /// 

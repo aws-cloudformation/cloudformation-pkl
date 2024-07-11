@@ -5,15 +5,19 @@ module aws.entityresolution.idnamespace
 
 import "../../cloudformation.pkl"
 
+typealias IdNamespaceAttributeName = String|Mapping
+
+
 typealias IdNamespaceEntityName = String|Mapping
 
 
-typealias IdNamespaceIdMappingWorkflowPropertiesIdMappingType = "PROVIDER"
+typealias IdNamespaceIdMappingWorkflowPropertiesIdMappingType = "PROVIDER"|"RULE_BASED"
 
 /// 
 open class IdNamespaceIdNamespaceIdMappingWorkflowProperties {
     IdMappingType: IdNamespaceIdMappingWorkflowPropertiesIdMappingType|Mapping
     ProviderProperties: (IdNamespaceNamespaceProviderProperties)?
+    RuleBasedProperties: (IdNamespaceNamespaceRuleBasedProperties)?
 }
 
 /// 
@@ -30,7 +34,29 @@ open class IdNamespaceNamespaceProviderProperties {
     ProviderServiceArn: IdNamespaceProviderServiceArn
 }
 
+typealias NamespaceRuleBasedPropertiesAttributeMatchingModel = "ONE_TO_ONE"|"MANY_TO_MANY"
+
+/// 
+open class IdNamespaceNamespaceRuleBasedProperties {
+    AttributeMatchingModel: (NamespaceRuleBasedPropertiesAttributeMatchingModel|Mapping)?
+    RecordMatchingModels: (Listing<IdNamespaceRecordMatchingModel>)?
+    RuleDefinitionTypes: (Listing<IdNamespaceRuleDefinitionType>)?
+    Rules: (Listing<IdNamespaceRule>)?
+}
+
 typealias IdNamespaceProviderServiceArn = String|Mapping
+
+
+typealias IdNamespaceRecordMatchingModel = String|Mapping
+
+
+/// 
+open class IdNamespaceRule {
+    MatchingKeys: Listing<IdNamespaceAttributeName>
+    RuleName: String(matches(Regex(#"^[a-zA-Z_0-9- \t]*$"#)))|Mapping
+}
+
+typealias IdNamespaceRuleDefinitionType = String|Mapping
 
 
 /// A key-value pair to associate with a resource.

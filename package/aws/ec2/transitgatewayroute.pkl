@@ -11,16 +11,16 @@ open class TransitGatewayRoute extends cloudformation.Resource {
     Type = "AWS::EC2::TransitGatewayRoute"
 
 
-    /// 
+    /// Indicates whether to drop traffic that matches this route.
     hidden Blackhole: (Boolean|Mapping)?
 
-    /// 
-    hidden DestinationCidrBlock: (String|Mapping)?
+    /// The CIDR range used for destination matches. Routing decisions are based on the most specific match.
+    hidden DestinationCidrBlock: String|Mapping
 
-    /// 
+    /// The ID of transit gateway attachment.
     hidden TransitGatewayAttachmentId: (String|Mapping)?
 
-    /// 
+    /// The ID of transit gateway route table.
     hidden TransitGatewayRouteTableId: String|Mapping
 
     Properties {

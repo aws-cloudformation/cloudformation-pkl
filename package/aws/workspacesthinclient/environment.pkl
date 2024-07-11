@@ -50,6 +50,9 @@ open class Environment extends cloudformation.Resource {
     /// The URL for the identity provider login (only for environments that use AppStream 2.0).
     hidden DesktopEndpoint: (String(matches(Regex(#"^(https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,32}(:[0-9]{1,5})?(\/.*)?$"#)))|Mapping)?
 
+    /// An array of key-value pairs to apply to the newly created devices for this environment.
+    hidden DeviceCreationTags: (Listing<EnvironmentTag>)?
+
     /// The Amazon Resource Name (ARN) of the AWS Key Management Service key used to encrypt the environment.
     hidden KmsKeyArn: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:kms:[a-zA-Z0-9\-]*:[0-9]{0,12}:key\/[a-zA-Z0-9-]+$"#)))|Mapping)?
 
@@ -72,6 +75,7 @@ open class Environment extends cloudformation.Resource {
         ["DesiredSoftwareSetId"] = if (DesiredSoftwareSetId == null) null else DesiredSoftwareSetId
         ["DesktopArn"] = if (DesktopArn == null) null else DesktopArn
         ["DesktopEndpoint"] = if (DesktopEndpoint == null) null else DesktopEndpoint
+        ["DeviceCreationTags"] = if (DeviceCreationTags == null) null else DeviceCreationTags
         ["KmsKeyArn"] = if (KmsKeyArn == null) null else KmsKeyArn
         ["MaintenanceWindow"] = if (MaintenanceWindow == null) null else MaintenanceWindow
         ["Name"] = if (Name == null) null else Name

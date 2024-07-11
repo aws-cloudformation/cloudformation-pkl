@@ -12,6 +12,7 @@ open class RuleActions {
     EndAssociatedTasksActions: (RuleEndAssociatedTasksActions)?
     EventBridgeActions: (RuleEventBridgeActions)?
     SendNotificationActions: (RuleSendNotificationActions)?
+    SubmitAutoEvaluationActions: (RuleSubmitAutoEvaluationActions)?
     TaskActions: (RuleTaskActions)?
     UpdateCaseActions: (RuleUpdateCaseActions)?
 }
@@ -100,6 +101,14 @@ open class RuleSendNotificationAction {
 }
 
 typealias RuleSendNotificationActions = Listing<(RuleSendNotificationAction)?>
+
+
+/// The definition of submit auto evaluation action.
+open class RuleSubmitAutoEvaluationAction {
+    EvaluationFormArn: String(matches(Regex(#"^$|arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/evaluation-form/[-a-zA-Z0-9]*$"#)))|Mapping
+}
+
+typealias RuleSubmitAutoEvaluationActions = Listing<(RuleSubmitAutoEvaluationAction)?>
 
 
 /// A key-value pair to associate with a resource.

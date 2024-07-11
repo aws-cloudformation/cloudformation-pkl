@@ -8,9 +8,10 @@ import "../../cloudformation.pkl"
 /// 
 open class ScalingPolicyCustomizedMetricSpecification {
     Dimensions: (Listing<ScalingPolicyMetricDimension>)?
-    MetricName: String|Mapping
-    Namespace: String|Mapping
-    Statistic: String|Mapping
+    MetricName: (String|Mapping)?
+    Metrics: (Listing<ScalingPolicyTargetTrackingMetricDataQuery>)?
+    Namespace: (String|Mapping)?
+    Statistic: (String|Mapping)?
     Unit: (String|Mapping)?
 }
 
@@ -115,6 +116,22 @@ open class ScalingPolicyTargetTrackingConfiguration {
     DisableScaleIn: (Boolean|Mapping)?
     PredefinedMetricSpecification: (ScalingPolicyPredefinedMetricSpecification)?
     TargetValue: Number|Mapping
+}
+
+/// 
+open class ScalingPolicyTargetTrackingMetricDataQuery {
+    Expression: (String|Mapping)?
+    Id: String|Mapping
+    Label: (String|Mapping)?
+    MetricStat: (ScalingPolicyTargetTrackingMetricStat)?
+    ReturnData: (Boolean|Mapping)?
+}
+
+/// 
+open class ScalingPolicyTargetTrackingMetricStat {
+    Metric: ScalingPolicyMetric
+    Stat: String|Mapping
+    Unit: (String|Mapping)?
 }
 
 /// The AWS::AutoScaling::ScalingPolicy resource specifies an Amazon EC2 Auto Scaling scaling policy so that the Auto Scaling group can scale the number of instances available for your application.
