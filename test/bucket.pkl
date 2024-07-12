@@ -13,9 +13,13 @@ Metadata {
 }
 
 Parameters {
-    ["Name"] {
+    ["Name1"] {
         Type = "String"
-        Default = "baz"
+        Default = "baz1"
+    }
+    ["Name2"] {
+        Type = "String"
+        Default = "baz2"
     }
 }
 
@@ -29,7 +33,7 @@ Resources {
         Type = "AWS::S3::Bucket"
         Properties {
            ["BucketName"] {
-                ["Ref"] = "Name"
+                ["Ref"] = "Name1"
            }
         }
     }
@@ -39,7 +43,7 @@ Resources {
     }
 
     ["TypedBucket2"] = new bucket.Bucket {
-        BucketName = cfn.Ref("Name")
+        BucketName = cfn.Ref("Name2")
     }
 
     for (name in List("bucketx", "buckety", "bucketz")) {
