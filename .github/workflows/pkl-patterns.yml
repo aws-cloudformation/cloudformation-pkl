@@ -1,0 +1,31 @@
+name: pkl-patterns
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pkl-patterns:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install Pkl
+        run: |
+          brew install pkl
+
+      - name: Install Cloudformation Rain
+        run: |
+          brew install rain
+
+      - name: Install Cfn-Lint
+        run: |
+          brew install cfn-lint
+
+      - name: Run tests
+        run: bash scripts/pkl-patterns.sh
