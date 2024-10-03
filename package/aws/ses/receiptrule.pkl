@@ -51,6 +51,7 @@ open class ReceiptRuleRule {
 /// 
 open class ReceiptRuleS3Action {
     BucketName: String|Mapping
+    IamRoleArn: (String|Mapping)?
     KmsKeyArn: (String|Mapping)?
     ObjectKeyPrefix: (String|Mapping)?
     TopicArn: (String|Mapping)?

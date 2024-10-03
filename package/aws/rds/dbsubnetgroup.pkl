@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 /// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
 ///
-///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
+///  For more information, see [Tagging Amazon RDS resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
 open class DBSubnetGroupTag {
     Key: String|Mapping
     Value: (String|Mapping)?
@@ -26,14 +26,18 @@ open class DBSubnetGroup extends cloudformation.Resource {
 
     /// The name for the DB subnet group. This value is stored as a lowercase string.
     ///
-    ///  Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be "Default".
-    ///  Example: ``mysubnetgroup``
+    ///  Constraints:
+    ///   +  Must contain no more than 255 letters, numbers, periods, underscores, spaces, or hyphens.
+    ///   +  Must not be default.
+    ///   +  First character must be a letter.
+    ///   
+    ///  Example: ``mydbsubnetgroup``
     hidden DBSubnetGroupName: (String|Mapping)?
 
     /// The EC2 Subnet IDs for the DB subnet group.
     hidden SubnetIds: Listing<String|Mapping>
 
-    /// An optional array of key-value pairs to apply to this DB subnet group.
+    /// Tags to assign to the DB subnet group.
     hidden Tags: (Listing<DBSubnetGroupTag>)?
 
     Properties {

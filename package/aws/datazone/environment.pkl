@@ -26,8 +26,17 @@ open class Environment extends cloudformation.Resource {
     /// The identifier of the Amazon DataZone domain in which the environment would be created.
     hidden DomainIdentifier: String(matches(Regex(#"^dzd[-_][a-zA-Z0-9_-]{1,36}$"#)))|Mapping
 
+    /// The AWS account in which the Amazon DataZone environment is created.
+    hidden EnvironmentAccountIdentifier: (String(matches(Regex(#"^\d{12}$"#)))|Mapping)?
+
+    /// The AWS region in which the Amazon DataZone environment is created.
+    hidden EnvironmentAccountRegion: (String(matches(Regex(#"^[a-z]{2}-[a-z]{4,10}-\d$"#)))|Mapping)?
+
     /// The ID of the environment profile with which the Amazon DataZone environment would be created.
-    hidden EnvironmentProfileIdentifier: String(matches(Regex(#"^[a-zA-Z0-9_-]{1,36}$"#)))|Mapping
+    hidden EnvironmentProfileIdentifier: (String(matches(Regex(#"^[a-zA-Z0-9_-]{0,36}$"#)))|Mapping)?
+
+    /// Environment role arn for custom aws environment permissions
+    hidden EnvironmentRoleArn: (String|Mapping)?
 
     /// The glossary terms that can be used in the Amazon DataZone environment.
     hidden GlossaryTerms: (Listing<String|Mapping>)?
@@ -44,7 +53,10 @@ open class Environment extends cloudformation.Resource {
     Properties {
         ["Description"] = if (Description == null) null else Description
         ["DomainIdentifier"] = if (DomainIdentifier == null) null else DomainIdentifier
+        ["EnvironmentAccountIdentifier"] = if (EnvironmentAccountIdentifier == null) null else EnvironmentAccountIdentifier
+        ["EnvironmentAccountRegion"] = if (EnvironmentAccountRegion == null) null else EnvironmentAccountRegion
         ["EnvironmentProfileIdentifier"] = if (EnvironmentProfileIdentifier == null) null else EnvironmentProfileIdentifier
+        ["EnvironmentRoleArn"] = if (EnvironmentRoleArn == null) null else EnvironmentRoleArn
         ["GlossaryTerms"] = if (GlossaryTerms == null) null else GlossaryTerms
         ["Name"] = if (Name == null) null else Name
         ["ProjectIdentifier"] = if (ProjectIdentifier == null) null else ProjectIdentifier

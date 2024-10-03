@@ -11,7 +11,7 @@ open class CertificateTag {
     Value: (String|Mapping)?
 }
 
-/// An example resource schema demonstrating some basic constructs and validation rules.
+/// Resource Type definition for AWS::Lightsail::Certificate.
 open class Certificate extends cloudformation.Resource {
 
     Type = "AWS::Lightsail::Certificate"

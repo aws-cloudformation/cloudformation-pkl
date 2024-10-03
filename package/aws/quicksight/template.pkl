@@ -362,6 +362,13 @@ typealias TemplateCategoryFilterSelectAllOptions = String|Mapping
 
 
 /// 
+open class TemplateCategoryInnerFilter {
+    Column: TemplateColumnIdentifier
+    Configuration: TemplateCategoryFilterConfiguration
+    DefaultFilterControlConfiguration: (TemplateDefaultFilterControlConfiguration)?
+}
+
+/// 
 open class TemplateChartAxisLabelOptions {
     AxisLabelOptions: (Listing<TemplateAxisLabelOptions>)?
     SortIconVisibility: (TemplateVisibility)?
@@ -447,6 +454,7 @@ open class TemplateColumnTooltipItem {
     Aggregation: (TemplateAggregationFunction)?
     Column: TemplateColumnIdentifier
     Label: (String|Mapping)?
+    TooltipTarget: (TemplateTooltipTarget)?
     Visibility: (TemplateVisibility)?
 }
 
@@ -473,6 +481,7 @@ open class TemplateComboChartConfiguration {
     ReferenceLines: (Listing<TemplateReferenceLine>)?
     SecondaryYAxisDisplayOptions: (TemplateAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (TemplateChartAxisLabelOptions)?
+    SingleAxisOptions: (TemplateSingleAxisOptions)?
     SortConfiguration: (TemplateComboChartSortConfiguration)?
     Tooltip: (TemplateTooltipOptions)?
     VisualPalette: (TemplateVisualPalette)?
@@ -500,6 +509,9 @@ open class TemplateComboChartVisual {
     Title: (TemplateVisualTitleLabelOptions)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
+
+typealias TemplateCommitMode = String|Mapping
+
 
 /// 
 open class TemplateComparisonConfiguration {
@@ -895,6 +907,7 @@ open class TemplateDecimalValueWhenUnsetConfiguration {
 
 /// 
 open class TemplateDefaultDateTimePickerControlOptions {
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateDateTimePickerControlDisplayOptions)?
     Type: (TemplateSheetControlDateTimePickerType)?
 }
@@ -918,6 +931,7 @@ open class TemplateDefaultFilterControlOptions {
 
 /// 
 open class TemplateDefaultFilterDropDownControlOptions {
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateDropDownControlDisplayOptions)?
     SelectableValues: (TemplateFilterSelectableValues)?
     Type: (TemplateSheetControlListType)?
@@ -960,6 +974,7 @@ open class TemplateDefaultPaginatedLayoutConfiguration {
 
 /// 
 open class TemplateDefaultRelativeDateTimeControlOptions {
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateRelativeDateTimeControlDisplayOptions)?
 }
 
@@ -1098,6 +1113,7 @@ open class TemplateFieldSortOptions {
 open class TemplateFieldTooltipItem {
     FieldId: String|Mapping
     Label: (String|Mapping)?
+    TooltipTarget: (TemplateTooltipTarget)?
     Visibility: (TemplateVisibility)?
 }
 
@@ -1157,6 +1173,7 @@ open class TemplateFilledMapVisual {
 /// 
 open class TemplateFilter {
     CategoryFilter: (TemplateCategoryFilter)?
+    NestedFilter: (TemplateNestedFilter)?
     NumericEqualityFilter: (TemplateNumericEqualityFilter)?
     NumericRangeFilter: (TemplateNumericRangeFilter)?
     RelativeDatesFilter: (TemplateRelativeDatesFilter)?
@@ -1186,6 +1203,7 @@ open class TemplateFilterCrossSheetControl {
 
 /// 
 open class TemplateFilterDateTimePickerControl {
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateDateTimePickerControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1196,6 +1214,7 @@ open class TemplateFilterDateTimePickerControl {
 /// 
 open class TemplateFilterDropDownControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateDropDownControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateFilterSelectableValues)?
@@ -1249,6 +1268,7 @@ open class TemplateFilterOperationTargetVisualsConfiguration {
 
 /// 
 open class TemplateFilterRelativeDateTimeControl {
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateRelativeDateTimeControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1749,6 +1769,11 @@ typealias TemplateIcon = String|Mapping
 
 
 /// 
+open class TemplateInnerFilter {
+    CategoryInnerFilter: (TemplateCategoryInnerFilter)?
+}
+
+/// 
 open class TemplateInsightConfiguration {
     Computations: (Listing<TemplateComputation>)?
     CustomNarrative: (TemplateCustomNarrativeOptions)?
@@ -1950,6 +1975,7 @@ open class TemplateLineChartConfiguration {
     SecondaryYAxisDisplayOptions: (TemplateLineSeriesAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (TemplateChartAxisLabelOptions)?
     Series: (Listing<TemplateSeriesItem>)?
+    SingleAxisOptions: (TemplateSingleAxisOptions)?
     SmallMultiplesOptions: (TemplateSmallMultiplesOptions)?
     SortConfiguration: (TemplateLineChartSortConfiguration)?
     Tooltip: (TemplateTooltipOptions)?
@@ -2127,6 +2153,14 @@ open class TemplateNegativeValueConfiguration {
 
 typealias TemplateNegativeValueDisplayMode = String|Mapping
 
+
+/// 
+open class TemplateNestedFilter {
+    Column: TemplateColumnIdentifier
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    IncludeInnerSet: Boolean|Mapping
+    InnerFilter: TemplateInnerFilter
+}
 
 /// 
 open class TemplateNullValueFormatConfiguration {
@@ -2308,6 +2342,7 @@ open class TemplateParameterDeclaration {
 /// 
 open class TemplateParameterDropDownControl {
     CascadingControlConfiguration: (TemplateCascadingControlConfiguration)?
+    CommitMode: (TemplateCommitMode)?
     DisplayOptions: (TemplateDropDownControlDisplayOptions)?
     ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (TemplateParameterSelectableValues)?
@@ -2637,6 +2672,14 @@ typealias TemplatePrimaryValueDisplayType = String|Mapping
 /// 
 open class TemplateProgressBarOptions {
     Visibility: (TemplateVisibility)?
+}
+
+typealias TemplateQueryExecutionMode = String|Mapping
+
+
+/// 
+open class TemplateQueryExecutionOptions {
+    QueryExecutionMode: (TemplateQueryExecutionMode)?
 }
 
 /// 
@@ -3105,6 +3148,14 @@ typealias TemplateSimpleTotalAggregationFunction = String|Mapping
 
 
 /// 
+open class TemplateSingleAxisOptions {
+    YAxisOptions: (TemplateYAxisOptions)?
+}
+
+typealias TemplateSingleYAxisOption = String|Mapping
+
+
+/// 
 open class TemplateSliderControlDisplayOptions {
     InfoIconLabelOptions: (TemplateSheetControlInfoIconLabelOptions)?
     TitleOptions: (TemplateLabelOptions)?
@@ -3445,6 +3496,7 @@ open class TemplateTemplateVersionDefinition {
     FilterGroups: (Listing<TemplateFilterGroup>)?
     Options: (TemplateAssetOptions)?
     ParameterDeclarations: (Listing<TemplateParameterDeclaration>)?
+    QueryExecutionOptions: (TemplateQueryExecutionOptions)?
     Sheets: (Listing<TemplateSheetDefinition>)?
 }
 
@@ -3548,6 +3600,9 @@ open class TemplateTooltipOptions {
     SelectedTooltipType: (TemplateSelectedTooltipType)?
     TooltipVisibility: (TemplateVisibility)?
 }
+
+typealias TemplateTooltipTarget = String|Mapping
+
 
 typealias TemplateTooltipTitleType = String|Mapping
 
@@ -3904,6 +3959,11 @@ typealias TemplateWordCloudWordPadding = String|Mapping
 
 typealias TemplateWordCloudWordScaling = String|Mapping
 
+
+/// 
+open class TemplateYAxisOptions {
+    YAxis: TemplateSingleYAxisOption
+}
 
 /// Definition of the AWS::QuickSight::Template Resource Type.
 open class Template extends cloudformation.Resource {

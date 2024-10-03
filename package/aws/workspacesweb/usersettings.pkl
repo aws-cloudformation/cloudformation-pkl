@@ -49,6 +49,9 @@ open class UserSettings extends cloudformation.Resource {
     hidden CustomerManagedKey: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:kms:[a-zA-Z0-9\-]*:[a-zA-Z0-9]{1,12}:key\/[a-zA-Z0-9-]+$"#)))|Mapping)?
 
     /// 
+    hidden DeepLinkAllowed: (UserSettingsEnabledType)?
+
+    /// 
     hidden DisconnectTimeoutInMinutes: (Number|Mapping)?
 
     /// 
@@ -74,6 +77,7 @@ open class UserSettings extends cloudformation.Resource {
         ["CookieSynchronizationConfiguration"] = if (CookieSynchronizationConfiguration == null) null else CookieSynchronizationConfiguration
         ["CopyAllowed"] = if (CopyAllowed == null) null else CopyAllowed
         ["CustomerManagedKey"] = if (CustomerManagedKey == null) null else CustomerManagedKey
+        ["DeepLinkAllowed"] = if (DeepLinkAllowed == null) null else DeepLinkAllowed
         ["DisconnectTimeoutInMinutes"] = if (DisconnectTimeoutInMinutes == null) null else DisconnectTimeoutInMinutes
         ["DownloadAllowed"] = if (DownloadAllowed == null) null else DownloadAllowed
         ["IdleDisconnectTimeoutInMinutes"] = if (IdleDisconnectTimeoutInMinutes == null) null else IdleDisconnectTimeoutInMinutes

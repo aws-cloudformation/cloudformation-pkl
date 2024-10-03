@@ -10,6 +10,13 @@ open class ConnectAttachmentConnectAttachmentOptions {
     Protocol: (String|Mapping)?
 }
 
+/// The attachment to move from one network function group to another.
+open class ConnectAttachmentProposedNetworkFunctionGroupChange {
+    AttachmentPolicyRuleNumber: (Int|Mapping)?
+    NetworkFunctionGroupName: (String|Mapping)?
+    Tags: (Listing<ConnectAttachmentTag>)?
+}
+
 /// The attachment to move from one segment to another.
 open class ConnectAttachmentProposedSegmentChange {
     AttachmentPolicyRuleNumber: (Int|Mapping)?
@@ -35,8 +42,14 @@ open class ConnectAttachment extends cloudformation.Resource {
     /// Edge location of the attachment.
     hidden EdgeLocation: String|Mapping
 
+    /// The name of the network function group attachment.
+    hidden NetworkFunctionGroupName: (String|Mapping)?
+
     /// Protocol options for connect attachment
     hidden Options: ConnectAttachmentConnectAttachmentOptions
+
+    /// The attachment to move from one network function group to another.
+    hidden ProposedNetworkFunctionGroupChange: (ConnectAttachmentProposedNetworkFunctionGroupChange)?
 
     /// The attachment to move from one segment to another.
     hidden ProposedSegmentChange: (ConnectAttachmentProposedSegmentChange)?
@@ -50,7 +63,9 @@ open class ConnectAttachment extends cloudformation.Resource {
     Properties {
         ["CoreNetworkId"] = if (CoreNetworkId == null) null else CoreNetworkId
         ["EdgeLocation"] = if (EdgeLocation == null) null else EdgeLocation
+        ["NetworkFunctionGroupName"] = if (NetworkFunctionGroupName == null) null else NetworkFunctionGroupName
         ["Options"] = if (Options == null) null else Options
+        ["ProposedNetworkFunctionGroupChange"] = if (ProposedNetworkFunctionGroupChange == null) null else ProposedNetworkFunctionGroupChange
         ["ProposedSegmentChange"] = if (ProposedSegmentChange == null) null else ProposedSegmentChange
         ["Tags"] = if (Tags == null) null else Tags
         ["TransportAttachmentId"] = if (TransportAttachmentId == null) null else TransportAttachmentId

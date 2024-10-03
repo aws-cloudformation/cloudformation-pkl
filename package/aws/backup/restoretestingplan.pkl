@@ -20,6 +20,9 @@ typealias RestoreTestingPlanRestoreTestingRecoveryPointSelectionAlgorithm = Stri
 typealias RestoreTestingPlanRestoreTestingRecoveryPointType = String|Mapping
 
 
+typealias RestoreTestingPlanRestoreTestingScheduleStatus = String|Mapping
+
+
 /// 
 open class RestoreTestingPlanTag {
     Key: String|Mapping
@@ -45,6 +48,9 @@ open class RestoreTestingPlan extends cloudformation.Resource {
     hidden ScheduleExpressionTimezone: (String|Mapping)?
 
     /// 
+    hidden ScheduleStatus: (RestoreTestingPlanRestoreTestingScheduleStatus)?
+
+    /// 
     hidden StartWindowHours: (Int|Mapping)?
 
     /// 
@@ -55,6 +61,7 @@ open class RestoreTestingPlan extends cloudformation.Resource {
         ["RestoreTestingPlanName"] = if (RestoreTestingPlanName == null) null else RestoreTestingPlanName
         ["ScheduleExpression"] = if (ScheduleExpression == null) null else ScheduleExpression
         ["ScheduleExpressionTimezone"] = if (ScheduleExpressionTimezone == null) null else ScheduleExpressionTimezone
+        ["ScheduleStatus"] = if (ScheduleStatus == null) null else ScheduleStatus
         ["StartWindowHours"] = if (StartWindowHours == null) null else StartWindowHours
         ["Tags"] = if (Tags == null) null else Tags
     }

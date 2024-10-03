@@ -20,6 +20,11 @@ open class ModelContainerDefinition {
 }
 
 /// 
+open class ModelHubAccessConfig {
+    HubContentArn: String|Mapping
+}
+
+/// 
 open class ModelImageConfig {
     RepositoryAccessMode: String|Mapping
     RepositoryAuthConfig: (ModelRepositoryAuthConfig)?
@@ -53,6 +58,7 @@ open class ModelRepositoryAuthConfig {
 /// 
 open class ModelS3DataSource {
     CompressionType: String|Mapping
+    HubAccessConfig: (ModelHubAccessConfig)?
     ModelAccessConfig: (ModelModelAccessConfig)?
     S3DataType: String|Mapping
     S3Uri: String|Mapping

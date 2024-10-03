@@ -68,6 +68,9 @@ open class ComputeEnvironment extends cloudformation.Resource {
     hidden ComputeResources: (ComputeEnvironmentComputeResources)?
 
     /// 
+    hidden Context: (String|Mapping)?
+
+    /// 
     hidden EksConfiguration: (ComputeEnvironmentEksConfiguration)?
 
     /// 
@@ -94,6 +97,7 @@ open class ComputeEnvironment extends cloudformation.Resource {
     Properties {
         ["ComputeEnvironmentName"] = if (ComputeEnvironmentName == null) null else ComputeEnvironmentName
         ["ComputeResources"] = if (ComputeResources == null) null else ComputeResources
+        ["Context"] = if (Context == null) null else Context
         ["EksConfiguration"] = if (EksConfiguration == null) null else EksConfiguration
         ["ReplaceComputeEnvironment"] = if (ReplaceComputeEnvironment == null) null else ReplaceComputeEnvironment
         ["ServiceRole"] = if (ServiceRole == null) null else ServiceRole

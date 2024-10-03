@@ -61,9 +61,6 @@ open class Multiplexprogram extends cloudformation.Resource {
     Type = "AWS::MediaLive::Multiplexprogram"
 
 
-    /// The MediaLive channel associated with the program.
-    hidden ChannelId: (String|Mapping)?
-
     /// The ID of the multiplex that the program belongs to.
     hidden MultiplexId: (String|Mapping)?
 
@@ -83,7 +80,6 @@ open class Multiplexprogram extends cloudformation.Resource {
     hidden ProgramName: (String|Mapping)?
 
     Properties {
-        ["ChannelId"] = if (ChannelId == null) null else ChannelId
         ["MultiplexId"] = if (MultiplexId == null) null else MultiplexId
         ["MultiplexProgramSettings"] = if (MultiplexProgramSettings == null) null else MultiplexProgramSettings
         ["PacketIdentifiersMap"] = if (PacketIdentifiersMap == null) null else PacketIdentifiersMap

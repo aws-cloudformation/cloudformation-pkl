@@ -155,7 +155,7 @@ open class Fleet extends cloudformation.Resource {
     hidden DisplayName: String|Mapping
 
     /// 
-    hidden FarmId: (String(matches(Regex(#"^farm-[0-9a-f]{32}$"#)))|Mapping)?
+    hidden FarmId: String(matches(Regex(#"^farm-[0-9a-f]{32}$"#)))|Mapping
 
     /// 
     hidden MaxWorkerCount: Int|Mapping

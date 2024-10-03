@@ -26,6 +26,9 @@ open class CanaryCode {
     SourceLocationArn: (String|Mapping)?
 }
 
+typealias CanaryResourceToTag = String|Mapping
+
+
 typealias CanaryRunConfigEnvironmentVariables = Mapping<String, Any>
 
 /// 
@@ -92,7 +95,10 @@ open class Canary extends cloudformation.Resource {
     hidden FailureRetentionPeriod: (Int|Mapping)?
 
     /// Name of the canary.
-    hidden Name: String(matches(Regex(#"^[0-9a-z_\-]{1,21}$"#)))|Mapping
+    hidden Name: String(matches(Regex(#"^[0-9a-z_\-]{1,255}$"#)))|Mapping
+
+    /// List of resources which canary tags should be replicated to.
+    hidden ResourcesToReplicateTags: (Listing<CanaryResourceToTag>)?
 
     /// Provide canary run configuration
     hidden RunConfig: (CanaryRunConfig)?
@@ -126,6 +132,7 @@ open class Canary extends cloudformation.Resource {
         ["ExecutionRoleArn"] = if (ExecutionRoleArn == null) null else ExecutionRoleArn
         ["FailureRetentionPeriod"] = if (FailureRetentionPeriod == null) null else FailureRetentionPeriod
         ["Name"] = if (Name == null) null else Name
+        ["ResourcesToReplicateTags"] = if (ResourcesToReplicateTags == null) null else ResourcesToReplicateTags
         ["RunConfig"] = if (RunConfig == null) null else RunConfig
         ["RuntimeVersion"] = if (RuntimeVersion == null) null else RuntimeVersion
         ["Schedule"] = if (Schedule == null) null else Schedule

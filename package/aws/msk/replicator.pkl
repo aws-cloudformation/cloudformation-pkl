@@ -49,6 +49,14 @@ open class ReplicatorReplicationStartingPosition {
 typealias ReplicatorReplicationStartingPositionType = String|Mapping
 
 
+/// Configuration for specifying replicated topic names should be the same as their corresponding upstream topics or prefixed with source cluster alias.
+open class ReplicatorReplicationTopicNameConfiguration {
+    Type: (ReplicatorReplicationTopicNameConfigurationType)?
+}
+
+typealias ReplicatorReplicationTopicNameConfigurationType = String|Mapping
+
+
 /// 
 open class ReplicatorTag {
     Key: String|Mapping
@@ -61,6 +69,7 @@ open class ReplicatorTopicReplication {
     CopyTopicConfigurations: (Boolean|Mapping)?
     DetectAndCopyNewTopics: (Boolean|Mapping)?
     StartingPosition: (ReplicatorReplicationStartingPosition)?
+    TopicNameConfiguration: (ReplicatorReplicationTopicNameConfiguration)?
     TopicsToExclude: (Listing<String|Mapping>)?
     TopicsToReplicate: Listing<String|Mapping>
 }

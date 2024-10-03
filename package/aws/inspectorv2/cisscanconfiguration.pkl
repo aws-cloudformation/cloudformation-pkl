@@ -70,19 +70,19 @@ open class CisScanConfiguration extends cloudformation.Resource {
 
 
     /// Name of the scan
-    hidden ScanName: (String|Mapping)?
+    hidden ScanName: String|Mapping
 
     /// 
-    hidden Schedule: (CisScanConfigurationSchedule)?
+    hidden Schedule: CisScanConfigurationSchedule
 
     /// 
-    hidden SecurityLevel: (CisScanConfigurationCisSecurityLevel)?
+    hidden SecurityLevel: CisScanConfigurationCisSecurityLevel
 
     /// 
     hidden Tags: (CisScanConfigurationCisTagMap)?
 
     /// 
-    hidden Targets: (CisScanConfigurationCisTargets)?
+    hidden Targets: CisScanConfigurationCisTargets
 
     Properties {
         ["ScanName"] = if (ScanName == null) null else ScanName

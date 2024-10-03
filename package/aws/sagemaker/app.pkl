@@ -10,6 +10,7 @@ typealias ResourceSpecInstanceType = "system"|"ml.t3.micro"|"ml.t3.small"|"ml.t3
 /// 
 open class AppResourceSpec {
     InstanceType: (ResourceSpecInstanceType|Mapping)?
+    LifecycleConfigArn: (String(matches(Regex(#"arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:studio-lifecycle-config/.*"#)))|Mapping)?
     SageMakerImageArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"#)))|Mapping)?
     SageMakerImageVersionArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"#)))|Mapping)?
 }

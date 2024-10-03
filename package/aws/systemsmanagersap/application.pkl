@@ -30,13 +30,16 @@ open class Application extends cloudformation.Resource {
 
 
     /// 
-    hidden ApplicationId: String(matches(Regex(#"[\w\d]{1,50}"#)))|Mapping
+    hidden ApplicationId: String(matches(Regex(#"[\w\d\.-]{1,60}"#)))|Mapping
 
     /// 
     hidden ApplicationType: ApplicationApplicationType|Mapping
 
     /// 
     hidden Credentials: (Listing<ApplicationCredential>)?
+
+    /// The ARN of the SAP HANA database
+    hidden DatabaseArn: (String(matches(Regex(#"^arn:(.+:){2,4}.+$|^arn:(.+:){1,3}.+\/.+$"#)))|Mapping)?
 
     /// 
     hidden Instances: (Listing<ApplicationInstance>)?
@@ -54,6 +57,7 @@ open class Application extends cloudformation.Resource {
         ["ApplicationId"] = if (ApplicationId == null) null else ApplicationId
         ["ApplicationType"] = if (ApplicationType == null) null else ApplicationType
         ["Credentials"] = if (Credentials == null) null else Credentials
+        ["DatabaseArn"] = if (DatabaseArn == null) null else DatabaseArn
         ["Instances"] = if (Instances == null) null else Instances
         ["SapInstanceNumber"] = if (SapInstanceNumber == null) null else SapInstanceNumber
         ["Sid"] = if (Sid == null) null else Sid
@@ -63,4 +67,4 @@ open class Application extends cloudformation.Resource {
 }
 
 
-typealias ApplicationApplicationType = "HANA"
+typealias ApplicationApplicationType = "HANA"|"SAP_ABAP"

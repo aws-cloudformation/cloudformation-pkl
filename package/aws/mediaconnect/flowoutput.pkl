@@ -85,6 +85,9 @@ open class FlowOutput extends cloudformation.Resource {
     /// The name of the output. This value must be unique within the current flow.
     hidden Name: (String|Mapping)?
 
+    /// An indication of whether the output should transmit data or not.
+    hidden OutputStatus: (FlowOutputOutputStatus|Mapping)?
+
     /// The port to use when content is distributed to this output.
     hidden Port: (Int|Mapping)?
 
@@ -113,6 +116,7 @@ open class FlowOutput extends cloudformation.Resource {
         ["MediaStreamOutputConfigurations"] = if (MediaStreamOutputConfigurations == null) null else MediaStreamOutputConfigurations
         ["MinLatency"] = if (MinLatency == null) null else MinLatency
         ["Name"] = if (Name == null) null else Name
+        ["OutputStatus"] = if (OutputStatus == null) null else OutputStatus
         ["Port"] = if (Port == null) null else Port
         ["Protocol"] = if (Protocol == null) null else Protocol
         ["RemoteId"] = if (RemoteId == null) null else RemoteId
@@ -123,5 +127,7 @@ open class FlowOutput extends cloudformation.Resource {
 
 }
 
+
+typealias FlowOutputOutputStatus = "ENABLED"|"DISABLED"
 
 typealias FlowOutputProtocol = "zixi-push"|"rtp-fec"|"rtp"|"zixi-pull"|"rist"|"fujitsu-qos"|"srt-listener"|"srt-caller"|"st2110-jpegxs"|"cdi"

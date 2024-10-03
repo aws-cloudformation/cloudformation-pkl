@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias AutomationRulesActionType = "FINDING_FIELDS_UPDATE"
 
-/// 
+/// One or more actions to update finding fields if a finding matches the defined criteria of the rule.
 open class AutomationRuleAutomationRulesAction {
     FindingFieldsUpdate: AutomationRuleAutomationRulesFindingFieldsUpdate
     Type: AutomationRulesActionType|Mapping
@@ -15,7 +15,7 @@ open class AutomationRuleAutomationRulesAction {
 
 typealias AutomationRulesFindingFieldsUpdateVerificationState = "UNKNOWN"|"TRUE_POSITIVE"|"FALSE_POSITIVE"|"BENIGN_POSITIVE"
 
-/// The rule action will update the ``Note`` field of a finding.
+/// Identifies the finding fields that the automation rule action updates when a finding matches the defined criteria.
 open class AutomationRuleAutomationRulesFindingFieldsUpdate {
     Confidence: (AutomationRuleint100)?
     Criticality: (AutomationRuleint100)?
@@ -28,7 +28,7 @@ open class AutomationRuleAutomationRulesFindingFieldsUpdate {
     Workflow: (Dynamic)?
 }
 
-/// 
+/// The criteria that determine which findings a rule applies to.
 open class AutomationRuleAutomationRulesFindingFilters {
     AwsAccountId: (Listing<AutomationRuleStringFilter>)?
     CompanyName: (Listing<AutomationRuleStringFilter>)?
@@ -72,7 +72,7 @@ open class AutomationRuleBooleanFilter {
     Value: Boolean|Mapping
 }
 
-/// 
+/// A date filter for querying findings.
 open class AutomationRuleDateFilter {
     DateRange: (AutomationRuleDateRange)?
     End: (AutomationRuleISO8601DateString)?
@@ -81,7 +81,7 @@ open class AutomationRuleDateFilter {
 
 typealias DateRangeUnit = "DAYS"
 
-/// 
+/// A date range for the date filter.
 open class AutomationRuleDateRange {
     Unit: DateRangeUnit|Mapping
     Value: Number|Mapping
@@ -92,7 +92,7 @@ typealias AutomationRuleISO8601DateString = String|Mapping
 
 typealias MapFilterComparison = "EQUALS"|"NOT_EQUALS"|"CONTAINS"|"NOT_CONTAINS"
 
-/// 
+/// A map filter for filtering ASHlong findings. Each map filter provides the field to check for, the value to check for, and the comparison operator.
 open class AutomationRuleMapFilter {
     Comparison: MapFilterComparison|Mapping
     Key: String|Mapping
@@ -102,13 +102,13 @@ open class AutomationRuleMapFilter {
 typealias AutomationRuleNonEmptyString = String|Mapping
 
 
-/// 
+/// The updated note.
 open class AutomationRuleNoteUpdate {
     Text: String|Mapping
     UpdatedBy: AutomationRulearnOrId
 }
 
-/// 
+/// A number filter for querying findings.
 open class AutomationRuleNumberFilter {
     Eq: (Number|Mapping)?
     Gte: (Number|Mapping)?
@@ -123,14 +123,14 @@ open class AutomationRuleRelatedFinding {
 
 typealias SeverityUpdateLabel = "INFORMATIONAL"|"LOW"|"MEDIUM"|"HIGH"|"CRITICAL"
 
-/// 
+/// Updates to the severity information for a finding.
 open class AutomationRuleSeverityUpdate {
     Label: (SeverityUpdateLabel|Mapping)?
     Normalized: (AutomationRuleint100)?
     Product: (Number|Mapping)?
 }
 
-/// 
+/// A string filter for filtering ASHlong findings.
 open class AutomationRuleStringFilter {
     Comparison: AutomationRuleStringFilterComparison
     Value: String|Mapping
@@ -144,7 +144,7 @@ typealias AutomationRuleTags = Mapping<String, Any>
 
 typealias WorkflowUpdateStatus = "NEW"|"NOTIFIED"|"RESOLVED"|"SUPPRESSED"
 
-/// 
+/// Used to update information about the investigation into the finding.
 open class AutomationRuleWorkflowUpdate {
     Status: WorkflowUpdateStatus|Mapping
 }
@@ -176,28 +176,28 @@ open class AutomationRule extends cloudformation.Resource {
     Type = "AWS::SecurityHub::AutomationRule"
 
 
-    /// 
-    hidden Actions: (Listing<AutomationRuleAutomationRulesAction>)?
+    /// One or more actions to update finding fields if a finding matches the conditions specified in ``Criteria``.
+    hidden Actions: Listing<AutomationRuleAutomationRulesAction>
 
     /// A set of [Security Finding Format (ASFF)](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html) finding field attributes and corresponding expected values that ASH uses to filter findings. If a rule is enabled and a finding matches the criteria specified in this parameter, ASH applies the rule action to the finding.
-    hidden Criteria: (AutomationRuleAutomationRulesFindingFilters)?
+    hidden Criteria: AutomationRuleAutomationRulesFindingFilters
 
-    /// 
-    hidden Description: (String|Mapping)?
+    /// A description of the rule.
+    hidden Description: String|Mapping
 
-    /// 
+    /// Specifies whether a rule is the last to be applied with respect to a finding that matches the rule criteria. This is useful when a finding matches the criteria for multiple rules, and each rule has different actions. If a rule is terminal, Security Hub applies the rule action to a finding that matches the rule criteria and doesn't evaluate other rules for the finding. By default, a rule isn't terminal.
     hidden IsTerminal: (Boolean|Mapping)?
 
-    /// 
-    hidden RuleName: (String|Mapping)?
+    /// The name of the rule.
+    hidden RuleName: String|Mapping
 
-    /// 
-    hidden RuleOrder: (Int|Mapping)?
+    /// An integer ranging from 1 to 1000 that represents the order in which the rule action is applied to findings. Security Hub applies rules with lower values for this parameter first.
+    hidden RuleOrder: Int|Mapping
 
     /// Whether the rule is active after it is created. If this parameter is equal to ``ENABLED``, ASH applies the rule to findings and finding updates after the rule is created.
     hidden RuleStatus: (AutomationRuleRuleStatus|Mapping)?
 
-    /// 
+    /// User-defined tags associated with an automation rule.
     hidden Tags: (AutomationRuleTags)?
 
     Properties {

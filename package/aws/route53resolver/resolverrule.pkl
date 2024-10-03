@@ -27,8 +27,11 @@ open class ResolverRule extends cloudformation.Resource {
     Type = "AWS::Route53Resolver::ResolverRule"
 
 
+    /// The name server domain for queries to be delegated to if a query matches the delegation record.
+    hidden DelegationRecord: (String|Mapping)?
+
     /// DNS queries for this domain name are forwarded to the IP addresses that are specified in TargetIps
-    hidden DomainName: String|Mapping
+    hidden DomainName: (String|Mapping)?
 
     /// The name for the Resolver rule
     hidden Name: (String|Mapping)?
@@ -46,6 +49,7 @@ open class ResolverRule extends cloudformation.Resource {
     hidden TargetIps: (Listing<ResolverRuleTargetAddress>)?
 
     Properties {
+        ["DelegationRecord"] = if (DelegationRecord == null) null else DelegationRecord
         ["DomainName"] = if (DomainName == null) null else DomainName
         ["Name"] = if (Name == null) null else Name
         ["ResolverEndpointId"] = if (ResolverEndpointId == null) null else ResolverEndpointId
@@ -57,4 +61,4 @@ open class ResolverRule extends cloudformation.Resource {
 }
 
 
-typealias ResolverRuleRuleType = "FORWARD"|"SYSTEM"|"RECURSIVE"
+typealias ResolverRuleRuleType = "FORWARD"|"SYSTEM"|"RECURSIVE"|"DELEGATE"

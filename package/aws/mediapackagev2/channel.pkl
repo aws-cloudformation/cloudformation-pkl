@@ -11,6 +11,9 @@ open class ChannelIngestEndpoint {
     Url: (String|Mapping)?
 }
 
+typealias ChannelInputType = String|Mapping
+
+
 /// 
 open class ChannelTag {
     Key: (String|Mapping)?
@@ -33,12 +36,16 @@ open class Channel extends cloudformation.Resource {
     hidden Description: (String|Mapping)?
 
     /// 
+    hidden InputType: (ChannelInputType)?
+
+    /// 
     hidden Tags: (Listing<ChannelTag>)?
 
     Properties {
         ["ChannelGroupName"] = if (ChannelGroupName == null) null else ChannelGroupName
         ["ChannelName"] = if (ChannelName == null) null else ChannelName
         ["Description"] = if (Description == null) null else Description
+        ["InputType"] = if (InputType == null) null else InputType
         ["Tags"] = if (Tags == null) null else Tags
     }
 

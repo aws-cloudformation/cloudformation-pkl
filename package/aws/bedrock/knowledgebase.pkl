@@ -5,6 +5,16 @@ module aws.bedrock.knowledgebase
 
 import "../../cloudformation.pkl"
 
+/// The vector configuration details for the Bedrock embeddings model.
+open class KnowledgeBaseBedrockEmbeddingModelConfiguration {
+    Dimensions: (Int|Mapping)?
+}
+
+/// The embeddings model configuration details for the vector model used in Knowledge Base.
+open class KnowledgeBaseEmbeddingModelConfiguration {
+    BedrockEmbeddingModelConfiguration: (KnowledgeBaseBedrockEmbeddingModelConfiguration)?
+}
+
 /// Contains details about the embeddings model used for the knowledge base.
 open class KnowledgeBaseKnowledgeBaseConfiguration {
     Type: KnowledgeBaseKnowledgeBaseType
@@ -19,6 +29,24 @@ typealias KnowledgeBaseKnowledgeBaseStorageType = String|Mapping
 
 typealias KnowledgeBaseKnowledgeBaseType = String|Mapping
 
+
+/// Contains the storage configuration of the knowledge base in MongoDb Atlas Cloud.
+open class KnowledgeBaseMongoDbAtlasConfiguration {
+    CollectionName: String(matches(Regex(#"^.*$"#)))|Mapping
+    CredentialsSecretArn: String(matches(Regex(#"^arn:aws(|-cn|-us-gov):secretsmanager:[a-z0-9-]{1,20}:([0-9]{12}|):secret:[a-zA-Z0-9!/_+=.@-]{1,512}$"#)))|Mapping
+    DatabaseName: String(matches(Regex(#"^.*$"#)))|Mapping
+    Endpoint: String(matches(Regex(#"^[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.mongodb\.net$"#)))|Mapping
+    EndpointServiceName: (String(matches(Regex(#"^(?:arn:aws(?:-us-gov|-cn|-iso|-iso-[a-z])*:.+:.*:\d+:.+/.+$|[a-zA-Z0-9*]+[a-zA-Z0-9._-]*)$"#)))|Mapping)?
+    FieldMapping: KnowledgeBaseMongoDbAtlasFieldMapping
+    VectorIndexName: String(matches(Regex(#"^.*$"#)))|Mapping
+}
+
+/// Contains the names of the fields to which to map information about the vector store.
+open class KnowledgeBaseMongoDbAtlasFieldMapping {
+    MetadataField: String(matches(Regex(#"^.*$"#)))|Mapping
+    TextField: String(matches(Regex(#"^.*$"#)))|Mapping
+    VectorField: String(matches(Regex(#"^.*$"#)))|Mapping
+}
 
 /// Contains the storage configuration of the knowledge base in Amazon OpenSearch Service.
 open class KnowledgeBaseOpenSearchServerlessConfiguration {
@@ -82,6 +110,7 @@ open class KnowledgeBaseRedisEnterpriseCloudFieldMapping {
 
 /// The vector store service in which the knowledge base is stored.
 open class KnowledgeBaseStorageConfiguration {
+    MongoDbAtlasConfiguration: (KnowledgeBaseMongoDbAtlasConfiguration)?
     OpensearchServerlessConfiguration: (KnowledgeBaseOpenSearchServerlessConfiguration)?
     PineconeConfiguration: (KnowledgeBasePineconeConfiguration)?
     RdsConfiguration: (KnowledgeBaseRdsConfiguration)?
@@ -93,7 +122,8 @@ typealias KnowledgeBaseTagsMap = Mapping<String, Any>
 
 /// Contains details about the model used to create vector embeddings for the knowledge base.
 open class KnowledgeBaseVectorKnowledgeBaseConfiguration {
-    EmbeddingModelArn: String(matches(Regex(#"^(arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}:(([0-9]{12}:custom-model/[a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}/[a-z0-9]{12})|(:foundation-model/[a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}([.:]?[a-z0-9-]{1,63}))|([0-9]{12}:provisioned-model/[a-z0-9]{12})))|([a-z0-9-]{1,63}[.]{1}[a-z0-9-]{1,63}([.:]?[a-z0-9-]{1,63}))|(([0-9a-zA-Z][_-]?)+)$"#)))|Mapping
+    EmbeddingModelArn: String(matches(Regex(#"^(arn:aws(-[^:]+)?:[a-z0-9-]+:[a-z0-9-]{1,20}:[0-9]{0,12}:[a-zA-Z0-9-:/._+]+)$"#)))|Mapping
+    EmbeddingModelConfiguration: (KnowledgeBaseEmbeddingModelConfiguration)?
 }
 
 /// Definition of AWS::Bedrock::KnowledgeBase Resource Type

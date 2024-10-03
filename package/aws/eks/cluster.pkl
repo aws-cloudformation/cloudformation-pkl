@@ -65,6 +65,22 @@ open class ClusterProvider {
     KeyArn: (String|Mapping)?
 }
 
+/// Network configuration of nodes run on-premises with EKS Hybrid Nodes.
+open class ClusterRemoteNodeNetwork {
+    Cidrs: Listing<String|Mapping>
+}
+
+typealias ClusterRemoteNodeNetworks = Listing<(ClusterRemoteNodeNetwork)?>
+
+
+/// Network configuration of pods run on-premises with EKS Hybrid Nodes.
+open class ClusterRemotePodNetwork {
+    Cidrs: Listing<String|Mapping>
+}
+
+typealias ClusterRemotePodNetworks = Listing<(ClusterRemotePodNetwork)?>
+
+
 /// An object representing the VPC configuration to use for an Amazon EKS cluster.
 open class ClusterResourcesVpcConfig {
     EndpointPrivateAccess: (Boolean|Mapping)?
@@ -80,6 +96,18 @@ open class ClusterTag {
     Value: String|Mapping
 }
 
+typealias UpgradePolicySupportType = "STANDARD"|"EXTENDED"
+
+/// An object representing the Upgrade Policy to use for the cluster.
+open class ClusterUpgradePolicy {
+    SupportType: (UpgradePolicySupportType|Mapping)?
+}
+
+/// The current zonal shift configuration to use for the cluster.
+open class ClusterZonalShiftConfig {
+    Enabled: (Boolean|Mapping)?
+}
+
 /// An object representing an Amazon EKS cluster.
 open class Cluster extends cloudformation.Resource {
 
@@ -89,7 +117,7 @@ open class Cluster extends cloudformation.Resource {
     /// 
     hidden AccessConfig: (ClusterAccessConfig)?
 
-    /// Set this value to false to avoid creating the default networking addons when the cluster is created.
+    /// Set this value to false to avoid creating the default networking add-ons when the cluster is created.
     hidden BootstrapSelfManagedAddons: (Boolean|Mapping)?
 
     /// 
@@ -116,8 +144,14 @@ open class Cluster extends cloudformation.Resource {
     /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<ClusterTag>)?
 
+    /// 
+    hidden UpgradePolicy: (ClusterUpgradePolicy)?
+
     /// The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used.
     hidden Version: (String(matches(Regex(#"1\.\d\d"#)))|Mapping)?
+
+    /// 
+    hidden ZonalShiftConfig: (ClusterZonalShiftConfig)?
 
     Properties {
         ["AccessConfig"] = if (AccessConfig == null) null else AccessConfig
@@ -130,7 +164,9 @@ open class Cluster extends cloudformation.Resource {
         ["ResourcesVpcConfig"] = if (ResourcesVpcConfig == null) null else ResourcesVpcConfig
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["Tags"] = if (Tags == null) null else Tags
+        ["UpgradePolicy"] = if (UpgradePolicy == null) null else UpgradePolicy
         ["Version"] = if (Version == null) null else Version
+        ["ZonalShiftConfig"] = if (ZonalShiftConfig == null) null else ZonalShiftConfig
     }
 
 }

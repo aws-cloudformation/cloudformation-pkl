@@ -11,14 +11,26 @@ open class LogDeliveryConfigurationCloudWatchLogsConfiguration {
 }
 
 /// 
+open class LogDeliveryConfigurationFirehoseConfiguration {
+    StreamArn: (String|Mapping)?
+}
+
+/// 
 open class LogDeliveryConfigurationLogConfiguration {
     CloudWatchLogsConfiguration: (LogDeliveryConfigurationCloudWatchLogsConfiguration)?
     EventSource: (String|Mapping)?
+    FirehoseConfiguration: (LogDeliveryConfigurationFirehoseConfiguration)?
     LogLevel: (String|Mapping)?
+    S3Configuration: (LogDeliveryConfigurationS3Configuration)?
 }
 
 typealias LogDeliveryConfigurationLogConfigurations = Listing<(LogDeliveryConfigurationLogConfiguration)?>
 
+
+/// 
+open class LogDeliveryConfigurationS3Configuration {
+    BucketArn: (String|Mapping)?
+}
 
 /// Resource Type definition for AWS::Cognito::LogDeliveryConfiguration
 open class LogDeliveryConfiguration extends cloudformation.Resource {

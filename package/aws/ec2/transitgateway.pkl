@@ -45,6 +45,9 @@ open class TransitGateway extends cloudformation.Resource {
     hidden PropagationDefaultRouteTableId: (String|Mapping)?
 
     /// 
+    hidden SecurityGroupReferencingSupport: (String|Mapping)?
+
+    /// 
     hidden Tags: (Listing<TransitGatewayTag>)?
 
     /// 
@@ -63,6 +66,7 @@ open class TransitGateway extends cloudformation.Resource {
         ["DnsSupport"] = if (DnsSupport == null) null else DnsSupport
         ["MulticastSupport"] = if (MulticastSupport == null) null else MulticastSupport
         ["PropagationDefaultRouteTableId"] = if (PropagationDefaultRouteTableId == null) null else PropagationDefaultRouteTableId
+        ["SecurityGroupReferencingSupport"] = if (SecurityGroupReferencingSupport == null) null else SecurityGroupReferencingSupport
         ["Tags"] = if (Tags == null) null else Tags
         ["TransitGatewayCidrBlocks"] = if (TransitGatewayCidrBlocks == null) null else TransitGatewayCidrBlocks
         ["VpnEcmpSupport"] = if (VpnEcmpSupport == null) null else VpnEcmpSupport

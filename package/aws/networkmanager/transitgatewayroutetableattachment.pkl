@@ -5,6 +5,13 @@ module aws.networkmanager.transitgatewayroutetableattachment
 
 import "../../cloudformation.pkl"
 
+/// The attachment to move from one network function group to another.
+open class TransitGatewayRouteTableAttachmentProposedNetworkFunctionGroupChange {
+    AttachmentPolicyRuleNumber: (Int|Mapping)?
+    NetworkFunctionGroupName: (String|Mapping)?
+    Tags: (Listing<TransitGatewayRouteTableAttachmentTag>)?
+}
+
 /// The attachment to move from one segment to another.
 open class TransitGatewayRouteTableAttachmentProposedSegmentChange {
     AttachmentPolicyRuleNumber: (Int|Mapping)?
@@ -24,8 +31,14 @@ open class TransitGatewayRouteTableAttachment extends cloudformation.Resource {
     Type = "AWS::NetworkManager::TransitGatewayRouteTableAttachment"
 
 
+    /// The name of the network function group attachment.
+    hidden NetworkFunctionGroupName: (String|Mapping)?
+
     /// The Id of peering between transit gateway and core network.
     hidden PeeringId: String|Mapping
+
+    /// The attachment to move from one network function group to another.
+    hidden ProposedNetworkFunctionGroupChange: (TransitGatewayRouteTableAttachmentProposedNetworkFunctionGroupChange)?
 
     /// The attachment to move from one segment to another.
     hidden ProposedSegmentChange: (TransitGatewayRouteTableAttachmentProposedSegmentChange)?
@@ -37,7 +50,9 @@ open class TransitGatewayRouteTableAttachment extends cloudformation.Resource {
     hidden TransitGatewayRouteTableArn: String|Mapping
 
     Properties {
+        ["NetworkFunctionGroupName"] = if (NetworkFunctionGroupName == null) null else NetworkFunctionGroupName
         ["PeeringId"] = if (PeeringId == null) null else PeeringId
+        ["ProposedNetworkFunctionGroupChange"] = if (ProposedNetworkFunctionGroupChange == null) null else ProposedNetworkFunctionGroupChange
         ["ProposedSegmentChange"] = if (ProposedSegmentChange == null) null else ProposedSegmentChange
         ["Tags"] = if (Tags == null) null else Tags
         ["TransitGatewayRouteTableArn"] = if (TransitGatewayRouteTableArn == null) null else TransitGatewayRouteTableArn

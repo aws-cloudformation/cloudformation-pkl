@@ -367,6 +367,13 @@ typealias DashboardCategoryFilterSelectAllOptions = String|Mapping
 
 
 /// 
+open class DashboardCategoryInnerFilter {
+    Column: DashboardColumnIdentifier
+    Configuration: DashboardCategoryFilterConfiguration
+    DefaultFilterControlConfiguration: (DashboardDefaultFilterControlConfiguration)?
+}
+
+/// 
 open class DashboardChartAxisLabelOptions {
     AxisLabelOptions: (Listing<DashboardAxisLabelOptions>)?
     SortIconVisibility: (DashboardVisibility)?
@@ -434,6 +441,7 @@ open class DashboardColumnTooltipItem {
     Aggregation: (DashboardAggregationFunction)?
     Column: DashboardColumnIdentifier
     Label: (String|Mapping)?
+    TooltipTarget: (DashboardTooltipTarget)?
     Visibility: (DashboardVisibility)?
 }
 
@@ -460,6 +468,7 @@ open class DashboardComboChartConfiguration {
     ReferenceLines: (Listing<DashboardReferenceLine>)?
     SecondaryYAxisDisplayOptions: (DashboardAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (DashboardChartAxisLabelOptions)?
+    SingleAxisOptions: (DashboardSingleAxisOptions)?
     SortConfiguration: (DashboardComboChartSortConfiguration)?
     Tooltip: (DashboardTooltipOptions)?
     VisualPalette: (DashboardVisualPalette)?
@@ -487,6 +496,9 @@ open class DashboardComboChartVisual {
     Title: (DashboardVisualTitleLabelOptions)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
+
+typealias DashboardCommitMode = String|Mapping
+
 
 /// 
 open class DashboardComparisonConfiguration {
@@ -976,6 +988,7 @@ open class DashboardDecimalValueWhenUnsetConfiguration {
 
 /// 
 open class DashboardDefaultDateTimePickerControlOptions {
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardDateTimePickerControlDisplayOptions)?
     Type: (DashboardSheetControlDateTimePickerType)?
 }
@@ -999,6 +1012,7 @@ open class DashboardDefaultFilterControlOptions {
 
 /// 
 open class DashboardDefaultFilterDropDownControlOptions {
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardDropDownControlDisplayOptions)?
     SelectableValues: (DashboardFilterSelectableValues)?
     Type: (DashboardSheetControlListType)?
@@ -1041,6 +1055,7 @@ open class DashboardDefaultPaginatedLayoutConfiguration {
 
 /// 
 open class DashboardDefaultRelativeDateTimeControlOptions {
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardRelativeDateTimeControlDisplayOptions)?
 }
 
@@ -1194,6 +1209,7 @@ open class DashboardFieldSortOptions {
 open class DashboardFieldTooltipItem {
     FieldId: String|Mapping
     Label: (String|Mapping)?
+    TooltipTarget: (DashboardTooltipTarget)?
     Visibility: (DashboardVisibility)?
 }
 
@@ -1253,6 +1269,7 @@ open class DashboardFilledMapVisual {
 /// 
 open class DashboardFilter {
     CategoryFilter: (DashboardCategoryFilter)?
+    NestedFilter: (DashboardNestedFilter)?
     NumericEqualityFilter: (DashboardNumericEqualityFilter)?
     NumericRangeFilter: (DashboardNumericRangeFilter)?
     RelativeDatesFilter: (DashboardRelativeDatesFilter)?
@@ -1282,6 +1299,7 @@ open class DashboardFilterCrossSheetControl {
 
 /// 
 open class DashboardFilterDateTimePickerControl {
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardDateTimePickerControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1292,6 +1310,7 @@ open class DashboardFilterDateTimePickerControl {
 /// 
 open class DashboardFilterDropDownControl {
     CascadingControlConfiguration: (DashboardCascadingControlConfiguration)?
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardDropDownControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (DashboardFilterSelectableValues)?
@@ -1345,6 +1364,7 @@ open class DashboardFilterOperationTargetVisualsConfiguration {
 
 /// 
 open class DashboardFilterRelativeDateTimeControl {
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardRelativeDateTimeControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1845,6 +1865,11 @@ typealias DashboardIcon = String|Mapping
 
 
 /// 
+open class DashboardInnerFilter {
+    CategoryInnerFilter: (DashboardCategoryInnerFilter)?
+}
+
+/// 
 open class DashboardInsightConfiguration {
     Computations: (Listing<DashboardComputation>)?
     CustomNarrative: (DashboardCustomNarrativeOptions)?
@@ -2052,6 +2077,7 @@ open class DashboardLineChartConfiguration {
     SecondaryYAxisDisplayOptions: (DashboardLineSeriesAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (DashboardChartAxisLabelOptions)?
     Series: (Listing<DashboardSeriesItem>)?
+    SingleAxisOptions: (DashboardSingleAxisOptions)?
     SmallMultiplesOptions: (DashboardSmallMultiplesOptions)?
     SortConfiguration: (DashboardLineChartSortConfiguration)?
     Tooltip: (DashboardTooltipOptions)?
@@ -2236,6 +2262,14 @@ typealias DashboardNegativeValueDisplayMode = String|Mapping
 
 
 /// 
+open class DashboardNestedFilter {
+    Column: DashboardColumnIdentifier
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    IncludeInnerSet: Boolean|Mapping
+    InnerFilter: DashboardInnerFilter
+}
+
+/// 
 open class DashboardNullValueFormatConfiguration {
     NullString: String|Mapping
 }
@@ -2415,6 +2449,7 @@ open class DashboardParameterDeclaration {
 /// 
 open class DashboardParameterDropDownControl {
     CascadingControlConfiguration: (DashboardCascadingControlConfiguration)?
+    CommitMode: (DashboardCommitMode)?
     DisplayOptions: (DashboardDropDownControlDisplayOptions)?
     ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (DashboardParameterSelectableValues)?
@@ -3230,6 +3265,14 @@ typealias DashboardSimpleTotalAggregationFunction = String|Mapping
 
 
 /// 
+open class DashboardSingleAxisOptions {
+    YAxisOptions: (DashboardYAxisOptions)?
+}
+
+typealias DashboardSingleYAxisOption = String|Mapping
+
+
+/// 
 open class DashboardSliderControlDisplayOptions {
     InfoIconLabelOptions: (DashboardSheetControlInfoIconLabelOptions)?
     TitleOptions: (DashboardLabelOptions)?
@@ -3628,6 +3671,9 @@ open class DashboardTooltipOptions {
     TooltipVisibility: (DashboardVisibility)?
 }
 
+typealias DashboardTooltipTarget = String|Mapping
+
+
 typealias DashboardTooltipTitleType = String|Mapping
 
 
@@ -3993,6 +4039,11 @@ typealias DashboardWordCloudWordPadding = String|Mapping
 
 typealias DashboardWordCloudWordScaling = String|Mapping
 
+
+/// 
+open class DashboardYAxisOptions {
+    YAxis: DashboardSingleYAxisOption
+}
 
 /// Definition of the AWS::QuickSight::Dashboard Resource Type.
 open class Dashboard extends cloudformation.Resource {

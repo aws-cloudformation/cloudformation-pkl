@@ -7,7 +7,8 @@ import "../../cloudformation.pkl"
 
 /// ARN of resource to share.
 open class CrossAccountAttachmentResource {
-    EndpointId: String|Mapping
+    Cidr: (String|Mapping)?
+    EndpointId: (String|Mapping)?
     Region: (String|Mapping)?
 }
 

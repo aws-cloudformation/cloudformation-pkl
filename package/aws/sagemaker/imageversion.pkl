@@ -89,6 +89,9 @@ open class ImageVersion extends cloudformation.Resource {
     /// 
     hidden VendorGuidance: (ImageVersionVendorGuidance)?
 
+    /// 
+    hidden Version: (ImageVersionVersion)?
+
     Properties {
         ["Alias"] = if (Alias == null) null else Alias
         ["Aliases"] = if (Aliases == null) null else Aliases
@@ -101,6 +104,7 @@ open class ImageVersion extends cloudformation.Resource {
         ["ProgrammingLang"] = if (ProgrammingLang == null) null else ProgrammingLang
         ["ReleaseNotes"] = if (ReleaseNotes == null) null else ReleaseNotes
         ["VendorGuidance"] = if (VendorGuidance == null) null else VendorGuidance
+        ["Version"] = if (Version == null) null else Version
     }
 
 }

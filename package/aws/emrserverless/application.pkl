@@ -75,6 +75,12 @@ open class ApplicationInitialCapacityConfigKeyValuePair {
 typealias ApplicationInitialCapacityConfigMap = Listing<(ApplicationInitialCapacityConfigKeyValuePair)?>
 
 
+/// 
+open class ApplicationInteractiveConfiguration {
+    LivyEndpointEnabled: (Boolean|Mapping)?
+    StudioEnabled: (Boolean|Mapping)?
+}
+
 typealias ApplicationLogGroupName = String|Mapping
 
 
@@ -189,6 +195,9 @@ open class Application extends cloudformation.Resource {
     /// Initial capacity initialized when an Application is started.
     hidden InitialCapacity: (ApplicationInitialCapacityConfigMap)?
 
+    /// 
+    hidden InteractiveConfiguration: (ApplicationInteractiveConfiguration)?
+
     /// Maximum allowed cumulative resources for an Application. No new resources will be created once the limit is hit.
     hidden MaximumCapacity: (ApplicationMaximumAllowedResources)?
 
@@ -222,6 +231,7 @@ open class Application extends cloudformation.Resource {
         ["AutoStopConfiguration"] = if (AutoStopConfiguration == null) null else AutoStopConfiguration
         ["ImageConfiguration"] = if (ImageConfiguration == null) null else ImageConfiguration
         ["InitialCapacity"] = if (InitialCapacity == null) null else InitialCapacity
+        ["InteractiveConfiguration"] = if (InteractiveConfiguration == null) null else InteractiveConfiguration
         ["MaximumCapacity"] = if (MaximumCapacity == null) null else MaximumCapacity
         ["MonitoringConfiguration"] = if (MonitoringConfiguration == null) null else MonitoringConfiguration
         ["Name"] = if (Name == null) null else Name

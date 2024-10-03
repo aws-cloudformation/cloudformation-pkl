@@ -25,6 +25,12 @@ open class IdentityPoolPushSync {
     RoleArn: (String|Mapping)?
 }
 
+/// A key-value pair to associate with a resource.
+open class IdentityPoolTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
 /// Resource Type definition for AWS::Cognito::IdentityPool
 open class IdentityPool extends cloudformation.Resource {
 
@@ -52,6 +58,9 @@ open class IdentityPool extends cloudformation.Resource {
     /// 
     hidden IdentityPoolName: (String|Mapping)?
 
+    /// An array of key-value pairs to apply to this resource.
+    hidden IdentityPoolTags: (Listing<IdentityPoolTag>)?
+
     /// 
     hidden OpenIdConnectProviderARNs: (Listing<String|Mapping>)?
 
@@ -72,6 +81,7 @@ open class IdentityPool extends cloudformation.Resource {
         ["CognitoStreams"] = if (CognitoStreams == null) null else CognitoStreams
         ["DeveloperProviderName"] = if (DeveloperProviderName == null) null else DeveloperProviderName
         ["IdentityPoolName"] = if (IdentityPoolName == null) null else IdentityPoolName
+        ["IdentityPoolTags"] = if (IdentityPoolTags == null) null else IdentityPoolTags
         ["OpenIdConnectProviderARNs"] = if (OpenIdConnectProviderARNs == null) null else OpenIdConnectProviderARNs
         ["PushSync"] = if (PushSync == null) null else PushSync
         ["SamlProviderARNs"] = if (SamlProviderARNs == null) null else SamlProviderARNs

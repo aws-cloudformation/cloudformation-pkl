@@ -5,11 +5,17 @@ module aws.sagemaker.userprofile
 
 import "../../cloudformation.pkl"
 
+/// 
+open class UserProfileAppLifecycleManagement {
+    IdleSettings: (UserProfileIdleSettings)?
+}
+
 typealias UserProfileAppType = String|Mapping
 
 
 /// The CodeEditor app settings.
 open class UserProfileCodeEditorAppSettings {
+    AppLifecycleManagement: (UserProfileAppLifecycleManagement)?
     CustomImages: (Listing<UserProfileCustomImage>)?
     DefaultResourceSpec: (UserProfileResourceSpec)?
     LifecycleConfigArns: (Listing<UserProfileStudioLifecycleConfigArn>)?
@@ -55,8 +61,20 @@ open class UserProfileEFSFileSystemConfig {
     FileSystemPath: (String(matches(Regex(#"^\/\S*$"#)))|Mapping)?
 }
 
+/// 
+open class UserProfileIdleSettings {
+    IdleTimeoutInMinutes: (UserProfileIdleTimeoutInMinutes)?
+    LifecycleManagement: (UserProfileLifecycleManagement)?
+    MaxIdleTimeoutInMinutes: (UserProfileMaxIdleTimeoutInMinutes)?
+    MinIdleTimeoutInMinutes: (UserProfileMinIdleTimeoutInMinutes)?
+}
+
+typealias UserProfileIdleTimeoutInMinutes = Int|Mapping
+
+
 /// The JupyterLab app settings.
 open class UserProfileJupyterLabAppSettings {
+    AppLifecycleManagement: (UserProfileAppLifecycleManagement)?
     CodeRepositories: (Listing<UserProfileCodeRepository>)?
     CustomImages: (Listing<UserProfileCustomImage>)?
     DefaultResourceSpec: (UserProfileResourceSpec)?
@@ -66,13 +84,24 @@ open class UserProfileJupyterLabAppSettings {
 /// The JupyterServer app settings.
 open class UserProfileJupyterServerAppSettings {
     DefaultResourceSpec: (UserProfileResourceSpec)?
+    LifecycleConfigArns: (Listing<UserProfileStudioLifecycleConfigArn>)?
 }
 
 /// The kernel gateway app settings.
 open class UserProfileKernelGatewayAppSettings {
     CustomImages: (Listing<UserProfileCustomImage>)?
     DefaultResourceSpec: (UserProfileResourceSpec)?
+    LifecycleConfigArns: (Listing<UserProfileStudioLifecycleConfigArn>)?
 }
+
+typealias UserProfileLifecycleManagement = String|Mapping
+
+
+typealias UserProfileMaxIdleTimeoutInMinutes = Int|Mapping
+
+
+typealias UserProfileMinIdleTimeoutInMinutes = Int|Mapping
+
 
 typealias UserProfileMlTools = String|Mapping
 
@@ -92,6 +121,7 @@ typealias ResourceSpecInstanceType = "system"|"ml.t3.micro"|"ml.t3.small"|"ml.t3
 /// 
 open class UserProfileResourceSpec {
     InstanceType: (ResourceSpecInstanceType|Mapping)?
+    LifecycleConfigArn: (String(matches(Regex(#"arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:studio-lifecycle-config/.*"#)))|Mapping)?
     SageMakerImageArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"#)))|Mapping)?
     SageMakerImageVersionArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"#)))|Mapping)?
 }

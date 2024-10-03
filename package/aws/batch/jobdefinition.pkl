@@ -219,6 +219,7 @@ open class JobDefinitionNodeProperties {
 open class JobDefinitionNodeRangeProperty {
     Container: (JobDefinitionContainerProperties)?
     EcsProperties: (JobDefinitionEcsProperties)?
+    EksProperties: (JobDefinitionEksProperties)?
     InstanceTypes: (Listing<String|Mapping>)?
     TargetNodes: String|Mapping
 }

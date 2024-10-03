@@ -8,7 +8,9 @@ import "../../cloudformation.pkl"
 typealias IntegrationEncryptionContextMap = Mapping<String, Any>
 
 
-/// A key-value pair to associate with a resource.
+/// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
+///
+///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
 open class IntegrationTag {
     Key: String|Mapping
     Value: (String|Mapping)?
@@ -17,31 +19,33 @@ open class IntegrationTag {
 typealias IntegrationTags = Listing<(IntegrationTag)?>
 
 
-/// Creates a zero-ETL integration with Amazon Redshift.
+/// A zero-ETL integration with Amazon Redshift.
 open class Integration extends cloudformation.Resource {
 
     Type = "AWS::RDS::Integration"
 
 
-    /// 
+    /// An optional set of non-secret key?value pairs that contains additional contextual information about the data. For more information, see [Encryption context](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context) in the *Key Management Service Developer Guide*.
+    ///
+    ///  You can only include this parameter if you specify the ``KMSKeyId`` parameter.
     hidden AdditionalEncryptionContext: (IntegrationEncryptionContextMap)?
 
-    /// The data filter for the integration.
+    /// Data filters for the integration. These filters determine which tables from the source database are sent to the target Amazon Redshift data warehouse.
     hidden DataFilter: (String(matches(Regex(#"[a-zA-Z0-9_ "\\\-$,*.:?+\/]*"#)))|Mapping)?
 
-    /// The description of the integration.
+    /// A description of the integration.
     hidden Description: (String|Mapping)?
 
     /// The name of the integration.
     hidden IntegrationName: (String|Mapping)?
 
-    /// An optional AWS Key Management System (AWS KMS) key ARN for the key used to to encrypt the integration. The resource accepts the key ID and the key ARN forms. The key ID form can be used if the KMS key is owned by te same account. If the KMS key belongs to a different account than the calling account, the full key ARN must be specified. Do not use the key alias or the key alias ARN as this will cause a false drift of the resource.
+    /// The AWS Key Management System (AWS KMS) key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, RDS uses a default AWS owned key.
     hidden KMSKeyId: (String|Mapping)?
 
-    /// The Amazon Resource Name (ARN) of the Aurora DB cluster to use as the source for replication.
+    /// The Amazon Resource Name (ARN) of the database to use as the source for replication.
     hidden SourceArn: String|Mapping
 
-    /// An array of key-value pairs to apply to this resource.
+    /// A list of tags. For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide.*.
     hidden Tags: (Listing<IntegrationTag>)?
 
     /// The ARN of the Redshift data warehouse to use as the target for replication.

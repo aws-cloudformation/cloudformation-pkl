@@ -17,7 +17,7 @@ open class WirelessDeviceAbpV11 {
     SessionKeys: WirelessDeviceSessionKeysAbpV11
 }
 
-typealias ApplicationType = "SemtechGeolocation"
+typealias ApplicationType = "SemtechGeolocation"|"SemtechGNSS"|"SemtechGNSSNG"|"SemtechWiFi"
 
 /// LoRaWAN application configuration, which can be used to perform geolocation.
 open class WirelessDeviceApplication {

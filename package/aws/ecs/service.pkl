@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias AwsVpcConfigurationAssignPublicIp = "DISABLED"|"ENABLED"
 
-/// An object representing the networking details for a task or service. For example ``awsvpcConfiguration={subnets=["subnet-12344321"],securityGroups=["sg-12344321"]}``
+/// An object representing the networking details for a task or service. For example ``awsVpcConfiguration={subnets=["subnet-12344321"],securityGroups=["sg-12344321"]}``.
 open class ServiceAwsVpcConfiguration {
     AssignPublicIp: (AwsVpcConfigurationAssignPublicIp|Mapping)?
     SecurityGroups: (Listing<String|Mapping>)?
@@ -45,7 +45,7 @@ open class ServiceDeploymentCircuitBreaker {
     Rollback: Boolean|Mapping
 }
 
-/// The ``DeploymentConfiguration`` property specifies optional deployment parameters that control how many tasks run during the deployment and the ordering of stopping and starting tasks.
+/// Optional deployment parameters that control how many tasks run during a deployment and the ordering of stopping and starting tasks.
 open class ServiceDeploymentConfiguration {
     Alarms: (ServiceDeploymentAlarms)?
     DeploymentCircuitBreaker: (ServiceDeploymentCircuitBreaker)?
@@ -82,13 +82,13 @@ open class ServiceLoadBalancer {
 
 typealias ServiceLogConfigurationOptions = Mapping<String, Any>
 
-/// The log configuration for the container. This parameter maps to ``LogConfig`` in the [Create a container](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.aws.amazon.com/https://docs.docker.com/engine/api/v1.35/) and the ``--log-driver`` option to [docker run](https://docs.aws.amazon.com/https://docs.docker.com/engine/reference/commandline/run/).
+/// The log configuration for the container. This parameter maps to ``LogConfig`` in the docker container create command and the ``--log-driver`` option to docker run.
 ///
-///  By default, containers use the same logging driver that the Docker daemon uses. However, the container might use a different logging driver than the Docker daemon by specifying a log driver configuration in the container definition. For more information about the options for different supported log drivers, see [Configure logging drivers](https://docs.aws.amazon.com/https://docs.docker.com/engine/admin/logging/overview/) in the Docker documentation.
+///  By default, containers use the same logging driver that the Docker daemon uses. However, the container might use a different logging driver than the Docker daemon by specifying a log driver configuration in the container definition.
 ///  Understand the following when specifying a log configuration for your containers.
 ///   +  Amazon ECS currently supports a subset of the logging drivers available to the Docker daemon. Additional log drivers may be available in future releases of the Amazon ECS container agent.
 ///  For tasks on FARGATElong, the supported log drivers are ``awslogs``, ``splunk``, and ``awsfirelens``.
-///  For tasks hosted on Amazon EC2 instances, the supported log drivers are ``awslogs``, ``fluentd``, ``gelf``, ``json-file``, ``journald``, ``logentries``,``syslog``, ``splunk``, and ``awsfirelens``.
+///  For tasks hosted on Amazon EC2 instances, the supported log drivers are ``awslogs``, ``fluentd``, ``gelf``, ``json-file``, ``journald``,``syslog``, ``splunk``, and ``awsfirelens``.
 ///   +  This parameter requires version 1.18 of the Docker Remote API or greater on your container instance.
 ///   +  For tasks that are hosted on Amazon EC2 instances, the Amazon ECS container agent must register the available logging drivers with the ``ECS_AVAILABLE_LOGGING_DRIVERS`` environment variable before containers placed on that instance can use these log configuration options. For more information, see [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the *Amazon Elastic Container Service Developer Guide*.
 ///   +  For tasks that are on FARGATElong, because you don't have access to the underlying infrastructure your tasks are hosted on, any additional software needed must be installed outside of the task. For example, the Fluentd output aggregators or a remote host running Logstash to send Gelf logs to.
@@ -98,14 +98,16 @@ open class ServiceLogConfiguration {
     SecretOptions: (Listing<ServiceSecret>)?
 }
 
-/// The ``NetworkConfiguration`` property specifies an object representing the network configuration for a task or service.
+/// The network configuration for a task or service.
 open class ServiceNetworkConfiguration {
     AwsvpcConfiguration: (ServiceAwsVpcConfiguration)?
 }
 
 typealias PlacementConstraintType = "distinctInstance"|"memberOf"
 
-/// The ``PlacementConstraint`` property specifies an object representing a constraint on task placement in the task definition. For more information, see [Task Placement Constraints](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html) in the *Amazon Elastic Container Service Developer Guide*.
+/// An object representing a constraint on task placement. For more information, see [Task placement constraints](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html) in the *Amazon Elastic Container Service Developer Guide*.
+///
+///   If you're using the Fargate launch type, task placement constraints aren't supported.
 open class ServicePlacementConstraint {
     Expression: (String|Mapping)?
     Type: PlacementConstraintType|Mapping
@@ -113,7 +115,7 @@ open class ServicePlacementConstraint {
 
 typealias PlacementStrategyType = "binpack"|"random"|"spread"
 
-/// The ``PlacementStrategy`` property specifies the task placement strategy for a task or service. For more information, see [Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html) in the *Amazon Elastic Container Service Developer Guide*.
+/// The task placement strategy for a task or service. For more information, see [Task placement strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html) in the *Amazon Elastic Container Service Developer Guide*.
 open class ServicePlacementStrategy {
     Field: (String|Mapping)?
     Type: PlacementStrategyType|Mapping
@@ -159,12 +161,12 @@ open class ServiceServiceConnectService {
     Tls: (ServiceServiceConnectTlsConfiguration)?
 }
 
-/// An object that represents the AWS Private Certificate Authority certificate.
+/// The certificate root authority that secures your service.
 open class ServiceServiceConnectTlsCertificateAuthority {
     AwsPcaAuthorityArn: (String|Mapping)?
 }
 
-/// An object that represents the configuration for Service Connect TLS.
+/// The key that encrypts and decrypts your resources for Service Connect TLS.
 open class ServiceServiceConnectTlsConfiguration {
     IssuerCertificateAuthority: ServiceServiceConnectTlsCertificateAuthority
     KmsKey: (String|Mapping)?
@@ -187,7 +189,10 @@ open class ServiceServiceManagedEBSVolumeConfiguration {
     VolumeType: (String|Mapping)?
 }
 
-/// The ``ServiceRegistry`` property specifies details of the service registry. For more information, see [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html) in the *Amazon Elastic Container Service Developer Guide*.
+/// The details for the service registry.
+///
+///  Each service may be associated with one service registry. Multiple service registries for each service are not supported.
+///  When you add, update, or remove the service registries configuration, Amazon ECS starts a new deployment. New tasks are registered and deregistered to the updated service registry configuration.
 open class ServiceServiceRegistry {
     ContainerName: (String|Mapping)?
     ContainerPort: (Int|Mapping)?
@@ -226,8 +231,8 @@ open class ServiceTimeoutConfiguration {
 
 /// The ``AWS::ECS::Service`` resource creates an Amazon Elastic Container Service (Amazon ECS) service that runs and maintains the requested number of tasks and associated load balancers.
 ///
-///   The stack update fails if you change any properties that require replacement and at least one Amazon ECS Service Connect ``ServiceConnectService`` is configured. This is because AWS CloudFormation creates the replacement service first, but each ``ServiceConnectService`` must have a name that is unique in the namespace.
-///   Starting April 15, 2023, AWS; will not onboard new customers to Amazon Elastic Inference (EI), and will help current customers migrate their workloads to options that offer better price and performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon SageMaker, ECS, or EC2. However, customers who have used Amazon EI at least once during the past 30-day period are considered current customers and will be able to continue using the service.
+///   The stack update fails if you change any properties that require replacement and at least one ECS Service Connect ``ServiceConnectConfiguration`` property the is configured. This is because AWS CloudFormation creates the replacement service first, but each ``ServiceConnectService`` must have a name that is unique in the namespace.
+///    Starting April 15, 2023, AWS; will not onboard new customers to Amazon Elastic Inference (EI), and will help current customers migrate their workloads to options that offer better price and performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon SageMaker, ECS, or EC2. However, customers who have used Amazon EI at least once during the past 30-day period are considered current customers and will be able to continue using the service.
 open class Service extends cloudformation.Resource {
 
     Type = "AWS::ECS::Service"
@@ -288,6 +293,7 @@ open class Service extends cloudformation.Resource {
 
     /// Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task creation, use the [TagResource](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TagResource.html) API action.
     ///
+    ///  You must set this to a value other than ``NONE`` when you use Cost Explorer. For more information, see [Amazon ECS usage reports](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/usage-reports.html) in the *Amazon Elastic Container Service Developer Guide*.
     ///  The default is ``NONE``.
     hidden PropagateTags: (ServicePropagateTags|Mapping)?
 

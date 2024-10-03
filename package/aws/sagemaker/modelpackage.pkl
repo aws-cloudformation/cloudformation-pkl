@@ -130,13 +130,31 @@ open class ModelPackageMetricsSource {
     S3Uri: String(matches(Regex(#"^(https|s3)://([^/]+)/?(.*)$"#)))|Mapping
 }
 
+/// Specifies the access configuration file for the ML model.
+open class ModelPackageModelAccessConfig {
+    AcceptEula: Boolean|Mapping
+}
+
 typealias ModelPackageModelApprovalStatus = String|Mapping
 
+
+typealias ModelCardModelCardStatus = "Draft"|"PendingReview"|"Approved"|"Archived"
+
+/// The model card associated with the model package.
+open class ModelPackageModelCard {
+    ModelCardContent: String(matches(Regex(#".*"#)))|Mapping
+    ModelCardStatus: ModelCardModelCardStatus|Mapping
+}
 
 /// Metrics that measure the quality of the input data for a model.
 open class ModelPackageModelDataQuality {
     Constraints: (ModelPackageMetricsSource)?
     Statistics: (ModelPackageMetricsSource)?
+}
+
+/// Specifies the location of ML model data to deploy during endpoint creation.
+open class ModelPackageModelDataSource {
+    S3DataSource: (ModelPackageS3ModelDataSource)?
 }
 
 /// A structure that contains model metrics reports.
@@ -158,6 +176,7 @@ open class ModelPackageModelPackageContainerDefinition {
     FrameworkVersion: (String(matches(Regex(#"[0-9]\.[A-Za-z0-9.]+"#)))|Mapping)?
     Image: String(matches(Regex(#"[\S]{1,255}"#)))|Mapping
     ImageDigest: (String(matches(Regex(#"^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$"#)))|Mapping)?
+    ModelDataSource: (ModelPackageModelDataSource)?
     ModelDataUrl: (String(matches(Regex(#"^(https|s3)://([^/]+)/?(.*)$"#)))|Mapping)?
     ModelInput: (Dynamic)?
     NearestModelName: (String|Mapping)?
@@ -209,8 +228,25 @@ open class ModelPackageS3DataSource {
     S3Uri: String(matches(Regex(#"^(https|s3)://([^/]+)/?(.*)$"#)))|Mapping
 }
 
+typealias S3ModelDataSourceCompressionType = "None"|"Gzip"
+
+typealias S3ModelDataSourceS3DataType = "S3Prefix"|"S3Object"
+
+/// Specifies the S3 location of ML model data to deploy.
+open class ModelPackageS3ModelDataSource {
+    CompressionType: S3ModelDataSourceCompressionType|Mapping
+    ModelAccessConfig: (ModelPackageModelAccessConfig)?
+    S3DataType: S3ModelDataSourceS3DataType|Mapping
+    S3Uri: String(matches(Regex(#"^(https|s3)://([^/]+)/?(.*)$"#)))|Mapping
+}
+
 typealias ModelPackageSamplePayloadUrl = String|Mapping
 
+
+/// An optional AWS Key Management Service key to encrypt, decrypt, and re-encrypt model package information for regulated workloads with highly sensitive data.
+open class ModelPackageSecurityConfig {
+    KmsKeyId: String(matches(Regex(#"^[a-zA-Z0-9:/_-]*$"#)))|Mapping
+}
 
 typealias ModelPackageSkipModelValidation = String|Mapping
 
@@ -225,6 +261,9 @@ open class ModelPackageSourceAlgorithm {
 open class ModelPackageSourceAlgorithmSpecification {
     SourceAlgorithms: Listing<ModelPackageSourceAlgorithm>
 }
+
+typealias ModelPackageSourceUri = String|Mapping
+
 
 /// A key-value pair to associate with a resource.
 open class ModelPackageTag {
@@ -335,6 +374,9 @@ open class ModelPackage extends cloudformation.Resource {
     hidden ModelApprovalStatus: (ModelPackageModelApprovalStatus)?
 
     /// 
+    hidden ModelCard: (ModelPackageModelCard)?
+
+    /// 
     hidden ModelMetrics: (ModelPackageModelMetrics)?
 
     /// 
@@ -356,10 +398,16 @@ open class ModelPackage extends cloudformation.Resource {
     hidden SamplePayloadUrl: (ModelPackageSamplePayloadUrl)?
 
     /// 
+    hidden SecurityConfig: (ModelPackageSecurityConfig)?
+
+    /// 
     hidden SkipModelValidation: (ModelPackageSkipModelValidation)?
 
     /// 
     hidden SourceAlgorithmSpecification: (ModelPackageSourceAlgorithmSpecification)?
+
+    /// 
+    hidden SourceUri: (ModelPackageSourceUri)?
 
     /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<ModelPackageTag>)?
@@ -383,6 +431,7 @@ open class ModelPackage extends cloudformation.Resource {
         ["LastModifiedTime"] = if (LastModifiedTime == null) null else LastModifiedTime
         ["MetadataProperties"] = if (MetadataProperties == null) null else MetadataProperties
         ["ModelApprovalStatus"] = if (ModelApprovalStatus == null) null else ModelApprovalStatus
+        ["ModelCard"] = if (ModelCard == null) null else ModelCard
         ["ModelMetrics"] = if (ModelMetrics == null) null else ModelMetrics
         ["ModelPackageDescription"] = if (ModelPackageDescription == null) null else ModelPackageDescription
         ["ModelPackageGroupName"] = if (ModelPackageGroupName == null) null else ModelPackageGroupName
@@ -390,8 +439,10 @@ open class ModelPackage extends cloudformation.Resource {
         ["ModelPackageStatusDetails"] = if (ModelPackageStatusDetails == null) null else ModelPackageStatusDetails
         ["ModelPackageVersion"] = if (ModelPackageVersion == null) null else ModelPackageVersion
         ["SamplePayloadUrl"] = if (SamplePayloadUrl == null) null else SamplePayloadUrl
+        ["SecurityConfig"] = if (SecurityConfig == null) null else SecurityConfig
         ["SkipModelValidation"] = if (SkipModelValidation == null) null else SkipModelValidation
         ["SourceAlgorithmSpecification"] = if (SourceAlgorithmSpecification == null) null else SourceAlgorithmSpecification
+        ["SourceUri"] = if (SourceUri == null) null else SourceUri
         ["Tags"] = if (Tags == null) null else Tags
         ["Task"] = if (Task == null) null else Task
         ["ValidationSpecification"] = if (ValidationSpecification == null) null else ValidationSpecification

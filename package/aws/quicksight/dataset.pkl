@@ -87,7 +87,7 @@ typealias DataSetDataSetImportMode = String|Mapping
 
 /// <p>The refresh properties of a dataset.</p>
 open class DataSetDataSetRefreshProperties {
-    RefreshConfiguration: DataSetRefreshConfiguration
+    RefreshConfiguration: (DataSetRefreshConfiguration)?
 }
 
 /// <p>The usage configuration to apply to child datasets that reference this dataset as a source.</p>
@@ -224,7 +224,7 @@ typealias DataSetJoinType = String|Mapping
 open class DataSetLogicalTable {
     Alias: String|Mapping
     DataTransforms: (Listing<DataSetTransformOperation>)?
-    Source: DataSetLogicalTableSource
+    Source: (DataSetLogicalTableSource)?
 }
 
 typealias DataSetLogicalTableMap = Mapping<String, Any>
@@ -459,6 +459,9 @@ open class DataSet extends cloudformation.Resource {
     /// 
     hidden FieldFolders: (DataSetFieldFolderMap)?
 
+    /// <p>When you create the dataset, Amazon QuickSight adds the dataset to these folders.</p>
+    hidden FolderArns: (Listing<String|Mapping>)?
+
     /// 
     hidden ImportMode: (DataSetDataSetImportMode)?
 
@@ -495,6 +498,7 @@ open class DataSet extends cloudformation.Resource {
         ["DataSetUsageConfiguration"] = if (DataSetUsageConfiguration == null) null else DataSetUsageConfiguration
         ["DatasetParameters"] = if (DatasetParameters == null) null else DatasetParameters
         ["FieldFolders"] = if (FieldFolders == null) null else FieldFolders
+        ["FolderArns"] = if (FolderArns == null) null else FolderArns
         ["ImportMode"] = if (ImportMode == null) null else ImportMode
         ["IngestionWaitPolicy"] = if (IngestionWaitPolicy == null) null else IngestionWaitPolicy
         ["LogicalTableMap"] = if (LogicalTableMap == null) null else LogicalTableMap

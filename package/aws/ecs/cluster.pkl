@@ -12,7 +12,7 @@ open class ClusterCapacityProviderStrategyItem {
     Weight: (Int|Mapping)?
 }
 
-/// The execute command configuration for the cluster.
+/// The execute command and managed storage configuration for the cluster.
 open class ClusterClusterConfiguration {
     ExecuteCommandConfiguration: (ClusterExecuteCommandConfiguration)?
     ManagedStorageConfiguration: (ClusterManagedStorageConfiguration)?
@@ -40,7 +40,7 @@ open class ClusterExecuteCommandLogConfiguration {
     S3KeyPrefix: (String|Mapping)?
 }
 
-/// 
+/// The managed storage configuration for the cluster.
 open class ClusterManagedStorageConfiguration {
     FargateEphemeralStorageKmsKeyId: (String|Mapping)?
     KmsKeyId: (String|Mapping)?
@@ -87,7 +87,7 @@ open class Cluster extends cloudformation.Resource {
     /// The settings to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a cluster.
     hidden ClusterSettings: (Listing<ClusterClusterSettings>)?
 
-    /// The execute command configuration for the cluster.
+    /// The execute command and managed storage configuration for the cluster.
     hidden Configuration: (ClusterClusterConfiguration)?
 
     /// The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no launch type or capacity provider strategy specified, the default capacity provider strategy is used.
