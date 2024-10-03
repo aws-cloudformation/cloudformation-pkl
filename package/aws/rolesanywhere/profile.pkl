@@ -32,6 +32,9 @@ open class Profile extends cloudformation.Resource {
 
 
     /// 
+    hidden AcceptRoleSessionName: (Boolean|Mapping)?
+
+    /// 
     hidden AttributeMappings: (Listing<ProfileAttributeMapping>)?
 
     /// 
@@ -59,6 +62,7 @@ open class Profile extends cloudformation.Resource {
     hidden Tags: (Listing<ProfileTag>)?
 
     Properties {
+        ["AcceptRoleSessionName"] = if (AcceptRoleSessionName == null) null else AcceptRoleSessionName
         ["AttributeMappings"] = if (AttributeMappings == null) null else AttributeMappings
         ["DurationSeconds"] = if (DurationSeconds == null) null else DurationSeconds
         ["Enabled"] = if (Enabled == null) null else Enabled

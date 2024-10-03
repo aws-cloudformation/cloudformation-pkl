@@ -32,8 +32,19 @@ open class CampaignConditionBasedCollectionScheme {
     TriggerMode: (CampaignTriggerMode)?
 }
 
-typealias CampaignDataDestinationConfig = CampaignDataDestinationConfigS3Config|CampaignDataDestinationConfigTimestreamConfig
+/// 
+open class CampaignConditionBasedSignalFetchConfig {
+    ConditionExpression: String|Mapping
+    TriggerMode: CampaignTriggerMode
+}
 
+typealias CampaignDataDestinationConfig = CampaignDataDestinationConfigS3Config|CampaignDataDestinationConfigTimestreamConfig|CampaignDataDestinationConfigMqttTopicConfig
+
+
+/// 
+open class CampaignDataDestinationConfigMqttTopicConfig {
+    MqttTopicConfig: CampaignMqttTopicConfig
+}
 
 /// 
 open class CampaignDataDestinationConfigS3Config {
@@ -52,11 +63,38 @@ typealias CampaignDiagnosticsMode = String|Mapping
 
 
 /// 
+open class CampaignMqttTopicConfig {
+    ExecutionRoleArn: String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):iam::(\d{12})?:(role((\u002F)|(\u002F[\u0021-\u007F]+\u002F))[\w+=,.@-]+)$"#)))|Mapping
+    MqttTopicArn: String(matches(Regex(#"^arn:.*"#)))|Mapping
+}
+
+/// 
 open class CampaignS3Config {
     BucketArn: String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):s3:::.+$"#)))|Mapping
     DataFormat: (CampaignDataFormat)?
     Prefix: (String(matches(Regex(#"^[a-zA-Z0-9-_:./!*'()]+$"#)))|Mapping)?
     StorageCompressionFormat: (CampaignStorageCompressionFormat)?
+}
+
+typealias CampaignSignalFetchConfig = CampaignSignalFetchConfigTimeBased|CampaignSignalFetchConfigConditionBased
+
+
+/// 
+open class CampaignSignalFetchConfigConditionBased {
+    ConditionBased: CampaignConditionBasedSignalFetchConfig
+}
+
+/// 
+open class CampaignSignalFetchConfigTimeBased {
+    TimeBased: CampaignTimeBasedSignalFetchConfig
+}
+
+/// 
+open class CampaignSignalFetchInformation {
+    Actions: Listing<String|Mapping>
+    ConditionLanguageVersion: (Number|Mapping)?
+    FullyQualifiedName: String(matches(Regex(#"^[a-zA-Z0-9_.]+$"#)))|Mapping
+    SignalFetchConfig: CampaignSignalFetchConfig
 }
 
 /// 
@@ -84,6 +122,20 @@ open class CampaignTimeBasedCollectionScheme {
 }
 
 /// 
+open class CampaignTimeBasedSignalFetchConfig {
+    ExecutionFrequencyMs: Number|Mapping
+}
+
+/// 
+open class CampaignTimePeriod {
+    Unit: CampaignTimeUnit
+    Value: Number|Mapping
+}
+
+typealias CampaignTimeUnit = String|Mapping
+
+
+/// 
 open class CampaignTimestreamConfig {
     ExecutionRoleArn: String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):iam::(\d{12})?:(role((\u002F)|(\u002F[\u0021-\u007F]+\u002F))[\w+=,.@-]+)$"#)))|Mapping
     TimestreamTableArn: String(matches(Regex(#"^arn:(aws[a-zA-Z0-9-]*):timestream:[a-zA-Z0-9-]+:[0-9]{12}:database\/[a-zA-Z0-9_.-]+\/table\/[a-zA-Z0-9_.-]+$"#)))|Mapping
@@ -102,7 +154,7 @@ open class Campaign extends cloudformation.Resource {
 
 
     /// 
-    hidden Action: CampaignUpdateCampaignAction
+    hidden Action: (CampaignUpdateCampaignAction)?
 
     /// 
     hidden CollectionScheme: CampaignCollectionScheme
@@ -141,6 +193,9 @@ open class Campaign extends cloudformation.Resource {
     hidden SignalsToCollect: (Listing<CampaignSignalInformation>)?
 
     /// 
+    hidden SignalsToFetch: (Listing<CampaignSignalFetchInformation>)?
+
+    /// 
     hidden SpoolingMode: (CampaignSpoolingMode)?
 
     /// 
@@ -166,6 +221,7 @@ open class Campaign extends cloudformation.Resource {
         ["Priority"] = if (Priority == null) null else Priority
         ["SignalCatalogArn"] = if (SignalCatalogArn == null) null else SignalCatalogArn
         ["SignalsToCollect"] = if (SignalsToCollect == null) null else SignalsToCollect
+        ["SignalsToFetch"] = if (SignalsToFetch == null) null else SignalsToFetch
         ["SpoolingMode"] = if (SpoolingMode == null) null else SpoolingMode
         ["StartTime"] = if (StartTime == null) null else StartTime
         ["Tags"] = if (Tags == null) null else Tags

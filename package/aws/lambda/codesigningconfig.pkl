@@ -17,6 +17,12 @@ open class CodeSigningConfigCodeSigningPolicies {
     UntrustedArtifactOnDeployment: CodeSigningPoliciesUntrustedArtifactOnDeployment|Mapping
 }
 
+/// 
+open class CodeSigningConfigTag {
+    Key: String|Mapping
+    Value: (String|Mapping)?
+}
+
 /// Resource Type definition for AWS::Lambda::CodeSigningConfig.
 open class CodeSigningConfig extends cloudformation.Resource {
 
@@ -32,10 +38,14 @@ open class CodeSigningConfig extends cloudformation.Resource {
     /// A description of the CodeSigningConfig
     hidden Description: (String|Mapping)?
 
+    /// A list of tags to apply to CodeSigningConfig resource
+    hidden Tags: (Listing<CodeSigningConfigTag>)?
+
     Properties {
         ["AllowedPublishers"] = if (AllowedPublishers == null) null else AllowedPublishers
         ["CodeSigningPolicies"] = if (CodeSigningPolicies == null) null else CodeSigningPolicies
         ["Description"] = if (Description == null) null else Description
+        ["Tags"] = if (Tags == null) null else Tags
     }
 
 }

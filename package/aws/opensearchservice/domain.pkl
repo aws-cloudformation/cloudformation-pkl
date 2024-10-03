@@ -11,6 +11,7 @@ open class DomainAdvancedSecurityOptionsInput {
     AnonymousAuthEnabled: (Boolean|Mapping)?
     Enabled: (Boolean|Mapping)?
     InternalUserDatabaseEnabled: (Boolean|Mapping)?
+    JWTOptions: (DomainJWTOptions)?
     MasterUserOptions: (DomainMasterUserOptions)?
     SAMLOptions: (DomainSAMLOptions)?
 }
@@ -72,6 +73,14 @@ open class DomainEncryptionAtRestOptions {
 open class DomainIdp {
     EntityId: String|Mapping
     MetadataContent: String|Mapping
+}
+
+/// 
+open class DomainJWTOptions {
+    Enabled: (Boolean|Mapping)?
+    PublicKey: (String|Mapping)?
+    RolesKey: (String|Mapping)?
+    SubjectKey: (String|Mapping)?
 }
 
 /// 
@@ -208,6 +217,9 @@ open class Domain extends cloudformation.Resource {
     hidden OffPeakWindowOptions: (DomainOffPeakWindowOptions)?
 
     /// 
+    hidden SkipShardMigrationWait: (Boolean|Mapping)?
+
+    /// 
     hidden SnapshotOptions: (DomainSnapshotOptions)?
 
     /// 
@@ -234,6 +246,7 @@ open class Domain extends cloudformation.Resource {
         ["LogPublishingOptions"] = if (LogPublishingOptions == null) null else LogPublishingOptions
         ["NodeToNodeEncryptionOptions"] = if (NodeToNodeEncryptionOptions == null) null else NodeToNodeEncryptionOptions
         ["OffPeakWindowOptions"] = if (OffPeakWindowOptions == null) null else OffPeakWindowOptions
+        ["SkipShardMigrationWait"] = if (SkipShardMigrationWait == null) null else SkipShardMigrationWait
         ["SnapshotOptions"] = if (SnapshotOptions == null) null else SnapshotOptions
         ["SoftwareUpdateOptions"] = if (SoftwareUpdateOptions == null) null else SoftwareUpdateOptions
         ["Tags"] = if (Tags == null) null else Tags

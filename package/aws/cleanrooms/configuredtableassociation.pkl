@@ -5,6 +5,68 @@ module aws.cleanrooms.configuredtableassociation
 
 import "../../cloudformation.pkl"
 
+typealias ConfiguredTableAssociationAllowedAdditionalAnalyses = Listing<(ConfiguredTableAssociationAllowedAdditionalAnalysis)?>
+
+
+typealias ConfiguredTableAssociationAllowedAdditionalAnalysis = String|Mapping
+
+
+typealias ConfiguredTableAssociationAllowedResultReceiver = String|Mapping
+
+
+typealias ConfiguredTableAssociationAllowedResultReceivers = Listing<(ConfiguredTableAssociationAllowedResultReceiver)?>
+
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRule {
+    Policy: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicy
+    Type: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleType
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleAggregation {
+    AllowedAdditionalAnalyses: (ConfiguredTableAssociationAllowedAdditionalAnalyses)?
+    AllowedResultReceivers: (ConfiguredTableAssociationAllowedResultReceivers)?
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleCustom {
+    AllowedAdditionalAnalyses: (ConfiguredTableAssociationAllowedAdditionalAnalyses)?
+    AllowedResultReceivers: (ConfiguredTableAssociationAllowedResultReceivers)?
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleList {
+    AllowedAdditionalAnalyses: (ConfiguredTableAssociationAllowedAdditionalAnalyses)?
+    AllowedResultReceivers: (ConfiguredTableAssociationAllowedResultReceivers)?
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicy {
+    V1: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1
+}
+
+typealias ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1 = ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1List|ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1Aggregation|ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1Custom
+
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1Aggregation {
+    Aggregation: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleAggregation
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1Custom {
+    Custom: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleCustom
+}
+
+/// 
+open class ConfiguredTableAssociationConfiguredTableAssociationAnalysisRulePolicyV1List {
+    List: ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleList
+}
+
+typealias ConfiguredTableAssociationConfiguredTableAssociationAnalysisRuleType = String|Mapping
+
+
 /// 
 open class ConfiguredTableAssociationTag {
     Key: String|Mapping
@@ -16,6 +78,9 @@ open class ConfiguredTableAssociation extends cloudformation.Resource {
 
     Type = "AWS::CleanRooms::ConfiguredTableAssociation"
 
+
+    /// 
+    hidden ConfiguredTableAssociationAnalysisRules: (Listing<ConfiguredTableAssociationConfiguredTableAssociationAnalysisRule>)?
 
     /// 
     hidden ConfiguredTableIdentifier: String(matches(Regex(#"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"#)))|Mapping
@@ -36,6 +101,7 @@ open class ConfiguredTableAssociation extends cloudformation.Resource {
     hidden Tags: (Listing<ConfiguredTableAssociationTag>)?
 
     Properties {
+        ["ConfiguredTableAssociationAnalysisRules"] = if (ConfiguredTableAssociationAnalysisRules == null) null else ConfiguredTableAssociationAnalysisRules
         ["ConfiguredTableIdentifier"] = if (ConfiguredTableIdentifier == null) null else ConfiguredTableIdentifier
         ["Description"] = if (Description == null) null else Description
         ["MembershipIdentifier"] = if (MembershipIdentifier == null) null else MembershipIdentifier

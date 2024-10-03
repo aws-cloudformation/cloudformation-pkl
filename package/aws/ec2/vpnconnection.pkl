@@ -5,19 +5,23 @@ module aws.ec2.vpnconnection
 
 import "../../cloudformation.pkl"
 
-/// 
+/// Specifies a tag. For more information, see [Resource tags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
 open class VPNConnectionTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// 
+/// The tunnel options for a single VPN tunnel.
 open class VPNConnectionVpnTunnelOptionsSpecification {
     PreSharedKey: (String|Mapping)?
     TunnelInsideCidr: (String|Mapping)?
 }
 
-/// Resource Type definition for AWS::EC2::VPNConnection
+/// Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.
+///
+///  To specify a VPN connection between a transit gateway and customer gateway, use the ``TransitGatewayId`` and ``CustomerGatewayId`` properties.
+///  To specify a VPN connection between a virtual private gateway and customer gateway, use the ``VpnGatewayId`` and ``CustomerGatewayId`` properties.
+///  For more information, see [](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the *User Guide*.
 open class VPNConnection extends cloudformation.Resource {
 
     Type = "AWS::EC2::VPNConnection"
@@ -26,19 +30,51 @@ open class VPNConnection extends cloudformation.Resource {
     /// The ID of the customer gateway at your end of the VPN connection.
     hidden CustomerGatewayId: String|Mapping
 
-    /// Indicates whether the VPN connection uses static routes only.
+    /// Indicate whether to enable acceleration for the VPN connection.
+    ///
+    ///  Default: ``false``
+    hidden EnableAcceleration: (Boolean|Mapping)?
+
+    /// 
+    hidden LocalIpv4NetworkCidr: (String|Mapping)?
+
+    /// 
+    hidden LocalIpv6NetworkCidr: (String|Mapping)?
+
+    /// 
+    hidden OutsideIpAddressType: (String|Mapping)?
+
+    /// 
+    hidden RemoteIpv4NetworkCidr: (String|Mapping)?
+
+    /// 
+    hidden RemoteIpv6NetworkCidr: (String|Mapping)?
+
+    /// Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.
+    ///
+    ///  If you are creating a VPN connection for a device that does not support Border Gateway Protocol (BGP), you must specify ``true``.
     hidden StaticRoutesOnly: (Boolean|Mapping)?
 
     /// Any tags assigned to the VPN connection.
     hidden Tags: (Listing<VPNConnectionTag>)?
 
     /// The ID of the transit gateway associated with the VPN connection.
+    ///
+    ///  You must specify either ``TransitGatewayId`` or ``VpnGatewayId``, but not both.
     hidden TransitGatewayId: (String|Mapping)?
+
+    /// 
+    hidden TransportTransitGatewayAttachmentId: (String|Mapping)?
+
+    /// 
+    hidden TunnelInsideIpVersion: (String|Mapping)?
 
     /// The type of VPN connection.
     hidden TypeProperty: String|Mapping
 
     /// The ID of the virtual private gateway at the AWS side of the VPN connection.
+    ///
+    ///  You must specify either ``TransitGatewayId`` or ``VpnGatewayId``, but not both.
     hidden VpnGatewayId: (String|Mapping)?
 
     /// The tunnel options for the VPN connection.
@@ -46,9 +82,17 @@ open class VPNConnection extends cloudformation.Resource {
 
     Properties {
         ["CustomerGatewayId"] = if (CustomerGatewayId == null) null else CustomerGatewayId
+        ["EnableAcceleration"] = if (EnableAcceleration == null) null else EnableAcceleration
+        ["LocalIpv4NetworkCidr"] = if (LocalIpv4NetworkCidr == null) null else LocalIpv4NetworkCidr
+        ["LocalIpv6NetworkCidr"] = if (LocalIpv6NetworkCidr == null) null else LocalIpv6NetworkCidr
+        ["OutsideIpAddressType"] = if (OutsideIpAddressType == null) null else OutsideIpAddressType
+        ["RemoteIpv4NetworkCidr"] = if (RemoteIpv4NetworkCidr == null) null else RemoteIpv4NetworkCidr
+        ["RemoteIpv6NetworkCidr"] = if (RemoteIpv6NetworkCidr == null) null else RemoteIpv6NetworkCidr
         ["StaticRoutesOnly"] = if (StaticRoutesOnly == null) null else StaticRoutesOnly
         ["Tags"] = if (Tags == null) null else Tags
         ["TransitGatewayId"] = if (TransitGatewayId == null) null else TransitGatewayId
+        ["TransportTransitGatewayAttachmentId"] = if (TransportTransitGatewayAttachmentId == null) null else TransportTransitGatewayAttachmentId
+        ["TunnelInsideIpVersion"] = if (TunnelInsideIpVersion == null) null else TunnelInsideIpVersion
         ["Type"] = if (TypeProperty == null) null else TypeProperty
         ["VpnGatewayId"] = if (VpnGatewayId == null) null else VpnGatewayId
         ["VpnTunnelOptionsSpecifications"] = if (VpnTunnelOptionsSpecifications == null) null else VpnTunnelOptionsSpecifications

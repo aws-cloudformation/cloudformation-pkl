@@ -11,13 +11,13 @@ open class ResourcePolicy extends cloudformation.Resource {
     Type = "AWS::SecretsManager::ResourcePolicy"
 
 
-    /// 
+    /// Specifies whether to block resource-based policies that allow broad access to the secret.
     hidden BlockPublicPolicy: (Boolean|Mapping)?
 
-    /// 
+    /// A JSON-formatted string for an AWS resource-based policy.
     hidden ResourcePolicy: Dynamic
 
-    /// 
+    /// The ARN or name of the secret to attach the resource-based policy.
     hidden SecretId: String|Mapping
 
     Properties {

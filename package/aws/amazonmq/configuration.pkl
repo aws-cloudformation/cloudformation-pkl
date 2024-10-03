@@ -17,25 +17,25 @@ open class Configuration extends cloudformation.Resource {
     Type = "AWS::AmazonMQ::Configuration"
 
 
-    /// 
+    /// The authentication strategy associated with the configuration. The default is SIMPLE.
     hidden AuthenticationStrategy: (String|Mapping)?
 
-    /// 
+    /// The base64-encoded XML configuration.
     hidden Data: String|Mapping
 
-    /// 
+    /// The description of the configuration.
     hidden Description: (String|Mapping)?
 
-    /// 
+    /// The type of broker engine. Note: Currently, Amazon MQ only supports ACTIVEMQ for creating and editing broker configurations.
     hidden EngineType: String|Mapping
 
-    /// 
+    /// The version of the broker engine.
     hidden EngineVersion: (String|Mapping)?
 
-    /// 
+    /// The name of the configuration.
     hidden Name: String|Mapping
 
-    /// 
+    /// Create tags when creating the configuration.
     hidden Tags: (Listing<ConfigurationTagsEntry>)?
 
     Properties {

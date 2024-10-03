@@ -88,6 +88,7 @@ open class ClusterInstanceFleetConfig {
     InstanceTypeConfigs: (Listing<ClusterInstanceTypeConfig>)?
     LaunchSpecifications: (ClusterInstanceFleetProvisioningSpecifications)?
     Name: (String|Mapping)?
+    ResizeSpecifications: (ClusterInstanceFleetResizingSpecifications)?
     TargetOnDemandCapacity: (Int|Mapping)?
     TargetSpotCapacity: (Int|Mapping)?
 }
@@ -96,6 +97,12 @@ open class ClusterInstanceFleetConfig {
 open class ClusterInstanceFleetProvisioningSpecifications {
     OnDemandSpecification: (ClusterOnDemandProvisioningSpecification)?
     SpotSpecification: (ClusterSpotProvisioningSpecification)?
+}
+
+/// 
+open class ClusterInstanceFleetResizingSpecifications {
+    OnDemandResizeSpecification: (ClusterOnDemandResizingSpecification)?
+    SpotResizeSpecification: (ClusterSpotResizingSpecification)?
 }
 
 /// 
@@ -119,6 +126,7 @@ open class ClusterInstanceTypeConfig {
     CustomAmiId: (String|Mapping)?
     EbsConfiguration: (ClusterEbsConfiguration)?
     InstanceType: String|Mapping
+    Priority: (Number|Mapping)?
     WeightedCapacity: (Int|Mapping)?
 }
 
@@ -172,8 +180,23 @@ open class ClusterMetricDimension {
 }
 
 /// 
+open class ClusterOnDemandCapacityReservationOptions {
+    CapacityReservationPreference: (String|Mapping)?
+    CapacityReservationResourceGroupArn: (String|Mapping)?
+    UsageStrategy: (String|Mapping)?
+}
+
+/// 
 open class ClusterOnDemandProvisioningSpecification {
     AllocationStrategy: String|Mapping
+    CapacityReservationOptions: (ClusterOnDemandCapacityReservationOptions)?
+}
+
+/// 
+open class ClusterOnDemandResizingSpecification {
+    AllocationStrategy: (String|Mapping)?
+    CapacityReservationOptions: (ClusterOnDemandCapacityReservationOptions)?
+    TimeoutDurationMinutes: (Int|Mapping)?
 }
 
 /// 
@@ -231,6 +254,12 @@ open class ClusterSpotProvisioningSpecification {
     BlockDurationMinutes: (Int|Mapping)?
     TimeoutAction: String|Mapping
     TimeoutDurationMinutes: Int|Mapping
+}
+
+/// 
+open class ClusterSpotResizingSpecification {
+    AllocationStrategy: (String|Mapping)?
+    TimeoutDurationMinutes: (Int|Mapping)?
 }
 
 /// 

@@ -39,7 +39,7 @@ open class Application extends cloudformation.Resource {
     hidden Name: String(matches(Regex(#"^[a-zA-Z0-9\/\._ \-]+$"#)))|Mapping
 
     /// The namespace of the application.
-    hidden Namespace: (String(matches(Regex(#"^[a-zA-Z0-9/\._\-]+$"#)))|Mapping)?
+    hidden Namespace: String(matches(Regex(#"^[a-zA-Z0-9/\._\-]+$"#)))|Mapping
 
     /// The configuration of events or requests that the application has access to.
     hidden Permissions: (Listing<ApplicationPermissions>)?

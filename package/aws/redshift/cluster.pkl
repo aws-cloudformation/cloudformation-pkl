@@ -14,6 +14,8 @@ open class ClusterEndpoint {
 /// 
 open class ClusterLoggingProperties {
     BucketName: (String|Mapping)?
+    LogDestinationType: (String|Mapping)?
+    LogExports: (Listing<String|Mapping>)?
     S3KeyPrefix: (String|Mapping)?
 }
 

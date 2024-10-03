@@ -18,6 +18,11 @@ open class UserPoolAdminCreateUserConfig {
 }
 
 /// 
+open class UserPoolAdvancedSecurityAdditionalFlows {
+    CustomAuthMode: (String|Mapping)?
+}
+
+/// 
 open class UserPoolCustomEmailSender {
     LambdaArn: (String|Mapping)?
     LambdaVersion: (String|Mapping)?
@@ -78,6 +83,7 @@ open class UserPoolNumberAttributeConstraints {
 /// 
 open class UserPoolPasswordPolicy {
     MinimumLength: (Int|Mapping)?
+    PasswordHistorySize: (Int|Mapping)?
     RequireLowercase: (Boolean|Mapping)?
     RequireNumbers: (Boolean|Mapping)?
     RequireSymbols: (Boolean|Mapping)?
@@ -133,6 +139,7 @@ open class UserPoolUserAttributeUpdateSettings {
 
 /// 
 open class UserPoolUserPoolAddOns {
+    AdvancedSecurityAdditionalFlows: (UserPoolAdvancedSecurityAdditionalFlows)?
     AdvancedSecurityMode: (String|Mapping)?
 }
 
@@ -151,7 +158,7 @@ open class UserPoolVerificationMessageTemplate {
     SmsMessage: (String|Mapping)?
 }
 
-/// Resource Type definition for AWS::Cognito::UserPool
+/// Definition of AWS::Cognito::UserPool Resource Type
 open class UserPool extends cloudformation.Resource {
 
     Type = "AWS::Cognito::UserPool"
@@ -174,6 +181,12 @@ open class UserPool extends cloudformation.Resource {
 
     /// 
     hidden DeviceConfiguration: (UserPoolDeviceConfiguration)?
+
+    /// 
+    hidden EmailAuthenticationMessage: (String|Mapping)?
+
+    /// 
+    hidden EmailAuthenticationSubject: (String|Mapping)?
 
     /// 
     hidden EmailConfiguration: (UserPoolEmailConfiguration)?
@@ -236,6 +249,8 @@ open class UserPool extends cloudformation.Resource {
         ["AutoVerifiedAttributes"] = if (AutoVerifiedAttributes == null) null else AutoVerifiedAttributes
         ["DeletionProtection"] = if (DeletionProtection == null) null else DeletionProtection
         ["DeviceConfiguration"] = if (DeviceConfiguration == null) null else DeviceConfiguration
+        ["EmailAuthenticationMessage"] = if (EmailAuthenticationMessage == null) null else EmailAuthenticationMessage
+        ["EmailAuthenticationSubject"] = if (EmailAuthenticationSubject == null) null else EmailAuthenticationSubject
         ["EmailConfiguration"] = if (EmailConfiguration == null) null else EmailConfiguration
         ["EmailVerificationMessage"] = if (EmailVerificationMessage == null) null else EmailVerificationMessage
         ["EmailVerificationSubject"] = if (EmailVerificationSubject == null) null else EmailVerificationSubject

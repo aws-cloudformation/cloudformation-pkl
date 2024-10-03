@@ -49,7 +49,7 @@ open class LaunchTemplateCapacityReservationTarget {
     CapacityReservationResourceGroupArn: (String|Mapping)?
 }
 
-/// A security group connection tracking specification that enables you to set the idle timeout for connection tracking on an Elastic network interface. For more information, see [Connection tracking timeouts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts) in the *Amazon Elastic Compute Cloud User Guide*.
+/// A security group connection tracking specification that enables you to set the idle timeout for connection tracking on an Elastic network interface. For more information, see [Connection tracking timeouts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts) in the *Amazon EC2 User Guide*.
 open class LaunchTemplateConnectionTrackingSpecification {
     TcpEstablishedTimeout: (Int|Mapping)?
     UdpStreamTimeout: (Int|Mapping)?
@@ -375,7 +375,7 @@ open class LaunchTemplateSpotOptions {
     ValidUntil: (String|Mapping)?
 }
 
-/// Specifies a tag. For more information, see [Add tags to a resource](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#cloudformation-add-tag-specifications).
+/// Specifies a tag. For more information, see [Resource tags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
 open class LaunchTemplateTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -422,7 +422,7 @@ open class LaunchTemplate extends cloudformation.Resource {
 
     /// The tags to apply to the launch template on creation. To tag the launch template, the resource type must be ``launch-template``.
     ///
-    ///  To specify the tags for the resources that are created when an instance is launched, you must use [TagSpecifications](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html#cfn-ec2-launchtemplate-tagspecifications).
+    ///  To specify the tags for the resources that are created when an instance is launched, you must use [TagSpecifications](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-tagspecifications).
     hidden TagSpecifications: (Listing<LaunchTemplateLaunchTemplateTagSpecification>)?
 
     /// A description for the first version of the launch template.

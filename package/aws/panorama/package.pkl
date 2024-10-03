@@ -14,7 +14,7 @@ typealias PackageNodePackageId = String|Mapping
 typealias PackageNodePackageName = String|Mapping
 
 
-/// 
+/// A storage location.
 open class PackageStorageLocation {
     BinaryPrefixLocation: (String|Mapping)?
     Bucket: (String|Mapping)?
@@ -35,19 +35,19 @@ typealias PackageTagList = Listing<(PackageTag)?>
 typealias PackageTimestamp = Int|Mapping
 
 
-/// Schema for Package CloudFormation Resource
+/// Creates a package and storage location in an Amazon S3 access point.
 open class Package extends cloudformation.Resource {
 
     Type = "AWS::Panorama::Package"
 
 
-    /// 
+    /// A name for the package.
     hidden PackageName: PackageNodePackageName
 
-    /// 
+    /// A storage location.
     hidden StorageLocation: (PackageStorageLocation)?
 
-    /// 
+    /// Tags for the package.
     hidden Tags: (PackageTagList)?
 
     Properties {

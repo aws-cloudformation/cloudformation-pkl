@@ -9,7 +9,7 @@ typealias LoggingConfigurationLogDestinationConfigLogDestination = Mapping<Strin
 
 typealias LogDestinationConfigLogDestinationType = "S3"|"CloudWatchLogs"|"KinesisDataFirehose"
 
-typealias LogDestinationConfigLogType = "ALERT"|"FLOW"
+typealias LogDestinationConfigLogType = "ALERT"|"FLOW"|"TLS"
 
 /// 
 open class LoggingConfigurationLogDestinationConfig {

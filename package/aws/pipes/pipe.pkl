@@ -571,6 +571,9 @@ open class Pipe extends cloudformation.Resource {
     hidden EnrichmentParameters: (PipePipeEnrichmentParameters)?
 
     /// 
+    hidden KmsKeyIdentifier: (String|Mapping)?
+
+    /// 
     hidden LogConfiguration: (PipePipeLogConfiguration)?
 
     /// 
@@ -599,6 +602,7 @@ open class Pipe extends cloudformation.Resource {
         ["DesiredState"] = if (DesiredState == null) null else DesiredState
         ["Enrichment"] = if (Enrichment == null) null else Enrichment
         ["EnrichmentParameters"] = if (EnrichmentParameters == null) null else EnrichmentParameters
+        ["KmsKeyIdentifier"] = if (KmsKeyIdentifier == null) null else KmsKeyIdentifier
         ["LogConfiguration"] = if (LogConfiguration == null) null else LogConfiguration
         ["Name"] = if (Name == null) null else Name
         ["RoleArn"] = if (RoleArn == null) null else RoleArn

@@ -17,6 +17,13 @@ typealias MatchingWorkflowDescription = String|Mapping
 typealias MatchingWorkflowEntityName = String|Mapping
 
 
+typealias IncrementalRunConfigIncrementalRunType = "IMMEDIATE"
+
+/// 
+open class MatchingWorkflowIncrementalRunConfig {
+    IncrementalRunType: IncrementalRunConfigIncrementalRunType|Mapping
+}
+
 /// 
 open class MatchingWorkflowInputSource {
     ApplyNormalization: (Boolean|Mapping)?
@@ -107,6 +114,9 @@ open class MatchingWorkflow extends cloudformation.Resource {
     hidden Description: (MatchingWorkflowDescription)?
 
     /// 
+    hidden IncrementalRunConfig: (MatchingWorkflowIncrementalRunConfig)?
+
+    /// 
     hidden InputSourceConfig: Listing<MatchingWorkflowInputSource>
 
     /// 
@@ -126,6 +136,7 @@ open class MatchingWorkflow extends cloudformation.Resource {
 
     Properties {
         ["Description"] = if (Description == null) null else Description
+        ["IncrementalRunConfig"] = if (IncrementalRunConfig == null) null else IncrementalRunConfig
         ["InputSourceConfig"] = if (InputSourceConfig == null) null else InputSourceConfig
         ["OutputSourceConfig"] = if (OutputSourceConfig == null) null else OutputSourceConfig
         ["ResolutionTechniques"] = if (ResolutionTechniques == null) null else ResolutionTechniques

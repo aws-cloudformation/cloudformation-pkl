@@ -585,6 +585,7 @@ open class ChannelH264Settings {
     LookAheadRateControl: (String|Mapping)?
     MaxBitrate: (Int|Mapping)?
     MinIInterval: (Int|Mapping)?
+    MinQp: (Int|Mapping)?
     NumRefFrames: (Int|Mapping)?
     ParControl: (String|Mapping)?
     ParDenominator: (Int|Mapping)?
@@ -640,6 +641,7 @@ open class ChannelH265Settings {
     LookAheadRateControl: (String|Mapping)?
     MaxBitrate: (Int|Mapping)?
     MinIInterval: (Int|Mapping)?
+    MinQp: (Int|Mapping)?
     MvOverPictureBoundaries: (String|Mapping)?
     MvTemporalPredictor: (String|Mapping)?
     ParDenominator: (Int|Mapping)?

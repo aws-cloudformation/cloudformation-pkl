@@ -8,11 +8,33 @@ import "../../cloudformation.pkl"
 typealias DirectoryBucketArn = String|Mapping
 
 
+/// Specifies default encryption for a bucket using server-side encryption with Amazon S3 managed keys (SSE-S3) or AWS KMS keys (SSE-KMS).
+open class DirectoryBucketBucketEncryption {
+    ServerSideEncryptionConfiguration: Listing<DirectoryBucketServerSideEncryptionRule>
+}
+
+typealias ServerSideEncryptionByDefaultSSEAlgorithm = "aws:kms"|"AES256"
+
+/// Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
+open class DirectoryBucketServerSideEncryptionByDefault {
+    KMSMasterKeyID: (String|Mapping)?
+    SSEAlgorithm: ServerSideEncryptionByDefaultSSEAlgorithm|Mapping
+}
+
+/// Specifies the default server-side encryption configuration.
+open class DirectoryBucketServerSideEncryptionRule {
+    BucketKeyEnabled: (Boolean|Mapping)?
+    ServerSideEncryptionByDefault: (DirectoryBucketServerSideEncryptionByDefault)?
+}
+
 /// Resource Type definition for AWS::S3Express::DirectoryBucket.
 open class DirectoryBucket extends cloudformation.Resource {
 
     Type = "AWS::S3Express::DirectoryBucket"
 
+
+    /// 
+    hidden BucketEncryption: (DirectoryBucketBucketEncryption)?
 
     /// Specifies a name for the bucket. The bucket name must contain only lowercase letters, numbers, and hyphens (-). A directory bucket name must be unique in the chosen Availability Zone. The bucket name must also follow the format 'bucket_base_name--az_id--x-s3' (for example, 'DOC-EXAMPLE-BUCKET--usw2-az1--x-s3'). If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name.
     hidden BucketName: (String(matches(Regex(#"^[a-z0-9][a-z0-9//.//-]*[a-z0-9]$"#)))|Mapping)?
@@ -24,6 +46,7 @@ open class DirectoryBucket extends cloudformation.Resource {
     hidden LocationName: String|Mapping
 
     Properties {
+        ["BucketEncryption"] = if (BucketEncryption == null) null else BucketEncryption
         ["BucketName"] = if (BucketName == null) null else BucketName
         ["DataRedundancy"] = if (DataRedundancy == null) null else DataRedundancy
         ["LocationName"] = if (LocationName == null) null else LocationName

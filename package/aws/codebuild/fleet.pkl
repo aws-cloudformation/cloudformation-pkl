@@ -40,6 +40,9 @@ open class Fleet extends cloudformation.Resource {
     hidden FleetVpcConfig: (FleetVpcConfig)?
 
     /// 
+    hidden ImageId: (String(matches(Regex(#"^((aws/codebuild/[A-Za-z-]+:[0-9]+(-[0-9._]+)?)|ami-[a-z0-9]{1,1020})$"#)))|Mapping)?
+
+    /// 
     hidden Name: (String|Mapping)?
 
     /// 
@@ -54,6 +57,7 @@ open class Fleet extends cloudformation.Resource {
         ["EnvironmentType"] = if (EnvironmentType == null) null else EnvironmentType
         ["FleetServiceRole"] = if (FleetServiceRole == null) null else FleetServiceRole
         ["FleetVpcConfig"] = if (FleetVpcConfig == null) null else FleetVpcConfig
+        ["ImageId"] = if (ImageId == null) null else ImageId
         ["Name"] = if (Name == null) null else Name
         ["OverflowBehavior"] = if (OverflowBehavior == null) null else OverflowBehavior
         ["Tags"] = if (Tags == null) null else Tags
@@ -62,8 +66,8 @@ open class Fleet extends cloudformation.Resource {
 }
 
 
-typealias FleetComputeType = "BUILD_GENERAL1_SMALL"|"BUILD_GENERAL1_MEDIUM"|"BUILD_GENERAL1_LARGE"|"BUILD_GENERAL1_2XLARGE"
+typealias FleetComputeType = "BUILD_GENERAL1_SMALL"|"BUILD_GENERAL1_MEDIUM"|"BUILD_GENERAL1_LARGE"|"BUILD_GENERAL1_XLARGE"|"BUILD_GENERAL1_2XLARGE"
 
-typealias FleetEnvironmentType = "WINDOWS_SERVER_2019_CONTAINER"|"WINDOWS_SERVER_2022_CONTAINER"|"LINUX_CONTAINER"|"LINUX_GPU_CONTAINER"|"ARM_CONTAINER"
+typealias FleetEnvironmentType = "WINDOWS_SERVER_2019_CONTAINER"|"WINDOWS_SERVER_2022_CONTAINER"|"LINUX_CONTAINER"|"LINUX_GPU_CONTAINER"|"ARM_CONTAINER"|"MAC_ARM"
 
 typealias FleetOverflowBehavior = "QUEUE"|"ON_DEMAND"

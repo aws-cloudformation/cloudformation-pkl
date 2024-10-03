@@ -33,34 +33,34 @@ open class ReplicationConfig extends cloudformation.Resource {
 
 
     /// 
-    hidden ComputeConfig: (ReplicationConfigComputeConfig)?
+    hidden ComputeConfig: ReplicationConfigComputeConfig
 
     /// A unique identifier of replication configuration
-    hidden ReplicationConfigIdentifier: (String|Mapping)?
+    hidden ReplicationConfigIdentifier: String|Mapping
 
     /// JSON settings for Servereless replications that are provisioned using this replication configuration
     hidden ReplicationSettings: (Dynamic)?
 
     /// The type of AWS DMS Serverless replication to provision using this replication configuration
-    hidden ReplicationType: (ReplicationConfigReplicationType|Mapping)?
+    hidden ReplicationType: ReplicationConfigReplicationType|Mapping
 
     /// A unique value or name that you get set for a given resource that can be used to construct an Amazon Resource Name (ARN) for that resource
     hidden ResourceIdentifier: (String|Mapping)?
 
     /// The Amazon Resource Name (ARN) of the source endpoint for this AWS DMS Serverless replication configuration
-    hidden SourceEndpointArn: (String|Mapping)?
+    hidden SourceEndpointArn: String|Mapping
 
     /// JSON settings for specifying supplemental data
     hidden SupplementalSettings: (Dynamic)?
 
     /// JSON table mappings for AWS DMS Serverless replications that are provisioned using this replication configuration
-    hidden TableMappings: (Dynamic)?
+    hidden TableMappings: Dynamic
 
     /// <p>Contains a map of the key-value pairs for the resource tag or tags assigned to the dataset.</p>
     hidden Tags: (Listing<ReplicationConfigTag>)?
 
     /// The Amazon Resource Name (ARN) of the target endpoint for this AWS DMS Serverless replication configuration
-    hidden TargetEndpointArn: (String|Mapping)?
+    hidden TargetEndpointArn: String|Mapping
 
     Properties {
         ["ComputeConfig"] = if (ComputeConfig == null) null else ComputeConfig

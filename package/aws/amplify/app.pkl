@@ -29,6 +29,13 @@ open class AppBasicAuthConfig {
     Username: (String|Mapping)?
 }
 
+typealias CacheConfigType = "AMPLIFY_MANAGED"|"AMPLIFY_MANAGED_NO_COOKIES"
+
+/// 
+open class AppCacheConfig {
+    Type: (CacheConfigType|Mapping)?
+}
+
 /// 
 open class AppCustomRule {
     Condition: (String(matches(Regex(#"(?s).*"#)))|Mapping)?
@@ -68,6 +75,9 @@ open class App extends cloudformation.Resource {
     hidden BuildSpec: (String(matches(Regex(#"(?s).+"#)))|Mapping)?
 
     /// 
+    hidden CacheConfig: (AppCacheConfig)?
+
+    /// 
     hidden CustomHeaders: (String(matches(Regex(#"(?s).*"#)))|Mapping)?
 
     /// 
@@ -105,6 +115,7 @@ open class App extends cloudformation.Resource {
         ["AutoBranchCreationConfig"] = if (AutoBranchCreationConfig == null) null else AutoBranchCreationConfig
         ["BasicAuthConfig"] = if (BasicAuthConfig == null) null else BasicAuthConfig
         ["BuildSpec"] = if (BuildSpec == null) null else BuildSpec
+        ["CacheConfig"] = if (CacheConfig == null) null else CacheConfig
         ["CustomHeaders"] = if (CustomHeaders == null) null else CustomHeaders
         ["CustomRules"] = if (CustomRules == null) null else CustomRules
         ["Description"] = if (Description == null) null else Description

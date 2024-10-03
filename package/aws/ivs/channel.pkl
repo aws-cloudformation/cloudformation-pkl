@@ -57,6 +57,6 @@ open class Channel extends cloudformation.Resource {
 
 typealias ChannelLatencyMode = "NORMAL"|"LOW"
 
-typealias ChannelPreset = "HIGHER_BANDWIDTH_DELIVERY"|"CONSTRAINED_BANDWIDTH_DELIVERY"
+typealias ChannelPreset = ""|"HIGHER_BANDWIDTH_DELIVERY"|"CONSTRAINED_BANDWIDTH_DELIVERY"
 
 typealias ChannelType = "STANDARD"|"BASIC"|"ADVANCED_SD"|"ADVANCED_HD"

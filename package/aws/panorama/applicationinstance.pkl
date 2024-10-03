@@ -32,7 +32,7 @@ typealias ApplicationInstanceDeviceId = String|Mapping
 typealias ApplicationInstanceDeviceName = String|Mapping
 
 
-/// 
+/// Parameter overrides for an application instance. This is a JSON document that has a single key (``PayloadData``) where the value is an escaped string representation of the overrides document.
 open class ApplicationInstanceManifestOverridesPayload {
     PayloadData: (ApplicationInstanceManifestOverridesPayloadData)?
 }
@@ -40,7 +40,7 @@ open class ApplicationInstanceManifestOverridesPayload {
 typealias ApplicationInstanceManifestOverridesPayloadData = String|Mapping
 
 
-/// 
+/// A application verion's manifest file. This is a JSON document that has a single key (``PayloadData``) where the value is an escaped string representation of the application manifest (``graph.json``). This file is located in the ``graphs`` folder in your application source.
 open class ApplicationInstanceManifestPayload {
     PayloadData: (ApplicationInstanceManifestPayloadData)?
 }
@@ -69,34 +69,34 @@ typealias ApplicationInstanceTagList = Listing<(ApplicationInstanceTag)?>
 typealias ApplicationInstanceTimestamp = Int|Mapping
 
 
-/// Schema for ApplicationInstance CloudFormation Resource
+/// Creates an application instance and deploys it to a device.
 open class ApplicationInstance extends cloudformation.Resource {
 
     Type = "AWS::Panorama::ApplicationInstance"
 
 
-    /// 
+    /// The ID of an application instance to replace with the new instance.
     hidden ApplicationInstanceIdToReplace: (ApplicationInstanceApplicationInstanceId)?
 
-    /// 
+    /// The device's ID.
     hidden DefaultRuntimeContextDevice: ApplicationInstanceDefaultRuntimeContextDevice
 
-    /// 
+    /// A description for the application instance.
     hidden Description: (ApplicationInstanceDescription)?
 
-    /// 
+    /// Setting overrides for the application manifest.
     hidden ManifestOverridesPayload: (ApplicationInstanceManifestOverridesPayload)?
 
-    /// 
+    /// The application's manifest document.
     hidden ManifestPayload: ApplicationInstanceManifestPayload
 
-    /// 
+    /// A name for the application instance.
     hidden Name: (ApplicationInstanceName)?
 
-    /// 
+    /// The ARN of a runtime role for the application instance.
     hidden RuntimeRoleArn: (ApplicationInstanceRuntimeRoleArn)?
 
-    /// 
+    /// Tags for the application instance.
     hidden Tags: (ApplicationInstanceTagList)?
 
     Properties {

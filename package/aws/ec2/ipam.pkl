@@ -25,6 +25,9 @@ open class IPAM extends cloudformation.Resource {
     /// 
     hidden Description: (String|Mapping)?
 
+    /// Enable provisioning of GUA space in private pools.
+    hidden EnablePrivateGua: (Boolean|Mapping)?
+
     /// The regions IPAM is enabled for. Allows pools to be created in these regions, as well as enabling monitoring
     hidden OperatingRegions: (Listing<IPAMIpamOperatingRegion>)?
 
@@ -36,6 +39,7 @@ open class IPAM extends cloudformation.Resource {
 
     Properties {
         ["Description"] = if (Description == null) null else Description
+        ["EnablePrivateGua"] = if (EnablePrivateGua == null) null else EnablePrivateGua
         ["OperatingRegions"] = if (OperatingRegions == null) null else OperatingRegions
         ["Tags"] = if (Tags == null) null else Tags
         ["Tier"] = if (Tier == null) null else Tier

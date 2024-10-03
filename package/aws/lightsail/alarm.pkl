@@ -29,7 +29,7 @@ open class Alarm extends cloudformation.Resource {
     /// The name of the metric to associate with the alarm.
     hidden MetricName: String|Mapping
 
-    /// The validation status of the SSL/TLS certificate.
+    /// The name of the Lightsail resource that the alarm monitors.
     hidden MonitoredResourceName: String|Mapping
 
     /// Indicates whether the alarm is enabled. Notifications are enabled by default if you don't specify this parameter.

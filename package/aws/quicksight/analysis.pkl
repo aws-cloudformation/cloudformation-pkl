@@ -37,6 +37,7 @@ open class AnalysisAnalysisDefinition {
     FilterGroups: (Listing<AnalysisFilterGroup>)?
     Options: (AnalysisAssetOptions)?
     ParameterDeclarations: (Listing<AnalysisParameterDeclaration>)?
+    QueryExecutionOptions: (AnalysisQueryExecutionOptions)?
     Sheets: (Listing<AnalysisSheetDefinition>)?
 }
 
@@ -395,6 +396,13 @@ typealias AnalysisCategoryFilterSelectAllOptions = String|Mapping
 
 
 /// 
+open class AnalysisCategoryInnerFilter {
+    Column: AnalysisColumnIdentifier
+    Configuration: AnalysisCategoryFilterConfiguration
+    DefaultFilterControlConfiguration: (AnalysisDefaultFilterControlConfiguration)?
+}
+
+/// 
 open class AnalysisChartAxisLabelOptions {
     AxisLabelOptions: (Listing<AnalysisAxisLabelOptions>)?
     SortIconVisibility: (AnalysisVisibility)?
@@ -462,6 +470,7 @@ open class AnalysisColumnTooltipItem {
     Aggregation: (AnalysisAggregationFunction)?
     Column: AnalysisColumnIdentifier
     Label: (String|Mapping)?
+    TooltipTarget: (AnalysisTooltipTarget)?
     Visibility: (AnalysisVisibility)?
 }
 
@@ -488,6 +497,7 @@ open class AnalysisComboChartConfiguration {
     ReferenceLines: (Listing<AnalysisReferenceLine>)?
     SecondaryYAxisDisplayOptions: (AnalysisAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (AnalysisChartAxisLabelOptions)?
+    SingleAxisOptions: (AnalysisSingleAxisOptions)?
     SortConfiguration: (AnalysisComboChartSortConfiguration)?
     Tooltip: (AnalysisTooltipOptions)?
     VisualPalette: (AnalysisVisualPalette)?
@@ -515,6 +525,9 @@ open class AnalysisComboChartVisual {
     Title: (AnalysisVisualTitleLabelOptions)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
+
+typealias AnalysisCommitMode = String|Mapping
+
 
 /// 
 open class AnalysisComparisonConfiguration {
@@ -916,6 +929,7 @@ open class AnalysisDecimalValueWhenUnsetConfiguration {
 
 /// 
 open class AnalysisDefaultDateTimePickerControlOptions {
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisDateTimePickerControlDisplayOptions)?
     Type: (AnalysisSheetControlDateTimePickerType)?
 }
@@ -939,6 +953,7 @@ open class AnalysisDefaultFilterControlOptions {
 
 /// 
 open class AnalysisDefaultFilterDropDownControlOptions {
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
     SelectableValues: (AnalysisFilterSelectableValues)?
     Type: (AnalysisSheetControlListType)?
@@ -981,6 +996,7 @@ open class AnalysisDefaultPaginatedLayoutConfiguration {
 
 /// 
 open class AnalysisDefaultRelativeDateTimeControlOptions {
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisRelativeDateTimeControlDisplayOptions)?
 }
 
@@ -1119,6 +1135,7 @@ open class AnalysisFieldSortOptions {
 open class AnalysisFieldTooltipItem {
     FieldId: String|Mapping
     Label: (String|Mapping)?
+    TooltipTarget: (AnalysisTooltipTarget)?
     Visibility: (AnalysisVisibility)?
 }
 
@@ -1178,6 +1195,7 @@ open class AnalysisFilledMapVisual {
 /// 
 open class AnalysisFilter {
     CategoryFilter: (AnalysisCategoryFilter)?
+    NestedFilter: (AnalysisNestedFilter)?
     NumericEqualityFilter: (AnalysisNumericEqualityFilter)?
     NumericRangeFilter: (AnalysisNumericRangeFilter)?
     RelativeDatesFilter: (AnalysisRelativeDatesFilter)?
@@ -1207,6 +1225,7 @@ open class AnalysisFilterCrossSheetControl {
 
 /// 
 open class AnalysisFilterDateTimePickerControl {
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisDateTimePickerControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1217,6 +1236,7 @@ open class AnalysisFilterDateTimePickerControl {
 /// 
 open class AnalysisFilterDropDownControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisFilterSelectableValues)?
@@ -1270,6 +1290,7 @@ open class AnalysisFilterOperationTargetVisualsConfiguration {
 
 /// 
 open class AnalysisFilterRelativeDateTimeControl {
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisRelativeDateTimeControlDisplayOptions)?
     FilterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SourceFilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
@@ -1770,6 +1791,11 @@ typealias AnalysisIcon = String|Mapping
 
 
 /// 
+open class AnalysisInnerFilter {
+    CategoryInnerFilter: (AnalysisCategoryInnerFilter)?
+}
+
+/// 
 open class AnalysisInsightConfiguration {
     Computations: (Listing<AnalysisComputation>)?
     CustomNarrative: (AnalysisCustomNarrativeOptions)?
@@ -1977,6 +2003,7 @@ open class AnalysisLineChartConfiguration {
     SecondaryYAxisDisplayOptions: (AnalysisLineSeriesAxisDisplayOptions)?
     SecondaryYAxisLabelOptions: (AnalysisChartAxisLabelOptions)?
     Series: (Listing<AnalysisSeriesItem>)?
+    SingleAxisOptions: (AnalysisSingleAxisOptions)?
     SmallMultiplesOptions: (AnalysisSmallMultiplesOptions)?
     SortConfiguration: (AnalysisLineChartSortConfiguration)?
     Tooltip: (AnalysisTooltipOptions)?
@@ -2154,6 +2181,14 @@ open class AnalysisNegativeValueConfiguration {
 
 typealias AnalysisNegativeValueDisplayMode = String|Mapping
 
+
+/// 
+open class AnalysisNestedFilter {
+    Column: AnalysisColumnIdentifier
+    FilterId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    IncludeInnerSet: Boolean|Mapping
+    InnerFilter: AnalysisInnerFilter
+}
 
 /// 
 open class AnalysisNullValueFormatConfiguration {
@@ -2335,6 +2370,7 @@ open class AnalysisParameterDeclaration {
 /// 
 open class AnalysisParameterDropDownControl {
     CascadingControlConfiguration: (AnalysisCascadingControlConfiguration)?
+    CommitMode: (AnalysisCommitMode)?
     DisplayOptions: (AnalysisDropDownControlDisplayOptions)?
     ParameterControlId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
     SelectableValues: (AnalysisParameterSelectableValues)?
@@ -2672,6 +2708,14 @@ typealias AnalysisPrimaryValueDisplayType = String|Mapping
 /// 
 open class AnalysisProgressBarOptions {
     Visibility: (AnalysisVisibility)?
+}
+
+typealias AnalysisQueryExecutionMode = String|Mapping
+
+
+/// 
+open class AnalysisQueryExecutionOptions {
+    QueryExecutionMode: (AnalysisQueryExecutionMode)?
 }
 
 /// 
@@ -3140,6 +3184,14 @@ typealias AnalysisSimpleTotalAggregationFunction = String|Mapping
 
 
 /// 
+open class AnalysisSingleAxisOptions {
+    YAxisOptions: (AnalysisYAxisOptions)?
+}
+
+typealias AnalysisSingleYAxisOption = String|Mapping
+
+
+/// 
 open class AnalysisSliderControlDisplayOptions {
     InfoIconLabelOptions: (AnalysisSheetControlInfoIconLabelOptions)?
     TitleOptions: (AnalysisLabelOptions)?
@@ -3538,6 +3590,9 @@ open class AnalysisTooltipOptions {
     TooltipVisibility: (AnalysisVisibility)?
 }
 
+typealias AnalysisTooltipTarget = String|Mapping
+
+
 typealias AnalysisTooltipTitleType = String|Mapping
 
 
@@ -3893,6 +3948,11 @@ typealias AnalysisWordCloudWordPadding = String|Mapping
 
 typealias AnalysisWordCloudWordScaling = String|Mapping
 
+
+/// 
+open class AnalysisYAxisOptions {
+    YAxis: AnalysisSingleYAxisOption
+}
 
 /// Definition of the AWS::QuickSight::Analysis Resource Type.
 open class Analysis extends cloudformation.Resource {

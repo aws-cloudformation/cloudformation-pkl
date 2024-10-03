@@ -41,12 +41,14 @@ open class SpaceEbsStorageSettings {
 /// The JupyterServer app settings.
 open class SpaceJupyterServerAppSettings {
     DefaultResourceSpec: (SpaceResourceSpec)?
+    LifecycleConfigArns: (Listing<SpaceStudioLifecycleConfigArn>)?
 }
 
 /// The kernel gateway app settings.
 open class SpaceKernelGatewayAppSettings {
     CustomImages: (Listing<SpaceCustomImage>)?
     DefaultResourceSpec: (SpaceResourceSpec)?
+    LifecycleConfigArns: (Listing<SpaceStudioLifecycleConfigArn>)?
 }
 
 /// 
@@ -59,20 +61,33 @@ typealias ResourceSpecInstanceType = "system"|"ml.t3.micro"|"ml.t3.small"|"ml.t3
 /// 
 open class SpaceResourceSpec {
     InstanceType: (ResourceSpecInstanceType|Mapping)?
+    LifecycleConfigArn: (String(matches(Regex(#"arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:studio-lifecycle-config/.*"#)))|Mapping)?
     SageMakerImageArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$"#)))|Mapping)?
     SageMakerImageVersionArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$"#)))|Mapping)?
 }
 
+/// 
+open class SpaceSpaceAppLifecycleManagement {
+    IdleSettings: (SpaceSpaceIdleSettings)?
+}
+
 /// The CodeEditor app settings.
 open class SpaceSpaceCodeEditorAppSettings {
+    AppLifecycleManagement: (SpaceSpaceAppLifecycleManagement)?
     DefaultResourceSpec: (SpaceResourceSpec)?
 }
 
 typealias SpaceSpaceEbsVolumeSizeInGb = Int|Mapping
 
 
+/// 
+open class SpaceSpaceIdleSettings {
+    IdleTimeoutInMinutes: (Int|Mapping)?
+}
+
 /// The JupyterServer app settings.
 open class SpaceSpaceJupyterLabAppSettings {
+    AppLifecycleManagement: (SpaceSpaceAppLifecycleManagement)?
     CodeRepositories: (Listing<SpaceCodeRepository>)?
     DefaultResourceSpec: (SpaceResourceSpec)?
 }
@@ -99,6 +114,9 @@ open class SpaceSpaceSharingSettings {
 open class SpaceSpaceStorageSettings {
     EbsStorageSettings: (SpaceEbsStorageSettings)?
 }
+
+typealias SpaceStudioLifecycleConfigArn = String|Mapping
+
 
 /// 
 open class SpaceTag {

@@ -12,9 +12,13 @@ open class CustomResource extends cloudformation.Resource {
 
 
     /// 
+    hidden ServiceTimeout: (Int|Mapping)?
+
+    /// 
     hidden ServiceToken: String|Mapping
 
     Properties {
+        ["ServiceTimeout"] = if (ServiceTimeout == null) null else ServiceTimeout
         ["ServiceToken"] = if (ServiceToken == null) null else ServiceToken
     }
 

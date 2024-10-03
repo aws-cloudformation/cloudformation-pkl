@@ -11,37 +11,37 @@ open class Subscription extends cloudformation.Resource {
     Type = "AWS::SNS::Subscription"
 
 
-    /// 
+    /// The delivery policy JSON assigned to the subscription. Enables the subscriber to define the message delivery retry strategy in the case of an HTTP/S endpoint subscribed to the topic.
     hidden DeliveryPolicy: (Dynamic)?
 
-    /// 
+    /// The subscription's endpoint. The endpoint value depends on the protocol that you specify. 
     hidden Endpoint: (String|Mapping)?
 
-    /// 
+    /// The filter policy JSON assigned to the subscription. Enables the subscriber to filter out unwanted messages.
     hidden FilterPolicy: (Dynamic)?
 
-    /// 
+    /// This attribute lets you choose the filtering scope by using one of the following string value types: MessageAttributes (default) and MessageBody.
     hidden FilterPolicyScope: (String|Mapping)?
 
-    /// 
+    /// The subscription's protocol.
     hidden Protocol: String|Mapping
 
-    /// 
+    /// When set to true, enables raw message delivery. Raw messages don't contain any JSON formatting and can be sent to Amazon SQS and HTTP/S endpoints.
     hidden RawMessageDelivery: (Boolean|Mapping)?
 
-    /// 
+    /// When specified, sends undeliverable messages to the specified Amazon SQS dead-letter queue. Messages that can't be delivered due to client errors are held in the dead-letter queue for further analysis or reprocessing.
     hidden RedrivePolicy: (Dynamic)?
 
-    /// 
+    /// For cross-region subscriptions, the region in which the topic resides.If no region is specified, AWS CloudFormation uses the region of the caller as the default.
     hidden Region: (String|Mapping)?
 
-    /// 
+    /// Specifies whether Amazon SNS resends the notification to the subscription when a message's attribute changes.
     hidden ReplayPolicy: (Dynamic)?
 
-    /// 
+    /// This property applies only to Amazon Data Firehose delivery stream subscriptions.
     hidden SubscriptionRoleArn: (String|Mapping)?
 
-    /// 
+    /// The ARN of the topic to subscribe to.
     hidden TopicArn: String|Mapping
 
     Properties {

@@ -80,6 +80,11 @@ open class DeliveryStreamBufferingHints {
 }
 
 /// 
+open class DeliveryStreamCatalogConfiguration {
+    CatalogArn: (String(matches(Regex(#"arn:.*"#)))|Mapping)?
+}
+
+/// 
 open class DeliveryStreamCloudWatchLoggingOptions {
     Enabled: (Boolean|Mapping)?
     LogGroupName: (String|Mapping)?
@@ -114,6 +119,17 @@ open class DeliveryStreamDeserializer {
     HiveJsonSerDe: (DeliveryStreamHiveJsonSerDe)?
     OpenXJsonSerDe: (DeliveryStreamOpenXJsonSerDe)?
 }
+
+/// 
+open class DeliveryStreamDestinationTableConfiguration {
+    DestinationDatabaseName: String|Mapping
+    DestinationTableName: String|Mapping
+    S3ErrorOutputPrefix: (String|Mapping)?
+    UniqueKeys: (Listing<DeliveryStreamUniqueKey>)?
+}
+
+typealias DeliveryStreamDestinationTableConfigurationList = Listing<(DeliveryStreamDestinationTableConfiguration)?>
+
 
 typealias DocumentIdOptionsDefaultDocumentIdFormat = "FIREHOSE_DEFAULT"|"NO_DOCUMENT_ID"
 
@@ -232,6 +248,21 @@ open class DeliveryStreamHttpEndpointRequestConfiguration {
     ContentEncoding: (HttpEndpointRequestConfigurationContentEncoding|Mapping)?
 }
 
+typealias IcebergDestinationConfigurations3BackupMode = "AllData"|"FailedDataOnly"
+
+/// 
+open class DeliveryStreamIcebergDestinationConfiguration {
+    BufferingHints: (DeliveryStreamBufferingHints)?
+    CatalogConfiguration: DeliveryStreamCatalogConfiguration
+    CloudWatchLoggingOptions: (DeliveryStreamCloudWatchLoggingOptions)?
+    DestinationTableConfigurationList: (DeliveryStreamDestinationTableConfigurationList)?
+    ProcessingConfiguration: (DeliveryStreamProcessingConfiguration)?
+    RetryOptions: (DeliveryStreamRetryOptions)?
+    RoleARN: String(matches(Regex(#"arn:.*"#)))|Mapping
+    S3Configuration: DeliveryStreamS3DestinationConfiguration
+    s3BackupMode: (IcebergDestinationConfigurations3BackupMode|Mapping)?
+}
+
 /// 
 open class DeliveryStreamInputFormatConfiguration {
     Deserializer: (DeliveryStreamDeserializer)?
@@ -252,6 +283,7 @@ open class DeliveryStreamKinesisStreamSourceConfiguration {
 open class DeliveryStreamMSKSourceConfiguration {
     AuthenticationConfiguration: DeliveryStreamAuthenticationConfiguration
     MSKClusterARN: String(matches(Regex(#"arn:.*"#)))|Mapping
+    ReadFromTimestamp: (String|Mapping)?
     TopicName: String(matches(Regex(#"[a-zA-Z0-9\._\-]+"#)))|Mapping
 }
 
@@ -378,6 +410,12 @@ open class DeliveryStreamSerializer {
     ParquetSerDe: (DeliveryStreamParquetSerDe)?
 }
 
+/// 
+open class DeliveryStreamSnowflakeBufferingHints {
+    IntervalInSeconds: (Int|Mapping)?
+    SizeInMBs: (Int|Mapping)?
+}
+
 typealias SnowflakeDestinationConfigurationDataLoadingOption = "JSON_MAPPING"|"VARIANT_CONTENT_MAPPING"|"VARIANT_CONTENT_AND_METADATA_MAPPING"
 
 typealias SnowflakeDestinationConfigurationS3BackupMode = "FailedDataOnly"|"AllData"
@@ -385,6 +423,7 @@ typealias SnowflakeDestinationConfigurationS3BackupMode = "FailedDataOnly"|"AllD
 /// 
 open class DeliveryStreamSnowflakeDestinationConfiguration {
     AccountUrl: String(matches(Regex(#".+?\.snowflakecomputing\.com"#)))|Mapping
+    BufferingHints: (DeliveryStreamSnowflakeBufferingHints)?
     CloudWatchLoggingOptions: (DeliveryStreamCloudWatchLoggingOptions)?
     ContentColumnName: (String|Mapping)?
     DataLoadingOption: (SnowflakeDestinationConfigurationDataLoadingOption|Mapping)?
@@ -455,6 +494,9 @@ open class DeliveryStreamTag {
     Value: (String(matches(Regex(#"^[\p{L}\p{Z}\p{N}_.:\/=+\-@%]*$"#)))|Mapping)?
 }
 
+typealias DeliveryStreamUniqueKey = String|Mapping
+
+
 /// 
 open class DeliveryStreamVpcConfiguration {
     RoleARN: String(matches(Regex(#"arn:.*"#)))|Mapping
@@ -493,6 +535,9 @@ open class DeliveryStream extends cloudformation.Resource {
     hidden HttpEndpointDestinationConfiguration: (DeliveryStreamHttpEndpointDestinationConfiguration)?
 
     /// 
+    hidden IcebergDestinationConfiguration: (DeliveryStreamIcebergDestinationConfiguration)?
+
+    /// 
     hidden KinesisStreamSourceConfiguration: (DeliveryStreamKinesisStreamSourceConfiguration)?
 
     /// 
@@ -522,6 +567,7 @@ open class DeliveryStream extends cloudformation.Resource {
         ["ElasticsearchDestinationConfiguration"] = if (ElasticsearchDestinationConfiguration == null) null else ElasticsearchDestinationConfiguration
         ["ExtendedS3DestinationConfiguration"] = if (ExtendedS3DestinationConfiguration == null) null else ExtendedS3DestinationConfiguration
         ["HttpEndpointDestinationConfiguration"] = if (HttpEndpointDestinationConfiguration == null) null else HttpEndpointDestinationConfiguration
+        ["IcebergDestinationConfiguration"] = if (IcebergDestinationConfiguration == null) null else IcebergDestinationConfiguration
         ["KinesisStreamSourceConfiguration"] = if (KinesisStreamSourceConfiguration == null) null else KinesisStreamSourceConfiguration
         ["MSKSourceConfiguration"] = if (MSKSourceConfiguration == null) null else MSKSourceConfiguration
         ["RedshiftDestinationConfiguration"] = if (RedshiftDestinationConfiguration == null) null else RedshiftDestinationConfiguration

@@ -32,28 +32,28 @@ typealias PackageVersionPackageVersionStatusDescription = String|Mapping
 typealias PackageVersionTimeStamp = Int|Mapping
 
 
-/// Schema for PackageVersion Resource Type
+/// Registers a package version.
 open class PackageVersion extends cloudformation.Resource {
 
     Type = "AWS::Panorama::PackageVersion"
 
 
-    /// 
+    /// Whether to mark the new version as the latest version.
     hidden MarkLatest: (Boolean|Mapping)?
 
-    /// 
+    /// An owner account.
     hidden OwnerAccount: (PackageVersionPackageOwnerAccount)?
 
-    /// 
+    /// A package ID.
     hidden PackageId: PackageVersionNodePackageId
 
-    /// 
+    /// A package version.
     hidden PackageVersion: PackageVersionNodePackageVersion
 
-    /// 
+    /// A patch version.
     hidden PatchVersion: PackageVersionNodePackagePatchVersion
 
-    /// 
+    /// If the version was marked latest, the new version to maker as latest.
     hidden UpdatedLatestPatchVersion: (PackageVersionNodePackagePatchVersion)?
 
     Properties {

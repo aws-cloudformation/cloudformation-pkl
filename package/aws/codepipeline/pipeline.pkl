@@ -44,12 +44,23 @@ open class PipelineArtifactStoreMap {
     Region: String|Mapping
 }
 
+/// The configuration that specifies the rules to run before stage starts.
+open class PipelineBeforeEntryConditions {
+    Conditions: (Listing<PipelineCondition>)?
+}
+
 typealias BlockerDeclarationType = "Schedule"
 
 /// Reserved for future use.
 open class PipelineBlockerDeclaration {
     Name: String|Mapping
     Type: BlockerDeclarationType|Mapping
+}
+
+/// Represents information about condition.
+open class PipelineCondition {
+    Result: (String|Mapping)?
+    Rules: (Listing<PipelineRuleDeclaration>)?
 }
 
 /// Represents information about the key used to encrypt data in the artifact store, such as an AWS Key Management Service (AWS KMS) key
@@ -62,6 +73,7 @@ typealias FailureConditionsResult = "ROLLBACK"
 
 /// The configuration that specifies the result, such as rollback, to occur upon stage failure
 open class PipelineFailureConditions {
+    Conditions: (Listing<PipelineCondition>)?
     Result: (FailureConditionsResult|Mapping)?
 }
 
@@ -122,18 +134,43 @@ open class PipelinePipelineTriggerDeclaration {
     ProviderType: PipelineTriggerDeclarationProviderType|Mapping
 }
 
+/// Represents information about condition.
+open class PipelineRuleDeclaration {
+    Configuration: (Dynamic)?
+    InputArtifacts: (Listing<PipelineInputArtifact>)?
+    Name: (String|Mapping)?
+    Region: (String|Mapping)?
+    RoleArn: (String(matches(Regex(#"arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*"#)))|Mapping)?
+    RuleTypeId: (PipelineRuleTypeId)?
+}
+
+/// Represents information about a rule type.
+open class PipelineRuleTypeId {
+    Category: (String|Mapping)?
+    Owner: (String|Mapping)?
+    Provider: (String|Mapping)?
+    Version: (String|Mapping)?
+}
+
 /// Represents information about a stage and its definition.
 open class PipelineStageDeclaration {
     Actions: Listing<PipelineActionDeclaration>
+    BeforeEntry: (Dynamic)?
     Blockers: (Listing<PipelineBlockerDeclaration>)?
     Name: String|Mapping
     OnFailure: (Dynamic)?
+    OnSuccess: (Dynamic)?
 }
 
 /// The name of the pipeline in which you want to disable the flow of artifacts from one stage to another.
 open class PipelineStageTransition {
     Reason: String|Mapping
     StageName: String|Mapping
+}
+
+/// The configuration that specifies the result, such as rollback, to occur upon stage failure
+open class PipelineSuccessConditions {
+    Conditions: (Listing<PipelineCondition>)?
 }
 
 /// A tag is a key-value pair that is used to manage the resource.

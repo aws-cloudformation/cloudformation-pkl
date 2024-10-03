@@ -5,6 +5,14 @@ module aws.ivs.stage
 
 import "../../cloudformation.pkl"
 
+typealias AutoParticipantRecordingConfigurationMediaTypes = "AUDIO_VIDEO"|"AUDIO_ONLY"
+
+/// Configuration object for individual participant recording, to attach to the new stage.
+open class StageAutoParticipantRecordingConfiguration {
+    MediaTypes: (Listing<AutoParticipantRecordingConfigurationMediaTypes|Mapping>)?
+    StorageConfigurationArn: String(matches(Regex(#"^$|^arn:aws:ivs:[a-z0-9-]+:[0-9]+:storage-configuration/[a-zA-Z0-9-]+$"#)))|Mapping
+}
+
 /// 
 open class StageTag {
     Key: String|Mapping
@@ -17,6 +25,9 @@ open class Stage extends cloudformation.Resource {
     Type = "AWS::IVS::Stage"
 
 
+    /// 
+    hidden AutoParticipantRecordingConfiguration: (StageAutoParticipantRecordingConfiguration)?
+
     /// Stage name
     hidden Name: (String(matches(Regex(#"^[a-zA-Z0-9-_]*$"#)))|Mapping)?
 
@@ -24,6 +35,7 @@ open class Stage extends cloudformation.Resource {
     hidden Tags: (Listing<StageTag>)?
 
     Properties {
+        ["AutoParticipantRecordingConfiguration"] = if (AutoParticipantRecordingConfiguration == null) null else AutoParticipantRecordingConfiguration
         ["Name"] = if (Name == null) null else Name
         ["Tags"] = if (Tags == null) null else Tags
     }

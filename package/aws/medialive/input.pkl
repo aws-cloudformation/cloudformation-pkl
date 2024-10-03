@@ -33,6 +33,26 @@ open class InputMediaConnectFlowRequest {
     FlowArn: (String|Mapping)?
 }
 
+/// 
+open class InputSrtCallerDecryptionRequest {
+    Algorithm: (String|Mapping)?
+    PassphraseSecretArn: (String|Mapping)?
+}
+
+/// 
+open class InputSrtCallerSourceRequest {
+    Decryption: (InputSrtCallerDecryptionRequest)?
+    MinimumLatency: (Int|Mapping)?
+    SrtListenerAddress: (String|Mapping)?
+    SrtListenerPort: (String|Mapping)?
+    StreamId: (String|Mapping)?
+}
+
+/// 
+open class InputSrtSettingsRequest {
+    SrtCallerSources: (Listing<InputSrtCallerSourceRequest>)?
+}
+
 /// Resource Type definition for AWS::MediaLive::Input
 open class Input extends cloudformation.Resource {
 
@@ -61,6 +81,9 @@ open class Input extends cloudformation.Resource {
     hidden Sources: (Listing<InputInputSourceRequest>)?
 
     /// 
+    hidden SrtSettings: (InputSrtSettingsRequest)?
+
+    /// 
     hidden Tags: (Dynamic)?
 
     /// 
@@ -77,6 +100,7 @@ open class Input extends cloudformation.Resource {
         ["Name"] = if (Name == null) null else Name
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["Sources"] = if (Sources == null) null else Sources
+        ["SrtSettings"] = if (SrtSettings == null) null else SrtSettings
         ["Tags"] = if (Tags == null) null else Tags
         ["Type"] = if (TypeProperty == null) null else TypeProperty
         ["Vpc"] = if (Vpc == null) null else Vpc

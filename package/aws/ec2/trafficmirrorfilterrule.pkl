@@ -6,6 +6,12 @@ module aws.ec2.trafficmirrorfilterrule
 import "../../cloudformation.pkl"
 
 /// 
+open class TrafficMirrorFilterRuleTag {
+    Key: String|Mapping
+    Value: String|Mapping
+}
+
+/// 
 open class TrafficMirrorFilterRuleTrafficMirrorPortRange {
     FromPort: Int|Mapping
     ToPort: Int|Mapping
@@ -42,6 +48,9 @@ open class TrafficMirrorFilterRule extends cloudformation.Resource {
     hidden SourcePortRange: (TrafficMirrorFilterRuleTrafficMirrorPortRange)?
 
     /// 
+    hidden Tags: (Listing<TrafficMirrorFilterRuleTag>)?
+
+    /// 
     hidden TrafficDirection: String|Mapping
 
     /// 
@@ -56,6 +65,7 @@ open class TrafficMirrorFilterRule extends cloudformation.Resource {
         ["RuleNumber"] = if (RuleNumber == null) null else RuleNumber
         ["SourceCidrBlock"] = if (SourceCidrBlock == null) null else SourceCidrBlock
         ["SourcePortRange"] = if (SourcePortRange == null) null else SourcePortRange
+        ["Tags"] = if (Tags == null) null else Tags
         ["TrafficDirection"] = if (TrafficDirection == null) null else TrafficDirection
         ["TrafficMirrorFilterId"] = if (TrafficMirrorFilterId == null) null else TrafficMirrorFilterId
     }

@@ -33,6 +33,12 @@ open class InstanceFleetConfigInstanceFleetProvisioningSpecifications {
 }
 
 /// 
+open class InstanceFleetConfigInstanceFleetResizingSpecifications {
+    OnDemandResizeSpecification: (InstanceFleetConfigOnDemandResizingSpecification)?
+    SpotResizeSpecification: (InstanceFleetConfigSpotResizingSpecification)?
+}
+
+/// 
 open class InstanceFleetConfigInstanceTypeConfig {
     BidPrice: (String|Mapping)?
     BidPriceAsPercentageOfOnDemandPrice: (Number|Mapping)?
@@ -40,12 +46,28 @@ open class InstanceFleetConfigInstanceTypeConfig {
     CustomAmiId: (String|Mapping)?
     EbsConfiguration: (InstanceFleetConfigEbsConfiguration)?
     InstanceType: String|Mapping
+    Priority: (Number|Mapping)?
     WeightedCapacity: (Int|Mapping)?
+}
+
+/// 
+open class InstanceFleetConfigOnDemandCapacityReservationOptions {
+    CapacityReservationPreference: (String|Mapping)?
+    CapacityReservationResourceGroupArn: (String|Mapping)?
+    UsageStrategy: (String|Mapping)?
 }
 
 /// 
 open class InstanceFleetConfigOnDemandProvisioningSpecification {
     AllocationStrategy: String|Mapping
+    CapacityReservationOptions: (InstanceFleetConfigOnDemandCapacityReservationOptions)?
+}
+
+/// 
+open class InstanceFleetConfigOnDemandResizingSpecification {
+    AllocationStrategy: (String|Mapping)?
+    CapacityReservationOptions: (InstanceFleetConfigOnDemandCapacityReservationOptions)?
+    TimeoutDurationMinutes: (Int|Mapping)?
 }
 
 /// 
@@ -54,6 +76,12 @@ open class InstanceFleetConfigSpotProvisioningSpecification {
     BlockDurationMinutes: (Int|Mapping)?
     TimeoutAction: String|Mapping
     TimeoutDurationMinutes: Int|Mapping
+}
+
+/// 
+open class InstanceFleetConfigSpotResizingSpecification {
+    AllocationStrategy: (String|Mapping)?
+    TimeoutDurationMinutes: (Int|Mapping)?
 }
 
 /// 
@@ -86,6 +114,9 @@ open class InstanceFleetConfig extends cloudformation.Resource {
     hidden Name: (String|Mapping)?
 
     /// 
+    hidden ResizeSpecifications: (InstanceFleetConfigInstanceFleetResizingSpecifications)?
+
+    /// 
     hidden TargetOnDemandCapacity: (Int|Mapping)?
 
     /// 
@@ -97,6 +128,7 @@ open class InstanceFleetConfig extends cloudformation.Resource {
         ["InstanceTypeConfigs"] = if (InstanceTypeConfigs == null) null else InstanceTypeConfigs
         ["LaunchSpecifications"] = if (LaunchSpecifications == null) null else LaunchSpecifications
         ["Name"] = if (Name == null) null else Name
+        ["ResizeSpecifications"] = if (ResizeSpecifications == null) null else ResizeSpecifications
         ["TargetOnDemandCapacity"] = if (TargetOnDemandCapacity == null) null else TargetOnDemandCapacity
         ["TargetSpotCapacity"] = if (TargetSpotCapacity == null) null else TargetSpotCapacity
     }

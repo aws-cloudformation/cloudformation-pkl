@@ -5,6 +5,9 @@ module aws.cleanrooms.configuredtable
 
 import "../../cloudformation.pkl"
 
+typealias ConfiguredTableAdditionalAnalyses = String|Mapping
+
+
 /// 
 open class ConfiguredTableAggregateColumn {
     ColumnNames: Listing<ConfiguredTableAnalysisRuleColumnName>
@@ -47,6 +50,7 @@ open class ConfiguredTableAnalysisRule {
 
 /// 
 open class ConfiguredTableAnalysisRuleAggregation {
+    AdditionalAnalyses: (ConfiguredTableAdditionalAnalyses)?
     AggregateColumns: Listing<ConfiguredTableAggregateColumn>
     AllowedJoinOperators: (Listing<ConfiguredTableJoinOperator>)?
     DimensionColumns: Listing<ConfiguredTableAnalysisRuleColumnName>
@@ -61,13 +65,16 @@ typealias ConfiguredTableAnalysisRuleColumnName = String|Mapping
 
 /// 
 open class ConfiguredTableAnalysisRuleCustom {
+    AdditionalAnalyses: (ConfiguredTableAdditionalAnalyses)?
     AllowedAnalyses: ConfiguredTableAllowedAnalyses
     AllowedAnalysisProviders: (ConfiguredTableAllowedAnalysisProviders)?
     DifferentialPrivacy: (ConfiguredTableDifferentialPrivacy)?
+    DisallowedOutputColumns: (ConfiguredTableDisallowedOutputColumns)?
 }
 
 /// 
 open class ConfiguredTableAnalysisRuleList {
+    AdditionalAnalyses: (ConfiguredTableAdditionalAnalyses)?
     AllowedJoinOperators: (Listing<ConfiguredTableJoinOperator>)?
     JoinColumns: Listing<ConfiguredTableAnalysisRuleColumnName>
     ListColumns: Listing<ConfiguredTableAnalysisRuleColumnName>
@@ -108,6 +115,9 @@ open class ConfiguredTableDifferentialPrivacy {
 open class ConfiguredTableDifferentialPrivacyColumn {
     Name: String|Mapping
 }
+
+typealias ConfiguredTableDisallowedOutputColumns = Listing<(ConfiguredTableAnalysisRuleColumnName)?>
+
 
 /// 
 open class ConfiguredTableGlueTableReference {

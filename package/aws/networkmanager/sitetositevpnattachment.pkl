@@ -5,6 +5,13 @@ module aws.networkmanager.sitetositevpnattachment
 
 import "../../cloudformation.pkl"
 
+/// The attachment to move from one network function group to another.
+open class SiteToSiteVpnAttachmentProposedNetworkFunctionGroupChange {
+    AttachmentPolicyRuleNumber: (Int|Mapping)?
+    NetworkFunctionGroupName: (String|Mapping)?
+    Tags: (Listing<SiteToSiteVpnAttachmentTag>)?
+}
+
 /// The attachment to move from one segment to another.
 open class SiteToSiteVpnAttachmentProposedSegmentChange {
     AttachmentPolicyRuleNumber: (Int|Mapping)?
@@ -27,6 +34,12 @@ open class SiteToSiteVpnAttachment extends cloudformation.Resource {
     /// The ID of a core network where you're creating a site-to-site VPN attachment.
     hidden CoreNetworkId: String|Mapping
 
+    /// The name of the network function group attachment.
+    hidden NetworkFunctionGroupName: (String|Mapping)?
+
+    /// The attachment to move from one network function group to another.
+    hidden ProposedNetworkFunctionGroupChange: (SiteToSiteVpnAttachmentProposedNetworkFunctionGroupChange)?
+
     /// The attachment to move from one segment to another.
     hidden ProposedSegmentChange: (SiteToSiteVpnAttachmentProposedSegmentChange)?
 
@@ -38,6 +51,8 @@ open class SiteToSiteVpnAttachment extends cloudformation.Resource {
 
     Properties {
         ["CoreNetworkId"] = if (CoreNetworkId == null) null else CoreNetworkId
+        ["NetworkFunctionGroupName"] = if (NetworkFunctionGroupName == null) null else NetworkFunctionGroupName
+        ["ProposedNetworkFunctionGroupChange"] = if (ProposedNetworkFunctionGroupChange == null) null else ProposedNetworkFunctionGroupChange
         ["ProposedSegmentChange"] = if (ProposedSegmentChange == null) null else ProposedSegmentChange
         ["Tags"] = if (Tags == null) null else Tags
         ["VpnConnectionArn"] = if (VpnConnectionArn == null) null else VpnConnectionArn

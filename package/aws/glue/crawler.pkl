@@ -5,7 +5,7 @@ module aws.glue.crawler
 
 import "../../cloudformation.pkl"
 
-/// 
+/// Specifies an AWS Glue Data Catalog target.
 open class CrawlerCatalogTarget {
     ConnectionName: (String|Mapping)?
     DatabaseName: (String|Mapping)?
@@ -14,7 +14,7 @@ open class CrawlerCatalogTarget {
     Tables: (Listing<String|Mapping>)?
 }
 
-/// 
+/// Specifies a Delta data store to crawl one or more Delta tables.
 open class CrawlerDeltaTarget {
     ConnectionName: (String|Mapping)?
     CreateNativeDeltaTable: (Boolean|Mapping)?
@@ -22,12 +22,12 @@ open class CrawlerDeltaTarget {
     WriteManifest: (Boolean|Mapping)?
 }
 
-/// 
+/// Specifies an Amazon DynamoDB table to crawl.
 open class CrawlerDynamoDBTarget {
     Path: (String|Mapping)?
 }
 
-/// 
+/// Specifies Apache Iceberg data store targets.
 open class CrawlerIcebergTarget {
     ConnectionName: (String|Mapping)?
     Exclusions: (Listing<String|Mapping>)?
@@ -35,7 +35,7 @@ open class CrawlerIcebergTarget {
     Paths: (Listing<String|Mapping>)?
 }
 
-/// 
+/// Specifies a JDBC data store to crawl.
 open class CrawlerJdbcTarget {
     ConnectionName: (String|Mapping)?
     EnableAdditionalMetadata: (Listing<String|Mapping>)?
@@ -43,24 +43,24 @@ open class CrawlerJdbcTarget {
     Path: (String|Mapping)?
 }
 
-/// 
+/// Specifies AWS Lake Formation configuration settings for the crawler
 open class CrawlerLakeFormationConfiguration {
     AccountId: (String|Mapping)?
     UseLakeFormationCredentials: (Boolean|Mapping)?
 }
 
-/// 
+/// Specifies an Amazon DocumentDB or MongoDB data store to crawl.
 open class CrawlerMongoDBTarget {
     ConnectionName: (String|Mapping)?
     Path: (String|Mapping)?
 }
 
-/// 
+/// When crawling an Amazon S3 data source after the first crawl is complete, specifies whether to crawl the entire dataset again or to crawl only folders that were added since the last crawler run. For more information, see Incremental Crawls in AWS Glue in the developer guide.
 open class CrawlerRecrawlPolicy {
     RecrawlBehavior: (String|Mapping)?
 }
 
-/// 
+/// Specifies a data store in Amazon Simple Storage Service (Amazon S3).
 open class CrawlerS3Target {
     ConnectionName: (String|Mapping)?
     DlqEventQueueArn: (String|Mapping)?
@@ -70,18 +70,18 @@ open class CrawlerS3Target {
     SampleSize: (Int|Mapping)?
 }
 
-/// 
+/// A scheduling object using a cron statement to schedule an event.
 open class CrawlerSchedule {
     ScheduleExpression: (String|Mapping)?
 }
 
-/// 
+/// The policy that specifies update and delete behaviors for the crawler. The policy tells the crawler what to do in the event that it detects a change in a table that already exists in the customer's database at the time of the crawl. The SchemaChangePolicy does not affect whether or how new tables and partitions are added. New tables and partitions are always created regardless of the SchemaChangePolicy on a crawler. The SchemaChangePolicy consists of two components, UpdateBehavior and DeleteBehavior.
 open class CrawlerSchemaChangePolicy {
     DeleteBehavior: (String|Mapping)?
     UpdateBehavior: (String|Mapping)?
 }
 
-/// 
+/// Specifies data stores to crawl.
 open class CrawlerTargets {
     CatalogTargets: (Listing<CrawlerCatalogTarget>)?
     DeltaTargets: (Listing<CrawlerDeltaTarget>)?
@@ -98,31 +98,31 @@ open class Crawler extends cloudformation.Resource {
     Type = "AWS::Glue::Crawler"
 
 
-    /// 
+    /// A list of UTF-8 strings that specify the names of custom classifiers that are associated with the crawler.
     hidden Classifiers: (Listing<String|Mapping>)?
 
-    /// 
+    /// Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior.
     hidden Configuration: (String|Mapping)?
 
-    /// 
+    /// The name of the SecurityConfiguration structure to be used by this crawler.
     hidden CrawlerSecurityConfiguration: (String|Mapping)?
 
-    /// 
+    /// The name of the database in which the crawler's output is stored.
     hidden DatabaseName: (String|Mapping)?
 
-    /// 
+    /// A description of the crawler.
     hidden Description: (String|Mapping)?
 
     /// 
     hidden LakeFormationConfiguration: (CrawlerLakeFormationConfiguration)?
 
-    /// 
+    /// The name of the crawler.
     hidden Name: (String|Mapping)?
 
     /// 
     hidden RecrawlPolicy: (CrawlerRecrawlPolicy)?
 
-    /// 
+    /// The Amazon Resource Name (ARN) of an IAM role that's used to access customer resources, such as Amazon Simple Storage Service (Amazon S3) data.
     hidden Role: String|Mapping
 
     /// 
@@ -131,10 +131,10 @@ open class Crawler extends cloudformation.Resource {
     /// 
     hidden SchemaChangePolicy: (CrawlerSchemaChangePolicy)?
 
-    /// 
+    /// The prefix added to the names of tables that are created.
     hidden TablePrefix: (String|Mapping)?
 
-    /// 
+    /// The tags to use with this crawler.
     hidden Tags: (Dynamic)?
 
     /// 

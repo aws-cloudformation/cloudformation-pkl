@@ -63,4 +63,4 @@ open class InstanceProfile extends cloudformation.Resource {
 }
 
 
-typealias InstanceProfileNetworkType = "IPV4"|"IPV6"|"DUAL"
+typealias InstanceProfileNetworkType = "IPV4"|"DUAL"

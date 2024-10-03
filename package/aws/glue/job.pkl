@@ -11,6 +11,12 @@ open class JobConnectionsList {
 }
 
 /// 
+open class JobDefaultArguments {
+    Key: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
+/// 
 open class JobExecutionProperty {
     MaxConcurrentRuns: (Number|Mapping)?
 }
@@ -24,6 +30,12 @@ open class JobJobCommand {
 }
 
 /// 
+open class JobNonOverridableArguments {
+    Key: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
+/// 
 open class JobNotificationProperty {
     NotifyDelayAfter: (Int|Mapping)?
 }
@@ -34,68 +46,74 @@ open class Job extends cloudformation.Resource {
     Type = "AWS::Glue::Job"
 
 
-    /// 
+    /// The number of capacity units that are allocated to this job.
     hidden AllocatedCapacity: (Number|Mapping)?
 
-    /// 
+    /// The code that executes a job.
     hidden Command: JobJobCommand
 
-    /// 
+    /// Specifies the connections used by a job
     hidden Connections: (JobConnectionsList)?
 
-    /// 
+    /// The default arguments for this job, specified as name-value pairs.
     hidden DefaultArguments: (Dynamic)?
 
-    /// 
+    /// A description of the job.
     hidden Description: (String|Mapping)?
 
-    /// 
+    /// Indicates whether the job is run with a standard or flexible execution class.
     hidden ExecutionClass: (String|Mapping)?
 
-    /// 
+    /// The maximum number of concurrent runs that are allowed for this job.
     hidden ExecutionProperty: (JobExecutionProperty)?
 
-    /// 
+    /// Glue version determines the versions of Apache Spark and Python that AWS Glue supports.
     hidden GlueVersion: (String|Mapping)?
 
-    /// 
+    /// Property description not available.
+    hidden JobMode: (String|Mapping)?
+
+    /// Property description not available.
+    hidden JobRunQueuingEnabled: (Boolean|Mapping)?
+
+    /// This field is reserved for future use.
     hidden LogUri: (String|Mapping)?
 
-    /// 
+    /// Property description not available.
     hidden MaintenanceWindow: (String|Mapping)?
 
-    /// 
+    /// The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs.
     hidden MaxCapacity: (Number|Mapping)?
 
-    /// 
+    /// The maximum number of times to retry this job after a JobRun fails
     hidden MaxRetries: (Number|Mapping)?
 
-    /// 
+    /// The name you assign to the job definition
     hidden Name: (String|Mapping)?
 
-    /// 
+    /// Non-overridable arguments for this job, specified as name-value pairs.
     hidden NonOverridableArguments: (Dynamic)?
 
-    /// 
+    /// Specifies configuration properties of a notification.
     hidden NotificationProperty: (JobNotificationProperty)?
 
-    /// 
+    /// The number of workers of a defined workerType that are allocated when a job runs.
     hidden NumberOfWorkers: (Int|Mapping)?
 
-    /// 
+    /// The name or Amazon Resource Name (ARN) of the IAM role associated with this job.
     hidden Role: String|Mapping
 
-    /// 
+    /// The name of the SecurityConfiguration structure to be used with this job.
     hidden SecurityConfiguration: (String|Mapping)?
 
-    /// 
+    /// The tags to use with this job.
     hidden Tags: (Dynamic)?
 
-    /// 
+    /// The maximum time that a job run can consume resources before it is terminated and enters TIMEOUT status.
     hidden Timeout: (Int|Mapping)?
 
-    /// 
-    hidden WorkerType: (String|Mapping)?
+    /// TThe type of predefined worker that is allocated when a job runs.
+    hidden WorkerType: (JobWorkerType|Mapping)?
 
     Properties {
         ["AllocatedCapacity"] = if (AllocatedCapacity == null) null else AllocatedCapacity
@@ -106,6 +124,8 @@ open class Job extends cloudformation.Resource {
         ["ExecutionClass"] = if (ExecutionClass == null) null else ExecutionClass
         ["ExecutionProperty"] = if (ExecutionProperty == null) null else ExecutionProperty
         ["GlueVersion"] = if (GlueVersion == null) null else GlueVersion
+        ["JobMode"] = if (JobMode == null) null else JobMode
+        ["JobRunQueuingEnabled"] = if (JobRunQueuingEnabled == null) null else JobRunQueuingEnabled
         ["LogUri"] = if (LogUri == null) null else LogUri
         ["MaintenanceWindow"] = if (MaintenanceWindow == null) null else MaintenanceWindow
         ["MaxCapacity"] = if (MaxCapacity == null) null else MaxCapacity
@@ -122,3 +142,6 @@ open class Job extends cloudformation.Resource {
     }
 
 }
+
+
+typealias JobWorkerType = "Standard"|"G.1X"|"G.2X"|"G.025X"|"G.4X"|"G.8X"|"Z.2X"

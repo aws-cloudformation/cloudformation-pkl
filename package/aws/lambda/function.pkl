@@ -13,6 +13,7 @@ open class FunctionCode {
     S3Bucket: (String(matches(Regex(#"^[0-9A-Za-z\.\-_]*(?<!\.)$"#)))|Mapping)?
     S3Key: (String|Mapping)?
     S3ObjectVersion: (String|Mapping)?
+    SourceKMSKeyArn: (String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$"#)))|Mapping)?
     ZipFile: (String|Mapping)?
 }
 
@@ -59,6 +60,9 @@ open class FunctionLoggingConfig {
     LogGroup: (String(matches(Regex(#"[\.\-_/#A-Za-z0-9]+"#)))|Mapping)?
     SystemLogLevel: (LoggingConfigSystemLogLevel|Mapping)?
 }
+
+typealias FunctionRecursiveLoop = String|Mapping
+
 
 typealias RuntimeManagementConfigUpdateRuntimeOn = "Auto"|"FunctionUpdate"|"Manual"
 
@@ -172,6 +176,9 @@ open class Function extends cloudformation.Resource {
     /// The type of deployment package. Set to ``Image`` for container image and set ``Zip`` for .zip file archive.
     hidden PackageType: (FunctionPackageType|Mapping)?
 
+    /// 
+    hidden RecursiveLoop: (FunctionRecursiveLoop)?
+
     /// The number of simultaneous executions to reserve for the function.
     hidden ReservedConcurrentExecutions: (Int|Mapping)?
 
@@ -219,6 +226,7 @@ open class Function extends cloudformation.Resource {
         ["LoggingConfig"] = if (LoggingConfig == null) null else LoggingConfig
         ["MemorySize"] = if (MemorySize == null) null else MemorySize
         ["PackageType"] = if (PackageType == null) null else PackageType
+        ["RecursiveLoop"] = if (RecursiveLoop == null) null else RecursiveLoop
         ["ReservedConcurrentExecutions"] = if (ReservedConcurrentExecutions == null) null else ReservedConcurrentExecutions
         ["Role"] = if (Role == null) null else Role
         ["Runtime"] = if (Runtime == null) null else Runtime

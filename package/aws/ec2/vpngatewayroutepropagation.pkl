@@ -11,10 +11,10 @@ open class VPNGatewayRoutePropagation extends cloudformation.Resource {
     Type = "AWS::EC2::VPNGatewayRoutePropagation"
 
 
-    /// 
+    /// The ID of the route table. The routing table must be associated with the same VPC that the virtual private gateway is attached to
     hidden RouteTableIds: Listing<String|Mapping>
 
-    /// 
+    /// The ID of the virtual private gateway that is attached to a VPC. The virtual private gateway must be attached to the same VPC that the routing tables are associated with
     hidden VpnGatewayId: String|Mapping
 
     Properties {

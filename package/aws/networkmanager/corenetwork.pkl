@@ -13,6 +13,13 @@ open class CoreNetworkCoreNetworkEdge {
 }
 
 /// 
+open class CoreNetworkCoreNetworkNetworkFunctionGroup {
+    EdgeLocations: (Listing<String|Mapping>)?
+    Name: (String|Mapping)?
+    Segments: (Dynamic)?
+}
+
+/// 
 open class CoreNetworkCoreNetworkSegment {
     EdgeLocations: (Listing<String|Mapping>)?
     Name: (String|Mapping)?

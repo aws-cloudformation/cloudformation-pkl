@@ -67,6 +67,12 @@ open class ListenerForwardConfig {
     TargetGroups: (Listing<ListenerTargetGroupTuple>)?
 }
 
+/// Information about a listener attribute.
+open class ListenerListenerAttribute {
+    Key: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
 /// Specifies the configuration information for mutual authentication.
 open class ListenerMutualAuthentication {
     IgnoreClientCertificateExpiry: (Boolean|Mapping)?
@@ -125,6 +131,9 @@ open class Listener extends cloudformation.Resource {
     ///  To create additional rules for an Application Load Balancer, use [AWS::ElasticLoadBalancingV2::ListenerRule](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html).
     hidden DefaultActions: Listing<ListenerAction>
 
+    /// The listener attributes.
+    hidden ListenerAttributes: (Listing<ListenerListenerAttribute>)?
+
     /// The Amazon Resource Name (ARN) of the load balancer.
     hidden LoadBalancerArn: String|Mapping
 
@@ -147,6 +156,7 @@ open class Listener extends cloudformation.Resource {
         ["AlpnPolicy"] = if (AlpnPolicy == null) null else AlpnPolicy
         ["Certificates"] = if (Certificates == null) null else Certificates
         ["DefaultActions"] = if (DefaultActions == null) null else DefaultActions
+        ["ListenerAttributes"] = if (ListenerAttributes == null) null else ListenerAttributes
         ["LoadBalancerArn"] = if (LoadBalancerArn == null) null else LoadBalancerArn
         ["MutualAuthentication"] = if (MutualAuthentication == null) null else MutualAuthentication
         ["Port"] = if (Port == null) null else Port

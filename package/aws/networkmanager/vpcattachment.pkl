@@ -5,6 +5,13 @@ module aws.networkmanager.vpcattachment
 
 import "../../cloudformation.pkl"
 
+/// The attachment to move from one network function group to another.
+open class VpcAttachmentProposedNetworkFunctionGroupChange {
+    AttachmentPolicyRuleNumber: (Int|Mapping)?
+    NetworkFunctionGroupName: (String|Mapping)?
+    Tags: (Listing<VpcAttachmentTag>)?
+}
+
 /// The attachment to move from one segment to another.
 open class VpcAttachmentProposedSegmentChange {
     AttachmentPolicyRuleNumber: (Int|Mapping)?
@@ -36,6 +43,9 @@ open class VpcAttachment extends cloudformation.Resource {
     /// Vpc options of the attachment.
     hidden Options: (VpcAttachmentVpcOptions)?
 
+    /// The attachment to move from one network function group to another.
+    hidden ProposedNetworkFunctionGroupChange: (VpcAttachmentProposedNetworkFunctionGroupChange)?
+
     /// The attachment to move from one segment to another.
     hidden ProposedSegmentChange: (VpcAttachmentProposedSegmentChange)?
 
@@ -51,6 +61,7 @@ open class VpcAttachment extends cloudformation.Resource {
     Properties {
         ["CoreNetworkId"] = if (CoreNetworkId == null) null else CoreNetworkId
         ["Options"] = if (Options == null) null else Options
+        ["ProposedNetworkFunctionGroupChange"] = if (ProposedNetworkFunctionGroupChange == null) null else ProposedNetworkFunctionGroupChange
         ["ProposedSegmentChange"] = if (ProposedSegmentChange == null) null else ProposedSegmentChange
         ["SubnetArns"] = if (SubnetArns == null) null else SubnetArns
         ["Tags"] = if (Tags == null) null else Tags

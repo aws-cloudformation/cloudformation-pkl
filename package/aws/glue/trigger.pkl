@@ -5,7 +5,7 @@ module aws.glue.trigger
 
 import "../../cloudformation.pkl"
 
-/// 
+/// The actions initiated by this trigger.
 open class TriggerAction {
     Arguments: (Dynamic)?
     CrawlerName: (String|Mapping)?
@@ -15,7 +15,7 @@ open class TriggerAction {
     Timeout: (Int|Mapping)?
 }
 
-/// 
+/// Defines a condition under which a trigger fires.
 open class TriggerCondition {
     CrawlState: (String|Mapping)?
     CrawlerName: (String|Mapping)?
@@ -24,18 +24,18 @@ open class TriggerCondition {
     State: (String|Mapping)?
 }
 
-/// 
+/// Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires.
 open class TriggerEventBatchingCondition {
     BatchSize: Int|Mapping
     BatchWindow: (Int|Mapping)?
 }
 
-/// 
+/// Specifies configuration properties of a job run notification.
 open class TriggerNotificationProperty {
     NotifyDelayAfter: (Int|Mapping)?
 }
 
-/// 
+/// The predicate of this trigger, which defines when it will fire.
 open class TriggerPredicate {
     Conditions: (Listing<TriggerCondition>)?
     Logical: (String|Mapping)?
@@ -47,34 +47,34 @@ open class Trigger extends cloudformation.Resource {
     Type = "AWS::Glue::Trigger"
 
 
-    /// 
+    /// The actions initiated by this trigger.
     hidden Actions: Listing<TriggerAction>
 
-    /// 
+    /// A description of this trigger.
     hidden Description: (String|Mapping)?
 
-    /// 
+    /// Batch condition that must be met (specified number of events received or batch time window expired) before EventBridge event trigger fires.
     hidden EventBatchingCondition: (TriggerEventBatchingCondition)?
 
-    /// 
+    /// The name of the trigger.
     hidden Name: (String|Mapping)?
 
-    /// 
+    /// The predicate of this trigger, which defines when it will fire.
     hidden Predicate: (TriggerPredicate)?
 
-    /// 
+    /// A cron expression used to specify the schedule.
     hidden Schedule: (String|Mapping)?
 
-    /// 
+    /// Set to true to start SCHEDULED and CONDITIONAL triggers when created. True is not supported for ON_DEMAND triggers.
     hidden StartOnCreation: (Boolean|Mapping)?
 
-    /// 
+    /// The tags to use with this trigger.
     hidden Tags: (Dynamic)?
 
-    /// 
+    /// The type of trigger that this is.
     hidden TypeProperty: String|Mapping
 
-    /// 
+    /// The name of the workflow associated with the trigger.
     hidden WorkflowName: (String|Mapping)?
 
     Properties {

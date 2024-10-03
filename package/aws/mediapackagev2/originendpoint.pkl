@@ -73,12 +73,20 @@ open class OriginEndpointEncryptionMethod {
     TsEncryptionMethod: (OriginEndpointTsEncryptionMethod)?
 }
 
+typealias OriginEndpointEndpointErrorCondition = String|Mapping
+
+
 /// <p>Filter configuration includes settings for manifest filtering, start and end times, and time delay that apply to all of your egress requests for this manifest. </p>
 open class OriginEndpointFilterConfiguration {
     End: (String|Mapping)?
     ManifestFilter: (String|Mapping)?
     Start: (String|Mapping)?
     TimeDelaySeconds: (Int|Mapping)?
+}
+
+/// <p>The failover settings for the endpoint.</p>
+open class OriginEndpointForceEndpointErrorConfiguration {
+    EndpointErrorConditions: (Listing<OriginEndpointEndpointErrorCondition>)?
 }
 
 /// <p>Retrieve the HTTP live streaming (HLS) manifest configuration.</p>
@@ -169,13 +177,16 @@ open class OriginEndpoint extends cloudformation.Resource {
     hidden ChannelName: String(matches(Regex(#"^[a-zA-Z0-9_-]+$"#)))|Mapping
 
     /// 
-    hidden ContainerType: (OriginEndpointContainerType)?
+    hidden ContainerType: OriginEndpointContainerType
 
     /// <p>A DASH manifest configuration.</p>
     hidden DashManifests: (Listing<OriginEndpointDashManifestConfiguration>)?
 
     /// <p>Enter any descriptive text that helps you to identify the origin endpoint.</p>
     hidden Description: (String|Mapping)?
+
+    /// 
+    hidden ForceEndpointErrorConfiguration: (OriginEndpointForceEndpointErrorConfiguration)?
 
     /// <p>An HTTP live streaming (HLS) manifest configuration.</p>
     hidden HlsManifests: (Listing<OriginEndpointHlsManifestConfiguration>)?
@@ -201,6 +212,7 @@ open class OriginEndpoint extends cloudformation.Resource {
         ["ContainerType"] = if (ContainerType == null) null else ContainerType
         ["DashManifests"] = if (DashManifests == null) null else DashManifests
         ["Description"] = if (Description == null) null else Description
+        ["ForceEndpointErrorConfiguration"] = if (ForceEndpointErrorConfiguration == null) null else ForceEndpointErrorConfiguration
         ["HlsManifests"] = if (HlsManifests == null) null else HlsManifests
         ["LowLatencyHlsManifests"] = if (LowLatencyHlsManifests == null) null else LowLatencyHlsManifests
         ["OriginEndpointName"] = if (OriginEndpointName == null) null else OriginEndpointName

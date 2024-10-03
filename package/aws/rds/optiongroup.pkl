@@ -23,7 +23,7 @@ open class OptionGroupOptionSetting {
 
 /// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
 ///
-///  For more information, see [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
+///  For more information, see [Tagging Amazon RDS resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html) in the *Amazon RDS User Guide* or [Tagging Amazon Aurora and Amazon RDS resources](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html) in the *Amazon Aurora User Guide*.
 open class OptionGroupTag {
     Key: String|Mapping
     Value: (String|Mapping)?
@@ -54,7 +54,7 @@ open class OptionGroup extends cloudformation.Resource {
     /// Specifies the major version of the engine that this option group should be associated with.
     hidden MajorEngineVersion: String|Mapping
 
-    /// A list of options and the settings for each option.
+    /// A list of all available options for an option group.
     hidden OptionConfigurations: (Listing<OptionGroupOptionConfiguration>)?
 
     /// The description of the option group.
@@ -72,7 +72,7 @@ open class OptionGroup extends cloudformation.Resource {
     ///   This value is stored as a lowercase string.
     hidden OptionGroupName: (String|Mapping)?
 
-    /// An optional array of key-value pairs to apply to this option group.
+    /// Tags to assign to the option group.
     hidden Tags: (Listing<OptionGroupTag>)?
 
     Properties {
