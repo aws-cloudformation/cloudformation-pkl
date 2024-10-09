@@ -22,6 +22,9 @@ open class Resource {
     UpdatePolicy: Mapping?
     UpdateReplacePolicy: String?
     Condition: String?
+
+    // Overrides is specific to Rain modules
+    Overrides: Mapping?
 }
 
 /// A CloudFormation Parameter
