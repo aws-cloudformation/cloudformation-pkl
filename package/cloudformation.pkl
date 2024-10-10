@@ -15,7 +15,7 @@ typealias RefString = String|Mapping
 open class Resource {
 
     // A Type is a Mapping when it's a Rain module
-    Type: String(matches(Regex(#"^.*::.*::.*$"#)))|Mapping
+    Type: String(matches(Regex(#"^.*::.*::.*$"#)))|Any
     Properties: Any?
     CreationPolicy: Mapping? 
     DeletionPolicy: String?
