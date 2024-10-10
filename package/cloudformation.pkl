@@ -13,9 +13,7 @@ typealias RefString = String|Mapping
 /// 
 /// Any property that conflicts will be suffixed with `Property`.
 open class Resource {
-
-    // A Type is a Mapping when it's a Rain module
-    Type: String(matches(Regex(#"^.*::.*::.*$"#)))|Any
+    Type: String(matches(Regex(#"^.*::.*::.*$"#)))
     Properties: Any?
     CreationPolicy: Mapping? 
     DeletionPolicy: String?
@@ -24,9 +22,6 @@ open class Resource {
     UpdatePolicy: Mapping?
     UpdateReplacePolicy: String?
     Condition: String?
-
-    // Overrides is specific to Rain modules
-    Overrides: Mapping?
 }
 
 /// A CloudFormation Parameter
