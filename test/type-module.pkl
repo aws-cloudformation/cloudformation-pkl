@@ -1,0 +1,17 @@
+// Represents a CloudFormation template that creates buckets
+// in several different ways, with and without the use of modules
+
+amends "modules/template.pkl"
+import "modules/cloudformation.pkl" as cfn
+import "modules/aws/s3/bucket.pkl" as bucket
+import "modules/patterns/bucket.pkl" as pattern
+
+Resources {
+
+    ["Mod"] {
+        Type {
+            ["!Rain::Module"] = "Something"
+        }
+    }
+}
+
