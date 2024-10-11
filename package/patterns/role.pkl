@@ -66,7 +66,7 @@ fixed Resources: Mapping<String, cfn.Resource> = new Mapping {
         when (AssumeService != null) {
             AssumeRolePolicyDocument = new PolicyDocument {
                 Statement = new Statement {
-                    Action = "sts.AssumeRole"
+                    Action = "sts:AssumeRole"
                     Principal {
                         Service = AssumeService
                     }
