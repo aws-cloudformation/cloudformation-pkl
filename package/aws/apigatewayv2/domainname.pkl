@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 /// The ``DomainNameConfiguration`` property type specifies the configuration for an API's domain name.
 ///
-///  ``DomainNameConfiguration`` is a property of the [AWS::ApiGatewayV2::DomainName](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-domainname.html) resource.
+///   ``DomainNameConfiguration`` is a property of the [AWS::ApiGatewayV2::DomainName](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-domainname.html) resource.
 open class DomainNameDomainNameConfiguration {
     CertificateArn: (String|Mapping)?
     CertificateName: (String|Mapping)?
@@ -30,7 +30,7 @@ open class DomainName extends cloudformation.Resource {
     Type = "AWS::ApiGatewayV2::DomainName"
 
 
-    /// The custom domain name for your API in Amazon API Gateway. Uppercase letters are not supported.
+    /// The custom domain name for your API in Amazon API Gateway. Uppercase letters and the underscore (``_``) character are not supported.
     hidden DomainName: String|Mapping
 
     /// The domain name configurations.

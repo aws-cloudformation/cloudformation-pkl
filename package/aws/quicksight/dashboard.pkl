@@ -4064,6 +4064,9 @@ open class Dashboard extends cloudformation.Resource {
     hidden Definition: (DashboardDashboardVersionDefinition)?
 
     /// 
+    hidden FolderArns: (Listing<String|Mapping>)?
+
+    /// 
     hidden LinkEntities: (Listing<String|Mapping>)?
 
     /// 
@@ -4098,6 +4101,7 @@ open class Dashboard extends cloudformation.Resource {
         ["DashboardId"] = if (DashboardId == null) null else DashboardId
         ["DashboardPublishOptions"] = if (DashboardPublishOptions == null) null else DashboardPublishOptions
         ["Definition"] = if (Definition == null) null else Definition
+        ["FolderArns"] = if (FolderArns == null) null else FolderArns
         ["LinkEntities"] = if (LinkEntities == null) null else LinkEntities
         ["LinkSharingConfiguration"] = if (LinkSharingConfiguration == null) null else LinkSharingConfiguration
         ["Name"] = if (Name == null) null else Name

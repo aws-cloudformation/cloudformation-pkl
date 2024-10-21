@@ -41,7 +41,7 @@ open class CapacityProvider extends cloudformation.Resource {
 
 
     /// 
-    hidden AutoScalingGroupProvider: CapacityProviderAutoScalingGroupProvider
+    hidden AutoScalingGroupProvider: (CapacityProviderAutoScalingGroupProvider)?
 
     /// 
     hidden Name: (String|Mapping)?

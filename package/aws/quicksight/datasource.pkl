@@ -292,6 +292,9 @@ open class DataSource extends cloudformation.Resource {
     hidden ErrorInfo: (DataSourceDataSourceErrorInfo)?
 
     /// 
+    hidden FolderArns: (Listing<String|Mapping>)?
+
+    /// 
     hidden Name: String|Mapping
 
     /// 
@@ -316,6 +319,7 @@ open class DataSource extends cloudformation.Resource {
         ["DataSourceId"] = if (DataSourceId == null) null else DataSourceId
         ["DataSourceParameters"] = if (DataSourceParameters == null) null else DataSourceParameters
         ["ErrorInfo"] = if (ErrorInfo == null) null else ErrorInfo
+        ["FolderArns"] = if (FolderArns == null) null else FolderArns
         ["Name"] = if (Name == null) null else Name
         ["Permissions"] = if (Permissions == null) null else Permissions
         ["SslProperties"] = if (SslProperties == null) null else SslProperties

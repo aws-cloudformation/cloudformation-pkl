@@ -5,7 +5,7 @@ module aws.iotevents.detectormodel
 
 import "../../cloudformation.pkl"
 
-/// The actions to be performed.
+/// An action to be performed when the ``condition`` is TRUE.
 open class DetectorModelAction {
     ClearTimer: (DetectorModelClearTimer)?
     DynamoDB: (DetectorModelDynamoDB)?
@@ -22,20 +22,48 @@ open class DetectorModelAction {
     Sqs: (DetectorModelSqs)?
 }
 
-/// A structure that contains timestamp information. For more information, see [TimeInNanos](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_TimeInNanos.html) in the *AWS IoT SiteWise API Reference*.
+/// A structure that contains timestamp information. For more information, see [TimeInNanos](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_TimeInNanos.html) in the *API Reference*.
+///
+///  You must use expressions for all parameters in ``AssetPropertyTimestamp``. The expressions accept literals, operators, functions, references, and substitution templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``timeInSeconds`` parameter can be ``'1586400675'``.
+///   +  For references, you must specify either variables or input values. For example, the value for the ``offsetInNanos`` parameter can be ``$variable.time``.
+///   +  For a substitution template, you must use ``${}``, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``timeInSeconds`` parameter uses a substitution template.
+///   ``'${$input.TemperatureInput.sensorData.timestamp / 1000}'`` 
+///   
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
 open class DetectorModelAssetPropertyTimestamp {
     OffsetInNanos: (String|Mapping)?
     TimeInSeconds: String|Mapping
 }
 
-/// A structure that contains value information. For more information, see [AssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_AssetPropertyValue.html) in the *AWS IoT SiteWise API Reference*.
+/// A structure that contains value information. For more information, see [AssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_AssetPropertyValue.html) in the *API Reference*.
+///
+///  You must use expressions for all parameters in ``AssetPropertyValue``. The expressions accept literals, operators, functions, references, and substitution templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``quality`` parameter can be ``'GOOD'``.
+///   +  For references, you must specify either variables or input values. For example, the value for the ``quality`` parameter can be ``$input.TemperatureInput.sensorData.quality``.
+///   
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
 open class DetectorModelAssetPropertyValue {
     Quality: (String|Mapping)?
     Timestamp: (DetectorModelAssetPropertyTimestamp)?
     Value: DetectorModelAssetPropertyVariant
 }
 
-/// A structure that contains an asset property value. For more information, see [Variant](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_Variant.html) in the *AWS IoT SiteWise API Reference*.
+/// A structure that contains an asset property value. For more information, see [Variant](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_Variant.html) in the *API Reference*.
+///
+///  You must use expressions for all parameters in ``AssetPropertyVariant``. The expressions accept literals, operators, functions, references, and substitution templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``integerValue`` parameter can be ``'100'``.
+///   +  For references, you must specify either variables or parameters. For example, the value for the ``booleanValue`` parameter can be ``$variable.offline``.
+///   +  For a substitution template, you must use ``${}``, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates. 
+///  In the following example, the value for the ``doubleValue`` parameter uses a substitution template. 
+///   ``'${$input.TemperatureInput.sensorData.temperature * 6 / 5 + 32}'`` 
+///   
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
+///  You must specify one of the following value types, depending on the ``dataType`` of the specified asset property. For more information, see [AssetProperty](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_AssetProperty.html) in the *API Reference*.
 open class DetectorModelAssetPropertyVariant {
     BooleanValue: (String|Mapping)?
     DoubleValue: (String|Mapping)?
@@ -54,7 +82,21 @@ open class DetectorModelDetectorModelDefinition {
     States: Listing<DetectorModelState>
 }
 
-/// Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can also customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *AWS IoT Events Developer Guide*.
+/// Defines an action to write to the Amazon DynamoDB table that you created. The standard action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify.
+///
+///  You must use expressions for all parameters in ``DynamoDBAction``. The expressions accept literals, operators, functions, references, and substitution templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``hashKeyType`` parameter can be ``'STRING'``.
+///   +  For references, you must specify either variables or input values. For example, the value for the ``hashKeyField`` parameter can be ``$input.GreenhouseInput.name``.
+///   +  For a substitution template, you must use ``${}``, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``hashKeyValue`` parameter uses a substitution template. 
+///   ``'${$input.GreenhouseInput.temperature * 6 / 5 + 32} in Fahrenheit'`` 
+///   +  For a string concatenation, you must use ``+``. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``tableName`` parameter uses a string concatenation. 
+///   ``'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date`` 
+///   
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
+///  If the defined payload type is a string, ``DynamoDBAction`` writes non-JSON data to the DynamoDB table as binary data. The DynamoDB console displays the data as Base64-encoded text. The value for the ``payloadField`` parameter is ``<payload-field>_raw``.
 open class DetectorModelDynamoDB {
     HashKeyField: String|Mapping
     HashKeyType: (String|Mapping)?
@@ -68,16 +110,27 @@ open class DetectorModelDynamoDB {
     TableName: String|Mapping
 }
 
-/// Defines an action to write to the Amazon DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can also customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify.
+/// Defines an action to write to the Amazon DynamoDB table that you created. The default action payload contains all the information about the detector model instance and the event that triggered the action. You can customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify.
 ///
-/// 
-/// You can use expressions for parameters that are strings. For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *AWS IoT Events Developer Guide*.
+///  You must use expressions for all parameters in ``DynamoDBv2Action``. The expressions accept literals, operators, functions, references, and substitution templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``tableName`` parameter can be ``'GreenhouseTemperatureTable'``.
+///   +  For references, you must specify either variables or input values. For example, the value for the ``tableName`` parameter can be ``$variable.ddbtableName``.
+///   +  For a substitution template, you must use ``${}``, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``contentExpression`` parameter in ``Payload`` uses a substitution template. 
+///   ``'{\"sensorID\": \"${$input.GreenhouseInput.sensor_id}\", \"temperature\": \"${$input.GreenhouseInput.temperature * 9 / 5 + 32}\"}'`` 
+///   +  For a string concatenation, you must use ``+``. A string concatenation can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``tableName`` parameter uses a string concatenation. 
+///   ``'GreenhouseTemperatureTable ' + $input.GreenhouseInput.date`` 
+///   
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
+///  The value for the ``type`` parameter in ``Payload`` must be ``JSON``.
 open class DetectorModelDynamoDBv2 {
     Payload: (DetectorModelPayload)?
     TableName: String|Mapping
 }
 
-/// Specifies the `actions` to be performed when the `condition` evaluates to `TRUE`.
+/// Specifies the ``actions`` to be performed when the ``condition`` evaluates to TRUE.
 open class DetectorModelEvent {
     Actions: (Listing<DetectorModelAction>)?
     Condition: (String|Mapping)?
@@ -91,13 +144,24 @@ open class DetectorModelFirehose {
     Separator: (String(matches(Regex(#"([\n\t])|(\r\n)|(,)"#)))|Mapping)?
 }
 
-/// Sends an AWS IoT Events input, passing in information about the detector model instance and the event that triggered the action.
+/// Sends an ITE input, passing in information about the detector model instance and the event that triggered the action.
 open class DetectorModelIotEvents {
     InputName: String(matches(Regex(#"^[a-zA-Z][a-zA-Z0-9_]*$"#)))|Mapping
     Payload: (DetectorModelPayload)?
 }
 
-/// Sends information about the detector model instance and the event that triggered the action to a specified asset property in AWS IoT SiteWise.
+/// Sends information about the detector model instance and the event that triggered the action to a specified asset property in ITSW.
+///
+///  You must use expressions for all parameters in ``IotSiteWiseAction``. The expressions accept literals, operators, functions, references, and substitutions templates.
+///   **Examples**
+///  +  For literal values, the expressions must contain single quotes. For example, the value for the ``propertyAlias`` parameter can be ``'/company/windfarm/3/turbine/7/temperature'``.
+///   +  For references, you must specify either variables or input values. For example, the value for the ``assetId`` parameter can be ``$input.TurbineInput.assetId1``.
+///   +  For a substitution template, you must use ``${}``, and the template must be in single quotes. A substitution template can also contain a combination of literals, operators, functions, references, and substitution templates.
+///  In the following example, the value for the ``propertyAlias`` parameter uses a substitution template. 
+///   ``'company/windfarm/${$input.TemperatureInput.sensorData.windfarmID}/turbine/ ${$input.TemperatureInput.sensorData.turbineID}/temperature'`` 
+///   
+///  You must specify either ``propertyAlias`` or both ``assetId`` and ``propertyId`` to identify the target asset property in ITSW.
+///  For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *Developer Guide*.
 open class DetectorModelIotSiteWise {
     AssetId: (String|Mapping)?
     EntryId: (String|Mapping)?
@@ -106,29 +170,29 @@ open class DetectorModelIotSiteWise {
     PropertyValue: DetectorModelAssetPropertyValue
 }
 
-/// Information required to publish the MQTT message through the AWS IoT message broker.
+/// Information required to publish the MQTT message through the IoT message broker.
 open class DetectorModelIotTopicPublish {
     MqttTopic: String|Mapping
     Payload: (DetectorModelPayload)?
 }
 
-/// 
+/// Calls a Lambda function, passing in information about the detector model instance and the event that triggered the action.
 open class DetectorModelLambda {
     FunctionArn: String|Mapping
     Payload: (DetectorModelPayload)?
 }
 
-/// When entering this state, perform these `actions` if the `condition` is `TRUE`.
+/// When entering this state, perform these ``actions`` if the ``condition`` is TRUE.
 open class DetectorModelOnEnter {
     Events: (Listing<DetectorModelEvent>)?
 }
 
-/// When exiting this state, perform these `actions` if the specified `condition` is `TRUE`.
+/// When exiting this state, perform these ``actions`` if the specified ``condition`` is ``TRUE``.
 open class DetectorModelOnExit {
     Events: (Listing<DetectorModelEvent>)?
 }
 
-/// When an input is received and the `condition` is `TRUE`, perform the specified `actions`.
+/// Specifies the actions performed when the ``condition`` evaluates to TRUE.
 open class DetectorModelOnInput {
     Events: (Listing<DetectorModelEvent>)?
     TransitionEvents: (Listing<DetectorModelTransitionEvent>)?
@@ -136,8 +200,7 @@ open class DetectorModelOnInput {
 
 /// Information needed to configure the payload.
 ///
-/// 
-/// By default, AWS IoT Events generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use `contentExpression`.
+///  By default, ITE generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use ``contentExpression``.
 open class DetectorModelPayload {
     ContentExpression: String|Mapping
     Type: String|Mapping
@@ -167,7 +230,7 @@ open class DetectorModelSns {
     TargetArn: String|Mapping
 }
 
-/// 
+/// Sends information about the detector model instance and the event that triggered the action to an Amazon SQS queue.
 open class DetectorModelSqs {
     Payload: (DetectorModelPayload)?
     QueueUrl: String|Mapping
@@ -182,13 +245,13 @@ open class DetectorModelState {
     StateName: String|Mapping
 }
 
-/// Tags to be applied to Input.
+/// Metadata that can be used to manage the resource.
 open class DetectorModelTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// Specifies the `actions `performed and the next `state` entered when a `condition` evaluates to `TRUE`.
+/// Specifies the actions performed and the next state entered when a ``condition`` evaluates to TRUE.
 open class DetectorModelTransitionEvent {
     Actions: (Listing<DetectorModelAction>)?
     Condition: String|Mapping
@@ -196,13 +259,18 @@ open class DetectorModelTransitionEvent {
     NextState: String|Mapping
 }
 
-/// The AWS::IoTEvents::DetectorModel resource creates a detector model. You create a *detector model* (a model of your equipment or process) using *states*. For each state, you define conditional (Boolean) logic that evaluates the incoming inputs to detect significant events. When an event is detected, it can change the state or trigger custom-built or predefined actions using other AWS services. You can define additional events that trigger actions when entering or exiting a state and, optionally, when a condition is met. For more information, see [How to Use AWS IoT Events](https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the *AWS IoT Events Developer Guide*.
+/// The AWS::IoTEvents::DetectorModel resource creates a detector model. You create a *detector model* (a model of your equipment or process) using *states*. For each state, you define conditional (Boolean) logic that evaluates the incoming inputs to detect significant events. When an event is detected, it can change the state or trigger custom-built or predefined actions using other AWS services. You can define additional events that trigger actions when entering or exiting a state and, optionally, when a condition is met. For more information, see [How to Use](https://docs.aws.amazon.com/iotevents/latest/developerguide/how-to-use-iotevents.html) in the *Developer Guide*.
+///
+///   When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) all detector instances created by the model are reset to their initial states. (The detector's ``state``, and the values of any variables and timers are reset.)
+///  When you successfully update a detector model (using the ITE console, ITE API or CLI commands, or CFN) the version number of the detector model is incremented. (A detector model with version number 1 before the update has version number 2 after the update succeeds.)
+///  If you attempt to update a detector model using CFN and the update does not succeed, the system may, in some cases, restore the original detector model. When this occurs, the detector model's version is incremented twice (for example, from version 1 to version 3) and the detector instances are reset.
+///  Also, be aware that if you attempt to update several detector models at once using CFN, some updates may succeed and others fail. In this case, the effects on each detector model's detector instances and version number depend on whether the update succeeded or failed, with the results as stated.
 open class DetectorModel extends cloudformation.Resource {
 
     Type = "AWS::IoTEvents::DetectorModel"
 
 
-    /// 
+    /// Information that defines how a detector operates.
     hidden DetectorModelDefinition: DetectorModelDetectorModelDefinition
 
     /// A brief description of the detector model.
@@ -214,19 +282,17 @@ open class DetectorModel extends cloudformation.Resource {
     /// Information about the order in which events are evaluated and how actions are executed.
     hidden EvaluationMethod: (DetectorModelEvaluationMethod|Mapping)?
 
-    /// The value used to identify a detector instance. When a device or system sends input, a new detector instance with a unique key value is created. AWS IoT Events can continue to route input to its corresponding detector instance based on this identifying information.
+    /// The value used to identify a detector instance. When a device or system sends input, a new detector instance with a unique key value is created. ITE can continue to route input to its corresponding detector instance based on this identifying information. 
     ///
-    /// 
-    /// This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct detector instance, the device must send a message payload that contains the same attribute-value.
+    ///  This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct detector instance, the device must send a message payload that contains the same attribute-value.
     hidden Key: (String(matches(Regex(#"^((`[\w\- ]+`)|([\w\-]+))(\.((`[\w\- ]+`)|([\w\-]+)))*$"#)))|Mapping)?
 
-    /// The ARN of the role that grants permission to AWS IoT Events to perform its operations.
+    /// The ARN of the role that grants permission to ITE to perform its operations.
     hidden RoleArn: String|Mapping
 
     /// An array of key-value pairs to apply to this resource.
     ///
-    /// 
-    /// For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
+    ///  For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
     hidden Tags: (Listing<DetectorModelTag>)?
 
     Properties {

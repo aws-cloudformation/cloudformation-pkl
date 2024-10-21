@@ -13,6 +13,11 @@ open class ClusterAccessConfig {
     BootstrapClusterCreatorAdminPermissions: (Boolean|Mapping)?
 }
 
+/// Todo: add description
+open class ClusterBlockStorage {
+    Enabled: (Boolean|Mapping)?
+}
+
 /// The cluster control plane logging configuration for your cluster. 
 open class ClusterClusterLogging {
     EnabledTypes: (ClusterEnabledTypes)?

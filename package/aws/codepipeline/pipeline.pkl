@@ -8,18 +8,20 @@ import "../../cloudformation.pkl"
 /// Represents information about an action declaration.
 open class PipelineActionDeclaration {
     ActionTypeId: PipelineActionTypeId
+    Commands: (Listing<String|Mapping>)?
     Configuration: (Dynamic)?
     InputArtifacts: (Listing<PipelineInputArtifact>)?
     Name: String|Mapping
     Namespace: (String|Mapping)?
     OutputArtifacts: (Listing<PipelineOutputArtifact>)?
+    OutputVariables: (Listing<String|Mapping>)?
     Region: (String|Mapping)?
     RoleArn: (String(matches(Regex(#"arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*"#)))|Mapping)?
     RunOrder: (Int|Mapping)?
     TimeoutInMinutes: (Int|Mapping)?
 }
 
-typealias ActionTypeIdCategory = "Source"|"Build"|"Test"|"Deploy"|"Invoke"|"Approval"
+typealias ActionTypeIdCategory = "Source"|"Build"|"Test"|"Deploy"|"Invoke"|"Approval"|"Compute"
 
 /// Represents information about an action type.
 open class PipelineActionTypeId {
@@ -123,6 +125,7 @@ open class PipelineInputArtifact {
 
 /// Represents information about the output of an action.
 open class PipelineOutputArtifact {
+    Files: (Listing<String|Mapping>)?
     Name: String|Mapping
 }
 

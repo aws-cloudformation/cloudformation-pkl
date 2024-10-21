@@ -61,6 +61,7 @@ typealias FirewallPolicyRuleVariables = Mapping<String, Any>
 
 /// 
 open class FirewallPolicyStatefulEngineOptions {
+    FlowTimeouts: (Dynamic)?
     RuleOrder: (FirewallPolicyRuleOrder)?
     StreamExceptionPolicy: (FirewallPolicyStreamExceptionPolicy)?
 }
