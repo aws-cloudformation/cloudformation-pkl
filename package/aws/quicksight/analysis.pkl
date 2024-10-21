@@ -3972,6 +3972,9 @@ open class Analysis extends cloudformation.Resource {
     /// <p>Errors associated with the analysis.</p>
     hidden Errors: (Listing<AnalysisAnalysisError>)?
 
+    /// 
+    hidden FolderArns: (Listing<String|Mapping>)?
+
     /// <p>The descriptive name of the analysis.</p>
     hidden Name: String|Mapping
 
@@ -4004,6 +4007,7 @@ open class Analysis extends cloudformation.Resource {
         ["AwsAccountId"] = if (AwsAccountId == null) null else AwsAccountId
         ["Definition"] = if (Definition == null) null else Definition
         ["Errors"] = if (Errors == null) null else Errors
+        ["FolderArns"] = if (FolderArns == null) null else FolderArns
         ["Name"] = if (Name == null) null else Name
         ["Parameters"] = if (Parameters == null) null else Parameters
         ["Permissions"] = if (Permissions == null) null else Permissions

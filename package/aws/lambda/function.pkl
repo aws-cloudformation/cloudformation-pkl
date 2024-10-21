@@ -36,7 +36,7 @@ open class FunctionEphemeralStorage {
 
 /// Details about the connection between a Lambda function and an [Amazon EFS file system](https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html).
 open class FunctionFileSystemConfig {
-    Arn: String(matches(Regex(#"^arn:aws[a-zA-Z-]*:elasticfilesystem:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:access-point/fsap-[a-f0-9]{17}$"#)))|Mapping
+    Arn: String(matches(Regex(#"^arn:aws[a-zA-Z-]*:elasticfilesystem:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:access-point/fsap-[a-f0-9]{17}$"#)))|Mapping
     LocalMountPath: String(matches(Regex(#"^/mnt/[a-zA-Z0-9-_.]+$"#)))|Mapping
 }
 
@@ -131,7 +131,7 @@ open class Function extends cloudformation.Resource {
     hidden Code: FunctionCode
 
     /// To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function.
-    hidden CodeSigningConfigArn: (String(matches(Regex(#"arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:code-signing-config:csc-[a-z0-9]{17}"#)))|Mapping)?
+    hidden CodeSigningConfigArn: (String(matches(Regex(#"arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:code-signing-config:csc-[a-z0-9]{17}"#)))|Mapping)?
 
     /// A dead-letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. For more information, see [Dead-letter queues](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq).
     hidden DeadLetterConfig: (FunctionDeadLetterConfig)?

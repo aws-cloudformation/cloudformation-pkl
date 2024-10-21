@@ -62,6 +62,9 @@ open class CapacityReservation extends cloudformation.Resource {
     /// 
     hidden Tenancy: (String|Mapping)?
 
+    /// 
+    hidden UnusedReservationBillingOwnerId: (String|Mapping)?
+
     Properties {
         ["AvailabilityZone"] = if (AvailabilityZone == null) null else AvailabilityZone
         ["EbsOptimized"] = if (EbsOptimized == null) null else EbsOptimized
@@ -76,6 +79,7 @@ open class CapacityReservation extends cloudformation.Resource {
         ["PlacementGroupArn"] = if (PlacementGroupArn == null) null else PlacementGroupArn
         ["TagSpecifications"] = if (TagSpecifications == null) null else TagSpecifications
         ["Tenancy"] = if (Tenancy == null) null else Tenancy
+        ["UnusedReservationBillingOwnerId"] = if (UnusedReservationBillingOwnerId == null) null else UnusedReservationBillingOwnerId
     }
 
 }

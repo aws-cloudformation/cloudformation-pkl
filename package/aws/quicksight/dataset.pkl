@@ -76,7 +76,7 @@ open class DataSetCreateColumnsOperation {
 
 /// <p>A physical table type built from the results of the custom SQL query.</p>
 open class DataSetCustomSql {
-    Columns: Listing<DataSetInputColumn>
+    Columns: (Listing<DataSetInputColumn>)?
     DataSourceArn: String|Mapping
     Name: String|Mapping
     SqlQuery: String|Mapping
@@ -301,7 +301,7 @@ open class DataSetRefreshConfiguration {
 open class DataSetRelationalTable {
     Catalog: (String|Mapping)?
     DataSourceArn: String|Mapping
-    InputColumns: Listing<DataSetInputColumn>
+    InputColumns: (Listing<DataSetInputColumn>)?
     Name: String|Mapping
     Schema: (String|Mapping)?
 }

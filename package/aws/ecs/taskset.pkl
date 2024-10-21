@@ -14,6 +14,13 @@ open class TaskSetAwsVpcConfiguration {
     Subnets: Listing<String|Mapping>
 }
 
+/// 
+open class TaskSetCapacityProviderStrategyItem {
+    Base: (Int|Mapping)?
+    CapacityProvider: (String|Mapping)?
+    Weight: (Int|Mapping)?
+}
+
 /// A load balancer object representing the load balancer to use with the task set. The supported load balancer types are either an Application Load Balancer or a Network Load Balancer. 
 open class TaskSetLoadBalancer {
     ContainerName: (String|Mapping)?
@@ -54,6 +61,9 @@ open class TaskSet extends cloudformation.Resource {
     Type = "AWS::ECS::TaskSet"
 
 
+    /// 
+    hidden CapacityProviderStrategy: (Listing<TaskSetCapacityProviderStrategyItem>)?
+
     /// The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in.
     hidden Cluster: String|Mapping
 
@@ -88,6 +98,7 @@ open class TaskSet extends cloudformation.Resource {
     hidden TaskDefinition: String|Mapping
 
     Properties {
+        ["CapacityProviderStrategy"] = if (CapacityProviderStrategy == null) null else CapacityProviderStrategy
         ["Cluster"] = if (Cluster == null) null else Cluster
         ["ExternalId"] = if (ExternalId == null) null else ExternalId
         ["LaunchType"] = if (LaunchType == null) null else LaunchType

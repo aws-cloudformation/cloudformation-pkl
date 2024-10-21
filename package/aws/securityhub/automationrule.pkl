@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias AutomationRulesActionType = "FINDING_FIELDS_UPDATE"
 
-/// One or more actions to update finding fields if a finding matches the defined criteria of the rule.
+/// One or more actions that ASHlong takes when a finding matches the defined criteria of a rule.
 open class AutomationRuleAutomationRulesAction {
     FindingFieldsUpdate: AutomationRuleAutomationRulesFindingFieldsUpdate
     Type: AutomationRulesActionType|Mapping

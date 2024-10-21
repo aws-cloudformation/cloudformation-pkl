@@ -39,6 +39,9 @@ open class ReplicationInstance extends cloudformation.Resource {
     hidden MultiAZ: (Boolean|Mapping)?
 
     /// 
+    hidden NetworkType: (String|Mapping)?
+
+    /// 
     hidden PreferredMaintenanceWindow: (String|Mapping)?
 
     /// 
@@ -70,6 +73,7 @@ open class ReplicationInstance extends cloudformation.Resource {
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId
         ["MultiAZ"] = if (MultiAZ == null) null else MultiAZ
+        ["NetworkType"] = if (NetworkType == null) null else NetworkType
         ["PreferredMaintenanceWindow"] = if (PreferredMaintenanceWindow == null) null else PreferredMaintenanceWindow
         ["PubliclyAccessible"] = if (PubliclyAccessible == null) null else PubliclyAccessible
         ["ReplicationInstanceClass"] = if (ReplicationInstanceClass == null) null else ReplicationInstanceClass

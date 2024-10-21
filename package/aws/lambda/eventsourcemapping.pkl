@@ -73,7 +73,7 @@ open class EventSourceMappingSourceAccessConfiguration {
     URI: (String(matches(Regex(#"[a-zA-Z0-9-\/*:_+=.@-]*"#)))|Mapping)?
 }
 
-/// 
+/// A [tag](https://docs.aws.amazon.com/lambda/latest/dg/tagging.html) to apply to the event source mapping.
 open class EventSourceMappingTag {
     Key: String|Mapping
     Value: (String|Mapping)?
@@ -99,13 +99,13 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The maximum number of records in each batch that Lambda pulls from your stream or queue and sends to your function. Lambda passes all of the records in the batch to the function in a single call, up to the payload limit for synchronous invocation (6 MB).
     ///
-    ///   +   *Amazon Kinesis* ? Default 100. Max 10,000.
-    ///   +   *Amazon DynamoDB Streams* ? Default 100. Max 10,000.
-    ///   +   *Amazon Simple Queue Service* ? Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.
-    ///   +   *Amazon Managed Streaming for Apache Kafka* ? Default 100. Max 10,000.
-    ///   +   *Self-managed Apache Kafka* ? Default 100. Max 10,000.
-    ///   +   *Amazon MQ (ActiveMQ and RabbitMQ)* ? Default 100. Max 10,000.
-    ///   +   *DocumentDB* ? Default 100. Max 10,000.
+    ///   +   *Amazon Kinesis* – Default 100. Max 10,000.
+    ///   +   *Amazon DynamoDB Streams* – Default 100. Max 10,000.
+    ///   +   *Amazon Simple Queue Service* – Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.
+    ///   +   *Amazon Managed Streaming for Apache Kafka* – Default 100. Max 10,000.
+    ///   +   *Self-managed Apache Kafka* – Default 100. Max 10,000.
+    ///   +   *Amazon MQ (ActiveMQ and RabbitMQ)* – Default 100. Max 10,000.
+    ///   +   *DocumentDB* – Default 100. Max 10,000.
     hidden BatchSize: (Int|Mapping)?
 
     /// (Kinesis and DynamoDB Streams only) If the function returns an error, split the batch in two and retry. The default value is false.
@@ -124,12 +124,12 @@ open class EventSourceMapping extends cloudformation.Resource {
 
     /// The Amazon Resource Name (ARN) of the event source.
     ///
-    ///   +   *Amazon Kinesis* ? The ARN of the data stream or a stream consumer.
-    ///   +   *Amazon DynamoDB Streams* ? The ARN of the stream.
-    ///   +   *Amazon Simple Queue Service* ? The ARN of the queue.
-    ///   +   *Amazon Managed Streaming for Apache Kafka* ? The ARN of the cluster or the ARN of the VPC connection (for [cross-account event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc)).
-    ///   +   *Amazon MQ* ? The ARN of the broker.
-    ///   +   *Amazon DocumentDB* ? The ARN of the DocumentDB change stream.
+    ///   +   *Amazon Kinesis* – The ARN of the data stream or a stream consumer.
+    ///   +   *Amazon DynamoDB Streams* – The ARN of the stream.
+    ///   +   *Amazon Simple Queue Service* – The ARN of the queue.
+    ///   +   *Amazon Managed Streaming for Apache Kafka* – The ARN of the cluster or the ARN of the VPC connection (for [cross-account event source mappings](https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc)).
+    ///   +   *Amazon MQ* – The ARN of the broker.
+    ///   +   *Amazon DocumentDB* – The ARN of the DocumentDB change stream.
     hidden EventSourceArn: (String(matches(Regex(#"arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping)?
 
     /// An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see [Lambda event filtering](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html).
@@ -138,10 +138,10 @@ open class EventSourceMapping extends cloudformation.Resource {
     /// The name or ARN of the Lambda function.
     ///
     ///   **Name formats**
-    ///  +   *Function name* ? ``MyFunction``.
-    ///   +   *Function ARN* ? ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction``.
-    ///   +   *Version or Alias ARN* ? ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD``.
-    ///   +   *Partial ARN* ? ``123456789012:function:MyFunction``.
+    ///  +   *Function name* – ``MyFunction``.
+    ///   +   *Function ARN* – ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction``.
+    ///   +   *Version or Alias ARN* – ``arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD``.
+    ///   +   *Partial ARN* – ``123456789012:function:MyFunction``.
     ///   
     ///  The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.
     hidden FunctionName: String(matches(Regex(#"(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?"#)))|Mapping
@@ -197,7 +197,9 @@ open class EventSourceMapping extends cloudformation.Resource {
     /// With ``StartingPosition`` set to ``AT_TIMESTAMP``, the time from which to start reading, in Unix time seconds. ``StartingPositionTimestamp`` cannot be in the future.
     hidden StartingPositionTimestamp: (Number|Mapping)?
 
-    /// 
+    /// A list of tags to add to the event source mapping.
+    ///
+    ///   You must have the ``lambda:TagResource``, ``lambda:UntagResource``, and ``lambda:ListTags`` permissions for your [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html) to manage the CFN stack. If you don't have these permissions, there might be unexpected behavior with stack-level tags propagating to the resource during resource creation and update.
     hidden Tags: (Listing<EventSourceMappingTag>)?
 
     /// The name of the Kafka topic.

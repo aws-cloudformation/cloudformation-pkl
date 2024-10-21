@@ -82,43 +82,45 @@ open class DataSource extends cloudformation.Resource {
     Type = "AWS::AppSync::DataSource"
 
 
-    /// 
+    /// Unique AWS AppSync GraphQL API identifier where this data source will be created.
     hidden ApiId: String|Mapping
 
-    /// 
+    /// The description of the data source.
     hidden Description: (String|Mapping)?
 
-    /// 
+    /// AWS Region and TableName for an Amazon DynamoDB table in your account.
     hidden DynamoDBConfig: (DataSourceDynamoDBConfig)?
 
-    /// 
+    /// AWS Region and Endpoints for an Amazon OpenSearch Service domain in your account.
+    ///
+    /// As of September 2021, Amazon Elasticsearch Service is Amazon OpenSearch Service. This property is deprecated. For new data sources, use OpenSearchServiceConfig to specify an OpenSearch Service data source.
     hidden ElasticsearchConfig: (DataSourceElasticsearchConfig)?
 
-    /// 
+    /// ARN for the EventBridge bus.
     hidden EventBridgeConfig: (DataSourceEventBridgeConfig)?
 
-    /// 
+    /// Endpoints for an HTTP data source.
     hidden HttpConfig: (DataSourceHttpConfig)?
 
-    /// 
+    /// An ARN of a Lambda function in valid ARN format. This can be the ARN of a Lambda function that exists in the current account or in another account.
     hidden LambdaConfig: (DataSourceLambdaConfig)?
 
     /// 
-    hidden MetricsConfig: (String|Mapping)?
+    hidden MetricsConfig: (DataSourceMetricsConfig|Mapping)?
 
-    /// 
+    /// Friendly name for you to identify your AppSync data source after creation.
     hidden Name: String|Mapping
 
-    /// 
+    /// AWS Region and Endpoints for an Amazon OpenSearch Service domain in your account.
     hidden OpenSearchServiceConfig: (DataSourceOpenSearchServiceConfig)?
 
-    /// 
+    /// Relational Database configuration of the relational database data source.
     hidden RelationalDatabaseConfig: (DataSourceRelationalDatabaseConfig)?
 
-    /// 
+    /// The AWS Identity and Access Management service role ARN for the data source. The system assumes this role when accessing the data source.
     hidden ServiceRoleArn: (String|Mapping)?
 
-    /// 
+    /// The type of the data source.
     hidden TypeProperty: String|Mapping
 
     Properties {
@@ -138,3 +140,6 @@ open class DataSource extends cloudformation.Resource {
     }
 
 }
+
+
+typealias DataSourceMetricsConfig = "DISABLED"|"ENABLED"

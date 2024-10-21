@@ -5,16 +5,97 @@ module aws.ec2.vpnconnection
 
 import "../../cloudformation.pkl"
 
+typealias CloudwatchLogOptionsSpecificationLogOutputFormat = "json"|"text"
+
+/// 
+open class VPNConnectionCloudwatchLogOptionsSpecification {
+    LogEnabled: (Boolean|Mapping)?
+    LogGroupArn: (String|Mapping)?
+    LogOutputFormat: (CloudwatchLogOptionsSpecificationLogOutputFormat|Mapping)?
+}
+
+typealias IKEVersionsRequestListValueValue = "ikev1"|"ikev2"
+
+/// 
+open class VPNConnectionIKEVersionsRequestListValue {
+    Value: (IKEVersionsRequestListValueValue|Mapping)?
+}
+
+/// 
+open class VPNConnectionPhase1DHGroupNumbersRequestListValue {
+    Value: (Int|Mapping)?
+}
+
+typealias Phase1EncryptionAlgorithmsRequestListValueValue = "AES128"|"AES256"|"AES128-GCM-16"|"AES256-GCM-16"
+
+/// 
+open class VPNConnectionPhase1EncryptionAlgorithmsRequestListValue {
+    Value: (Phase1EncryptionAlgorithmsRequestListValueValue|Mapping)?
+}
+
+typealias Phase1IntegrityAlgorithmsRequestListValueValue = "SHA1"|"SHA2-256"|"SHA2-384"|"SHA2-512"
+
+/// 
+open class VPNConnectionPhase1IntegrityAlgorithmsRequestListValue {
+    Value: (Phase1IntegrityAlgorithmsRequestListValueValue|Mapping)?
+}
+
+/// 
+open class VPNConnectionPhase2DHGroupNumbersRequestListValue {
+    Value: (Int|Mapping)?
+}
+
+typealias Phase2EncryptionAlgorithmsRequestListValueValue = "AES128"|"AES256"|"AES128-GCM-16"|"AES256-GCM-16"
+
+/// 
+open class VPNConnectionPhase2EncryptionAlgorithmsRequestListValue {
+    Value: (Phase2EncryptionAlgorithmsRequestListValueValue|Mapping)?
+}
+
+typealias Phase2IntegrityAlgorithmsRequestListValueValue = "SHA1"|"SHA2-256"|"SHA2-384"|"SHA2-512"
+
+/// 
+open class VPNConnectionPhase2IntegrityAlgorithmsRequestListValue {
+    Value: (Phase2IntegrityAlgorithmsRequestListValueValue|Mapping)?
+}
+
 /// Specifies a tag. For more information, see [Resource tags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
 open class VPNConnectionTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
+/// 
+open class VPNConnectionVpnTunnelLogOptionsSpecification {
+    CloudwatchLogOptions: (VPNConnectionCloudwatchLogOptionsSpecification)?
+}
+
+typealias VpnTunnelOptionsSpecificationDPDTimeoutAction = "clear"|"none"|"restart"
+
+typealias VpnTunnelOptionsSpecificationStartupAction = "add"|"start"
+
 /// The tunnel options for a single VPN tunnel.
 open class VPNConnectionVpnTunnelOptionsSpecification {
+    DPDTimeoutAction: (VpnTunnelOptionsSpecificationDPDTimeoutAction|Mapping)?
+    DPDTimeoutSeconds: (Int|Mapping)?
+    EnableTunnelLifecycleControl: (Boolean|Mapping)?
+    IKEVersions: (Listing<VPNConnectionIKEVersionsRequestListValue>)?
+    LogOptions: (VPNConnectionVpnTunnelLogOptionsSpecification)?
+    Phase1DHGroupNumbers: (Listing<VPNConnectionPhase1DHGroupNumbersRequestListValue>)?
+    Phase1EncryptionAlgorithms: (Listing<VPNConnectionPhase1EncryptionAlgorithmsRequestListValue>)?
+    Phase1IntegrityAlgorithms: (Listing<VPNConnectionPhase1IntegrityAlgorithmsRequestListValue>)?
+    Phase1LifetimeSeconds: (Int|Mapping)?
+    Phase2DHGroupNumbers: (Listing<VPNConnectionPhase2DHGroupNumbersRequestListValue>)?
+    Phase2EncryptionAlgorithms: (Listing<VPNConnectionPhase2EncryptionAlgorithmsRequestListValue>)?
+    Phase2IntegrityAlgorithms: (Listing<VPNConnectionPhase2IntegrityAlgorithmsRequestListValue>)?
+    Phase2LifetimeSeconds: (Int|Mapping)?
     PreSharedKey: (String|Mapping)?
+    RekeyFuzzPercentage: (Int|Mapping)?
+    RekeyMarginTimeSeconds: (Int|Mapping)?
+    ReplayWindowSize: (Int|Mapping)?
+    StartupAction: (VpnTunnelOptionsSpecificationStartupAction|Mapping)?
     TunnelInsideCidr: (String|Mapping)?
+    TunnelInsideIpv6Cidr: (String|Mapping)?
 }
 
 /// Specifies a VPN connection between a virtual private gateway and a VPN customer gateway or a transit gateway and a VPN customer gateway.
@@ -35,19 +116,30 @@ open class VPNConnection extends cloudformation.Resource {
     ///  Default: ``false``
     hidden EnableAcceleration: (Boolean|Mapping)?
 
-    /// 
+    /// The IPv4 CIDR on the customer gateway (on-premises) side of the VPN connection.
+    ///
+    ///  Default: ``0.0.0.0/0``
     hidden LocalIpv4NetworkCidr: (String|Mapping)?
 
-    /// 
+    /// The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection.
+    ///
+    ///  Default: ``::/0``
     hidden LocalIpv6NetworkCidr: (String|Mapping)?
 
-    /// 
+    /// The type of IPv4 address assigned to the outside interface of the customer gateway device.
+    ///
+    ///  Valid values: ``PrivateIpv4`` | ``PublicIpv4`` 
+    ///  Default: ``PublicIpv4``
     hidden OutsideIpAddressType: (String|Mapping)?
 
-    /// 
+    /// The IPv4 CIDR on the AWS side of the VPN connection.
+    ///
+    ///  Default: ``0.0.0.0/0``
     hidden RemoteIpv4NetworkCidr: (String|Mapping)?
 
-    /// 
+    /// The IPv6 CIDR on the AWS side of the VPN connection.
+    ///
+    ///  Default: ``::/0``
     hidden RemoteIpv6NetworkCidr: (String|Mapping)?
 
     /// Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.
@@ -63,10 +155,14 @@ open class VPNConnection extends cloudformation.Resource {
     ///  You must specify either ``TransitGatewayId`` or ``VpnGatewayId``, but not both.
     hidden TransitGatewayId: (String|Mapping)?
 
-    /// 
+    /// The transit gateway attachment ID to use for the VPN tunnel.
+    ///
+    ///  Required if ``OutsideIpAddressType`` is set to ``PrivateIpv4``.
     hidden TransportTransitGatewayAttachmentId: (String|Mapping)?
 
-    /// 
+    /// Indicate whether the VPN tunnels process IPv4 or IPv6 traffic.
+    ///
+    ///  Default: ``ipv4``
     hidden TunnelInsideIpVersion: (String|Mapping)?
 
     /// The type of VPN connection.

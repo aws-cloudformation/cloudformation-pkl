@@ -6,9 +6,60 @@ module aws.b2bi.partnership
 import "../../cloudformation.pkl"
 
 /// 
+open class PartnershipCapabilityOptions {
+    OutboundEdi: (PartnershipOutboundEdiOptions)?
+}
+
+typealias PartnershipOutboundEdiOptions = PartnershipOutboundEdiOptionsX12
+
+
+/// 
+open class PartnershipOutboundEdiOptionsX12 {
+    X12: PartnershipX12Envelope
+}
+
+/// 
 open class PartnershipTag {
     Key: String|Mapping
     Value: String|Mapping
+}
+
+/// 
+open class PartnershipX12Delimiters {
+    ComponentSeparator: (String(matches(Regex(#"^[!&'()*+,\-./:;?=%@\[\]_{}|<>~^`"]$"#)))|Mapping)?
+    DataElementSeparator: (String(matches(Regex(#"^[!&'()*+,\-./:;?=%@\[\]_{}|<>~^`"]$"#)))|Mapping)?
+    SegmentTerminator: (String(matches(Regex(#"^[!&'()*+,\-./:;?=%@\[\]_{}|<>~^`"]$"#)))|Mapping)?
+}
+
+/// 
+open class PartnershipX12Envelope {
+    Common: (PartnershipX12OutboundEdiHeaders)?
+}
+
+/// 
+open class PartnershipX12FunctionalGroupHeaders {
+    ApplicationReceiverCode: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    ApplicationSenderCode: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    ResponsibleAgencyCode: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+}
+
+/// 
+open class PartnershipX12InterchangeControlHeaders {
+    AcknowledgmentRequestedCode: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    ReceiverId: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    ReceiverIdQualifier: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    RepetitionSeparator: (String|Mapping)?
+    SenderId: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    SenderIdQualifier: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+    UsageIndicatorCode: (String(matches(Regex(#"^[a-zA-Z0-9]*$"#)))|Mapping)?
+}
+
+/// 
+open class PartnershipX12OutboundEdiHeaders {
+    Delimiters: (PartnershipX12Delimiters)?
+    FunctionalGroupHeaders: (PartnershipX12FunctionalGroupHeaders)?
+    InterchangeControlHeaders: (PartnershipX12InterchangeControlHeaders)?
+    ValidateEdi: (Boolean|Mapping)?
 }
 
 /// Definition of AWS::B2BI::Partnership Resource Type
@@ -18,7 +69,10 @@ open class Partnership extends cloudformation.Resource {
 
 
     /// 
-    hidden Capabilities: (Listing<String|Mapping>)?
+    hidden Capabilities: Listing<String|Mapping>
+
+    /// 
+    hidden CapabilityOptions: (PartnershipCapabilityOptions)?
 
     /// 
     hidden Email: String(matches(Regex(#"^[\w\.\-]+@[\w\.\-]+$"#)))|Mapping
@@ -37,6 +91,7 @@ open class Partnership extends cloudformation.Resource {
 
     Properties {
         ["Capabilities"] = if (Capabilities == null) null else Capabilities
+        ["CapabilityOptions"] = if (CapabilityOptions == null) null else CapabilityOptions
         ["Email"] = if (Email == null) null else Email
         ["Name"] = if (Name == null) null else Name
         ["Phone"] = if (Phone == null) null else Phone

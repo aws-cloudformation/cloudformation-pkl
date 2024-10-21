@@ -24,7 +24,7 @@ open class DataLakeLifecycleConfiguration {
     Transitions: (Listing<DataLakeTransitions>)?
 }
 
-typealias DataLakeRegions = Listing<(String(matches(Regex(#"^(af|ap|ca|eu|me|sa|us)-(central|north|(north(?:east|west))|south|south(?:east|west)|east|west)-\d+$"#)))|Mapping)?>
+typealias DataLakeRegions = Listing<(String(matches(Regex(#"^(us(-gov)?|af|ap|ca|eu|me|sa)-(central|north|(north(?:east|west))|south|south(?:east|west)|east|west)-\d+$"#)))|Mapping)?>
 
 
 /// Provides replication details of Amazon Security Lake object.

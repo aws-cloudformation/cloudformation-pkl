@@ -12,6 +12,11 @@ open class DomainConfigurationAuthorizerConfig {
 }
 
 /// 
+open class DomainConfigurationClientCertificateConfig {
+    ClientCertificateCallbackArn: (String|Mapping)?
+}
+
+/// 
 open class DomainConfigurationServerCertificateConfig {
     EnableOCSPCheck: (Boolean|Mapping)?
 }
@@ -43,7 +48,16 @@ open class DomainConfiguration extends cloudformation.Resource {
 
 
     /// 
+    hidden ApplicationProtocol: (DomainConfigurationApplicationProtocol|Mapping)?
+
+    /// 
+    hidden AuthenticationType: (DomainConfigurationAuthenticationType|Mapping)?
+
+    /// 
     hidden AuthorizerConfig: (DomainConfigurationAuthorizerConfig)?
+
+    /// 
+    hidden ClientCertificateConfig: (DomainConfigurationClientCertificateConfig)?
 
     /// 
     hidden DomainConfigurationName: (String(matches(Regex(#"^[\w.-]+$"#)))|Mapping)?
@@ -73,7 +87,10 @@ open class DomainConfiguration extends cloudformation.Resource {
     hidden ValidationCertificateArn: (String(matches(Regex(#"^arn:aws(-cn|-us-gov|-iso-b|-iso)?:acm:[a-z]{2}-(gov-|iso-|isob-)?[a-z]{4,9}-\d{1}:\d{12}:certificate/[a-zA-Z0-9/-]+$"#)))|Mapping)?
 
     Properties {
+        ["ApplicationProtocol"] = if (ApplicationProtocol == null) null else ApplicationProtocol
+        ["AuthenticationType"] = if (AuthenticationType == null) null else AuthenticationType
         ["AuthorizerConfig"] = if (AuthorizerConfig == null) null else AuthorizerConfig
+        ["ClientCertificateConfig"] = if (ClientCertificateConfig == null) null else ClientCertificateConfig
         ["DomainConfigurationName"] = if (DomainConfigurationName == null) null else DomainConfigurationName
         ["DomainConfigurationStatus"] = if (DomainConfigurationStatus == null) null else DomainConfigurationStatus
         ["DomainName"] = if (DomainName == null) null else DomainName
@@ -87,6 +104,10 @@ open class DomainConfiguration extends cloudformation.Resource {
 
 }
 
+
+typealias DomainConfigurationApplicationProtocol = "SECURE_MQTT"|"MQTT_WSS"|"HTTPS"|"DEFAULT"
+
+typealias DomainConfigurationAuthenticationType = "AWS_X509"|"CUSTOM_AUTH"|"AWS_SIGV4"|"CUSTOM_AUTH_X509"|"DEFAULT"
 
 typealias DomainConfigurationDomainConfigurationStatus = "ENABLED"|"DISABLED"
 

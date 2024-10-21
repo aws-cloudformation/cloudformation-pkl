@@ -48,7 +48,7 @@ open class Schema extends cloudformation.Resource {
     hidden Registry: (SchemaRegistry)?
 
     /// Definition for the initial schema version in plain-text.
-    hidden SchemaDefinition: String|Mapping
+    hidden SchemaDefinition: (String|Mapping)?
 
     /// List of tags to tag the schema
     hidden Tags: (Listing<SchemaTag>)?

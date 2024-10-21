@@ -16,11 +16,58 @@ open class TransformerEdiTypeX12Details {
 typealias TransformerFileFormat = String|Mapping
 
 
+typealias TransformerFormatOptions = TransformerFormatOptionsX12
+
+
+/// 
+open class TransformerFormatOptionsX12 {
+    X12: TransformerX12Details
+}
+
+typealias TransformerFromFormat = String|Mapping
+
+
+/// 
+open class TransformerInputConversion {
+    FormatOptions: (TransformerFormatOptions)?
+    FromFormat: TransformerFromFormat
+}
+
+/// 
+open class TransformerMapping {
+    Template: (String|Mapping)?
+    TemplateLanguage: TransformerMappingTemplateLanguage
+}
+
+typealias TransformerMappingTemplateLanguage = String|Mapping
+
+
+/// 
+open class TransformerOutputConversion {
+    FormatOptions: (TransformerFormatOptions)?
+    ToFormat: TransformerToFormat
+}
+
+/// 
+open class TransformerSampleDocumentKeys {
+    Input: (String|Mapping)?
+    Output: (String|Mapping)?
+}
+
+/// 
+open class TransformerSampleDocuments {
+    BucketName: String|Mapping
+    Keys: Listing<TransformerSampleDocumentKeys>
+}
+
 /// 
 open class TransformerTag {
     Key: String|Mapping
     Value: String|Mapping
 }
+
+typealias TransformerToFormat = String|Mapping
+
 
 typealias TransformerTransformerStatus = String|Mapping
 
@@ -44,19 +91,31 @@ open class Transformer extends cloudformation.Resource {
 
 
     /// 
-    hidden EdiType: TransformerEdiType
+    hidden EdiType: (TransformerEdiType)?
 
     /// 
-    hidden FileFormat: TransformerFileFormat
+    hidden FileFormat: (TransformerFileFormat)?
 
     /// 
-    hidden MappingTemplate: String|Mapping
+    hidden InputConversion: (TransformerInputConversion)?
 
     /// 
-    hidden Name: String|Mapping
+    hidden Mapping: (TransformerMapping)?
+
+    /// This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion.
+    hidden MappingTemplate: (String|Mapping)?
 
     /// 
+    hidden Name: String(matches(Regex(#"^[a-zA-Z0-9_-]{1,512}$"#)))|Mapping
+
+    /// 
+    hidden OutputConversion: (TransformerOutputConversion)?
+
+    /// This shape is deprecated: This is a legacy trait. Please use input-conversion or output-conversion.
     hidden SampleDocument: (String|Mapping)?
+
+    /// 
+    hidden SampleDocuments: (TransformerSampleDocuments)?
 
     /// 
     hidden Status: TransformerTransformerStatus
@@ -67,9 +126,13 @@ open class Transformer extends cloudformation.Resource {
     Properties {
         ["EdiType"] = if (EdiType == null) null else EdiType
         ["FileFormat"] = if (FileFormat == null) null else FileFormat
+        ["InputConversion"] = if (InputConversion == null) null else InputConversion
+        ["Mapping"] = if (Mapping == null) null else Mapping
         ["MappingTemplate"] = if (MappingTemplate == null) null else MappingTemplate
         ["Name"] = if (Name == null) null else Name
+        ["OutputConversion"] = if (OutputConversion == null) null else OutputConversion
         ["SampleDocument"] = if (SampleDocument == null) null else SampleDocument
+        ["SampleDocuments"] = if (SampleDocuments == null) null else SampleDocuments
         ["Status"] = if (Status == null) null else Status
         ["Tags"] = if (Tags == null) null else Tags
     }
