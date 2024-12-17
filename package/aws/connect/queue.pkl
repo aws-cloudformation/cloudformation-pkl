@@ -21,6 +21,14 @@ typealias QueueOutboundCallerIdName = String|Mapping
 typealias QueueOutboundCallerIdNumberArn = String|Mapping
 
 
+typealias QueueOutboundEmailAddressId = String|Mapping
+
+
+/// The outbound email address ID.
+open class QueueOutboundEmailConfig {
+    OutboundEmailAddressId: (QueueOutboundEmailAddressId)?
+}
+
 typealias QueueOutboundFlowArn = String|Mapping
 
 
@@ -60,6 +68,9 @@ open class Queue extends cloudformation.Resource {
     /// The outbound caller ID name, number, and outbound whisper flow.
     hidden OutboundCallerConfig: (QueueOutboundCallerConfig)?
 
+    /// The outbound email address ID.
+    hidden OutboundEmailConfig: (QueueOutboundEmailConfig)?
+
     /// The quick connects available to agents who are working the queue.
     hidden QuickConnectArns: (Listing<QueueQuickConnectArn>)?
 
@@ -76,6 +87,7 @@ open class Queue extends cloudformation.Resource {
         ["MaxContacts"] = if (MaxContacts == null) null else MaxContacts
         ["Name"] = if (Name == null) null else Name
         ["OutboundCallerConfig"] = if (OutboundCallerConfig == null) null else OutboundCallerConfig
+        ["OutboundEmailConfig"] = if (OutboundEmailConfig == null) null else OutboundEmailConfig
         ["QuickConnectArns"] = if (QuickConnectArns == null) null else QuickConnectArns
         ["Status"] = if (Status == null) null else Status
         ["Tags"] = if (Tags == null) null else Tags

@@ -21,7 +21,7 @@ open class Configuration extends cloudformation.Resource {
     hidden AuthenticationStrategy: (String|Mapping)?
 
     /// The base64-encoded XML configuration.
-    hidden Data: String|Mapping
+    hidden Data: (String|Mapping)?
 
     /// The description of the configuration.
     hidden Description: (String|Mapping)?

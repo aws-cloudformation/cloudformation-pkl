@@ -5,7 +5,7 @@ module aws.cloudfront.publickey
 
 import "../../cloudformation.pkl"
 
-/// 
+/// Configuration information about a public key that you can use with [signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with [field-level encryption](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).
 open class PublicKeyPublicKeyConfig {
     CallerReference: String|Mapping
     Comment: (String|Mapping)?
@@ -13,13 +13,13 @@ open class PublicKeyPublicKeyConfig {
     Name: String|Mapping
 }
 
-/// Resource Type definition for AWS::CloudFront::PublicKey
+/// A public key that you can use with [signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with [field-level encryption](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).
 open class PublicKey extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::PublicKey"
 
 
-    /// 
+    /// Configuration information about a public key that you can use with [signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html), or with [field-level encryption](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html).
     hidden PublicKeyConfig: PublicKeyPublicKeyConfig
 
     Properties {

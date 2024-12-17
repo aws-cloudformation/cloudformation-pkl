@@ -11,7 +11,7 @@ open class Account extends cloudformation.Resource {
     Type = "AWS::ApiGateway::Account"
 
 
-    /// The ARN of an Amazon CloudWatch role for the current Account.
+    /// 
     hidden CloudWatchRoleArn: (String|Mapping)?
 
     Properties {

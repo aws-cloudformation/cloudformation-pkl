@@ -5,6 +5,12 @@ module aws.connect.hoursofoperation
 
 import "../../cloudformation.pkl"
 
+typealias HoursOfOperationEffectiveFrom = String|Mapping
+
+
+typealias HoursOfOperationEffectiveTill = String|Mapping
+
+
 typealias HoursOfOperationConfigDay = "SUNDAY"|"MONDAY"|"TUESDAY"|"WEDNESDAY"|"THURSDAY"|"FRIDAY"|"SATURDAY"
 
 /// Contains information about the hours of operation.
@@ -14,8 +20,45 @@ open class HoursOfOperationHoursOfOperationConfig {
     StartTime: HoursOfOperationHoursOfOperationTimeSlice
 }
 
+/// Overrides attached to the hours of operation.
+open class HoursOfOperationHoursOfOperationOverride {
+    EffectiveFrom: HoursOfOperationEffectiveFrom
+    EffectiveTill: HoursOfOperationEffectiveTill
+    HoursOfOperationOverrideId: (HoursOfOperationHoursOfOperationOverrideId)?
+    OverrideConfig: HoursOfOperationOverrideConfig
+    OverrideDescription: (HoursOfOperationOverrideDescription)?
+    OverrideName: HoursOfOperationOverrideName
+}
+
+typealias HoursOfOperationOverrideConfigDay = "SUNDAY"|"MONDAY"|"TUESDAY"|"WEDNESDAY"|"THURSDAY"|"FRIDAY"|"SATURDAY"
+
+/// Contains information about the hours of operation override.
+open class HoursOfOperationHoursOfOperationOverrideConfig {
+    Day: HoursOfOperationOverrideConfigDay|Mapping
+    EndTime: HoursOfOperationOverrideTimeSlice
+    StartTime: HoursOfOperationOverrideTimeSlice
+}
+
+typealias HoursOfOperationHoursOfOperationOverrideId = String|Mapping
+
+
 /// The start time or end time for an hours of operation.
 open class HoursOfOperationHoursOfOperationTimeSlice {
+    Hours: Int|Mapping
+    Minutes: Int|Mapping
+}
+
+typealias HoursOfOperationOverrideConfig = Listing<(HoursOfOperationHoursOfOperationOverrideConfig)?>
+
+
+typealias HoursOfOperationOverrideDescription = String|Mapping
+
+
+typealias HoursOfOperationOverrideName = String|Mapping
+
+
+/// The start time or end time for an an hours of operation override.
+open class HoursOfOperationOverrideTimeSlice {
     Hours: Int|Mapping
     Minutes: Int|Mapping
 }
@@ -38,6 +81,9 @@ open class HoursOfOperation extends cloudformation.Resource {
     /// The description of the hours of operation.
     hidden Description: (String|Mapping)?
 
+    /// One or more hours of operation overrides assigned to an hour of operation.
+    hidden HoursOfOperationOverrides: (Listing<HoursOfOperationHoursOfOperationOverride>)?
+
     /// The identifier of the Amazon Connect instance.
     hidden InstanceArn: String(matches(Regex(#"^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*$"#)))|Mapping
 
@@ -53,6 +99,7 @@ open class HoursOfOperation extends cloudformation.Resource {
     Properties {
         ["Config"] = if (Config == null) null else Config
         ["Description"] = if (Description == null) null else Description
+        ["HoursOfOperationOverrides"] = if (HoursOfOperationOverrides == null) null else HoursOfOperationOverrides
         ["InstanceArn"] = if (InstanceArn == null) null else InstanceArn
         ["Name"] = if (Name == null) null else Name
         ["Tags"] = if (Tags == null) null else Tags

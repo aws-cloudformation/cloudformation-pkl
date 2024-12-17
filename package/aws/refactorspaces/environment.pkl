@@ -24,10 +24,10 @@ open class Environment extends cloudformation.Resource {
     hidden Description: (String(matches(Regex(#"^[a-zA-Z0-9-_\s\.\!\*\#\@\']+$"#)))|Mapping)?
 
     /// 
-    hidden Name: String(matches(Regex(#"^(?!env-)[a-zA-Z0-9]+[a-zA-Z0-9-_ ]+$"#)))|Mapping
+    hidden Name: (String(matches(Regex(#"^(?!env-)[a-zA-Z0-9]+[a-zA-Z0-9-_ ]+$"#)))|Mapping)?
 
     /// 
-    hidden NetworkFabricType: EnvironmentNetworkFabricType
+    hidden NetworkFabricType: (EnvironmentNetworkFabricType)?
 
     /// Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.
     hidden Tags: (Listing<EnvironmentTag>)?

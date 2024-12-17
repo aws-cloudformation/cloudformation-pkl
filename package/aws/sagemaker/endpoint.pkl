@@ -68,31 +68,27 @@ open class Endpoint extends cloudformation.Resource {
     Type = "AWS::SageMaker::Endpoint"
 
 
-    /// 
+    /// Specifies deployment configuration for updating the SageMaker endpoint. Includes rollback and update policies.
     hidden DeploymentConfig: (EndpointDeploymentConfig)?
 
-    /// 
+    /// The name of the endpoint configuration for the SageMaker endpoint. This is a required property.
     hidden EndpointConfigName: String|Mapping
 
-    /// 
-    hidden EndpointName: (String|Mapping)?
-
-    /// 
+    /// Specifies a list of variant properties that you want to exclude when updating an endpoint.
     hidden ExcludeRetainedVariantProperties: (Listing<EndpointVariantProperty>)?
 
-    /// 
+    /// When set to true, retains all variant properties for an endpoint when it is updated.
     hidden RetainAllVariantProperties: (Boolean|Mapping)?
 
-    /// 
+    /// When set to true, retains the deployment configuration during endpoint updates.
     hidden RetainDeploymentConfig: (Boolean|Mapping)?
 
-    /// 
+    /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<EndpointTag>)?
 
     Properties {
         ["DeploymentConfig"] = if (DeploymentConfig == null) null else DeploymentConfig
         ["EndpointConfigName"] = if (EndpointConfigName == null) null else EndpointConfigName
-        ["EndpointName"] = if (EndpointName == null) null else EndpointName
         ["ExcludeRetainedVariantProperties"] = if (ExcludeRetainedVariantProperties == null) null else ExcludeRetainedVariantProperties
         ["RetainAllVariantProperties"] = if (RetainAllVariantProperties == null) null else RetainAllVariantProperties
         ["RetainDeploymentConfig"] = if (RetainDeploymentConfig == null) null else RetainDeploymentConfig

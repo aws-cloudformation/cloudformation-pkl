@@ -14,7 +14,7 @@ typealias CisScanConfigurationCisTagMap = Mapping<String, Any>
 /// 
 open class CisScanConfigurationCisTargets {
     AccountIds: Listing<String|Mapping>
-    TargetResourceTags: (CisScanConfigurationTargetResourceTags)?
+    TargetResourceTags: CisScanConfigurationTargetResourceTags
 }
 
 /// 

@@ -27,6 +27,9 @@ open class LogGroup extends cloudformation.Resource {
     ///  For more information, including a list of types of data that can be audited and masked, see [Protect sensitive log data with masking](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/mask-sensitive-log-data.html).
     hidden DataProtectionPolicy: (Dynamic)?
 
+    /// 
+    hidden FieldIndexPolicies: (Listing<Dynamic>)?
+
     /// The Amazon Resource Name (ARN) of the KMS key to use when encrypting log data.
     ///
     ///  To associate an KMS key with the log group, specify the ARN of that KMS key here. If you do so, ingested data is encrypted using this key. This association is stored as long as the data encrypted with the KMS key is still within CWL. This enables CWL to decrypt this data whenever it is requested.
@@ -57,6 +60,7 @@ open class LogGroup extends cloudformation.Resource {
 
     Properties {
         ["DataProtectionPolicy"] = if (DataProtectionPolicy == null) null else DataProtectionPolicy
+        ["FieldIndexPolicies"] = if (FieldIndexPolicies == null) null else FieldIndexPolicies
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId
         ["LogGroupClass"] = if (LogGroupClass == null) null else LogGroupClass
         ["LogGroupName"] = if (LogGroupName == null) null else LogGroupName

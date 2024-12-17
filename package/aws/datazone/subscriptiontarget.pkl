@@ -30,7 +30,7 @@ open class SubscriptionTarget extends cloudformation.Resource {
     hidden EnvironmentIdentifier: String(matches(Regex(#"^[a-zA-Z0-9_-]{1,36}$"#)))|Mapping
 
     /// The manage access role that is used to create the subscription target.
-    hidden ManageAccessRole: String|Mapping
+    hidden ManageAccessRole: (String|Mapping)?
 
     /// The name of the subscription target.
     hidden Name: String|Mapping

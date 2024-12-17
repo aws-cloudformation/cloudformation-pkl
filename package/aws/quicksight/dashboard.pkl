@@ -206,6 +206,7 @@ open class DashboardBarChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -293,6 +294,7 @@ open class DashboardBoxPlotVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -494,6 +496,7 @@ open class DashboardComboChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -654,6 +657,7 @@ open class DashboardCustomContentVisual {
     DataSetIdentifier: String|Mapping
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -759,6 +763,7 @@ open class DashboardDashboardVersionDefinition {
     Options: (DashboardAssetOptions)?
     ParameterDeclarations: (Listing<DashboardParameterDeclaration>)?
     Sheets: (Listing<DashboardSheetDefinition>)?
+    StaticFiles: (Listing<DashboardStaticFile>)?
 }
 
 /// <p>The visual publish options of a visual in a dashboard</p>
@@ -1263,6 +1268,7 @@ open class DashboardFilledMapVisual {
     ConditionalFormatting: (DashboardFilledMapConditionalFormatting)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1428,6 +1434,7 @@ typealias DashboardFontDecoration = String|Mapping
 
 /// 
 open class DashboardFontSize {
+    Absolute: (String|Mapping)?
     Relative: (DashboardRelativeFontSize)?
 }
 
@@ -1577,6 +1584,7 @@ open class DashboardFunnelChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1633,8 +1641,46 @@ open class DashboardGaugeChartVisual {
     ConditionalFormatting: (DashboardGaugeChartConditionalFormatting)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
+
+/// 
+open class DashboardGeospatialCategoricalColor {
+    CategoryDataColors: Listing<DashboardGeospatialCategoricalDataColor>
+    DefaultOpacity: (Number|Mapping)?
+    NullDataSettings: (DashboardGeospatialNullDataSettings)?
+    NullDataVisibility: (DashboardVisibility)?
+}
+
+/// 
+open class DashboardGeospatialCategoricalDataColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    DataValue: String|Mapping
+}
+
+/// 
+open class DashboardGeospatialCircleRadius {
+    Radius: (Number|Mapping)?
+}
+
+/// 
+open class DashboardGeospatialCircleSymbolStyle {
+    CircleRadius: (DashboardGeospatialCircleRadius)?
+    FillColor: (DashboardGeospatialColor)?
+    StrokeColor: (DashboardGeospatialColor)?
+    StrokeWidth: (DashboardGeospatialLineWidth)?
+}
+
+/// 
+open class DashboardGeospatialColor {
+    Categorical: (DashboardGeospatialCategoricalColor)?
+    Gradient: (DashboardGeospatialGradientColor)?
+    Solid: (DashboardGeospatialSolidColor)?
+}
+
+typealias DashboardGeospatialColorState = String|Mapping
+
 
 /// 
 open class DashboardGeospatialCoordinateBounds {
@@ -1642,6 +1688,25 @@ open class DashboardGeospatialCoordinateBounds {
     North: Number|Mapping
     South: Number|Mapping
     West: Number|Mapping
+}
+
+/// 
+open class DashboardGeospatialDataSourceItem {
+    StaticFileDataSource: (DashboardGeospatialStaticFileSource)?
+}
+
+/// 
+open class DashboardGeospatialGradientColor {
+    DefaultOpacity: (Number|Mapping)?
+    NullDataSettings: (DashboardGeospatialNullDataSettings)?
+    NullDataVisibility: (DashboardVisibility)?
+    StepColors: Listing<DashboardGeospatialGradientStepColor>
+}
+
+/// 
+open class DashboardGeospatialGradientStepColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    DataValue: Number|Mapping
 }
 
 /// 
@@ -1657,6 +1722,71 @@ open class DashboardGeospatialHeatmapConfiguration {
 /// 
 open class DashboardGeospatialHeatmapDataColor {
     Color: String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping
+}
+
+/// 
+open class DashboardGeospatialLayerColorField {
+    ColorDimensionsFields: (Listing<DashboardDimensionField>)?
+    ColorValuesFields: (Listing<DashboardMeasureField>)?
+}
+
+/// 
+open class DashboardGeospatialLayerDefinition {
+    LineLayer: (DashboardGeospatialLineLayer)?
+    PointLayer: (DashboardGeospatialPointLayer)?
+    PolygonLayer: (DashboardGeospatialPolygonLayer)?
+}
+
+/// 
+open class DashboardGeospatialLayerItem {
+    Actions: (Listing<DashboardLayerCustomAction>)?
+    DataSource: (DashboardGeospatialDataSourceItem)?
+    JoinDefinition: (DashboardGeospatialLayerJoinDefinition)?
+    Label: (String|Mapping)?
+    LayerDefinition: (DashboardGeospatialLayerDefinition)?
+    LayerId: String|Mapping
+    LayerType: (DashboardGeospatialLayerType)?
+    Tooltip: (DashboardTooltipOptions)?
+    Visibility: (DashboardVisibility)?
+}
+
+/// 
+open class DashboardGeospatialLayerJoinDefinition {
+    ColorField: (DashboardGeospatialLayerColorField)?
+    DatasetKeyField: (DashboardUnaggregatedField)?
+    ShapeKeyField: (String|Mapping)?
+}
+
+/// 
+open class DashboardGeospatialLayerMapConfiguration {
+    Legend: (DashboardLegendOptions)?
+    MapLayers: (Listing<DashboardGeospatialLayerItem>)?
+    MapState: (DashboardGeospatialMapState)?
+    MapStyle: (DashboardGeospatialMapStyle)?
+}
+
+typealias DashboardGeospatialLayerType = String|Mapping
+
+
+/// 
+open class DashboardGeospatialLineLayer {
+    Style: DashboardGeospatialLineStyle
+}
+
+/// 
+open class DashboardGeospatialLineStyle {
+    LineSymbolStyle: (DashboardGeospatialLineSymbolStyle)?
+}
+
+/// 
+open class DashboardGeospatialLineSymbolStyle {
+    FillColor: (DashboardGeospatialColor)?
+    LineWidth: (DashboardGeospatialLineWidth)?
+}
+
+/// 
+open class DashboardGeospatialLineWidth {
+    LineWidth: (Number|Mapping)?
 }
 
 /// 
@@ -1682,6 +1812,22 @@ open class DashboardGeospatialMapFieldWells {
     GeospatialMapAggregatedFieldWells: (DashboardGeospatialMapAggregatedFieldWells)?
 }
 
+typealias DashboardGeospatialMapNavigation = String|Mapping
+
+
+/// 
+open class DashboardGeospatialMapState {
+    Bounds: (DashboardGeospatialCoordinateBounds)?
+    MapNavigation: (DashboardGeospatialMapNavigation)?
+}
+
+/// 
+open class DashboardGeospatialMapStyle {
+    BackgroundColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    BaseMapStyle: (DashboardBaseMapStyleType)?
+    BaseMapVisibility: (DashboardVisibility)?
+}
+
 /// 
 open class DashboardGeospatialMapStyleOptions {
     BaseMapStyle: (DashboardBaseMapStyleType)?
@@ -1694,7 +1840,30 @@ open class DashboardGeospatialMapVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
+open class DashboardGeospatialNullDataSettings {
+    SymbolStyle: DashboardGeospatialNullSymbolStyle
+}
+
+/// 
+open class DashboardGeospatialNullSymbolStyle {
+    FillColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    StrokeColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    StrokeWidth: (Number|Mapping)?
+}
+
+/// 
+open class DashboardGeospatialPointLayer {
+    Style: DashboardGeospatialPointStyle
+}
+
+/// 
+open class DashboardGeospatialPointStyle {
+    CircleSymbolStyle: (DashboardGeospatialCircleSymbolStyle)?
 }
 
 /// 
@@ -1704,8 +1873,36 @@ open class DashboardGeospatialPointStyleOptions {
     SelectedPointStyle: (DashboardGeospatialSelectedPointStyle)?
 }
 
+/// 
+open class DashboardGeospatialPolygonLayer {
+    Style: DashboardGeospatialPolygonStyle
+}
+
+/// 
+open class DashboardGeospatialPolygonStyle {
+    PolygonSymbolStyle: (DashboardGeospatialPolygonSymbolStyle)?
+}
+
+/// 
+open class DashboardGeospatialPolygonSymbolStyle {
+    FillColor: (DashboardGeospatialColor)?
+    StrokeColor: (DashboardGeospatialColor)?
+    StrokeWidth: (DashboardGeospatialLineWidth)?
+}
+
 typealias DashboardGeospatialSelectedPointStyle = String|Mapping
 
+
+/// Describes the properties for a solid color
+open class DashboardGeospatialSolidColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    State: (DashboardGeospatialColorState)?
+}
+
+/// 
+open class DashboardGeospatialStaticFileSource {
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
 
 /// 
 open class DashboardGeospatialWindowOptions {
@@ -1813,6 +2010,7 @@ open class DashboardHeatMapVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1855,6 +2053,7 @@ open class DashboardHistogramVisual {
     ChartConfiguration: (DashboardHistogramConfiguration)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1863,6 +2062,41 @@ typealias DashboardHorizontalTextAlignment = String|Mapping
 
 typealias DashboardIcon = String|Mapping
 
+
+/// 
+open class DashboardImageCustomAction {
+    ActionOperations: Listing<DashboardImageCustomActionOperation>
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Name: String|Mapping
+    Status: (DashboardWidgetStatus)?
+    Trigger: DashboardImageCustomActionTrigger
+}
+
+/// 
+open class DashboardImageCustomActionOperation {
+    NavigationOperation: (DashboardCustomActionNavigationOperation)?
+    SetParametersOperation: (DashboardCustomActionSetParametersOperation)?
+    URLOperation: (DashboardCustomActionURLOperation)?
+}
+
+typealias DashboardImageCustomActionTrigger = String|Mapping
+
+
+/// 
+open class DashboardImageInteractionOptions {
+    ImageMenuOption: (DashboardImageMenuOption)?
+}
+
+/// 
+open class DashboardImageMenuOption {
+    AvailabilityStatus: (DashboardDashboardBehavior)?
+}
+
+/// 
+open class DashboardImageStaticFile {
+    Source: (DashboardStaticFileSource)?
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
 
 /// 
 open class DashboardInnerFilter {
@@ -1882,6 +2116,7 @@ open class DashboardInsightVisual {
     InsightConfiguration: (DashboardInsightConfiguration)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2005,6 +2240,7 @@ open class DashboardKPIVisual {
     ConditionalFormatting: (DashboardKPIConditionalFormatting)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2029,6 +2265,36 @@ open class DashboardLabelOptions {
 }
 
 /// 
+open class DashboardLayerCustomAction {
+    ActionOperations: Listing<DashboardLayerCustomActionOperation>
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Name: String|Mapping
+    Status: (DashboardWidgetStatus)?
+    Trigger: DashboardLayerCustomActionTrigger
+}
+
+/// 
+open class DashboardLayerCustomActionOperation {
+    FilterOperation: (DashboardCustomActionFilterOperation)?
+    NavigationOperation: (DashboardCustomActionNavigationOperation)?
+    SetParametersOperation: (DashboardCustomActionSetParametersOperation)?
+    URLOperation: (DashboardCustomActionURLOperation)?
+}
+
+typealias DashboardLayerCustomActionTrigger = String|Mapping
+
+
+/// 
+open class DashboardLayerMapVisual {
+    ChartConfiguration: (DashboardGeospatialLayerMapConfiguration)?
+    DataSetIdentifier: String|Mapping
+    Subtitle: (DashboardVisualSubtitleLabelOptions)?
+    Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
 open class DashboardLayout {
     Configuration: DashboardLayoutConfiguration
 }
@@ -2048,6 +2314,7 @@ open class DashboardLegendOptions {
     Height: (String|Mapping)?
     Position: (DashboardLegendPosition)?
     Title: (DashboardLabelOptions)?
+    ValueFontConfiguration: (DashboardFontConfiguration)?
     Visibility: (DashboardVisibility)?
     Width: (String|Mapping)?
 }
@@ -2146,6 +2413,7 @@ open class DashboardLineChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2594,6 +2862,7 @@ open class DashboardPieChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2759,6 +3028,7 @@ open class DashboardPivotTableVisual {
     ConditionalFormatting: (DashboardPivotTableConditionalFormatting)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2772,6 +3042,61 @@ open class DashboardPivotTotalOptions {
     TotalCellStyle: (DashboardTableCellStyle)?
     TotalsVisibility: (DashboardVisibility)?
     ValueCellStyle: (DashboardTableCellStyle)?
+}
+
+/// 
+open class DashboardPluginVisual {
+    ChartConfiguration: (DashboardPluginVisualConfiguration)?
+    PluginArn: String|Mapping
+    Subtitle: (DashboardVisualSubtitleLabelOptions)?
+    Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+typealias DashboardPluginVisualAxisName = String|Mapping
+
+
+/// 
+open class DashboardPluginVisualConfiguration {
+    FieldWells: (Listing<DashboardPluginVisualFieldWell>)?
+    SortConfiguration: (DashboardPluginVisualSortConfiguration)?
+    VisualOptions: (DashboardPluginVisualOptions)?
+}
+
+/// 
+open class DashboardPluginVisualFieldWell {
+    AxisName: (DashboardPluginVisualAxisName)?
+    Dimensions: (Listing<DashboardDimensionField>)?
+    Measures: (Listing<DashboardMeasureField>)?
+    Unaggregated: (Listing<DashboardUnaggregatedField>)?
+}
+
+/// 
+open class DashboardPluginVisualItemsLimitConfiguration {
+    ItemsLimit: (Number|Mapping)?
+}
+
+/// 
+open class DashboardPluginVisualOptions {
+    VisualProperties: (Listing<DashboardPluginVisualProperty>)?
+}
+
+/// 
+open class DashboardPluginVisualProperty {
+    Name: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
+/// 
+open class DashboardPluginVisualSortConfiguration {
+    PluginVisualTableQuerySort: (DashboardPluginVisualTableQuerySort)?
+}
+
+/// 
+open class DashboardPluginVisualTableQuerySort {
+    ItemsLimitConfiguration: (DashboardPluginVisualItemsLimitConfiguration)?
+    RowSort: (Listing<DashboardFieldSortOptions>)?
 }
 
 /// 
@@ -2851,6 +3176,7 @@ open class DashboardRadarChartVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3020,6 +3346,7 @@ open class DashboardSankeyDiagramVisual {
     ChartConfiguration: (DashboardSankeyDiagramChartConfiguration)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3067,6 +3394,7 @@ open class DashboardScatterPlotVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3163,6 +3491,7 @@ open class DashboardShapeConditionalFormat {
 ///             example a chart, pivot table, or narrative insight. Sheets can be associated with other
 ///             components, such as controls, filters, and so on.</p>
 open class DashboardSheet {
+    Images: (Listing<DashboardSheetImage>)?
     Name: (String|Mapping)?
     SheetId: (String(matches(Regex(#"^[\w\-]+$"#)))|Mapping)?
 }
@@ -3205,6 +3534,7 @@ open class DashboardSheetDefinition {
     ContentType: (DashboardSheetContentType)?
     Description: (String|Mapping)?
     FilterControls: (Listing<DashboardFilterControl>)?
+    Images: (Listing<DashboardSheetImage>)?
     Layouts: (Listing<DashboardLayout>)?
     Name: (String|Mapping)?
     ParameterControls: (Listing<DashboardParameterControl>)?
@@ -3224,6 +3554,46 @@ open class DashboardSheetElementConfigurationOverrides {
 open class DashboardSheetElementRenderingRule {
     ConfigurationOverrides: DashboardSheetElementConfigurationOverrides
     Expression: String|Mapping
+}
+
+/// 
+open class DashboardSheetImage {
+    Actions: (Listing<DashboardImageCustomAction>)?
+    ImageContentAltText: (String|Mapping)?
+    Interactions: (DashboardImageInteractionOptions)?
+    Scaling: (DashboardSheetImageScalingConfiguration)?
+    SheetImageId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Source: DashboardSheetImageSource
+    Tooltip: (DashboardSheetImageTooltipConfiguration)?
+}
+
+/// 
+open class DashboardSheetImageScalingConfiguration {
+    ScalingType: (DashboardSheetImageScalingType)?
+}
+
+typealias DashboardSheetImageScalingType = String|Mapping
+
+
+/// 
+open class DashboardSheetImageSource {
+    SheetImageStaticFileSource: (DashboardSheetImageStaticFileSource)?
+}
+
+/// 
+open class DashboardSheetImageStaticFileSource {
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
+open class DashboardSheetImageTooltipConfiguration {
+    TooltipText: (DashboardSheetImageTooltipText)?
+    Visibility: (DashboardVisibility)?
+}
+
+/// 
+open class DashboardSheetImageTooltipText {
+    PlainText: (String|Mapping)?
 }
 
 /// <p>The sheet layout maximization options of a dashbaord.</p>
@@ -3310,8 +3680,38 @@ open class DashboardSpacing {
     Top: (String|Mapping)?
 }
 
+/// 
+open class DashboardSpatialStaticFile {
+    Source: (DashboardStaticFileSource)?
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
 typealias DashboardSpecialValue = String|Mapping
 
+
+/// 
+open class DashboardStaticFile {
+    ImageStaticFile: (DashboardImageStaticFile)?
+    SpatialStaticFile: (DashboardSpatialStaticFile)?
+}
+
+/// 
+open class DashboardStaticFileS3SourceOptions {
+    BucketName: String|Mapping
+    ObjectKey: String|Mapping
+    Region: String|Mapping
+}
+
+/// 
+open class DashboardStaticFileSource {
+    S3Options: (DashboardStaticFileS3SourceOptions)?
+    UrlOptions: (DashboardStaticFileUrlSourceOptions)?
+}
+
+/// 
+open class DashboardStaticFileUrlSourceOptions {
+    Url: String|Mapping
+}
 
 /// 
 open class DashboardStringDefaultValues {
@@ -3556,6 +3956,7 @@ open class DashboardTableVisual {
     ConditionalFormatting: (DashboardTableConditionalFormatting)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3782,6 +4183,7 @@ open class DashboardTreeMapVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3844,9 +4246,11 @@ open class DashboardVisual {
     HistogramVisual: (DashboardHistogramVisual)?
     InsightVisual: (DashboardInsightVisual)?
     KPIVisual: (DashboardKPIVisual)?
+    LayerMapVisual: (DashboardLayerMapVisual)?
     LineChartVisual: (DashboardLineChartVisual)?
     PieChartVisual: (DashboardPieChartVisual)?
     PivotTableVisual: (DashboardPivotTableVisual)?
+    PluginVisual: (DashboardPluginVisual)?
     RadarChartVisual: (DashboardRadarChartVisual)?
     SankeyDiagramVisual: (DashboardSankeyDiagramVisual)?
     ScatterPlotVisual: (DashboardScatterPlotVisual)?
@@ -3961,6 +4365,7 @@ open class DashboardWaterfallVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -4025,6 +4430,7 @@ open class DashboardWordCloudVisual {
     ColumnHierarchies: (Listing<DashboardColumnHierarchy>)?
     Subtitle: (DashboardVisualSubtitleLabelOptions)?
     Title: (DashboardVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 

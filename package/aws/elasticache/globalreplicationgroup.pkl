@@ -42,6 +42,9 @@ open class GlobalReplicationGroup extends cloudformation.Resource {
     /// Cache parameter group name to use for the new engine version. This parameter cannot be modified independently.
     hidden CacheParameterGroupName: (String|Mapping)?
 
+    /// The engine of the Global Datastore.
+    hidden Engine: (String|Mapping)?
+
     /// The engine version of the Global Datastore.
     hidden EngineVersion: (String|Mapping)?
 
@@ -64,6 +67,7 @@ open class GlobalReplicationGroup extends cloudformation.Resource {
         ["AutomaticFailoverEnabled"] = if (AutomaticFailoverEnabled == null) null else AutomaticFailoverEnabled
         ["CacheNodeType"] = if (CacheNodeType == null) null else CacheNodeType
         ["CacheParameterGroupName"] = if (CacheParameterGroupName == null) null else CacheParameterGroupName
+        ["Engine"] = if (Engine == null) null else Engine
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["GlobalNodeGroupCount"] = if (GlobalNodeGroupCount == null) null else GlobalNodeGroupCount
         ["GlobalReplicationGroupDescription"] = if (GlobalReplicationGroupDescription == null) null else GlobalReplicationGroupDescription

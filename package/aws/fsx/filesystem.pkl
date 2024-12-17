@@ -33,6 +33,7 @@ open class FileSystemLustreConfiguration {
     DataCompressionType: (String|Mapping)?
     DeploymentType: (String|Mapping)?
     DriveCacheType: (String|Mapping)?
+    EfaEnabled: (Boolean|Mapping)?
     ExportPath: (String|Mapping)?
     ImportPath: (String|Mapping)?
     ImportedFileChunkSize: (Int|Mapping)?
@@ -79,10 +80,17 @@ open class FileSystemOpenZFSConfiguration {
     EndpointIpAddressRange: (String|Mapping)?
     Options: (Listing<String|Mapping>)?
     PreferredSubnetId: (String|Mapping)?
+    ReadCacheConfiguration: (FileSystemReadCacheConfiguration)?
     RootVolumeConfiguration: (FileSystemRootVolumeConfiguration)?
     RouteTableIds: (Listing<String|Mapping>)?
     ThroughputCapacity: (Int|Mapping)?
     WeeklyMaintenanceStartTime: (String|Mapping)?
+}
+
+/// 
+open class FileSystemReadCacheConfiguration {
+    SizeGiB: (Int|Mapping)?
+    SizingMode: (String|Mapping)?
 }
 
 /// 

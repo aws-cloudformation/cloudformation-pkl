@@ -5,6 +5,9 @@ module aws.sagemaker.inferencecomponent
 
 import "../../cloudformation.pkl"
 
+typealias InferenceComponentBaseInferenceComponentName = String|Mapping
+
+
 typealias InferenceComponentContainerImage = String|Mapping
 
 
@@ -61,7 +64,8 @@ open class InferenceComponentInferenceComponentRuntimeConfig {
 
 /// The specification for the inference component
 open class InferenceComponentInferenceComponentSpecification {
-    ComputeResourceRequirements: InferenceComponentInferenceComponentComputeResourceRequirements
+    BaseInferenceComponentName: (InferenceComponentBaseInferenceComponentName)?
+    ComputeResourceRequirements: (InferenceComponentInferenceComponentComputeResourceRequirements)?
     Container: (InferenceComponentInferenceComponentContainerSpecification)?
     ModelName: (InferenceComponentModelName)?
     StartupParameters: (InferenceComponentInferenceComponentStartupParameters)?
@@ -125,7 +129,7 @@ open class InferenceComponent extends cloudformation.Resource {
     hidden InferenceComponentName: (InferenceComponentInferenceComponentName)?
 
     /// 
-    hidden RuntimeConfig: InferenceComponentInferenceComponentRuntimeConfig
+    hidden RuntimeConfig: (InferenceComponentInferenceComponentRuntimeConfig)?
 
     /// 
     hidden Specification: InferenceComponentInferenceComponentSpecification
@@ -134,7 +138,7 @@ open class InferenceComponent extends cloudformation.Resource {
     hidden Tags: (InferenceComponentTagList)?
 
     /// 
-    hidden VariantName: InferenceComponentVariantName
+    hidden VariantName: (InferenceComponentVariantName)?
 
     Properties {
         ["EndpointArn"] = if (EndpointArn == null) null else EndpointArn

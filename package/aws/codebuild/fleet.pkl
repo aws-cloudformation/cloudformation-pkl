@@ -5,10 +5,56 @@ module aws.codebuild.fleet
 
 import "../../cloudformation.pkl"
 
+typealias ComputeConfigurationmachineType = "GENERAL"|"NVME"
+
+/// 
+open class FleetComputeConfiguration {
+    disk: (Int|Mapping)?
+    machineType: (ComputeConfigurationmachineType|Mapping)?
+    memory: (Int|Mapping)?
+    vCpu: (Int|Mapping)?
+}
+
+typealias FleetProxyRuleEffect = "ALLOW"|"DENY"
+
+typealias FleetProxyRuleType = "DOMAIN"|"IP"
+
+/// 
+open class FleetFleetProxyRule {
+    Effect: (FleetProxyRuleEffect|Mapping)?
+    Entities: (Listing<String|Mapping>)?
+    Type: (FleetProxyRuleType|Mapping)?
+}
+
+typealias ProxyConfigurationDefaultBehavior = "ALLOW_ALL"|"DENY_ALL"
+
+/// 
+open class FleetProxyConfiguration {
+    DefaultBehavior: (ProxyConfigurationDefaultBehavior|Mapping)?
+    OrderedProxyRules: (Listing<FleetFleetProxyRule>)?
+}
+
+typealias ScalingConfigurationInputScalingType = "TARGET_TRACKING_SCALING"
+
+/// 
+open class FleetScalingConfigurationInput {
+    MaxCapacity: (Int|Mapping)?
+    ScalingType: (ScalingConfigurationInputScalingType|Mapping)?
+    TargetTrackingScalingConfigs: (Listing<FleetTargetTrackingScalingConfiguration>)?
+}
+
 /// 
 open class FleetTag {
     Key: String(matches(Regex(#"^(?!aws:)[a-zA-Z+-=._:/]+$"#)))|Mapping
     Value: String(matches(Regex(#"[a-zA-Z+-=._:/]+$"#)))|Mapping
+}
+
+typealias TargetTrackingScalingConfigurationMetricType = "FLEET_UTILIZATION_RATE"
+
+/// 
+open class FleetTargetTrackingScalingConfiguration {
+    MetricType: (TargetTrackingScalingConfigurationMetricType|Mapping)?
+    TargetValue: (Number|Mapping)?
 }
 
 /// 
@@ -28,10 +74,16 @@ open class Fleet extends cloudformation.Resource {
     hidden BaseCapacity: (Int|Mapping)?
 
     /// 
+    hidden ComputeConfiguration: (FleetComputeConfiguration)?
+
+    /// 
     hidden ComputeType: (FleetComputeType|Mapping)?
 
     /// 
     hidden EnvironmentType: (FleetEnvironmentType|Mapping)?
+
+    /// 
+    hidden FleetProxyConfiguration: (FleetProxyConfiguration)?
 
     /// 
     hidden FleetServiceRole: (String(matches(Regex(#"^(?:arn:)[a-zA-Z+-=,._:/@]+$"#)))|Mapping)?
@@ -49,24 +101,30 @@ open class Fleet extends cloudformation.Resource {
     hidden OverflowBehavior: (FleetOverflowBehavior|Mapping)?
 
     /// 
+    hidden ScalingConfiguration: (FleetScalingConfigurationInput)?
+
+    /// 
     hidden Tags: (Listing<FleetTag>)?
 
     Properties {
         ["BaseCapacity"] = if (BaseCapacity == null) null else BaseCapacity
+        ["ComputeConfiguration"] = if (ComputeConfiguration == null) null else ComputeConfiguration
         ["ComputeType"] = if (ComputeType == null) null else ComputeType
         ["EnvironmentType"] = if (EnvironmentType == null) null else EnvironmentType
+        ["FleetProxyConfiguration"] = if (FleetProxyConfiguration == null) null else FleetProxyConfiguration
         ["FleetServiceRole"] = if (FleetServiceRole == null) null else FleetServiceRole
         ["FleetVpcConfig"] = if (FleetVpcConfig == null) null else FleetVpcConfig
         ["ImageId"] = if (ImageId == null) null else ImageId
         ["Name"] = if (Name == null) null else Name
         ["OverflowBehavior"] = if (OverflowBehavior == null) null else OverflowBehavior
+        ["ScalingConfiguration"] = if (ScalingConfiguration == null) null else ScalingConfiguration
         ["Tags"] = if (Tags == null) null else Tags
     }
 
 }
 
 
-typealias FleetComputeType = "BUILD_GENERAL1_SMALL"|"BUILD_GENERAL1_MEDIUM"|"BUILD_GENERAL1_LARGE"|"BUILD_GENERAL1_XLARGE"|"BUILD_GENERAL1_2XLARGE"
+typealias FleetComputeType = "BUILD_GENERAL1_SMALL"|"BUILD_GENERAL1_MEDIUM"|"BUILD_GENERAL1_LARGE"|"BUILD_GENERAL1_XLARGE"|"BUILD_GENERAL1_2XLARGE"|"ATTRIBUTE_BASED_COMPUTE"
 
 typealias FleetEnvironmentType = "WINDOWS_SERVER_2019_CONTAINER"|"WINDOWS_SERVER_2022_CONTAINER"|"LINUX_CONTAINER"|"LINUX_GPU_CONTAINER"|"ARM_CONTAINER"|"MAC_ARM"
 

@@ -17,10 +17,10 @@ open class ClientCertificate extends cloudformation.Resource {
     Type = "AWS::ApiGateway::ClientCertificate"
 
 
-    /// The description of the client certificate.
+    /// 
     hidden Description: (String|Mapping)?
 
-    /// The collection of tags. Each tag element is associated with a given resource.
+    /// 
     hidden Tags: (Listing<ClientCertificateTag>)?
 
     Properties {

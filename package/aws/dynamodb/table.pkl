@@ -41,6 +41,7 @@ open class TableGlobalSecondaryIndex {
     OnDemandThroughput: (TableOnDemandThroughput)?
     Projection: TableProjection
     ProvisionedThroughput: (TableProvisionedThroughput)?
+    WarmThroughput: (TableWarmThroughput)?
 }
 
 /// Specifies the properties of data being imported from the S3 bucket source to the table.
@@ -153,12 +154,18 @@ open class TableTimeToLiveSpecification {
     Enabled: Boolean|Mapping
 }
 
+/// Provides visibility into the number of read and write operations your table or secondary index can instantaneously support. The settings can be modified using the ``UpdateTable`` operation to meet the throughput requirements of an upcoming peak event.
+open class TableWarmThroughput {
+    ReadUnitsPerSecond: (Int|Mapping)?
+    WriteUnitsPerSecond: (Int|Mapping)?
+}
+
 /// The ``AWS::DynamoDB::Table`` resource creates a DDB table. For more information, see [CreateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html) in the *API Reference*.
 ///
 ///  You should be aware of the following behaviors when working with DDB tables:
 ///   +   CFNlong typically creates DDB tables in parallel. However, if your template includes multiple DDB tables with indexes, you must declare dependencies so that the tables are created sequentially. DDBlong limits the number of tables with secondary indexes that are in the creating state. If you create multiple tables with indexes at the same time, DDB returns an error and the stack operation fails. For an example, see [DynamoDB Table with a DependsOn Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#aws-resource-dynamodb-table--examples--DynamoDB_Table_with_a_DependsOn_Attribute).
 ///   
-///    Our guidance is to use the latest schema documented here for your CFNlong templates. This schema supports the provisioning of all table settings below. When using this schema in your CFNlong templates, please ensure that your Identity and Access Management (IAM) policies are updated with appropriate permissions to allow for the authorization of these setting changes.
+///    Our guidance is to use the latest schema documented for your CFNlong templates. This schema supports the provisioning of all table settings below. When using this schema in your CFNlong templates, please ensure that your Identity and Access Management (IAM) policies are updated with appropriate permissions to allow for the authorization of these setting changes.
 open class Table extends cloudformation.Resource {
 
     Type = "AWS::DynamoDB::Table"
@@ -194,9 +201,9 @@ open class Table extends cloudformation.Resource {
     ///   +  You can delete or add one global secondary index without interruption. If you do both in the same update (for example, by changing the index's logical ID), the update fails.
     hidden GlobalSecondaryIndexes: (Listing<TableGlobalSecondaryIndex>)?
 
-    /// Specifies the properties of data being imported from the S3 bucket source to the table.
+    /// Specifies the properties of data being imported from the S3 bucket source to the" table.
     ///
-    ///   If you specify the ``ImportSourceSpecification`` property, and also specify either the ``StreamSpecification``, the ``TableClass`` property, or the ``DeletionProtectionEnabled`` property, the IAM entity creating/updating stack must have ``UpdateTable`` permission.
+    ///   If you specify the ``ImportSourceSpecification`` property, and also specify either the ``StreamSpecification``, the ``TableClass`` property, the ``DeletionProtectionEnabled`` property, or the ``WarmThroughput`` property, the IAM entity creating/updating stack must have ``UpdateTable`` permission.
     hidden ImportSourceSpecification: (TableImportSourceSpecification)?
 
     /// 
@@ -248,6 +255,9 @@ open class Table extends cloudformation.Resource {
     ///   For detailed information about the limits in DynamoDB, see [Limits in Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the Amazon DynamoDB Developer Guide.
     hidden TimeToLiveSpecification: (TableTimeToLiveSpecification)?
 
+    /// Represents the warm throughput (in read units per second and write units per second) for creating a table.
+    hidden WarmThroughput: (TableWarmThroughput)?
+
     Properties {
         ["AttributeDefinitions"] = if (AttributeDefinitions == null) null else AttributeDefinitions
         ["BillingMode"] = if (BillingMode == null) null else BillingMode
@@ -268,6 +278,7 @@ open class Table extends cloudformation.Resource {
         ["TableName"] = if (TableName == null) null else TableName
         ["Tags"] = if (Tags == null) null else Tags
         ["TimeToLiveSpecification"] = if (TimeToLiveSpecification == null) null else TimeToLiveSpecification
+        ["WarmThroughput"] = if (WarmThroughput == null) null else WarmThroughput
     }
 
 }

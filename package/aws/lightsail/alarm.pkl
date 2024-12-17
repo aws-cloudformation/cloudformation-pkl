@@ -15,7 +15,7 @@ open class Alarm extends cloudformation.Resource {
     hidden AlarmName: String(matches(Regex(#"\w[\w\-]*\w"#)))|Mapping
 
     /// The arithmetic operation to use when comparing the specified statistic to the threshold. The specified statistic value is used as the first operand.
-    hidden ComparisonOperator: AlarmComparisonOperator|Mapping
+    hidden ComparisonOperator: String|Mapping
 
     /// The contact protocols to use for the alarm, such as Email, SMS (text messaging), or both.
     hidden ContactProtocols: (Listing<String|Mapping>)?
@@ -59,6 +59,3 @@ open class Alarm extends cloudformation.Resource {
     }
 
 }
-
-
-typealias AlarmComparisonOperator = "GreaterThanOrEqualToThreshold"|"GreaterThanThreshold"|"LessThanThreshold"|"LessThanOrEqualToThreshold"

@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias UsagePlanApiStageThrottle = Mapping<String, Any>
 
-/// API stage name of the associated API stage in a usage plan.
+/// 
 open class UsagePlanApiStage {
     ApiId: (String|Mapping)?
     Stage: (String|Mapping)?
@@ -43,22 +43,22 @@ open class UsagePlan extends cloudformation.Resource {
     Type = "AWS::ApiGateway::UsagePlan"
 
 
-    /// The associated API stages of a usage plan.
+    /// 
     hidden ApiStages: (Listing<UsagePlanApiStage>)?
 
-    /// The description of a usage plan.
+    /// 
     hidden Description: (String|Mapping)?
 
-    /// The target maximum number of permitted requests per a given unit time interval.
+    /// 
     hidden Quota: (UsagePlanQuotaSettings)?
 
-    /// The collection of tags. Each tag element is associated with a given resource.
+    /// 
     hidden Tags: (Listing<UsagePlanTag>)?
 
-    /// A map containing method level throttling information for API stage in a usage plan.
+    /// 
     hidden Throttle: (UsagePlanThrottleSettings)?
 
-    /// The name of a usage plan.
+    /// 
     hidden UsagePlanName: (String|Mapping)?
 
     Properties {

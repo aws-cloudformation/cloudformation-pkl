@@ -36,6 +36,12 @@ open class ChannelAncillarySourceSettings {
 }
 
 /// 
+open class ChannelAnywhereSettings {
+    ChannelPlacementGroupId: (String|Mapping)?
+    ClusterId: (String|Mapping)?
+}
+
+/// 
 open class ChannelArchiveCdnSettings {
     ArchiveS3Settings: (ChannelArchiveS3Settings)?
 }
@@ -187,6 +193,35 @@ open class ChannelAutomaticInputFailoverSettings {
 }
 
 /// 
+open class ChannelAv1ColorSpaceSettings {
+    ColorSpacePassthroughSettings: (ChannelColorSpacePassthroughSettings)?
+    Hdr10Settings: (ChannelHdr10Settings)?
+    Rec601Settings: (ChannelRec601Settings)?
+    Rec709Settings: (ChannelRec709Settings)?
+}
+
+/// 
+open class ChannelAv1Settings {
+    AfdSignaling: (String|Mapping)?
+    BufSize: (Int|Mapping)?
+    ColorSpaceSettings: (ChannelAv1ColorSpaceSettings)?
+    FixedAfd: (String|Mapping)?
+    FramerateDenominator: (Int|Mapping)?
+    FramerateNumerator: (Int|Mapping)?
+    GopSize: (Number|Mapping)?
+    GopSizeUnits: (String|Mapping)?
+    Level: (String|Mapping)?
+    LookAheadRateControl: (String|Mapping)?
+    MaxBitrate: (Int|Mapping)?
+    MinIInterval: (Int|Mapping)?
+    ParDenominator: (Int|Mapping)?
+    ParNumerator: (Int|Mapping)?
+    QvbrQualityLevel: (Int|Mapping)?
+    SceneChangeDetect: (String|Mapping)?
+    TimecodeBurninSettings: (ChannelTimecodeBurninSettings)?
+}
+
+/// 
 open class ChannelAvailBlanking {
     AvailBlankingImage: (ChannelInputLocation)?
     State: (String|Mapping)?
@@ -203,6 +238,12 @@ open class ChannelAvailSettings {
     Esam: (ChannelEsam)?
     Scte35SpliceInsert: (ChannelScte35SpliceInsert)?
     Scte35TimeSignalApos: (ChannelScte35TimeSignalApos)?
+}
+
+/// 
+open class ChannelBandwidthReductionFilterSettings {
+    PostFilterSharpening: (String|Mapping)?
+    Strength: (String|Mapping)?
 }
 
 /// 
@@ -556,6 +597,7 @@ open class ChannelH264ColorSpaceSettings {
 
 /// 
 open class ChannelH264FilterSettings {
+    BandwidthReductionFilterSettings: (ChannelBandwidthReductionFilterSettings)?
     TemporalFilterSettings: (ChannelTemporalFilterSettings)?
 }
 
@@ -617,6 +659,7 @@ open class ChannelH265ColorSpaceSettings {
 
 /// 
 open class ChannelH265FilterSettings {
+    BandwidthReductionFilterSettings: (ChannelBandwidthReductionFilterSettings)?
     TemporalFilterSettings: (ChannelTemporalFilterSettings)?
 }
 
@@ -799,6 +842,7 @@ open class ChannelInputAttachment {
     InputAttachmentName: (String|Mapping)?
     InputId: (String|Mapping)?
     InputSettings: (ChannelInputSettings)?
+    LogicalInterfaceNames: (Listing<String|Mapping>)?
 }
 
 /// 
@@ -1022,11 +1066,40 @@ open class ChannelMsSmoothOutputSettings {
     NameModifier: (String|Mapping)?
 }
 
+/// 
+open class ChannelMulticastInputSettings {
+    SourceIpAddress: (String|Mapping)?
+}
+
+/// 
+open class ChannelMultiplexContainerSettings {
+    MultiplexM2tsSettings: (ChannelMultiplexM2tsSettings)?
+}
+
 typealias ChannelMultiplexGroupSettings = Dynamic
 
 
 /// 
+open class ChannelMultiplexM2tsSettings {
+    AbsentInputAudioBehavior: (String|Mapping)?
+    Arib: (String|Mapping)?
+    AudioBufferModel: (String|Mapping)?
+    AudioFramesPerPes: (Int|Mapping)?
+    AudioStreamType: (String|Mapping)?
+    CcDescriptor: (String|Mapping)?
+    Ebif: (String|Mapping)?
+    EsRateInPes: (String|Mapping)?
+    Klv: (String|Mapping)?
+    NielsenId3Behavior: (String|Mapping)?
+    PcrControl: (String|Mapping)?
+    PcrPeriod: (Int|Mapping)?
+    Scte35Control: (String|Mapping)?
+    Scte35PrerollPullupMilliseconds: (Number|Mapping)?
+}
+
+/// 
 open class ChannelMultiplexOutputSettings {
+    ContainerSettings: (ChannelMultiplexContainerSettings)?
     Destination: (ChannelOutputLocationRef)?
 }
 
@@ -1039,6 +1112,7 @@ open class ChannelMultiplexProgramChannelDestinationSettings {
 /// 
 open class ChannelNetworkInputSettings {
     HlsInputSettings: (ChannelHlsInputSettings)?
+    MulticastInputSettings: (ChannelMulticastInputSettings)?
     ServerValidation: (String|Mapping)?
 }
 
@@ -1084,6 +1158,7 @@ open class ChannelOutputDestination {
     MediaPackageSettings: (Listing<ChannelMediaPackageOutputDestinationSettings>)?
     MultiplexSettings: (ChannelMultiplexProgramChannelDestinationSettings)?
     Settings: (Listing<ChannelOutputDestinationSettings>)?
+    SrtSettings: (Listing<ChannelSrtOutputDestinationSettings>)?
 }
 
 /// 
@@ -1111,6 +1186,7 @@ open class ChannelOutputGroupSettings {
     MsSmoothGroupSettings: (ChannelMsSmoothGroupSettings)?
     MultiplexGroupSettings: (ChannelMultiplexGroupSettings)?
     RtmpGroupSettings: (ChannelRtmpGroupSettings)?
+    SrtGroupSettings: (ChannelSrtGroupSettings)?
     UdpGroupSettings: (ChannelUdpGroupSettings)?
 }
 
@@ -1135,6 +1211,7 @@ open class ChannelOutputSettings {
     MsSmoothOutputSettings: (ChannelMsSmoothOutputSettings)?
     MultiplexOutputSettings: (ChannelMultiplexOutputSettings)?
     RtmpOutputSettings: (ChannelRtmpOutputSettings)?
+    SrtOutputSettings: (ChannelSrtOutputSettings)?
     UdpOutputSettings: (ChannelUdpOutputSettings)?
 }
 
@@ -1219,6 +1296,27 @@ typealias ChannelSmpteTtDestinationSettings = Dynamic
 
 
 /// 
+open class ChannelSrtGroupSettings {
+    InputLossAction: (String|Mapping)?
+}
+
+/// 
+open class ChannelSrtOutputDestinationSettings {
+    EncryptionPassphraseSecretArn: (String|Mapping)?
+    StreamId: (String|Mapping)?
+    Url: (String|Mapping)?
+}
+
+/// 
+open class ChannelSrtOutputSettings {
+    BufferMsec: (Int|Mapping)?
+    ContainerSettings: (ChannelUdpContainerSettings)?
+    Destination: (ChannelOutputLocationRef)?
+    EncryptionType: (String|Mapping)?
+    Latency: (Int|Mapping)?
+}
+
+/// 
 open class ChannelStandardHlsSettings {
     AudioRenditionSets: (String|Mapping)?
     M3u8Settings: (ChannelM3u8Settings)?
@@ -1296,6 +1394,7 @@ open class ChannelVideoBlackFailoverSettings {
 
 /// 
 open class ChannelVideoCodecSettings {
+    Av1Settings: (ChannelAv1Settings)?
     FrameCaptureSettings: (ChannelFrameCaptureSettings)?
     H264Settings: (ChannelH264Settings)?
     H265Settings: (ChannelH265Settings)?
@@ -1368,6 +1467,9 @@ open class Channel extends cloudformation.Resource {
 
 
     /// 
+    hidden AnywhereSettings: (ChannelAnywhereSettings)?
+
+    /// 
     hidden CdiInputSpecification: (ChannelCdiInputSpecification)?
 
     /// 
@@ -1404,6 +1506,7 @@ open class Channel extends cloudformation.Resource {
     hidden Vpc: (ChannelVpcOutputSettings)?
 
     Properties {
+        ["AnywhereSettings"] = if (AnywhereSettings == null) null else AnywhereSettings
         ["CdiInputSpecification"] = if (CdiInputSpecification == null) null else CdiInputSpecification
         ["ChannelClass"] = if (ChannelClass == null) null else ChannelClass
         ["Destinations"] = if (Destinations == null) null else Destinations

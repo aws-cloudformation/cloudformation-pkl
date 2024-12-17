@@ -5,6 +5,9 @@ module aws.databrew.dataset
 
 import "../../cloudformation.pkl"
 
+typealias DatasetBucketOwner = String|Mapping
+
+
 /// Csv options
 open class DatasetCsvOptions {
     Delimiter: (String|Mapping)?
@@ -119,6 +122,7 @@ typealias DatasetPathParameterName = String|Mapping
 /// Input location
 open class DatasetS3Location {
     Bucket: String|Mapping
+    BucketOwner: (DatasetBucketOwner)?
     Key: (String|Mapping)?
 }
 
@@ -149,6 +153,9 @@ open class Dataset extends cloudformation.Resource {
     /// PathOptions
     hidden PathOptions: (DatasetPathOptions)?
 
+    /// Source type of the dataset
+    hidden Source: (DatasetSource|Mapping)?
+
     /// 
     hidden Tags: (Listing<DatasetTag>)?
 
@@ -158,6 +165,7 @@ open class Dataset extends cloudformation.Resource {
         ["Input"] = if (Input == null) null else Input
         ["Name"] = if (Name == null) null else Name
         ["PathOptions"] = if (PathOptions == null) null else PathOptions
+        ["Source"] = if (Source == null) null else Source
         ["Tags"] = if (Tags == null) null else Tags
     }
 
@@ -165,3 +173,5 @@ open class Dataset extends cloudformation.Resource {
 
 
 typealias DatasetFormat = "CSV"|"JSON"|"PARQUET"|"EXCEL"|"ORC"
+
+typealias DatasetSource = "S3"|"DATA-CATALOG"|"DATABASE"

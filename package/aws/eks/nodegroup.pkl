@@ -12,6 +12,11 @@ open class NodegroupLaunchTemplateSpecification {
     Version: (String|Mapping)?
 }
 
+/// The node auto repair configuration for node group.
+open class NodegroupNodeRepairConfig {
+    Enabled: (Boolean|Mapping)?
+}
+
 /// An object representing a remote access configuration specification for AWS EKS Nodegroup.
 open class NodegroupRemoteAccess {
     Ec2SshKey: String|Mapping
@@ -68,6 +73,9 @@ open class Nodegroup extends cloudformation.Resource {
     /// An object representing a node group's launch template specification.
     hidden LaunchTemplate: (NodegroupLaunchTemplateSpecification)?
 
+    /// The node auto repair configuration for node group.
+    hidden NodeRepairConfig: (NodegroupNodeRepairConfig)?
+
     /// The Amazon Resource Name (ARN) of the IAM role to associate with your node group.
     hidden NodeRole: String|Mapping
 
@@ -107,6 +115,7 @@ open class Nodegroup extends cloudformation.Resource {
         ["InstanceTypes"] = if (InstanceTypes == null) null else InstanceTypes
         ["Labels"] = if (Labels == null) null else Labels
         ["LaunchTemplate"] = if (LaunchTemplate == null) null else LaunchTemplate
+        ["NodeRepairConfig"] = if (NodeRepairConfig == null) null else NodeRepairConfig
         ["NodeRole"] = if (NodeRole == null) null else NodeRole
         ["NodegroupName"] = if (NodegroupName == null) null else NodegroupName
         ["ReleaseVersion"] = if (ReleaseVersion == null) null else ReleaseVersion

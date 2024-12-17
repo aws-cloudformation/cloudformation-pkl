@@ -5,7 +5,13 @@ module aws.cloudfront.cachepolicy
 
 import "../../cloudformation.pkl"
 
-/// 
+/// A cache policy configuration.
+///
+///  This configuration determines the following:
+///   +  The values that CloudFront includes in the cache key. These values can include HTTP headers, cookies, and URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+///   +  The default, minimum, and maximum time to live (TTL) values that you want objects to stay in the CloudFront cache.
+///   
+///  The headers, cookies, and query strings that are included in the cache key are also included in requests that CloudFront sends to the origin. CloudFront sends a request when it can't find a valid object in its cache that matches the request's cache key. If you want to send values to the origin but *not* include them in the cache key, use ``OriginRequestPolicy``.
 open class CachePolicyCachePolicyConfig {
     Comment: (String|Mapping)?
     DefaultTTL: Number|Mapping
@@ -15,19 +21,21 @@ open class CachePolicyCachePolicyConfig {
     ParametersInCacheKeyAndForwardedToOrigin: CachePolicyParametersInCacheKeyAndForwardedToOrigin
 }
 
-/// 
+/// An object that determines whether any cookies in viewer requests (and if so, which cookies) are included in the cache key and in requests that CloudFront sends to the origin.
 open class CachePolicyCookiesConfig {
     CookieBehavior: String(matches(Regex(#"^(none|whitelist|allExcept|all)$"#)))|Mapping
     Cookies: (Listing<String|Mapping>)?
 }
 
-/// 
+/// An object that determines whether any HTTP headers (and if so, which headers) are included in the cache key and in requests that CloudFront sends to the origin.
 open class CachePolicyHeadersConfig {
     HeaderBehavior: String(matches(Regex(#"^(none|whitelist)$"#)))|Mapping
     Headers: (Listing<String|Mapping>)?
 }
 
-/// 
+/// This object determines the values that CloudFront includes in the cache key. These values can include HTTP headers, cookies, and URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+///
+///  The headers, cookies, and query strings that are included in the cache key are also included in requests that CloudFront sends to the origin. CloudFront sends a request when it can't find an object in its cache that matches the request's cache key. If you want to send values to the origin but *not* include them in the cache key, use ``OriginRequestPolicy``.
 open class CachePolicyParametersInCacheKeyAndForwardedToOrigin {
     CookiesConfig: CachePolicyCookiesConfig
     EnableAcceptEncodingBrotli: (Boolean|Mapping)?
@@ -36,19 +44,25 @@ open class CachePolicyParametersInCacheKeyAndForwardedToOrigin {
     QueryStringsConfig: CachePolicyQueryStringsConfig
 }
 
-/// 
+/// An object that determines whether any URL query strings in viewer requests (and if so, which query strings) are included in the cache key and in requests that CloudFront sends to the origin.
 open class CachePolicyQueryStringsConfig {
     QueryStringBehavior: String(matches(Regex(#"^(none|whitelist|allExcept|all)$"#)))|Mapping
     QueryStrings: (Listing<String|Mapping>)?
 }
 
-/// Resource Type definition for AWS::CloudFront::CachePolicy
+/// A cache policy.
+///
+///  When it's attached to a cache behavior, the cache policy determines the following:
+///   +  The values that CloudFront includes in the cache key. These values can include HTTP headers, cookies, and URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+///   +  The default, minimum, and maximum time to live (TTL) values that you want objects to stay in the CloudFront cache.
+///   
+///  The headers, cookies, and query strings that are included in the cache key are also included in requests that CloudFront sends to the origin. CloudFront sends a request when it can't find a valid object in its cache that matches the request's cache key. If you want to send values to the origin but *not* include them in the cache key, use ``OriginRequestPolicy``.
 open class CachePolicy extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::CachePolicy"
 
 
-    /// 
+    /// The cache policy configuration.
     hidden CachePolicyConfig: CachePolicyCachePolicyConfig
 
     Properties {

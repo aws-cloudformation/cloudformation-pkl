@@ -97,6 +97,9 @@ open class Canary extends cloudformation.Resource {
     /// Name of the canary.
     hidden Name: String(matches(Regex(#"^[0-9a-z_\-]{1,255}$"#)))|Mapping
 
+    /// Setting to control if provisioned resources created by Synthetics are deleted alongside the canary. Default is AUTOMATIC.
+    hidden ProvisionedResourceCleanup: (CanaryProvisionedResourceCleanup|Mapping)?
+
     /// List of resources which canary tags should be replicated to.
     hidden ResourcesToReplicateTags: (Listing<CanaryResourceToTag>)?
 
@@ -132,6 +135,7 @@ open class Canary extends cloudformation.Resource {
         ["ExecutionRoleArn"] = if (ExecutionRoleArn == null) null else ExecutionRoleArn
         ["FailureRetentionPeriod"] = if (FailureRetentionPeriod == null) null else FailureRetentionPeriod
         ["Name"] = if (Name == null) null else Name
+        ["ProvisionedResourceCleanup"] = if (ProvisionedResourceCleanup == null) null else ProvisionedResourceCleanup
         ["ResourcesToReplicateTags"] = if (ResourcesToReplicateTags == null) null else ResourcesToReplicateTags
         ["RunConfig"] = if (RunConfig == null) null else RunConfig
         ["RuntimeVersion"] = if (RuntimeVersion == null) null else RuntimeVersion
@@ -144,3 +148,6 @@ open class Canary extends cloudformation.Resource {
     }
 
 }
+
+
+typealias CanaryProvisionedResourceCleanup = "AUTOMATIC"|"OFF"

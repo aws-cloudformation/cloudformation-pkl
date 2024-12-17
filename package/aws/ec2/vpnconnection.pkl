@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias CloudwatchLogOptionsSpecificationLogOutputFormat = "json"|"text"
 
-/// 
+/// Options for sending VPN tunnel logs to CloudWatch.
 open class VPNConnectionCloudwatchLogOptionsSpecification {
     LogEnabled: (Boolean|Mapping)?
     LogGroupArn: (String|Mapping)?
@@ -16,45 +16,45 @@ open class VPNConnectionCloudwatchLogOptionsSpecification {
 
 typealias IKEVersionsRequestListValueValue = "ikev1"|"ikev2"
 
-/// 
+/// The IKE version that is permitted for the VPN tunnel.
 open class VPNConnectionIKEVersionsRequestListValue {
     Value: (IKEVersionsRequestListValueValue|Mapping)?
 }
 
-/// 
+/// Specifies a Diffie-Hellman group number for the VPN tunnel for phase 1 IKE negotiations.
 open class VPNConnectionPhase1DHGroupNumbersRequestListValue {
     Value: (Int|Mapping)?
 }
 
 typealias Phase1EncryptionAlgorithmsRequestListValueValue = "AES128"|"AES256"|"AES128-GCM-16"|"AES256-GCM-16"
 
-/// 
+/// Specifies the encryption algorithm for the VPN tunnel for phase 1 IKE negotiations.
 open class VPNConnectionPhase1EncryptionAlgorithmsRequestListValue {
     Value: (Phase1EncryptionAlgorithmsRequestListValueValue|Mapping)?
 }
 
 typealias Phase1IntegrityAlgorithmsRequestListValueValue = "SHA1"|"SHA2-256"|"SHA2-384"|"SHA2-512"
 
-/// 
+/// Specifies the integrity algorithm for the VPN tunnel for phase 1 IKE negotiations.
 open class VPNConnectionPhase1IntegrityAlgorithmsRequestListValue {
     Value: (Phase1IntegrityAlgorithmsRequestListValueValue|Mapping)?
 }
 
-/// 
+/// Specifies a Diffie-Hellman group number for the VPN tunnel for phase 2 IKE negotiations.
 open class VPNConnectionPhase2DHGroupNumbersRequestListValue {
     Value: (Int|Mapping)?
 }
 
 typealias Phase2EncryptionAlgorithmsRequestListValueValue = "AES128"|"AES256"|"AES128-GCM-16"|"AES256-GCM-16"
 
-/// 
+/// Specifies the encryption algorithm for the VPN tunnel for phase 2 IKE negotiations.
 open class VPNConnectionPhase2EncryptionAlgorithmsRequestListValue {
     Value: (Phase2EncryptionAlgorithmsRequestListValueValue|Mapping)?
 }
 
 typealias Phase2IntegrityAlgorithmsRequestListValueValue = "SHA1"|"SHA2-256"|"SHA2-384"|"SHA2-512"
 
-/// 
+/// Specifies the integrity algorithm for the VPN tunnel for phase 2 IKE negotiations.
 open class VPNConnectionPhase2IntegrityAlgorithmsRequestListValue {
     Value: (Phase2IntegrityAlgorithmsRequestListValueValue|Mapping)?
 }
@@ -65,7 +65,7 @@ open class VPNConnectionTag {
     Value: String|Mapping
 }
 
-/// 
+/// Options for logging VPN tunnel activity.
 open class VPNConnectionVpnTunnelLogOptionsSpecification {
     CloudwatchLogOptions: (VPNConnectionCloudwatchLogOptionsSpecification)?
 }

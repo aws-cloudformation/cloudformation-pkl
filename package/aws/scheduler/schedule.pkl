@@ -24,7 +24,7 @@ open class ScheduleCapacityProviderStrategyItem {
 
 /// A DeadLetterConfig object that contains information about a dead-letter queue configuration.
 open class ScheduleDeadLetterConfig {
-    Arn: (String(matches(Regex(#"^arn:aws(-[a-z]+)?:sqs:[a-z0-9\-]+:\d{12}:[a-zA-Z0-9\-_]+$"#)))|Mapping)?
+    Arn: (String(matches(Regex(#"^arn:aws[a-z-]*:sqs:[a-z0-9\-]+:\d{12}:[a-zA-Z0-9\-_]+$"#)))|Mapping)?
 }
 
 /// The custom parameters to be used when the target is an Amazon ECS task.
@@ -131,7 +131,7 @@ open class ScheduleTarget {
     Input: (String|Mapping)?
     KinesisParameters: (ScheduleKinesisParameters)?
     RetryPolicy: (ScheduleRetryPolicy)?
-    RoleArn: String(matches(Regex(#"^arn:aws(-[a-z]+)?:iam::\d{12}:role\/[\w+=,.@\/-]+$"#)))|Mapping
+    RoleArn: String(matches(Regex(#"^arn:aws[a-z-]*:iam::\d{12}:role\/[\w+=,.@\/-]+$"#)))|Mapping
     SageMakerPipelineParameters: (ScheduleSageMakerPipelineParameters)?
     SqsParameters: (ScheduleSqsParameters)?
 }
@@ -155,7 +155,7 @@ open class Schedule extends cloudformation.Resource {
     hidden GroupName: (String(matches(Regex(#"^[0-9a-zA-Z-_.]+$"#)))|Mapping)?
 
     /// The ARN for a KMS Key that will be used to encrypt customer data.
-    hidden KmsKeyArn: (String(matches(Regex(#"^arn:aws(-[a-z]+)?:kms:[a-z0-9\-]+:\d{12}:(key|alias)\/[0-9a-zA-Z-_]*$"#)))|Mapping)?
+    hidden KmsKeyArn: (String(matches(Regex(#"^arn:aws[a-z-]*:kms:[a-z0-9\-]+:\d{12}:(key|alias)\/[0-9a-zA-Z-_]*$"#)))|Mapping)?
 
     /// 
     hidden Name: (String(matches(Regex(#"^[0-9a-zA-Z-_.]+$"#)))|Mapping)?

@@ -94,6 +94,7 @@ open class UserPoolPasswordPolicy {
 /// 
 open class UserPoolPolicies {
     PasswordPolicy: (UserPoolPasswordPolicy)?
+    SignInPolicy: (UserPoolSignInPolicy)?
 }
 
 /// 
@@ -117,6 +118,11 @@ open class UserPoolSchemaAttribute {
     NumberAttributeConstraints: (UserPoolNumberAttributeConstraints)?
     Required: (Boolean|Mapping)?
     StringAttributeConstraints: (UserPoolStringAttributeConstraints)?
+}
+
+/// 
+open class UserPoolSignInPolicy {
+    AllowedFirstAuthFactors: (Listing<String|Mapping>)?
 }
 
 /// 
@@ -234,6 +240,9 @@ open class UserPool extends cloudformation.Resource {
     hidden UserPoolTags: (UserPoolUserPoolUserPoolTags)?
 
     /// 
+    hidden UserPoolTier: (UserPoolUserPoolTier|Mapping)?
+
+    /// 
     hidden UsernameAttributes: (Listing<String|Mapping>)?
 
     /// 
@@ -241,6 +250,12 @@ open class UserPool extends cloudformation.Resource {
 
     /// 
     hidden VerificationMessageTemplate: (UserPoolVerificationMessageTemplate)?
+
+    /// 
+    hidden WebAuthnRelyingPartyID: (String|Mapping)?
+
+    /// 
+    hidden WebAuthnUserVerification: (String|Mapping)?
 
     Properties {
         ["AccountRecoverySetting"] = if (AccountRecoverySetting == null) null else AccountRecoverySetting
@@ -266,12 +281,17 @@ open class UserPool extends cloudformation.Resource {
         ["UserPoolAddOns"] = if (UserPoolAddOns == null) null else UserPoolAddOns
         ["UserPoolName"] = if (UserPoolName == null) null else UserPoolName
         ["UserPoolTags"] = if (UserPoolTags == null) null else UserPoolTags
+        ["UserPoolTier"] = if (UserPoolTier == null) null else UserPoolTier
         ["UsernameAttributes"] = if (UsernameAttributes == null) null else UsernameAttributes
         ["UsernameConfiguration"] = if (UsernameConfiguration == null) null else UsernameConfiguration
         ["VerificationMessageTemplate"] = if (VerificationMessageTemplate == null) null else VerificationMessageTemplate
+        ["WebAuthnRelyingPartyID"] = if (WebAuthnRelyingPartyID == null) null else WebAuthnRelyingPartyID
+        ["WebAuthnUserVerification"] = if (WebAuthnUserVerification == null) null else WebAuthnUserVerification
     }
 
 }
 
 
 typealias UserPoolUserPoolUserPoolTags = Mapping<String, Any>
+
+typealias UserPoolUserPoolTier = "LITE"|"ESSENTIALS"|"PLUS"

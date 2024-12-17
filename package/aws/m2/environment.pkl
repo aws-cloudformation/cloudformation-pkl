@@ -25,6 +25,9 @@ open class EnvironmentHighAvailabilityConfig {
     DesiredCapacity: Int|Mapping
 }
 
+typealias EnvironmentNetworkType = String|Mapping
+
+
 typealias EnvironmentStorageConfiguration = Dynamic
 
 
@@ -58,6 +61,9 @@ open class Environment extends cloudformation.Resource {
     /// The name of the environment.
     hidden Name: String(matches(Regex(#"^[A-Za-z0-9][A-Za-z0-9_\-]{1,59}$"#)))|Mapping
 
+    /// 
+    hidden NetworkType: (EnvironmentNetworkType)?
+
     /// Configures a desired maintenance window for the environment. If you do not provide a value, a random system-generated value will be assigned.
     hidden PreferredMaintenanceWindow: (String(matches(Regex(#"^\S{1,50}$"#)))|Mapping)?
 
@@ -84,6 +90,7 @@ open class Environment extends cloudformation.Resource {
         ["InstanceType"] = if (InstanceType == null) null else InstanceType
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId
         ["Name"] = if (Name == null) null else Name
+        ["NetworkType"] = if (NetworkType == null) null else NetworkType
         ["PreferredMaintenanceWindow"] = if (PreferredMaintenanceWindow == null) null else PreferredMaintenanceWindow
         ["PubliclyAccessible"] = if (PubliclyAccessible == null) null else PubliclyAccessible
         ["SecurityGroupIds"] = if (SecurityGroupIds == null) null else SecurityGroupIds

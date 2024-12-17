@@ -81,6 +81,14 @@ open class ConfiguredTableAnalysisRuleList {
 }
 
 /// 
+open class ConfiguredTableAthenaTableReference {
+    DatabaseName: String|Mapping
+    OutputLocation: (String|Mapping)?
+    TableName: String|Mapping
+    WorkGroup: String|Mapping
+}
+
+/// 
 open class ConfiguredTableConfiguredTableAnalysisRulePolicy {
     V1: ConfiguredTableConfiguredTableAnalysisRulePolicyV1
 }
@@ -135,8 +143,40 @@ typealias ConfiguredTableScalarFunctions = String|Mapping
 
 
 /// 
-open class ConfiguredTableTableReference {
+open class ConfiguredTableSnowflakeTableReference {
+    AccountIdentifier: String|Mapping
+    DatabaseName: String|Mapping
+    SchemaName: String|Mapping
+    SecretArn: String|Mapping
+    TableName: String|Mapping
+    TableSchema: ConfiguredTableSnowflakeTableSchema
+}
+
+typealias ConfiguredTableSnowflakeTableSchema = ConfiguredTableSnowflakeTableSchemaV1
+
+
+/// 
+open class ConfiguredTableSnowflakeTableSchemaV1 {
+    ColumnName: String|Mapping
+    ColumnType: String|Mapping
+}
+
+typealias ConfiguredTableTableReference = ConfiguredTableTableReferenceGlue|ConfiguredTableTableReferenceSnowflake|ConfiguredTableTableReferenceAthena
+
+
+/// 
+open class ConfiguredTableTableReferenceAthena {
+    Athena: ConfiguredTableAthenaTableReference
+}
+
+/// 
+open class ConfiguredTableTableReferenceGlue {
     Glue: ConfiguredTableGlueTableReference
+}
+
+/// 
+open class ConfiguredTableTableReferenceSnowflake {
+    Snowflake: ConfiguredTableSnowflakeTableReference
 }
 
 /// 

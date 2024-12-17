@@ -5,28 +5,28 @@ module aws.cloudfront.monitoringsubscription
 
 import "../../cloudformation.pkl"
 
-/// 
+/// A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
 open class MonitoringSubscriptionMonitoringSubscription {
     RealtimeMetricsSubscriptionConfig: (MonitoringSubscriptionRealtimeMetricsSubscriptionConfig)?
 }
 
 typealias RealtimeMetricsSubscriptionConfigRealtimeMetricsSubscriptionStatus = "Enabled"|"Disabled"
 
-/// 
+/// A subscription configuration for additional CloudWatch metrics.
 open class MonitoringSubscriptionRealtimeMetricsSubscriptionConfig {
     RealtimeMetricsSubscriptionStatus: RealtimeMetricsSubscriptionConfigRealtimeMetricsSubscriptionStatus|Mapping
 }
 
-/// Resource Type definition for AWS::CloudFront::MonitoringSubscription
+/// A monitoring subscription. This structure contains information about whether additional CloudWatch metrics are enabled for a given CloudFront distribution.
 open class MonitoringSubscription extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::MonitoringSubscription"
 
 
-    /// 
+    /// The ID of the distribution that you are enabling metrics for.
     hidden DistributionId: String|Mapping
 
-    /// 
+    /// A subscription configuration for additional CloudWatch metrics.
     hidden MonitoringSubscription: MonitoringSubscriptionMonitoringSubscription
 
     Properties {

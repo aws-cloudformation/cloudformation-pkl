@@ -12,6 +12,7 @@ open class ConfigurationSetDashboardOptions {
 
 /// An object that defines the dedicated IP pool that is used to send emails that you send using the configuration set.
 open class ConfigurationSetDeliveryOptions {
+    MaxDeliverySeconds: (Number|Mapping)?
     SendingPoolName: (String|Mapping)?
     TlsPolicy: (String(matches(Regex(#"REQUIRE|OPTIONAL"#)))|Mapping)?
 }

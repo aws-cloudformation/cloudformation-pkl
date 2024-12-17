@@ -61,6 +61,9 @@ open class Service extends cloudformation.Resource {
     hidden NamespaceId: (String|Mapping)?
 
     /// 
+    hidden ServiceAttributes: (Dynamic)?
+
+    /// 
     hidden Tags: (Listing<ServiceTag>)?
 
     /// 
@@ -73,6 +76,7 @@ open class Service extends cloudformation.Resource {
         ["HealthCheckCustomConfig"] = if (HealthCheckCustomConfig == null) null else HealthCheckCustomConfig
         ["Name"] = if (Name == null) null else Name
         ["NamespaceId"] = if (NamespaceId == null) null else NamespaceId
+        ["ServiceAttributes"] = if (ServiceAttributes == null) null else ServiceAttributes
         ["Tags"] = if (Tags == null) null else Tags
         ["Type"] = if (TypeProperty == null) null else TypeProperty
     }

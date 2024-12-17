@@ -6,6 +6,12 @@ module aws.docdb.dbcluster
 import "../../cloudformation.pkl"
 
 /// 
+open class DBClusterServerlessV2ScalingConfiguration {
+    MaxCapacity: Number|Mapping
+    MinCapacity: Number|Mapping
+}
+
+/// 
 open class DBClusterTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -69,6 +75,9 @@ open class DBCluster extends cloudformation.Resource {
     hidden RestoreType: (String|Mapping)?
 
     /// 
+    hidden ServerlessV2ScalingConfiguration: (DBClusterServerlessV2ScalingConfiguration)?
+
+    /// 
     hidden SnapshotIdentifier: (String|Mapping)?
 
     /// 
@@ -107,6 +116,7 @@ open class DBCluster extends cloudformation.Resource {
         ["PreferredMaintenanceWindow"] = if (PreferredMaintenanceWindow == null) null else PreferredMaintenanceWindow
         ["RestoreToTime"] = if (RestoreToTime == null) null else RestoreToTime
         ["RestoreType"] = if (RestoreType == null) null else RestoreType
+        ["ServerlessV2ScalingConfiguration"] = if (ServerlessV2ScalingConfiguration == null) null else ServerlessV2ScalingConfiguration
         ["SnapshotIdentifier"] = if (SnapshotIdentifier == null) null else SnapshotIdentifier
         ["SourceDBClusterIdentifier"] = if (SourceDBClusterIdentifier == null) null else SourceDBClusterIdentifier
         ["StorageEncrypted"] = if (StorageEncrypted == null) null else StorageEncrypted

@@ -20,13 +20,20 @@ open class QueryDefinition extends cloudformation.Resource {
     /// A name for the saved query definition
     hidden Name: String|Mapping
 
+    /// Query language of the query string. Possible values are CWLI, SQL, PPL, with CWLI being the default.
+    hidden QueryLanguage: (QueryDefinitionQueryLanguage|Mapping)?
+
     /// The query string to use for this definition
     hidden QueryString: String|Mapping
 
     Properties {
         ["LogGroupNames"] = if (LogGroupNames == null) null else LogGroupNames
         ["Name"] = if (Name == null) null else Name
+        ["QueryLanguage"] = if (QueryLanguage == null) null else QueryLanguage
         ["QueryString"] = if (QueryString == null) null else QueryString
     }
 
 }
+
+
+typealias QueryDefinitionQueryLanguage = "CWLI"|"SQL"|"PPL"

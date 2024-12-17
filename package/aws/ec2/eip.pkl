@@ -20,6 +20,9 @@ open class EIP extends cloudformation.Resource {
     Type = "AWS::EC2::EIP"
 
 
+    /// 
+    hidden Address: (String|Mapping)?
+
     /// The network (``vpc``).
     ///
     ///  If you define an Elastic IP address and associate it with a VPC that is defined in the same template, you must declare a dependency on the VPC-gateway attachment by using the [DependsOn Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) on this resource.
@@ -29,6 +32,9 @@ open class EIP extends cloudformation.Resource {
     ///
     ///   Updates to the ``InstanceId`` property may require *some interruptions*. Updates on an EIP reassociates the address on its associated resource.
     hidden InstanceId: (String|Mapping)?
+
+    /// 
+    hidden IpamPoolId: (String|Mapping)?
 
     /// A unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network border groups.
     ///
@@ -49,8 +55,10 @@ open class EIP extends cloudformation.Resource {
     hidden TransferAddress: (String|Mapping)?
 
     Properties {
+        ["Address"] = if (Address == null) null else Address
         ["Domain"] = if (Domain == null) null else Domain
         ["InstanceId"] = if (InstanceId == null) null else InstanceId
+        ["IpamPoolId"] = if (IpamPoolId == null) null else IpamPoolId
         ["NetworkBorderGroup"] = if (NetworkBorderGroup == null) null else NetworkBorderGroup
         ["PublicIpv4Pool"] = if (PublicIpv4Pool == null) null else PublicIpv4Pool
         ["Tags"] = if (Tags == null) null else Tags

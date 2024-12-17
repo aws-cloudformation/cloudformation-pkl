@@ -7,10 +7,16 @@ import "../../cloudformation.pkl"
 
 /// 
 open class UserHomeDirectoryMapEntry {
-    Entry: String|Mapping
-    Target: String|Mapping
-    Type: (String|Mapping)?
+    Entry: String(matches(Regex(#"^/.*$"#)))|Mapping
+    Target: String(matches(Regex(#"^/.*$"#)))|Mapping
+    Type: (UserMapType)?
 }
+
+typealias UserHomeDirectoryType = String|Mapping
+
+
+typealias UserMapType = String|Mapping
+
 
 /// 
 open class UserPosixProfile {
@@ -19,29 +25,26 @@ open class UserPosixProfile {
     Uid: Number|Mapping
 }
 
-typealias UserSshPublicKey = Dynamic
-
-
 /// 
 open class UserTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// Resource Type definition for AWS::Transfer::User
+/// Definition of AWS::Transfer::User Resource Type
 open class User extends cloudformation.Resource {
 
     Type = "AWS::Transfer::User"
 
 
     /// 
-    hidden HomeDirectory: (String|Mapping)?
+    hidden HomeDirectory: (String(matches(Regex(#"^(|/.*)$"#)))|Mapping)?
 
     /// 
     hidden HomeDirectoryMappings: (Listing<UserHomeDirectoryMapEntry>)?
 
     /// 
-    hidden HomeDirectoryType: (String|Mapping)?
+    hidden HomeDirectoryType: (UserHomeDirectoryType)?
 
     /// 
     hidden Policy: (String|Mapping)?
@@ -50,19 +53,19 @@ open class User extends cloudformation.Resource {
     hidden PosixProfile: (UserPosixProfile)?
 
     /// 
-    hidden Role: String|Mapping
+    hidden Role: String(matches(Regex(#"^arn:.*role/\S+$"#)))|Mapping
 
     /// 
-    hidden ServerId: String|Mapping
+    hidden ServerId: String(matches(Regex(#"^s-([0-9a-f]{17})$"#)))|Mapping
 
-    /// 
-    hidden SshPublicKeys: (Listing<UserSshPublicKey>)?
+    /// This represents the SSH User Public Keys for CloudFormation resource
+    hidden SshPublicKeys: (Listing<String|Mapping>)?
 
     /// 
     hidden Tags: (Listing<UserTag>)?
 
     /// 
-    hidden UserName: String|Mapping
+    hidden UserName: String(matches(Regex(#"^[\w][\w@.-]{2,99}$"#)))|Mapping
 
     Properties {
         ["HomeDirectory"] = if (HomeDirectory == null) null else HomeDirectory

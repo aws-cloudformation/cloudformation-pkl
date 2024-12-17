@@ -23,9 +23,21 @@ open class ClusterClusterLogging {
     EnabledTypes: (ClusterEnabledTypes)?
 }
 
+/// Todo: add description
+open class ClusterComputeConfig {
+    Enabled: (Boolean|Mapping)?
+    NodePools: (Listing<String|Mapping>)?
+    NodeRoleArn: (String|Mapping)?
+}
+
 /// Specify the placement group of the control plane machines for your cluster.
 open class ClusterControlPlanePlacement {
     GroupName: (String|Mapping)?
+}
+
+/// Todo: add description
+open class ClusterElasticLoadBalancing {
+    Enabled: (Boolean|Mapping)?
 }
 
 typealias ClusterEnabledTypes = Listing<(ClusterLoggingTypeConfig)?>
@@ -41,6 +53,7 @@ typealias KubernetesNetworkConfigIpFamily = "ipv4"|"ipv6"
 
 /// The Kubernetes network configuration for the cluster.
 open class ClusterKubernetesNetworkConfig {
+    ElasticLoadBalancing: (ClusterElasticLoadBalancing)?
     IpFamily: (KubernetesNetworkConfigIpFamily|Mapping)?
     ServiceIpv4Cidr: (String|Mapping)?
     ServiceIpv6Cidr: (String|Mapping)?
@@ -70,6 +83,12 @@ open class ClusterProvider {
     KeyArn: (String|Mapping)?
 }
 
+/// Configuration fields for specifying on-premises node and pod CIDRs that are external to the VPC passed during cluster creation.
+open class ClusterRemoteNetworkConfig {
+    RemoteNodeNetworks: ClusterRemoteNodeNetworks
+    RemotePodNetworks: (ClusterRemotePodNetworks)?
+}
+
 /// Network configuration of nodes run on-premises with EKS Hybrid Nodes.
 open class ClusterRemoteNodeNetwork {
     Cidrs: Listing<String|Mapping>
@@ -93,6 +112,11 @@ open class ClusterResourcesVpcConfig {
     PublicAccessCidrs: (Listing<String|Mapping>)?
     SecurityGroupIds: (Listing<String|Mapping>)?
     SubnetIds: Listing<String|Mapping>
+}
+
+/// Todo: add description
+open class ClusterStorageConfig {
+    BlockStorage: (ClusterBlockStorage)?
 }
 
 /// A key-value pair to associate with a resource.
@@ -126,6 +150,9 @@ open class Cluster extends cloudformation.Resource {
     hidden BootstrapSelfManagedAddons: (Boolean|Mapping)?
 
     /// 
+    hidden ComputeConfig: (ClusterComputeConfig)?
+
+    /// 
     hidden EncryptionConfig: (Listing<ClusterEncryptionConfig>)?
 
     /// 
@@ -141,10 +168,16 @@ open class Cluster extends cloudformation.Resource {
     hidden OutpostConfig: (ClusterOutpostConfig)?
 
     /// 
+    hidden RemoteNetworkConfig: (ClusterRemoteNetworkConfig)?
+
+    /// 
     hidden ResourcesVpcConfig: ClusterResourcesVpcConfig
 
     /// The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf.
     hidden RoleArn: String|Mapping
+
+    /// 
+    hidden StorageConfig: (ClusterStorageConfig)?
 
     /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<ClusterTag>)?
@@ -161,13 +194,16 @@ open class Cluster extends cloudformation.Resource {
     Properties {
         ["AccessConfig"] = if (AccessConfig == null) null else AccessConfig
         ["BootstrapSelfManagedAddons"] = if (BootstrapSelfManagedAddons == null) null else BootstrapSelfManagedAddons
+        ["ComputeConfig"] = if (ComputeConfig == null) null else ComputeConfig
         ["EncryptionConfig"] = if (EncryptionConfig == null) null else EncryptionConfig
         ["KubernetesNetworkConfig"] = if (KubernetesNetworkConfig == null) null else KubernetesNetworkConfig
         ["Logging"] = if (Logging == null) null else Logging
         ["Name"] = if (Name == null) null else Name
         ["OutpostConfig"] = if (OutpostConfig == null) null else OutpostConfig
+        ["RemoteNetworkConfig"] = if (RemoteNetworkConfig == null) null else RemoteNetworkConfig
         ["ResourcesVpcConfig"] = if (ResourcesVpcConfig == null) null else ResourcesVpcConfig
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
+        ["StorageConfig"] = if (StorageConfig == null) null else StorageConfig
         ["Tags"] = if (Tags == null) null else Tags
         ["UpgradePolicy"] = if (UpgradePolicy == null) null else UpgradePolicy
         ["Version"] = if (Version == null) null else Version

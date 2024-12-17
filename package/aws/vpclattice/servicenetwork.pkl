@@ -6,6 +6,11 @@ module aws.vpclattice.servicenetwork
 import "../../cloudformation.pkl"
 
 /// 
+open class ServiceNetworkSharingConfig {
+    enabled: Boolean|Mapping
+}
+
+/// 
 open class ServiceNetworkTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -24,11 +29,15 @@ open class ServiceNetwork extends cloudformation.Resource {
     hidden Name: (String(matches(Regex(#"^(?!servicenetwork-)(?![-])(?!.*[-]$)(?!.*[-]{2})[a-z0-9-]+$"#)))|Mapping)?
 
     /// 
+    hidden SharingConfig: (ServiceNetworkSharingConfig)?
+
+    /// 
     hidden Tags: (Listing<ServiceNetworkTag>)?
 
     Properties {
         ["AuthType"] = if (AuthType == null) null else AuthType
         ["Name"] = if (Name == null) null else Name
+        ["SharingConfig"] = if (SharingConfig == null) null else SharingConfig
         ["Tags"] = if (Tags == null) null else Tags
     }
 

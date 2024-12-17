@@ -272,6 +272,11 @@ open class DataSetOverrideDatasetParameterOperation {
     ParameterName: String(matches(Regex(#"^[a-zA-Z0-9]+$"#)))|Mapping
 }
 
+/// 
+open class DataSetPerformanceConfiguration {
+    UniqueKeys: (Listing<DataSetUniqueKey>)?
+}
+
 /// <p>A view of a data source that contains information about the shape of the data in the
 ///
 ///             underlying source. This is a variant type structure. For this structure to be valid,
@@ -411,6 +416,11 @@ open class DataSetTransformOperation {
     UntagColumnOperation: (DataSetUntagColumnOperation)?
 }
 
+/// 
+open class DataSetUniqueKey {
+    ColumnNames: Listing<String|Mapping>
+}
+
 /// <p>A transform operation that removes tags associated with a column.</p>
 open class DataSetUntagColumnOperation {
     ColumnName: String|Mapping
@@ -474,6 +484,9 @@ open class DataSet extends cloudformation.Resource {
     /// <p>The display name for the dataset.</p>
     hidden Name: (String|Mapping)?
 
+    /// 
+    hidden PerformanceConfiguration: (DataSetPerformanceConfiguration)?
+
     /// <p>A list of resource permissions on the dataset.</p>
     hidden Permissions: (Listing<DataSetResourcePermission>)?
 
@@ -503,6 +516,7 @@ open class DataSet extends cloudformation.Resource {
         ["IngestionWaitPolicy"] = if (IngestionWaitPolicy == null) null else IngestionWaitPolicy
         ["LogicalTableMap"] = if (LogicalTableMap == null) null else LogicalTableMap
         ["Name"] = if (Name == null) null else Name
+        ["PerformanceConfiguration"] = if (PerformanceConfiguration == null) null else PerformanceConfiguration
         ["Permissions"] = if (Permissions == null) null else Permissions
         ["PhysicalTableMap"] = if (PhysicalTableMap == null) null else PhysicalTableMap
         ["RowLevelPermissionDataSet"] = if (RowLevelPermissionDataSet == null) null else RowLevelPermissionDataSet

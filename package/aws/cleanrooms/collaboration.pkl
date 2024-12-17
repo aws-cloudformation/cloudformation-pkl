@@ -5,6 +5,9 @@ module aws.cleanrooms.collaboration
 
 import "../../cloudformation.pkl"
 
+typealias CollaborationAnalyticsEngine = String|Mapping
+
+
 typealias CollaborationCollaborationQueryLogStatus = String|Mapping
 
 
@@ -59,6 +62,9 @@ open class Collaboration extends cloudformation.Resource {
 
 
     /// 
+    hidden AnalyticsEngine: (CollaborationAnalyticsEngine)?
+
+    /// 
     hidden CreatorDisplayName: CollaborationName
 
     /// 
@@ -86,6 +92,7 @@ open class Collaboration extends cloudformation.Resource {
     hidden Tags: (Listing<CollaborationTag>)?
 
     Properties {
+        ["AnalyticsEngine"] = if (AnalyticsEngine == null) null else AnalyticsEngine
         ["CreatorDisplayName"] = if (CreatorDisplayName == null) null else CreatorDisplayName
         ["CreatorMemberAbilities"] = if (CreatorMemberAbilities == null) null else CreatorMemberAbilities
         ["CreatorPaymentConfiguration"] = if (CreatorPaymentConfiguration == null) null else CreatorPaymentConfiguration

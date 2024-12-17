@@ -5,6 +5,12 @@ module aws.accessanalyzer.analyzer
 
 import "../../cloudformation.pkl"
 
+/// The criteria for an analysis rule for an analyzer.
+open class AnalyzerAnalysisRuleCriteria {
+    AccountIds: (Listing<String|Mapping>)?
+    ResourceTags: (Listing<AnalyzerTags>)?
+}
+
 /// An Access Analyzer archive rule. Archive rules automatically archive new findings that meet the criteria you define when you create the rule.
 open class AnalyzerArchiveRule {
     Filter: Listing<AnalyzerFilter>
@@ -23,11 +29,15 @@ open class AnalyzerFilter {
 /// A key-value pair to associate with a resource.
 open class AnalyzerTag {
     Key: String|Mapping
-    Value: String|Mapping
+    Value: (String|Mapping)?
 }
+
+typealias AnalyzerTags = Listing<(AnalyzerTag)?>
+
 
 /// The Configuration for Unused Access Analyzer
 open class AnalyzerUnusedAccessConfiguration {
+    AnalysisRule: (Dynamic)?
     UnusedAccessAge: (Int|Mapping)?
 }
 

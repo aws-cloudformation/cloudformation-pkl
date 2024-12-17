@@ -78,6 +78,7 @@ typealias OriginEndpointEndpointErrorCondition = String|Mapping
 
 /// <p>Filter configuration includes settings for manifest filtering, start and end times, and time delay that apply to all of your egress requests for this manifest. </p>
 open class OriginEndpointFilterConfiguration {
+    ClipStartTime: (String|Mapping)?
     End: (String|Mapping)?
     ManifestFilter: (String|Mapping)?
     Start: (String|Mapping)?
@@ -97,6 +98,7 @@ open class OriginEndpointHlsManifestConfiguration {
     ManifestWindowSeconds: (Int|Mapping)?
     ProgramDateTimeIntervalSeconds: (Int|Mapping)?
     ScteHls: (OriginEndpointScteHls)?
+    StartTag: (OriginEndpointStartTag)?
     Url: (String|Mapping)?
 }
 
@@ -108,6 +110,7 @@ open class OriginEndpointLowLatencyHlsManifestConfiguration {
     ManifestWindowSeconds: (Int|Mapping)?
     ProgramDateTimeIntervalSeconds: (Int|Mapping)?
     ScteHls: (OriginEndpointScteHls)?
+    StartTag: (OriginEndpointStartTag)?
     Url: (String|Mapping)?
 }
 
@@ -153,6 +156,12 @@ open class OriginEndpointSpekeKeyProvider {
     ResourceId: String(matches(Regex(#"^[0-9a-zA-Z_-]+$"#)))|Mapping
     RoleArn: String|Mapping
     Url: String|Mapping
+}
+
+/// <p>To insert an EXT-X-START tag in your HLS playlist, specify a StartTag configuration object with a valid TimeOffset. When you do, you can also optionally specify whether to include a PRECISE value in the EXT-X-START tag.</p>
+open class OriginEndpointStartTag {
+    Precise: (Boolean|Mapping)?
+    TimeOffset: Number|Mapping
 }
 
 /// 

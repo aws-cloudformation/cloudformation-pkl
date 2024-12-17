@@ -134,6 +134,12 @@ open class ApplicationS3MonitoringConfiguration {
     LogUri: (ApplicationUriString)?
 }
 
+/// The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.
+open class ApplicationSchedulerConfiguration {
+    MaxConcurrentRuns: (Int|Mapping)?
+    QueueTimeoutMinutes: (Int|Mapping)?
+}
+
 typealias ApplicationSecurityGroupId = String|Mapping
 
 
@@ -216,6 +222,9 @@ open class Application extends cloudformation.Resource {
     /// 
     hidden RuntimeConfiguration: (ApplicationConfigurationList)?
 
+    /// The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.
+    hidden SchedulerConfiguration: (ApplicationSchedulerConfiguration)?
+
     /// Tag map with key and value
     hidden Tags: (Listing<ApplicationTag>)?
 
@@ -238,6 +247,7 @@ open class Application extends cloudformation.Resource {
         ["NetworkConfiguration"] = if (NetworkConfiguration == null) null else NetworkConfiguration
         ["ReleaseLabel"] = if (ReleaseLabel == null) null else ReleaseLabel
         ["RuntimeConfiguration"] = if (RuntimeConfiguration == null) null else RuntimeConfiguration
+        ["SchedulerConfiguration"] = if (SchedulerConfiguration == null) null else SchedulerConfiguration
         ["Tags"] = if (Tags == null) null else Tags
         ["Type"] = if (TypeProperty == null) null else TypeProperty
         ["WorkerTypeSpecifications"] = if (WorkerTypeSpecifications == null) null else WorkerTypeSpecifications

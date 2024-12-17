@@ -157,6 +157,9 @@ open class Task extends cloudformation.Resource {
     /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<TaskTag>)?
 
+    /// Specifies the task mode for the task.
+    hidden TaskMode: (TaskTaskMode|Mapping)?
+
     /// 
     hidden TaskReportConfig: (TaskTaskReportConfig)?
 
@@ -171,7 +174,11 @@ open class Task extends cloudformation.Resource {
         ["Schedule"] = if (Schedule == null) null else Schedule
         ["SourceLocationArn"] = if (SourceLocationArn == null) null else SourceLocationArn
         ["Tags"] = if (Tags == null) null else Tags
+        ["TaskMode"] = if (TaskMode == null) null else TaskMode
         ["TaskReportConfig"] = if (TaskReportConfig == null) null else TaskReportConfig
     }
 
 }
+
+
+typealias TaskTaskMode = "BASIC"|"ENHANCED"

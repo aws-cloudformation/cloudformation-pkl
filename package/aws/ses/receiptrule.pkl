@@ -9,6 +9,7 @@ import "../../cloudformation.pkl"
 open class ReceiptRuleAction {
     AddHeaderAction: (ReceiptRuleAddHeaderAction)?
     BounceAction: (ReceiptRuleBounceAction)?
+    ConnectAction: (ReceiptRuleConnectAction)?
     LambdaAction: (ReceiptRuleLambdaAction)?
     S3Action: (ReceiptRuleS3Action)?
     SNSAction: (ReceiptRuleSNSAction)?
@@ -29,6 +30,12 @@ open class ReceiptRuleBounceAction {
     SmtpReplyCode: String|Mapping
     StatusCode: (String|Mapping)?
     TopicArn: (String|Mapping)?
+}
+
+/// 
+open class ReceiptRuleConnectAction {
+    IAMRoleARN: String|Mapping
+    InstanceARN: String|Mapping
 }
 
 /// 

@@ -5,25 +5,25 @@ module aws.cloudfront.keyvaluestore
 
 import "../../cloudformation.pkl"
 
-/// 
+/// The import source for the key value store.
 open class KeyValueStoreImportSource {
     SourceArn: String|Mapping
     SourceType: String|Mapping
 }
 
-/// Resource Type definition for AWS::CloudFront::KeyValueStore
+/// The key value store. Use this to separate data from function code, allowing you to update data without having to publish a new version of a function. The key value store holds keys and their corresponding values.
 open class KeyValueStore extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::KeyValueStore"
 
 
-    /// 
+    /// A comment for the key value store.
     hidden Comment: (String|Mapping)?
 
-    /// 
+    /// The import source for the key value store.
     hidden ImportSource: (KeyValueStoreImportSource)?
 
-    /// 
+    /// The name of the key value store.
     hidden Name: String|Mapping
 
     Properties {

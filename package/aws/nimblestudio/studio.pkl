@@ -5,40 +5,34 @@ module aws.nimblestudio.studio
 
 import "../../cloudformation.pkl"
 
-/// <p>Configuration of the encryption method that is used for the studio.</p>
+/// 
 open class StudioStudioEncryptionConfiguration {
-    KeyArn: (String(matches(Regex(#"^arn:.*"#)))|Mapping)?
-    KeyType: StudioStudioEncryptionConfigurationKeyType
+    KeyArn: (String|Mapping)?
+    KeyType: String|Mapping
 }
 
-typealias StudioStudioEncryptionConfigurationKeyType = String|Mapping
-
-
-typealias StudioTags = Mapping<String, Any>
-
-
-/// Represents a studio that contains other Nimble Studio resources
+/// Resource Type definition for AWS::NimbleStudio::Studio
 open class Studio extends cloudformation.Resource {
 
     Type = "AWS::NimbleStudio::Studio"
 
 
-    /// <p>The IAM role that Studio Admins will assume when logging in to the Nimble Studio portal.</p>
+    /// 
     hidden AdminRoleArn: String|Mapping
 
-    /// <p>A friendly name for the studio.</p>
+    /// 
     hidden DisplayName: String|Mapping
 
     /// 
     hidden StudioEncryptionConfiguration: (StudioStudioEncryptionConfiguration)?
 
-    /// <p>The studio name that is used in the URL of the Nimble Studio portal when accessed by Nimble Studio users.</p>
-    hidden StudioName: String(matches(Regex(#"^[a-z0-9]*$"#)))|Mapping
+    /// 
+    hidden StudioName: String|Mapping
 
     /// 
-    hidden Tags: (StudioTags)?
+    hidden Tags: (StudioStudioTags)?
 
-    /// <p>The IAM role that Studio Users will assume when logging in to the Nimble Studio portal.</p>
+    /// 
     hidden UserRoleArn: String|Mapping
 
     Properties {
@@ -51,3 +45,6 @@ open class Studio extends cloudformation.Resource {
     }
 
 }
+
+
+typealias StudioStudioTags = Mapping<String, Any>

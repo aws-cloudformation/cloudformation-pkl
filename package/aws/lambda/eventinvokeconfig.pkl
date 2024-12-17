@@ -13,12 +13,12 @@ open class EventInvokeConfigDestinationConfig {
 
 /// The destination configuration for failed invocations.
 open class EventInvokeConfigOnFailure {
-    Destination: String(matches(Regex(#"^$|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping
+    Destination: String(matches(Regex(#"^$|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping
 }
 
 /// The destination configuration for successful invocations.
 open class EventInvokeConfigOnSuccess {
-    Destination: String(matches(Regex(#"^$|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping
+    Destination: String(matches(Regex(#"^$|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1})?:(\d{12})?:(.*)"#)))|Mapping
 }
 
 /// The AWS::Lambda::EventInvokeConfig resource configures options for asynchronous invocation on a version or an alias.
@@ -31,7 +31,7 @@ open class EventInvokeConfig extends cloudformation.Resource {
     hidden DestinationConfig: (EventInvokeConfigDestinationConfig)?
 
     /// The name of the Lambda function.
-    hidden FunctionName: String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$"#)))|Mapping
+    hidden FunctionName: String(matches(Regex(#"^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?(-iso([a-z])?)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$"#)))|Mapping
 
     /// The maximum age of a request that Lambda sends to a function for processing.
     hidden MaximumEventAgeInSeconds: (Int|Mapping)?

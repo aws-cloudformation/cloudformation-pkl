@@ -44,6 +44,6 @@ open class AccountPolicy extends cloudformation.Resource {
 }
 
 
-typealias AccountPolicyPolicyType = "DATA_PROTECTION_POLICY"|"SUBSCRIPTION_FILTER_POLICY"
+typealias AccountPolicyPolicyType = "DATA_PROTECTION_POLICY"|"SUBSCRIPTION_FILTER_POLICY"|"FIELD_INDEX_POLICY"|"TRANSFORMER_POLICY"
 
 typealias AccountPolicyScope = "ALL"

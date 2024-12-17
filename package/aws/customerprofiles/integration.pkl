@@ -173,6 +173,9 @@ open class Integration extends cloudformation.Resource {
     /// The unique name of the domain.
     hidden DomainName: String(matches(Regex(#"^[a-zA-Z0-9_-]+$"#)))|Mapping
 
+    /// A list of unique names for active event triggers associated with the integration.
+    hidden EventTriggerNames: (Listing<String|Mapping>)?
+
     /// 
     hidden FlowDefinition: (IntegrationFlowDefinition)?
 
@@ -190,6 +193,7 @@ open class Integration extends cloudformation.Resource {
 
     Properties {
         ["DomainName"] = if (DomainName == null) null else DomainName
+        ["EventTriggerNames"] = if (EventTriggerNames == null) null else EventTriggerNames
         ["FlowDefinition"] = if (FlowDefinition == null) null else FlowDefinition
         ["ObjectTypeName"] = if (ObjectTypeName == null) null else ObjectTypeName
         ["ObjectTypeNames"] = if (ObjectTypeNames == null) null else ObjectTypeNames

@@ -6,9 +6,23 @@ module aws.deadline.fleet
 import "../../cloudformation.pkl"
 
 /// 
+open class FleetAcceleratorCapabilities {
+    Count: (FleetAcceleratorCountRange)?
+    Selections: Listing<FleetAcceleratorSelection>
+}
+
+/// 
 open class FleetAcceleratorCountRange {
     Max: (Int|Mapping)?
     Min: Int|Mapping
+}
+
+typealias AcceleratorSelectionName = "t4"|"a10g"|"l4"|"l40s"
+
+/// 
+open class FleetAcceleratorSelection {
+    Name: AcceleratorSelectionName|Mapping
+    Runtime: (String|Mapping)?
 }
 
 /// 
@@ -108,6 +122,7 @@ open class FleetServiceManagedEc2FleetConfiguration {
 
 /// 
 open class FleetServiceManagedEc2InstanceCapabilities {
+    AcceleratorCapabilities: (FleetAcceleratorCapabilities)?
     AllowedInstanceTypes: (Listing<String|Mapping>)?
     CpuArchitectureType: FleetCpuArchitectureType
     CustomAmounts: (Listing<FleetFleetAmountCapability>)?

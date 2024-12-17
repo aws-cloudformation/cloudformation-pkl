@@ -9,7 +9,7 @@ import "../../cloudformation.pkl"
 ///
 ///  You must create at least as many cache behaviors (including the default cache behavior) as you have origins if you want CloudFront to serve objects from all of the origins. Each cache behavior specifies the one origin from which you want CloudFront to get objects. If you have two origins and only the default cache behavior, the default cache behavior will cause CloudFront to get objects from one of the origins, but the other origin is never used.
 ///  For the current quota (formerly known as limit) on the number of cache behaviors that you can add to a distribution, see [Quotas](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html) in the *Amazon CloudFront Developer Guide*.
-///  If you don't want to specify any cache behaviors, include only an empty ``CacheBehaviors`` element. Don't include an empty ``CacheBehavior`` element because this is invalid.
+///  If you don't want to specify any cache behaviors, include only an empty ``CacheBehaviors`` element. Don't specify an empty individual ``CacheBehavior`` element, because this is invalid. For more information, see [CacheBehaviors](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CacheBehaviors.html). 
 ///  To delete all cache behaviors in an existing distribution, update the distribution configuration and include only an empty ``CacheBehaviors`` element.
 ///  To add, change, or remove one or more cache behaviors, update the distribution configuration and specify all of the cache behaviors that you want to include in the updated distribution.
 ///  For more information about cache behaviors, see [Cache Behavior Settings](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior) in the *Amazon CloudFront Developer Guide*.
@@ -22,6 +22,7 @@ open class DistributionCacheBehavior {
     FieldLevelEncryptionId: (String|Mapping)?
     ForwardedValues: (DistributionForwardedValues)?
     FunctionAssociations: (Listing<DistributionFunctionAssociation>)?
+    GrpcConfig: (DistributionGrpcConfig)?
     LambdaFunctionAssociations: (Listing<DistributionLambdaFunctionAssociation>)?
     MaxTTL: (Number|Mapping)?
     MinTTL: (Number|Mapping)?
@@ -79,6 +80,7 @@ open class DistributionDefaultCacheBehavior {
     FieldLevelEncryptionId: (String|Mapping)?
     ForwardedValues: (DistributionForwardedValues)?
     FunctionAssociations: (Listing<DistributionFunctionAssociation>)?
+    GrpcConfig: (DistributionGrpcConfig)?
     LambdaFunctionAssociations: (Listing<DistributionLambdaFunctionAssociation>)?
     MaxTTL: (Number|Mapping)?
     MinTTL: (Number|Mapping)?
@@ -141,6 +143,11 @@ open class DistributionGeoRestriction {
     RestrictionType: String|Mapping
 }
 
+/// 
+open class DistributionGrpcConfig {
+    Enabled: Boolean|Mapping
+}
+
 /// A complex type that contains a Lambda@Edge function association.
 open class DistributionLambdaFunctionAssociation {
     EventType: (String|Mapping)?
@@ -148,7 +155,9 @@ open class DistributionLambdaFunctionAssociation {
     LambdaFunctionARN: (String|Mapping)?
 }
 
-/// 
+/// A custom origin. A custom origin is any origin that is *not* an S3 bucket, with one exception. An S3 bucket that is [configured with static website hosting](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html) *is* a custom origin.
+///
+///   This property is legacy. We recommend that you use [Origin](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html) instead.
 open class DistributionLegacyCustomOrigin {
     DNSName: String|Mapping
     HTTPPort: (Int|Mapping)?
@@ -157,7 +166,9 @@ open class DistributionLegacyCustomOrigin {
     OriginSSLProtocols: Listing<String|Mapping>
 }
 
-/// 
+/// The origin as an S3 bucket. 
+///
+///   This property is legacy. We recommend that you use [Origin](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html) instead.
 open class DistributionLegacyS3Origin {
     DNSName: String|Mapping
     OriginAccessIdentity: (String|Mapping)?
@@ -165,7 +176,7 @@ open class DistributionLegacyS3Origin {
 
 /// A complex type that controls whether access logs are written for the distribution.
 open class DistributionLogging {
-    Bucket: String|Mapping
+    Bucket: (String|Mapping)?
     IncludeCookies: (Boolean|Mapping)?
     Prefix: (String|Mapping)?
 }
@@ -207,6 +218,7 @@ open class DistributionOriginGroup {
     FailoverCriteria: DistributionOriginGroupFailoverCriteria
     Id: String|Mapping
     Members: DistributionOriginGroupMembers
+    SelectionCriteria: (DistributionOriginGroupSelectionCriteria)?
 }
 
 /// A complex data type that includes information about the failover criteria for an origin group, including the status codes for which CloudFront will failover from the primary origin to the second origin.
@@ -224,6 +236,9 @@ open class DistributionOriginGroupMembers {
     Items: Listing<DistributionOriginGroupMember>
     Quantity: Int|Mapping
 }
+
+typealias DistributionOriginGroupSelectionCriteria = String|Mapping
+
 
 /// A complex data type for the origin groups specified for a distribution.
 open class DistributionOriginGroups {
