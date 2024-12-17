@@ -32,7 +32,7 @@ open class Policy extends cloudformation.Resource {
     /// List of unique identifiers (IDs) of the root, OU, or account that you want to attach the policy to
     hidden TargetIds: (Listing<String|Mapping>)?
 
-    /// The type of policy to create. You can specify one of the following values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY, CHATBOT_POLICY
+    /// The type of policy to create. You can specify one of the following values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY, CHATBOT_POLICY, RESOURCE_CONTROL_POLICY,DECLARATIVE_POLICY_EC2
     hidden TypeProperty: PolicyType|Mapping
 
     Properties {
@@ -47,4 +47,4 @@ open class Policy extends cloudformation.Resource {
 }
 
 
-typealias PolicyType = "SERVICE_CONTROL_POLICY"|"AISERVICES_OPT_OUT_POLICY"|"BACKUP_POLICY"|"TAG_POLICY"|"CHATBOT_POLICY"
+typealias PolicyType = "SERVICE_CONTROL_POLICY"|"AISERVICES_OPT_OUT_POLICY"|"BACKUP_POLICY"|"TAG_POLICY"|"CHATBOT_POLICY"|"RESOURCE_CONTROL_POLICY"|"DECLARATIVE_POLICY_EC2"

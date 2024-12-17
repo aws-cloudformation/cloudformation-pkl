@@ -69,6 +69,16 @@ open class DomainEncryptionAtRestOptions {
     KmsKeyId: (String|Mapping)?
 }
 
+/// Options for configuring Identity Center
+open class DomainIdentityCenterOptions {
+    EnabledAPIAccess: (Boolean|Mapping)?
+    IdentityCenterApplicationARN: (String|Mapping)?
+    IdentityCenterInstanceARN: (String|Mapping)?
+    IdentityStoreId: (String|Mapping)?
+    RolesKey: (DomainRolesKeyIdcType)?
+    SubjectKey: (DomainSubjectKeyIdcType)?
+}
+
 /// 
 open class DomainIdp {
     EntityId: String|Mapping
@@ -112,6 +122,9 @@ open class DomainOffPeakWindowOptions {
     OffPeakWindow: (DomainOffPeakWindow)?
 }
 
+typealias DomainRolesKeyIdcType = String|Mapping
+
+
 /// 
 open class DomainSAMLOptions {
     Enabled: (Boolean|Mapping)?
@@ -144,6 +157,9 @@ open class DomainSnapshotOptions {
 open class DomainSoftwareUpdateOptions {
     AutoSoftwareUpdateEnabled: (Boolean|Mapping)?
 }
+
+typealias DomainSubjectKeyIdcType = String|Mapping
+
 
 /// 
 open class DomainTag {
@@ -208,6 +224,9 @@ open class Domain extends cloudformation.Resource {
     hidden IPAddressType: (String|Mapping)?
 
     /// 
+    hidden IdentityCenterOptions: (DomainIdentityCenterOptions)?
+
+    /// 
     hidden LogPublishingOptions: (DomainDomainLogPublishingOptions)?
 
     /// 
@@ -243,6 +262,7 @@ open class Domain extends cloudformation.Resource {
         ["EncryptionAtRestOptions"] = if (EncryptionAtRestOptions == null) null else EncryptionAtRestOptions
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["IPAddressType"] = if (IPAddressType == null) null else IPAddressType
+        ["IdentityCenterOptions"] = if (IdentityCenterOptions == null) null else IdentityCenterOptions
         ["LogPublishingOptions"] = if (LogPublishingOptions == null) null else LogPublishingOptions
         ["NodeToNodeEncryptionOptions"] = if (NodeToNodeEncryptionOptions == null) null else NodeToNodeEncryptionOptions
         ["OffPeakWindowOptions"] = if (OffPeakWindowOptions == null) null else OffPeakWindowOptions

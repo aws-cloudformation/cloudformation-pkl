@@ -75,9 +75,12 @@ open class DomainDockerSettings {
     VpcOnlyTrustedAccounts: (Listing<String|Mapping>)?
 }
 
+typealias DomainSettingsExecutionRoleIdentityConfig = "USER_PROFILE_NAME"|"DISABLED"
+
 /// A collection of Domain settings.
 open class DomainDomainSettings {
     DockerSettings: (DomainDockerSettings)?
+    ExecutionRoleIdentityConfig: (DomainSettingsExecutionRoleIdentityConfig|Mapping)?
     RStudioServerProDomainSettings: (DomainRStudioServerProDomainSettings)?
     SecurityGroupIds: (Listing<String|Mapping>)?
 }
@@ -248,6 +251,9 @@ open class Domain extends cloudformation.Resource {
     /// The VPC subnets that Studio uses for communication.
     hidden SubnetIds: Listing<String|Mapping>
 
+    /// Indicates whether the tags added to Domain, User Profile and Space entity is propagated to all SageMaker resources.
+    hidden TagPropagation: (DomainTagPropagation|Mapping)?
+
     /// A list of tags to apply to the user profile.
     hidden Tags: (Listing<DomainTag>)?
 
@@ -264,6 +270,7 @@ open class Domain extends cloudformation.Resource {
         ["DomainSettings"] = if (DomainSettings == null) null else DomainSettings
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId
         ["SubnetIds"] = if (SubnetIds == null) null else SubnetIds
+        ["TagPropagation"] = if (TagPropagation == null) null else TagPropagation
         ["Tags"] = if (Tags == null) null else Tags
         ["VpcId"] = if (VpcId == null) null else VpcId
     }
@@ -276,3 +283,5 @@ typealias DomainAppNetworkAccessType = "PublicInternetOnly"|"VpcOnly"
 typealias DomainAppSecurityGroupManagement = "Service"|"Customer"
 
 typealias DomainAuthMode = "SSO"|"IAM"
+
+typealias DomainTagPropagation = "ENABLED"|"DISABLED"

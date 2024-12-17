@@ -43,6 +43,38 @@ open class DecoderManifestCanSignalDecoder {
     Type: CanSignalDecoderType|Mapping
 }
 
+/// 
+open class DecoderManifestCustomDecodingInterface {
+    Name: String(matches(Regex(#"^[a-zA-Z\d\-_:]+$"#)))|Mapping
+}
+
+typealias CustomDecodingNetworkInterfaceType = "CUSTOM_DECODING_INTERFACE"
+
+/// 
+open class DecoderManifestCustomDecodingNetworkInterface {
+    CustomDecodingInterface: DecoderManifestCustomDecodingInterface
+    InterfaceId: String|Mapping
+    Type: CustomDecodingNetworkInterfaceType|Mapping
+}
+
+/// 
+open class DecoderManifestCustomDecodingSignal {
+    Id: String(matches(Regex(#"^(?!.*\.\.)[a-zA-Z0-9_\-#:.]+$"#)))|Mapping
+}
+
+typealias CustomDecodingSignalDecoderType = "CUSTOM_DECODING_SIGNAL"
+
+/// 
+open class DecoderManifestCustomDecodingSignalDecoder {
+    CustomDecodingSignal: DecoderManifestCustomDecodingSignal
+    FullyQualifiedName: String|Mapping
+    InterfaceId: String|Mapping
+    Type: CustomDecodingSignalDecoderType|Mapping
+}
+
+typealias DecoderManifestDefaultForUnmappedSignalsType = String|Mapping
+
+
 typealias DecoderManifestManifestStatus = String|Mapping
 
 
@@ -102,6 +134,9 @@ open class DecoderManifest extends cloudformation.Resource {
 
 
     /// 
+    hidden DefaultForUnmappedSignals: (DecoderManifestDefaultForUnmappedSignalsType)?
+
+    /// 
     hidden Description: (String(matches(Regex(#"^[^\u0000-\u001F\u007F]+$"#)))|Mapping)?
 
     /// 
@@ -123,6 +158,7 @@ open class DecoderManifest extends cloudformation.Resource {
     hidden Tags: (Listing<DecoderManifestTag>)?
 
     Properties {
+        ["DefaultForUnmappedSignals"] = if (DefaultForUnmappedSignals == null) null else DefaultForUnmappedSignals
         ["Description"] = if (Description == null) null else Description
         ["ModelManifestArn"] = if (ModelManifestArn == null) null else ModelManifestArn
         ["Name"] = if (Name == null) null else Name
@@ -141,13 +177,19 @@ typealias DecoderManifestDecoderManifestNetworkInterfaces0 = DecoderManifestCanN
 typealias DecoderManifestDecoderManifestNetworkInterfaces1 = DecoderManifestObdNetworkInterface
 
 
+typealias DecoderManifestDecoderManifestNetworkInterfaces2 = DecoderManifestCustomDecodingNetworkInterface
+
+
 typealias DecoderManifestDecoderManifestSignalDecoders0 = DecoderManifestCanSignalDecoder
 
 
 typealias DecoderManifestDecoderManifestSignalDecoders1 = DecoderManifestObdSignalDecoder
 
 
+typealias DecoderManifestDecoderManifestSignalDecoders2 = DecoderManifestCustomDecodingSignalDecoder
 
-typealias DecoderManifestDecoderManifestNetworkInterfaces = DecoderManifestDecoderManifestNetworkInterfaces0|DecoderManifestDecoderManifestNetworkInterfaces1
 
-typealias DecoderManifestDecoderManifestSignalDecoders = DecoderManifestDecoderManifestSignalDecoders0|DecoderManifestDecoderManifestSignalDecoders1
+
+typealias DecoderManifestDecoderManifestNetworkInterfaces = DecoderManifestDecoderManifestNetworkInterfaces0|DecoderManifestDecoderManifestNetworkInterfaces1|DecoderManifestDecoderManifestNetworkInterfaces2
+
+typealias DecoderManifestDecoderManifestSignalDecoders = DecoderManifestDecoderManifestSignalDecoders0|DecoderManifestDecoderManifestSignalDecoders1|DecoderManifestDecoderManifestSignalDecoders2

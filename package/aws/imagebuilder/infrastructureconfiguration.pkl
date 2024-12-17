@@ -18,6 +18,16 @@ open class InfrastructureConfigurationLogging {
     S3Logs: (InfrastructureConfigurationS3Logs)?
 }
 
+typealias PlacementTenancy = "default"|"dedicated"|"host"
+
+/// The placement options
+open class InfrastructureConfigurationPlacement {
+    AvailabilityZone: (String|Mapping)?
+    HostId: (String|Mapping)?
+    HostResourceGroupArn: (String|Mapping)?
+    Tenancy: (PlacementTenancy|Mapping)?
+}
+
 /// The S3 path in which to store the logs.
 open class InfrastructureConfigurationS3Logs {
     S3BucketName: (String|Mapping)?
@@ -57,6 +67,9 @@ open class InfrastructureConfiguration extends cloudformation.Resource {
     /// The name of the infrastructure configuration.
     hidden Name: String|Mapping
 
+    /// The placement option settings for the infrastructure configuration.
+    hidden Placement: (InfrastructureConfigurationPlacement)?
+
     /// The tags attached to the resource created by Image Builder.
     hidden ResourceTags: (InfrastructureConfigurationInfrastructureConfigurationResourceTags)?
 
@@ -83,6 +96,7 @@ open class InfrastructureConfiguration extends cloudformation.Resource {
         ["KeyPair"] = if (KeyPair == null) null else KeyPair
         ["Logging"] = if (Logging == null) null else Logging
         ["Name"] = if (Name == null) null else Name
+        ["Placement"] = if (Placement == null) null else Placement
         ["ResourceTags"] = if (ResourceTags == null) null else ResourceTags
         ["SecurityGroupIds"] = if (SecurityGroupIds == null) null else SecurityGroupIds
         ["SnsTopicArn"] = if (SnsTopicArn == null) null else SnsTopicArn

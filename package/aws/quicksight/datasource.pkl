@@ -35,6 +35,9 @@ open class DataSourceAuroraPostgreSqlParameters {
     Port: Number|Mapping
 }
 
+typealias DataSourceAuthenticationType = String|Mapping
+
+
 /// <p>The parameters for IoT Analytics.</p>
 open class DataSourceAwsIotAnalyticsParameters {
     DataSetName: String|Mapping
@@ -127,6 +130,14 @@ open class DataSourceMySqlParameters {
     Port: Number|Mapping
 }
 
+/// 
+open class DataSourceOAuthParameters {
+    IdentityProviderResourceUri: (String|Mapping)?
+    IdentityProviderVpcConnectionProperties: (DataSourceVpcConnectionProperties)?
+    OAuthScope: (String|Mapping)?
+    TokenProviderUrl: String|Mapping
+}
+
 /// <p>The parameters for Oracle.</p>
 open class DataSourceOracleParameters {
     Database: String|Mapping
@@ -195,8 +206,11 @@ open class DataSourceS3Parameters {
 
 /// <p>The parameters for Snowflake.</p>
 open class DataSourceSnowflakeParameters {
+    AuthenticationType: (DataSourceAuthenticationType)?
     Database: String|Mapping
+    DatabaseAccessControlRole: (String|Mapping)?
     Host: String|Mapping
+    OAuthParameters: (DataSourceOAuthParameters)?
     Warehouse: String|Mapping
 }
 
@@ -222,8 +236,11 @@ open class DataSourceSslProperties {
 
 /// <p>The parameters that are required to connect to a Starburst data source.</p>
 open class DataSourceStarburstParameters {
+    AuthenticationType: (DataSourceAuthenticationType)?
     Catalog: String|Mapping
+    DatabaseAccessControlRole: (String|Mapping)?
     Host: String|Mapping
+    OAuthParameters: (DataSourceOAuthParameters)?
     Port: Number|Mapping
     ProductType: (DataSourceStarburstProductType)?
 }

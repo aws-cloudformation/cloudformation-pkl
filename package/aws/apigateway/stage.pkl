@@ -15,7 +15,7 @@ open class StageAccessLogSetting {
 
 typealias StageCanarySettingStageVariableOverrides = Mapping<String, Any>
 
-/// Configuration settings of a canary deployment.
+/// 
 open class StageCanarySetting {
     DeploymentId: (String|Mapping)?
     PercentTraffic: (Number|Mapping)?
@@ -51,43 +51,43 @@ open class Stage extends cloudformation.Resource {
     Type = "AWS::ApiGateway::Stage"
 
 
-    /// Access log settings, including the access log format and access log destination ARN.
+    /// 
     hidden AccessLogSetting: (StageAccessLogSetting)?
 
-    /// Specifies whether a cache cluster is enabled for the stage.
+    /// 
     hidden CacheClusterEnabled: (Boolean|Mapping)?
 
-    /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
+    /// 
     hidden CacheClusterSize: (String|Mapping)?
 
-    /// Settings for the canary deployment in this stage.
+    /// 
     hidden CanarySetting: (StageCanarySetting)?
 
-    /// The identifier of a client certificate for an API stage.
+    /// 
     hidden ClientCertificateId: (String|Mapping)?
 
-    /// The identifier of the Deployment that the stage points to.
+    /// 
     hidden DeploymentId: (String|Mapping)?
 
-    /// The stage's description.
+    /// 
     hidden Description: (String|Mapping)?
 
-    /// The version of the associated API documentation.
+    /// 
     hidden DocumentationVersion: (String|Mapping)?
 
-    /// A map that defines the method settings for a Stage resource. Keys (designated as ``/{method_setting_key`` below) are method paths defined as ``{resource_path}/{http_method}`` for an individual method override, or ``/\*/\*`` for overriding all methods in the stage.
+    /// 
     hidden MethodSettings: (Listing<StageMethodSetting>)?
 
-    /// The string identifier of the associated RestApi.
+    /// 
     hidden RestApiId: String|Mapping
 
-    /// The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
+    /// 
     hidden StageName: (String|Mapping)?
 
-    /// The collection of tags. Each tag element is associated with a given resource.
+    /// 
     hidden Tags: (Listing<StageTag>)?
 
-    /// Specifies whether active tracing with X-ray is enabled for the Stage.
+    /// 
     hidden TracingEnabled: (Boolean|Mapping)?
 
     /// A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: ``[A-Za-z0-9-._~:/?#&=,]+``.

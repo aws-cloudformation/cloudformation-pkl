@@ -106,6 +106,64 @@ open class DeliveryStreamDataFormatConversionConfiguration {
     SchemaConfiguration: (DeliveryStreamSchemaConfiguration)?
 }
 
+typealias DeliveryStreamDatabaseColumnName = String|Mapping
+
+
+/// 
+open class DeliveryStreamDatabaseColumns {
+    Exclude: (Listing<DeliveryStreamDatabaseColumnName>)?
+    Include: (Listing<DeliveryStreamDatabaseColumnName>)?
+}
+
+typealias DeliveryStreamDatabaseName = String|Mapping
+
+
+/// 
+open class DeliveryStreamDatabaseSourceAuthenticationConfiguration {
+    SecretsManagerConfiguration: DeliveryStreamSecretsManagerConfiguration
+}
+
+typealias DatabaseSourceConfigurationSSLMode = "Disabled"|"Enabled"
+
+typealias DatabaseSourceConfigurationType = "MySQL"|"PostgreSQL"
+
+/// 
+open class DeliveryStreamDatabaseSourceConfiguration {
+    Columns: (DeliveryStreamDatabaseColumns)?
+    DatabaseSourceAuthenticationConfiguration: DeliveryStreamDatabaseSourceAuthenticationConfiguration
+    DatabaseSourceVPCConfiguration: DeliveryStreamDatabaseSourceVPCConfiguration
+    Databases: DeliveryStreamDatabases
+    Digest: (String(matches(Regex(#".*"#)))|Mapping)?
+    Endpoint: String(matches(Regex(#"^(?!\s*$).+"#)))|Mapping
+    Port: Int|Mapping
+    PublicCertificate: (String(matches(Regex(#".*"#)))|Mapping)?
+    SSLMode: (DatabaseSourceConfigurationSSLMode|Mapping)?
+    SnapshotWatermarkTable: DeliveryStreamDatabaseTableName
+    SurrogateKeys: (Listing<String|Mapping>)?
+    Tables: DeliveryStreamDatabaseTables
+    Type: DatabaseSourceConfigurationType|Mapping
+}
+
+/// 
+open class DeliveryStreamDatabaseSourceVPCConfiguration {
+    VpcEndpointServiceName: DeliveryStreamVpcEndpointServiceName
+}
+
+typealias DeliveryStreamDatabaseTableName = String|Mapping
+
+
+/// 
+open class DeliveryStreamDatabaseTables {
+    Exclude: (Listing<DeliveryStreamDatabaseTableName>)?
+    Include: (Listing<DeliveryStreamDatabaseTableName>)?
+}
+
+/// 
+open class DeliveryStreamDatabases {
+    Exclude: (Listing<DeliveryStreamDatabaseName>)?
+    Include: (Listing<DeliveryStreamDatabaseName>)?
+}
+
 typealias DeliveryStreamEncryptionConfigurationInputKeyType = "AWS_OWNED_CMK"|"CUSTOMER_MANAGED_CMK"
 
 /// 
@@ -400,8 +458,8 @@ open class DeliveryStreamSchemaConfiguration {
 /// 
 open class DeliveryStreamSecretsManagerConfiguration {
     Enabled: Boolean|Mapping
-    RoleARN: (String(matches(Regex(#"arn:.*"#)))|Mapping)?
-    SecretARN: (String(matches(Regex(#"arn:.*"#)))|Mapping)?
+    RoleARN: (String(matches(Regex(#"arn:.*:iam::\d{12}:role/[a-zA-Z_0-9+=,.@\-_/]+"#)))|Mapping)?
+    SecretARN: (String(matches(Regex(#"arn:.*:secretsmanager:[a-zA-Z0-9\-]+:\d{12}:secret:[a-zA-Z0-9\-/_+=.@]+"#)))|Mapping)?
 }
 
 /// 
@@ -504,6 +562,9 @@ open class DeliveryStreamVpcConfiguration {
     SubnetIds: Listing<String|Mapping>
 }
 
+typealias DeliveryStreamVpcEndpointServiceName = String|Mapping
+
+
 /// Resource Type definition for AWS::KinesisFirehose::DeliveryStream
 open class DeliveryStream extends cloudformation.Resource {
 
@@ -515,6 +576,9 @@ open class DeliveryStream extends cloudformation.Resource {
 
     /// 
     hidden AmazonopensearchserviceDestinationConfiguration: (DeliveryStreamAmazonopensearchserviceDestinationConfiguration)?
+
+    /// 
+    hidden DatabaseSourceConfiguration: (DeliveryStreamDatabaseSourceConfiguration)?
 
     /// 
     hidden DeliveryStreamEncryptionConfigurationInput: (DeliveryStreamDeliveryStreamEncryptionConfigurationInput)?
@@ -561,6 +625,7 @@ open class DeliveryStream extends cloudformation.Resource {
     Properties {
         ["AmazonOpenSearchServerlessDestinationConfiguration"] = if (AmazonOpenSearchServerlessDestinationConfiguration == null) null else AmazonOpenSearchServerlessDestinationConfiguration
         ["AmazonopensearchserviceDestinationConfiguration"] = if (AmazonopensearchserviceDestinationConfiguration == null) null else AmazonopensearchserviceDestinationConfiguration
+        ["DatabaseSourceConfiguration"] = if (DatabaseSourceConfiguration == null) null else DatabaseSourceConfiguration
         ["DeliveryStreamEncryptionConfigurationInput"] = if (DeliveryStreamEncryptionConfigurationInput == null) null else DeliveryStreamEncryptionConfigurationInput
         ["DeliveryStreamName"] = if (DeliveryStreamName == null) null else DeliveryStreamName
         ["DeliveryStreamType"] = if (DeliveryStreamType == null) null else DeliveryStreamType
@@ -580,4 +645,4 @@ open class DeliveryStream extends cloudformation.Resource {
 }
 
 
-typealias DeliveryStreamDeliveryStreamType = "DirectPut"|"KinesisStreamAsSource"|"MSKAsSource"
+typealias DeliveryStreamDeliveryStreamType = "DatabaseAsSource"|"DirectPut"|"KinesisStreamAsSource"|"MSKAsSource"

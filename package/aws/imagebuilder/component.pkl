@@ -57,6 +57,6 @@ open class Component extends cloudformation.Resource {
 }
 
 
-typealias ComponentPlatform = "Windows"|"Linux"
+typealias ComponentPlatform = "Windows"|"Linux"|"macOS"
 
 typealias ComponentComponentTags = Mapping<String, Any>

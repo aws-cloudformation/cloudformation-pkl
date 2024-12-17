@@ -345,6 +345,9 @@ open class DBInstance extends cloudformation.Resource {
     ///  This setting doesn't apply to Amazon Aurora DB instances. The DB subnet group is managed by the DB cluster. If specified, the setting must match the DB cluster setting.
     hidden DBSubnetGroupName: (String|Mapping)?
 
+    /// The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your database files. In this context, the term "Oracle database instance" refers exclusively to the system global area (SGA) and Oracle background processes. If you don't specify a SID, the value defaults to ``RDSCDB``. The Oracle SID is also the name of your CDB.
+    hidden DBSystemId: (String|Mapping)?
+
     /// Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
     hidden DedicatedLogVolume: (Boolean|Mapping)?
 
@@ -854,6 +857,7 @@ open class DBInstance extends cloudformation.Resource {
         ["DBSecurityGroups"] = if (DBSecurityGroups == null) null else DBSecurityGroups
         ["DBSnapshotIdentifier"] = if (DBSnapshotIdentifier == null) null else DBSnapshotIdentifier
         ["DBSubnetGroupName"] = if (DBSubnetGroupName == null) null else DBSubnetGroupName
+        ["DBSystemId"] = if (DBSystemId == null) null else DBSystemId
         ["DedicatedLogVolume"] = if (DedicatedLogVolume == null) null else DedicatedLogVolume
         ["DeleteAutomatedBackups"] = if (DeleteAutomatedBackups == null) null else DeleteAutomatedBackups
         ["DeletionProtection"] = if (DeletionProtection == null) null else DeletionProtection

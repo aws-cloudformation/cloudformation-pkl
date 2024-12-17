@@ -39,6 +39,7 @@ open class AnalysisAnalysisDefinition {
     ParameterDeclarations: (Listing<AnalysisParameterDeclaration>)?
     QueryExecutionOptions: (AnalysisQueryExecutionOptions)?
     Sheets: (Listing<AnalysisSheetDefinition>)?
+    StaticFiles: (Listing<AnalysisStaticFile>)?
 }
 
 /// <p>Analysis error.</p>
@@ -235,6 +236,7 @@ open class AnalysisBarChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -322,6 +324,7 @@ open class AnalysisBoxPlotVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -523,6 +526,7 @@ open class AnalysisComboChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -683,6 +687,7 @@ open class AnalysisCustomContentVisual {
     DataSetIdentifier: String|Mapping
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1189,6 +1194,7 @@ open class AnalysisFilledMapVisual {
     ConditionalFormatting: (AnalysisFilledMapConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1354,6 +1360,7 @@ typealias AnalysisFontDecoration = String|Mapping
 
 /// 
 open class AnalysisFontSize {
+    Absolute: (String|Mapping)?
     Relative: (AnalysisRelativeFontSize)?
 }
 
@@ -1503,6 +1510,7 @@ open class AnalysisFunnelChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1559,8 +1567,46 @@ open class AnalysisGaugeChartVisual {
     ConditionalFormatting: (AnalysisGaugeChartConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
+
+/// 
+open class AnalysisGeospatialCategoricalColor {
+    CategoryDataColors: Listing<AnalysisGeospatialCategoricalDataColor>
+    DefaultOpacity: (Number|Mapping)?
+    NullDataSettings: (AnalysisGeospatialNullDataSettings)?
+    NullDataVisibility: (AnalysisVisibility)?
+}
+
+/// 
+open class AnalysisGeospatialCategoricalDataColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    DataValue: String|Mapping
+}
+
+/// 
+open class AnalysisGeospatialCircleRadius {
+    Radius: (Number|Mapping)?
+}
+
+/// 
+open class AnalysisGeospatialCircleSymbolStyle {
+    CircleRadius: (AnalysisGeospatialCircleRadius)?
+    FillColor: (AnalysisGeospatialColor)?
+    StrokeColor: (AnalysisGeospatialColor)?
+    StrokeWidth: (AnalysisGeospatialLineWidth)?
+}
+
+/// 
+open class AnalysisGeospatialColor {
+    Categorical: (AnalysisGeospatialCategoricalColor)?
+    Gradient: (AnalysisGeospatialGradientColor)?
+    Solid: (AnalysisGeospatialSolidColor)?
+}
+
+typealias AnalysisGeospatialColorState = String|Mapping
+
 
 /// 
 open class AnalysisGeospatialCoordinateBounds {
@@ -1568,6 +1614,25 @@ open class AnalysisGeospatialCoordinateBounds {
     North: Number|Mapping
     South: Number|Mapping
     West: Number|Mapping
+}
+
+/// 
+open class AnalysisGeospatialDataSourceItem {
+    StaticFileDataSource: (AnalysisGeospatialStaticFileSource)?
+}
+
+/// 
+open class AnalysisGeospatialGradientColor {
+    DefaultOpacity: (Number|Mapping)?
+    NullDataSettings: (AnalysisGeospatialNullDataSettings)?
+    NullDataVisibility: (AnalysisVisibility)?
+    StepColors: Listing<AnalysisGeospatialGradientStepColor>
+}
+
+/// 
+open class AnalysisGeospatialGradientStepColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    DataValue: Number|Mapping
 }
 
 /// 
@@ -1583,6 +1648,71 @@ open class AnalysisGeospatialHeatmapConfiguration {
 /// 
 open class AnalysisGeospatialHeatmapDataColor {
     Color: String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping
+}
+
+/// 
+open class AnalysisGeospatialLayerColorField {
+    ColorDimensionsFields: (Listing<AnalysisDimensionField>)?
+    ColorValuesFields: (Listing<AnalysisMeasureField>)?
+}
+
+/// 
+open class AnalysisGeospatialLayerDefinition {
+    LineLayer: (AnalysisGeospatialLineLayer)?
+    PointLayer: (AnalysisGeospatialPointLayer)?
+    PolygonLayer: (AnalysisGeospatialPolygonLayer)?
+}
+
+/// 
+open class AnalysisGeospatialLayerItem {
+    Actions: (Listing<AnalysisLayerCustomAction>)?
+    DataSource: (AnalysisGeospatialDataSourceItem)?
+    JoinDefinition: (AnalysisGeospatialLayerJoinDefinition)?
+    Label: (String|Mapping)?
+    LayerDefinition: (AnalysisGeospatialLayerDefinition)?
+    LayerId: String|Mapping
+    LayerType: (AnalysisGeospatialLayerType)?
+    Tooltip: (AnalysisTooltipOptions)?
+    Visibility: (AnalysisVisibility)?
+}
+
+/// 
+open class AnalysisGeospatialLayerJoinDefinition {
+    ColorField: (AnalysisGeospatialLayerColorField)?
+    DatasetKeyField: (AnalysisUnaggregatedField)?
+    ShapeKeyField: (String|Mapping)?
+}
+
+/// 
+open class AnalysisGeospatialLayerMapConfiguration {
+    Legend: (AnalysisLegendOptions)?
+    MapLayers: (Listing<AnalysisGeospatialLayerItem>)?
+    MapState: (AnalysisGeospatialMapState)?
+    MapStyle: (AnalysisGeospatialMapStyle)?
+}
+
+typealias AnalysisGeospatialLayerType = String|Mapping
+
+
+/// 
+open class AnalysisGeospatialLineLayer {
+    Style: AnalysisGeospatialLineStyle
+}
+
+/// 
+open class AnalysisGeospatialLineStyle {
+    LineSymbolStyle: (AnalysisGeospatialLineSymbolStyle)?
+}
+
+/// 
+open class AnalysisGeospatialLineSymbolStyle {
+    FillColor: (AnalysisGeospatialColor)?
+    LineWidth: (AnalysisGeospatialLineWidth)?
+}
+
+/// 
+open class AnalysisGeospatialLineWidth {
+    LineWidth: (Number|Mapping)?
 }
 
 /// 
@@ -1608,6 +1738,22 @@ open class AnalysisGeospatialMapFieldWells {
     GeospatialMapAggregatedFieldWells: (AnalysisGeospatialMapAggregatedFieldWells)?
 }
 
+typealias AnalysisGeospatialMapNavigation = String|Mapping
+
+
+/// 
+open class AnalysisGeospatialMapState {
+    Bounds: (AnalysisGeospatialCoordinateBounds)?
+    MapNavigation: (AnalysisGeospatialMapNavigation)?
+}
+
+/// 
+open class AnalysisGeospatialMapStyle {
+    BackgroundColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    BaseMapStyle: (AnalysisBaseMapStyleType)?
+    BaseMapVisibility: (AnalysisVisibility)?
+}
+
 /// 
 open class AnalysisGeospatialMapStyleOptions {
     BaseMapStyle: (AnalysisBaseMapStyleType)?
@@ -1620,7 +1766,30 @@ open class AnalysisGeospatialMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
+open class AnalysisGeospatialNullDataSettings {
+    SymbolStyle: AnalysisGeospatialNullSymbolStyle
+}
+
+/// 
+open class AnalysisGeospatialNullSymbolStyle {
+    FillColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    StrokeColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
+    StrokeWidth: (Number|Mapping)?
+}
+
+/// 
+open class AnalysisGeospatialPointLayer {
+    Style: AnalysisGeospatialPointStyle
+}
+
+/// 
+open class AnalysisGeospatialPointStyle {
+    CircleSymbolStyle: (AnalysisGeospatialCircleSymbolStyle)?
 }
 
 /// 
@@ -1630,8 +1799,36 @@ open class AnalysisGeospatialPointStyleOptions {
     SelectedPointStyle: (AnalysisGeospatialSelectedPointStyle)?
 }
 
+/// 
+open class AnalysisGeospatialPolygonLayer {
+    Style: AnalysisGeospatialPolygonStyle
+}
+
+/// 
+open class AnalysisGeospatialPolygonStyle {
+    PolygonSymbolStyle: (AnalysisGeospatialPolygonSymbolStyle)?
+}
+
+/// 
+open class AnalysisGeospatialPolygonSymbolStyle {
+    FillColor: (AnalysisGeospatialColor)?
+    StrokeColor: (AnalysisGeospatialColor)?
+    StrokeWidth: (AnalysisGeospatialLineWidth)?
+}
+
 typealias AnalysisGeospatialSelectedPointStyle = String|Mapping
 
+
+/// Describes the properties for a solid color
+open class AnalysisGeospatialSolidColor {
+    Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
+    State: (AnalysisGeospatialColorState)?
+}
+
+/// 
+open class AnalysisGeospatialStaticFileSource {
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
 
 /// 
 open class AnalysisGeospatialWindowOptions {
@@ -1739,6 +1936,7 @@ open class AnalysisHeatMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1781,6 +1979,7 @@ open class AnalysisHistogramVisual {
     ChartConfiguration: (AnalysisHistogramConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1789,6 +1988,39 @@ typealias AnalysisHorizontalTextAlignment = String|Mapping
 
 typealias AnalysisIcon = String|Mapping
 
+
+/// 
+open class AnalysisImageCustomAction {
+    ActionOperations: Listing<AnalysisImageCustomActionOperation>
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Name: String|Mapping
+    Status: (AnalysisWidgetStatus)?
+    Trigger: AnalysisImageCustomActionTrigger
+}
+
+/// 
+open class AnalysisImageCustomActionOperation {
+    NavigationOperation: (AnalysisCustomActionNavigationOperation)?
+    SetParametersOperation: (AnalysisCustomActionSetParametersOperation)?
+    URLOperation: (AnalysisCustomActionURLOperation)?
+}
+
+typealias AnalysisImageCustomActionTrigger = String|Mapping
+
+
+/// 
+open class AnalysisImageInteractionOptions {
+    ImageMenuOption: (AnalysisImageMenuOption)?
+}
+
+typealias AnalysisImageMenuOption = Dynamic
+
+
+/// 
+open class AnalysisImageStaticFile {
+    Source: (AnalysisStaticFileSource)?
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
 
 /// 
 open class AnalysisInnerFilter {
@@ -1808,6 +2040,7 @@ open class AnalysisInsightVisual {
     InsightConfiguration: (AnalysisInsightConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1931,6 +2164,7 @@ open class AnalysisKPIVisual {
     ConditionalFormatting: (AnalysisKPIConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -1955,6 +2189,36 @@ open class AnalysisLabelOptions {
 }
 
 /// 
+open class AnalysisLayerCustomAction {
+    ActionOperations: Listing<AnalysisLayerCustomActionOperation>
+    CustomActionId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Name: String|Mapping
+    Status: (AnalysisWidgetStatus)?
+    Trigger: AnalysisLayerCustomActionTrigger
+}
+
+/// 
+open class AnalysisLayerCustomActionOperation {
+    FilterOperation: (AnalysisCustomActionFilterOperation)?
+    NavigationOperation: (AnalysisCustomActionNavigationOperation)?
+    SetParametersOperation: (AnalysisCustomActionSetParametersOperation)?
+    URLOperation: (AnalysisCustomActionURLOperation)?
+}
+
+typealias AnalysisLayerCustomActionTrigger = String|Mapping
+
+
+/// 
+open class AnalysisLayerMapVisual {
+    ChartConfiguration: (AnalysisGeospatialLayerMapConfiguration)?
+    DataSetIdentifier: String|Mapping
+    Subtitle: (AnalysisVisualSubtitleLabelOptions)?
+    Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
 open class AnalysisLayout {
     Configuration: AnalysisLayoutConfiguration
 }
@@ -1974,6 +2238,7 @@ open class AnalysisLegendOptions {
     Height: (String|Mapping)?
     Position: (AnalysisLegendPosition)?
     Title: (AnalysisLabelOptions)?
+    ValueFontConfiguration: (AnalysisFontConfiguration)?
     Visibility: (AnalysisVisibility)?
     Width: (String|Mapping)?
 }
@@ -2072,6 +2337,7 @@ open class AnalysisLineChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2515,6 +2781,7 @@ open class AnalysisPieChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2680,6 +2947,7 @@ open class AnalysisPivotTableVisual {
     ConditionalFormatting: (AnalysisPivotTableConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2693,6 +2961,61 @@ open class AnalysisPivotTotalOptions {
     TotalCellStyle: (AnalysisTableCellStyle)?
     TotalsVisibility: (AnalysisVisibility)?
     ValueCellStyle: (AnalysisTableCellStyle)?
+}
+
+/// 
+open class AnalysisPluginVisual {
+    ChartConfiguration: (AnalysisPluginVisualConfiguration)?
+    PluginArn: String|Mapping
+    Subtitle: (AnalysisVisualSubtitleLabelOptions)?
+    Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
+    VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+typealias AnalysisPluginVisualAxisName = String|Mapping
+
+
+/// 
+open class AnalysisPluginVisualConfiguration {
+    FieldWells: (Listing<AnalysisPluginVisualFieldWell>)?
+    SortConfiguration: (AnalysisPluginVisualSortConfiguration)?
+    VisualOptions: (AnalysisPluginVisualOptions)?
+}
+
+/// 
+open class AnalysisPluginVisualFieldWell {
+    AxisName: (AnalysisPluginVisualAxisName)?
+    Dimensions: (Listing<AnalysisDimensionField>)?
+    Measures: (Listing<AnalysisMeasureField>)?
+    Unaggregated: (Listing<AnalysisUnaggregatedField>)?
+}
+
+/// 
+open class AnalysisPluginVisualItemsLimitConfiguration {
+    ItemsLimit: (Number|Mapping)?
+}
+
+/// 
+open class AnalysisPluginVisualOptions {
+    VisualProperties: (Listing<AnalysisPluginVisualProperty>)?
+}
+
+/// 
+open class AnalysisPluginVisualProperty {
+    Name: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
+/// 
+open class AnalysisPluginVisualSortConfiguration {
+    PluginVisualTableQuerySort: (AnalysisPluginVisualTableQuerySort)?
+}
+
+/// 
+open class AnalysisPluginVisualTableQuerySort {
+    ItemsLimitConfiguration: (AnalysisPluginVisualItemsLimitConfiguration)?
+    RowSort: (Listing<AnalysisFieldSortOptions>)?
 }
 
 /// 
@@ -2780,6 +3103,7 @@ open class AnalysisRadarChartVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2949,6 +3273,7 @@ open class AnalysisSankeyDiagramVisual {
     ChartConfiguration: (AnalysisSankeyDiagramChartConfiguration)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -2996,6 +3321,7 @@ open class AnalysisScatterPlotVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3092,6 +3418,7 @@ open class AnalysisShapeConditionalFormat {
 ///             example a chart, pivot table, or narrative insight. Sheets can be associated with other
 ///             components, such as controls, filters, and so on.</p>
 open class AnalysisSheet {
+    Images: (Listing<AnalysisSheetImage>)?
     Name: (String|Mapping)?
     SheetId: (String(matches(Regex(#"^[\w\-]+$"#)))|Mapping)?
 }
@@ -3129,6 +3456,7 @@ open class AnalysisSheetDefinition {
     ContentType: (AnalysisSheetContentType)?
     Description: (String|Mapping)?
     FilterControls: (Listing<AnalysisFilterControl>)?
+    Images: (Listing<AnalysisSheetImage>)?
     Layouts: (Listing<AnalysisLayout>)?
     Name: (String|Mapping)?
     ParameterControls: (Listing<AnalysisParameterControl>)?
@@ -3148,6 +3476,46 @@ open class AnalysisSheetElementConfigurationOverrides {
 open class AnalysisSheetElementRenderingRule {
     ConfigurationOverrides: AnalysisSheetElementConfigurationOverrides
     Expression: String|Mapping
+}
+
+/// 
+open class AnalysisSheetImage {
+    Actions: (Listing<AnalysisImageCustomAction>)?
+    ImageContentAltText: (String|Mapping)?
+    Interactions: (AnalysisImageInteractionOptions)?
+    Scaling: (AnalysisSheetImageScalingConfiguration)?
+    SheetImageId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+    Source: AnalysisSheetImageSource
+    Tooltip: (AnalysisSheetImageTooltipConfiguration)?
+}
+
+/// 
+open class AnalysisSheetImageScalingConfiguration {
+    ScalingType: (AnalysisSheetImageScalingType)?
+}
+
+typealias AnalysisSheetImageScalingType = String|Mapping
+
+
+/// 
+open class AnalysisSheetImageSource {
+    SheetImageStaticFileSource: (AnalysisSheetImageStaticFileSource)?
+}
+
+/// 
+open class AnalysisSheetImageStaticFileSource {
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
+/// 
+open class AnalysisSheetImageTooltipConfiguration {
+    TooltipText: (AnalysisSheetImageTooltipText)?
+    Visibility: (AnalysisVisibility)?
+}
+
+/// 
+open class AnalysisSheetImageTooltipText {
+    PlainText: (String|Mapping)?
 }
 
 /// 
@@ -3229,8 +3597,38 @@ open class AnalysisSpacing {
     Top: (String|Mapping)?
 }
 
+/// 
+open class AnalysisSpatialStaticFile {
+    Source: (AnalysisStaticFileSource)?
+    StaticFileId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
+}
+
 typealias AnalysisSpecialValue = String|Mapping
 
+
+/// 
+open class AnalysisStaticFile {
+    ImageStaticFile: (AnalysisImageStaticFile)?
+    SpatialStaticFile: (AnalysisSpatialStaticFile)?
+}
+
+/// 
+open class AnalysisStaticFileS3SourceOptions {
+    BucketName: String|Mapping
+    ObjectKey: String|Mapping
+    Region: String|Mapping
+}
+
+/// 
+open class AnalysisStaticFileSource {
+    S3Options: (AnalysisStaticFileS3SourceOptions)?
+    UrlOptions: (AnalysisStaticFileUrlSourceOptions)?
+}
+
+/// 
+open class AnalysisStaticFileUrlSourceOptions {
+    Url: String|Mapping
+}
 
 /// 
 open class AnalysisStringDefaultValues {
@@ -3475,6 +3873,7 @@ open class AnalysisTableVisual {
     ConditionalFormatting: (AnalysisTableConditionalFormatting)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3701,6 +4100,7 @@ open class AnalysisTreeMapVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3763,9 +4163,11 @@ open class AnalysisVisual {
     HistogramVisual: (AnalysisHistogramVisual)?
     InsightVisual: (AnalysisInsightVisual)?
     KPIVisual: (AnalysisKPIVisual)?
+    LayerMapVisual: (AnalysisLayerMapVisual)?
     LineChartVisual: (AnalysisLineChartVisual)?
     PieChartVisual: (AnalysisPieChartVisual)?
     PivotTableVisual: (AnalysisPivotTableVisual)?
+    PluginVisual: (AnalysisPluginVisual)?
     RadarChartVisual: (AnalysisRadarChartVisual)?
     SankeyDiagramVisual: (AnalysisSankeyDiagramVisual)?
     ScatterPlotVisual: (AnalysisScatterPlotVisual)?
@@ -3870,6 +4272,7 @@ open class AnalysisWaterfallVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 
@@ -3934,6 +4337,7 @@ open class AnalysisWordCloudVisual {
     ColumnHierarchies: (Listing<AnalysisColumnHierarchy>)?
     Subtitle: (AnalysisVisualSubtitleLabelOptions)?
     Title: (AnalysisVisualTitleLabelOptions)?
+    VisualContentAltText: (String|Mapping)?
     VisualId: String(matches(Regex(#"^[\w\-]+$"#)))|Mapping
 }
 

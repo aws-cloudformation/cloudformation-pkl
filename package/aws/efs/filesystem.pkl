@@ -46,9 +46,12 @@ open class FileSystemReplicationConfiguration {
 /// Describes the destination file system in the replication configuration.
 open class FileSystemReplicationDestination {
     AvailabilityZoneName: (String|Mapping)?
-    FileSystemId: (String|Mapping)?
+    FileSystemId: (String(matches(Regex(#"^(arn:aws[-a-z]*:elasticfilesystem:[0-9a-z-:]+:file-system/fs-[0-9a-f]{8,40}|fs-[0-9a-f]{8,40})$"#)))|Mapping)?
     KmsKeyId: (String|Mapping)?
     Region: (String|Mapping)?
+    RoleArn: (String|Mapping)?
+    Status: (String|Mapping)?
+    StatusMessage: (String|Mapping)?
 }
 
 /// The ``AWS::EFS::FileSystem`` resource creates a new, empty file system in EFSlong (EFS). You must create a mount target ([AWS::EFS::MountTarget](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html)) to mount your EFS file system on an EC2 or other AWS cloud compute resource.

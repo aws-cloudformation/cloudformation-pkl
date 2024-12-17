@@ -9,7 +9,7 @@ typealias RoutingStrategyType = "SIMPLE"|"TERMINAL"
 
 /// 
 open class AliasRoutingStrategy {
-    FleetId: (String(matches(Regex(#"^fleet-\S+"#)))|Mapping)?
+    FleetId: (String(matches(Regex(#"^[a-z]*fleet-[a-zA-Z0-9\-]+"#)))|Mapping)?
     Message: (String|Mapping)?
     Type: RoutingStrategyType|Mapping
 }

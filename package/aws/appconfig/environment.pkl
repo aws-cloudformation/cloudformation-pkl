@@ -26,6 +26,9 @@ open class Environment extends cloudformation.Resource {
     /// The application ID.
     hidden ApplicationId: String(matches(Regex(#"[a-z0-9]{4,7}"#)))|Mapping
 
+    /// On resource deletion this controls whether the Deletion Protection check should be applied, bypassed, or (the default) whether the behavior should be controlled by the account-level Deletion Protection setting. See https://docs.aws.amazon.com/appconfig/latest/userguide/deletion-protection.html
+    hidden DeletionProtectionCheck: (EnvironmentDeletionProtectionCheck|Mapping)?
+
     /// A description of the environment.
     hidden Description: (String|Mapping)?
 
@@ -40,6 +43,7 @@ open class Environment extends cloudformation.Resource {
 
     Properties {
         ["ApplicationId"] = if (ApplicationId == null) null else ApplicationId
+        ["DeletionProtectionCheck"] = if (DeletionProtectionCheck == null) null else DeletionProtectionCheck
         ["Description"] = if (Description == null) null else Description
         ["Monitors"] = if (Monitors == null) null else Monitors
         ["Name"] = if (Name == null) null else Name
@@ -47,3 +51,6 @@ open class Environment extends cloudformation.Resource {
     }
 
 }
+
+
+typealias EnvironmentDeletionProtectionCheck = "ACCOUNT_DEFAULT"|"APPLY"|"BYPASS"

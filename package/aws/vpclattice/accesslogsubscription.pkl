@@ -21,7 +21,10 @@ open class AccessLogSubscription extends cloudformation.Resource {
     hidden DestinationArn: String(matches(Regex(#"^arn(:[a-z0-9]+([.-][a-z0-9]+)*){2}(:([a-z0-9]+([.-][a-z0-9]+)*)?){2}:([^/].*)?$"#)))|Mapping
 
     /// 
-    hidden ResourceIdentifier: (String(matches(Regex(#"^((((sn)|(svc))-[0-9a-z]{17})|(arn(:[a-z0-9]+([.-][a-z0-9]+)*){2}(:([a-z0-9]+([.-][a-z0-9]+)*)?){2}:((servicenetwork/sn)|(service/svc))-[0-9a-z]{17}))$"#)))|Mapping)?
+    hidden ResourceIdentifier: (String(matches(Regex(#"^((((sn)|(svc)|(rcfg))-[0-9a-z]{17})|(arn(:[a-z0-9]+([.-][a-z0-9]+)*){2}(:([a-z0-9]+([.-][a-z0-9]+)*)?){2}:((servicenetwork/sn)|(resourceconfiguration/rcfg)|(service/svc))-[0-9a-z]{17}))$"#)))|Mapping)?
+
+    /// 
+    hidden ServiceNetworkLogType: (AccessLogSubscriptionServiceNetworkLogType|Mapping)?
 
     /// 
     hidden Tags: (Listing<AccessLogSubscriptionTag>)?
@@ -29,7 +32,11 @@ open class AccessLogSubscription extends cloudformation.Resource {
     Properties {
         ["DestinationArn"] = if (DestinationArn == null) null else DestinationArn
         ["ResourceIdentifier"] = if (ResourceIdentifier == null) null else ResourceIdentifier
+        ["ServiceNetworkLogType"] = if (ServiceNetworkLogType == null) null else ServiceNetworkLogType
         ["Tags"] = if (Tags == null) null else Tags
     }
 
 }
+
+
+typealias AccessLogSubscriptionServiceNetworkLogType = "SERVICE"|"RESOURCE"

@@ -38,6 +38,94 @@ open class ScalingPolicyPredefinedMetricSpecification {
     ResourceLabel: (String|Mapping)?
 }
 
+/// Represents a CloudWatch metric of your choosing for a predictive scaling policy.
+open class ScalingPolicyPredictiveScalingCustomizedCapacityMetric {
+    MetricDataQueries: Listing<ScalingPolicyPredictiveScalingMetricDataQuery>
+}
+
+/// The customized load metric specification.
+open class ScalingPolicyPredictiveScalingCustomizedLoadMetric {
+    MetricDataQueries: Listing<ScalingPolicyPredictiveScalingMetricDataQuery>
+}
+
+/// One or more metric data queries to provide data points for a metric specification.
+open class ScalingPolicyPredictiveScalingCustomizedScalingMetric {
+    MetricDataQueries: Listing<ScalingPolicyPredictiveScalingMetricDataQuery>
+}
+
+/// Describes the scaling metric.
+open class ScalingPolicyPredictiveScalingMetric {
+    Dimensions: (Listing<ScalingPolicyPredictiveScalingMetricDimension>)?
+    MetricName: (String|Mapping)?
+    Namespace: (String|Mapping)?
+}
+
+/// The metric data to return. Also defines whether this call is returning data for one metric only, or whether it is performing a math expression on the values of returned metric statistics to create a new time series. A time series is a series of data points, each of which is associated with a timestamp.
+open class ScalingPolicyPredictiveScalingMetricDataQuery {
+    Expression: (String|Mapping)?
+    Id: (String|Mapping)?
+    Label: (String|Mapping)?
+    MetricStat: (ScalingPolicyPredictiveScalingMetricStat)?
+    ReturnData: (Boolean|Mapping)?
+}
+
+/// Describes the dimension of a metric.
+open class ScalingPolicyPredictiveScalingMetricDimension {
+    Name: (String|Mapping)?
+    Value: (String|Mapping)?
+}
+
+/// This structure specifies the metrics and target utilization settings for a predictive scaling policy. 
+///
+///  You must specify either a metric pair, or a load metric and a scaling metric individually. Specifying a metric pair instead of individual metrics provides a simpler way to configure metrics for a scaling policy. You choose the metric pair, and the policy automatically knows the correct sum and average statistics to use for the load metric and the scaling metric.
+open class ScalingPolicyPredictiveScalingMetricSpecification {
+    CustomizedCapacityMetricSpecification: (ScalingPolicyPredictiveScalingCustomizedCapacityMetric)?
+    CustomizedLoadMetricSpecification: (ScalingPolicyPredictiveScalingCustomizedLoadMetric)?
+    CustomizedScalingMetricSpecification: (ScalingPolicyPredictiveScalingCustomizedScalingMetric)?
+    PredefinedLoadMetricSpecification: (ScalingPolicyPredictiveScalingPredefinedLoadMetric)?
+    PredefinedMetricPairSpecification: (ScalingPolicyPredictiveScalingPredefinedMetricPair)?
+    PredefinedScalingMetricSpecification: (ScalingPolicyPredictiveScalingPredefinedScalingMetric)?
+    TargetValue: Number|Mapping
+}
+
+/// This structure defines the CloudWatch metric to return, along with the statistic and unit.
+open class ScalingPolicyPredictiveScalingMetricStat {
+    Metric: (ScalingPolicyPredictiveScalingMetric)?
+    Stat: (String|Mapping)?
+    Unit: (String|Mapping)?
+}
+
+/// Represents a predictive scaling policy configuration.
+open class ScalingPolicyPredictiveScalingPolicyConfiguration {
+    MaxCapacityBreachBehavior: (String|Mapping)?
+    MaxCapacityBuffer: (Int|Mapping)?
+    MetricSpecifications: Listing<ScalingPolicyPredictiveScalingMetricSpecification>
+    Mode: (String|Mapping)?
+    SchedulingBufferTime: (Int|Mapping)?
+}
+
+/// Describes a load metric for a predictive scaling policy. 
+///
+///  When returned in the output of ``DescribePolicies``, it indicates that a predictive scaling policy uses individually specified load and scaling metrics instead of a metric pair.
+open class ScalingPolicyPredictiveScalingPredefinedLoadMetric {
+    PredefinedMetricType: String|Mapping
+    ResourceLabel: (String|Mapping)?
+}
+
+/// Represents a metric pair for a predictive scaling policy.
+open class ScalingPolicyPredictiveScalingPredefinedMetricPair {
+    PredefinedMetricType: String|Mapping
+    ResourceLabel: (String|Mapping)?
+}
+
+/// Describes a scaling metric for a predictive scaling policy. 
+///
+///  When returned in the output of ``DescribePolicies``, it indicates that a predictive scaling policy uses individually specified load and scaling metrics instead of a metric pair.
+open class ScalingPolicyPredictiveScalingPredefinedScalingMetric {
+    PredefinedMetricType: String|Mapping
+    ResourceLabel: (String|Mapping)?
+}
+
 /// ``StepAdjustment`` specifies a step adjustment for the ``StepAdjustments`` property of the [AWS::ApplicationAutoScaling::ScalingPolicy StepScalingPolicyConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-applicationautoscaling-scalingpolicy-stepscalingpolicyconfiguration.html) property type. 
 ///
 ///  For the following examples, suppose that you have an alarm with a breach threshold of 50: 
@@ -133,6 +221,9 @@ open class ScalingPolicy extends cloudformation.Resource {
     ///   ``StepScaling``?Not supported for DynamoDB, Amazon Comprehend, Lambda, Amazon Keyspaces, Amazon MSK, Amazon ElastiCache, or Neptune.
     hidden PolicyType: String|Mapping
 
+    /// The predictive scaling policy configuration.
+    hidden PredictiveScalingPolicyConfiguration: (ScalingPolicyPredictiveScalingPolicyConfiguration)?
+
     /// The identifier of the resource associated with the scaling policy. This string consists of the resource type and unique identifier.
     ///
     ///   +  ECS service - The resource type is ``service`` and the unique identifier is the cluster name and service name. Example: ``service/my-cluster/my-service``.
@@ -200,6 +291,7 @@ open class ScalingPolicy extends cloudformation.Resource {
     Properties {
         ["PolicyName"] = if (PolicyName == null) null else PolicyName
         ["PolicyType"] = if (PolicyType == null) null else PolicyType
+        ["PredictiveScalingPolicyConfiguration"] = if (PredictiveScalingPolicyConfiguration == null) null else PredictiveScalingPolicyConfiguration
         ["ResourceId"] = if (ResourceId == null) null else ResourceId
         ["ScalableDimension"] = if (ScalableDimension == null) null else ScalableDimension
         ["ScalingTargetId"] = if (ScalingTargetId == null) null else ScalingTargetId

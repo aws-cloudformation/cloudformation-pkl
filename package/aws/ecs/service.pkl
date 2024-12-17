@@ -55,7 +55,7 @@ open class ServiceDeploymentConfiguration {
 
 typealias DeploymentControllerType = "CODE_DEPLOY"|"ECS"|"EXTERNAL"
 
-/// The deployment controller to use for the service. For more information, see [Amazon ECS deployment types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html) in the *Amazon Elastic Container Service Developer Guide*.
+/// The deployment controller to use for the service.
 open class ServiceDeploymentController {
     Type: (DeploymentControllerType|Mapping)?
 }
@@ -173,7 +173,7 @@ open class ServiceServiceConnectTlsConfiguration {
     RoleArn: (String|Mapping)?
 }
 
-/// The configuration for the Amazon EBS volume that Amazon ECS creates and manages on your behalf. These settings are used to create each Amazon EBS volume, with one volume created for each task in the service.
+/// The configuration for the Amazon EBS volume that Amazon ECS creates and manages on your behalf. These settings are used to create each Amazon EBS volume, with one volume created for each task in the service. For information about the supported launch types and operating systems, see [Supported operating systems and launch types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ebs-volumes.html#ebs-volumes-configuration) in the*Amazon Elastic Container Service Developer Guide*.
 ///
 ///  Many of these parameters map 1:1 with the Amazon EBS ``CreateVolume`` API request parameters.
 open class ServiceServiceManagedEBSVolumeConfiguration {
@@ -229,6 +229,13 @@ open class ServiceTimeoutConfiguration {
     PerRequestTimeoutSeconds: (Int|Mapping)?
 }
 
+/// The VPC Lattice configuration for your service that holds the information for the target group(s) Amazon ECS tasks will be registered to.
+open class ServiceVpcLatticeConfiguration {
+    PortName: String|Mapping
+    RoleArn: String|Mapping
+    TargetGroupArn: String|Mapping
+}
+
 /// The ``AWS::ECS::Service`` resource creates an Amazon Elastic Container Service (Amazon ECS) service that runs and maintains the requested number of tasks and associated load balancers.
 ///
 ///   The stack update fails if you change any properties that require replacement and at least one ECS Service Connect ``ServiceConnectConfiguration`` property the is configured. This is because AWS CloudFormation creates the replacement service first, but each ``ServiceConnectService`` must have a name that is unique in the namespace.
@@ -237,6 +244,11 @@ open class Service extends cloudformation.Resource {
 
     Type = "AWS::ECS::Service"
 
+
+    /// Indicates whether to use Availability Zone rebalancing for the service.
+    ///
+    ///  For more information, see [Balancing an Amazon ECS service across Availability Zones](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html) in the *Amazon Elastic Container Service Developer Guide*.
+    hidden AvailabilityZoneRebalancing: (ServiceAvailabilityZoneRebalancing|Mapping)?
 
     /// The capacity provider strategy to use for the service.
     ///
@@ -267,10 +279,9 @@ open class Service extends cloudformation.Resource {
     /// Determines whether the execute command functionality is turned on for the service. If ``true``, the execute command functionality is turned on for all containers in tasks as part of the service.
     hidden EnableExecuteCommand: (Boolean|Mapping)?
 
-    /// The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing target health checks after a task has first started. This is only used when your service is configured to use a load balancer. If your service has a load balancer defined and you don't specify a health check grace period value, the default value of ``0`` is used.
+    /// The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing, VPC Lattice, and container health checks after a task has first started. If you don't specify a health check grace period value, the default value of ``0`` is used. If you don't use any of the health checks, then ``healthCheckGracePeriodSeconds`` is unused.
     ///
-    ///  If you do not use an Elastic Load Balancing, we recommend that you use the ``startPeriod`` in the task definition health check parameters. For more information, see [Health check](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_HealthCheck.html).
-    ///  If your service's tasks take a while to start and respond to Elastic Load Balancing health checks, you can specify a health check grace period of up to 2,147,483,647 seconds (about 69 years). During that time, the Amazon ECS service scheduler ignores health check status. This grace period can prevent the service scheduler from marking tasks as unhealthy and stopping them before they have time to come up.
+    ///  If your service's tasks take a while to start and respond to health checks, you can specify a health check grace period of up to 2,147,483,647 seconds (about 69 years). During that time, the Amazon ECS service scheduler ignores health check status. This grace period can prevent the service scheduler from marking tasks as unhealthy and stopping them before they have time to come up.
     hidden HealthCheckGracePeriodSeconds: (Int|Mapping)?
 
     /// The launch type on which to run your service. For more information, see [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html) in the *Amazon Elastic Container Service Developer Guide*.
@@ -347,7 +358,11 @@ open class Service extends cloudformation.Resource {
     /// The configuration for a volume specified in the task definition as a volume that is configured at launch time. Currently, the only supported volume type is an Amazon EBS volume.
     hidden VolumeConfigurations: (Listing<ServiceServiceVolumeConfiguration>)?
 
+    /// The VPC Lattice configuration for the service being created.
+    hidden VpcLatticeConfigurations: (Listing<ServiceVpcLatticeConfiguration>)?
+
     Properties {
+        ["AvailabilityZoneRebalancing"] = if (AvailabilityZoneRebalancing == null) null else AvailabilityZoneRebalancing
         ["CapacityProviderStrategy"] = if (CapacityProviderStrategy == null) null else CapacityProviderStrategy
         ["Cluster"] = if (Cluster == null) null else Cluster
         ["DeploymentConfiguration"] = if (DeploymentConfiguration == null) null else DeploymentConfiguration
@@ -371,10 +386,13 @@ open class Service extends cloudformation.Resource {
         ["Tags"] = if (Tags == null) null else Tags
         ["TaskDefinition"] = if (TaskDefinition == null) null else TaskDefinition
         ["VolumeConfigurations"] = if (VolumeConfigurations == null) null else VolumeConfigurations
+        ["VpcLatticeConfigurations"] = if (VpcLatticeConfigurations == null) null else VpcLatticeConfigurations
     }
 
 }
 
+
+typealias ServiceAvailabilityZoneRebalancing = "ENABLED"|"DISABLED"
 
 typealias ServiceLaunchType = "EC2"|"FARGATE"|"EXTERNAL"
 

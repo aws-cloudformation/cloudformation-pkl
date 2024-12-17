@@ -71,12 +71,13 @@ open class PipelineEncryptionKey {
     Type: String|Mapping
 }
 
-typealias FailureConditionsResult = "ROLLBACK"
+typealias FailureConditionsResult = "ROLLBACK"|"RETRY"
 
 /// The configuration that specifies the result, such as rollback, to occur upon stage failure
 open class PipelineFailureConditions {
     Conditions: (Listing<PipelineCondition>)?
     Result: (FailureConditionsResult|Mapping)?
+    RetryConfiguration: (Dynamic)?
 }
 
 /// The Git repository branches specified as filter criteria to start the pipeline.

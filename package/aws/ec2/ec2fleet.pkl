@@ -23,6 +23,19 @@ open class EC2FleetBaselineEbsBandwidthMbpsRequest {
     Min: (Int|Mapping)?
 }
 
+/// 
+open class EC2FleetBaselinePerformanceFactorsRequest {
+    Cpu: (EC2FleetCpuPerformanceFactorRequest)?
+}
+
+/// 
+open class EC2FleetBlockDeviceMapping {
+    DeviceName: (String|Mapping)?
+    Ebs: (EC2FleetEbsBlockDevice)?
+    NoDevice: (String|Mapping)?
+    VirtualName: (String|Mapping)?
+}
+
 typealias CapacityRebalanceReplacementStrategy = "launch"|"launch-before-terminate"
 
 /// 
@@ -36,6 +49,24 @@ typealias CapacityReservationOptionsRequestUsageStrategy = "use-capacity-reserva
 /// 
 open class EC2FleetCapacityReservationOptionsRequest {
     UsageStrategy: (CapacityReservationOptionsRequestUsageStrategy|Mapping)?
+}
+
+/// 
+open class EC2FleetCpuPerformanceFactorRequest {
+    References: (Listing<EC2FleetPerformanceFactorReferenceRequest>)?
+}
+
+typealias EbsBlockDeviceVolumeType = "gp2"|"gp3"|"io1"|"io2"|"sc1"|"st1"|"standard"
+
+/// 
+open class EC2FleetEbsBlockDevice {
+    DeleteOnTermination: (Boolean|Mapping)?
+    Encrypted: (Boolean|Mapping)?
+    Iops: (Int|Mapping)?
+    KmsKeyId: (String|Mapping)?
+    SnapshotId: (String|Mapping)?
+    VolumeSize: (Int|Mapping)?
+    VolumeType: (EbsBlockDeviceVolumeType|Mapping)?
 }
 
 /// 
@@ -73,7 +104,7 @@ typealias InstanceRequirementsRequestBareMetal = "included"|"required"|"excluded
 
 typealias InstanceRequirementsRequestBurstablePerformance = "included"|"required"|"excluded"
 
-typealias InstanceRequirementsRequestCpuManufacturers = "intel"|"amd"|"amazon-web-services"
+typealias InstanceRequirementsRequestCpuManufacturers = "intel"|"amd"|"amazon-web-services"|"apple"
 
 typealias InstanceRequirementsRequestInstanceGenerations = "current"|"previous"
 
@@ -91,6 +122,7 @@ open class EC2FleetInstanceRequirementsRequest {
     AllowedInstanceTypes: (Listing<String|Mapping>)?
     BareMetal: (InstanceRequirementsRequestBareMetal|Mapping)?
     BaselineEbsBandwidthMbps: (EC2FleetBaselineEbsBandwidthMbpsRequest)?
+    BaselinePerformanceFactors: (EC2FleetBaselinePerformanceFactorsRequest)?
     BurstablePerformance: (InstanceRequirementsRequestBurstablePerformance|Mapping)?
     CpuManufacturers: (Listing<InstanceRequirementsRequestCpuManufacturers|Mapping>)?
     ExcludedInstanceTypes: (Listing<String|Mapping>)?
@@ -146,6 +178,11 @@ open class EC2FleetOnDemandOptionsRequest {
     MinTargetCapacity: (Int|Mapping)?
     SingleAvailabilityZone: (Boolean|Mapping)?
     SingleInstanceType: (Boolean|Mapping)?
+}
+
+/// 
+open class EC2FleetPerformanceFactorReferenceRequest {
+    InstanceFamily: (String|Mapping)?
 }
 
 /// 

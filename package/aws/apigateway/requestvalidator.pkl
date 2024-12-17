@@ -11,16 +11,16 @@ open class RequestValidator extends cloudformation.Resource {
     Type = "AWS::ApiGateway::RequestValidator"
 
 
-    /// The name of this RequestValidator
+    /// 
     hidden Name: (String|Mapping)?
 
-    /// The string identifier of the associated RestApi.
+    /// 
     hidden RestApiId: String|Mapping
 
-    /// A Boolean flag to indicate whether to validate a request body according to the configured Model schema.
+    /// 
     hidden ValidateRequestBody: (Boolean|Mapping)?
 
-    /// A Boolean flag to indicate whether to validate request parameters (``true``) or not (``false``).
+    /// 
     hidden ValidateRequestParameters: (Boolean|Mapping)?
 
     Properties {

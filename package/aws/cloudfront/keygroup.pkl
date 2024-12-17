@@ -5,20 +5,24 @@ module aws.cloudfront.keygroup
 
 import "../../cloudformation.pkl"
 
-/// 
+/// A key group configuration.
+///
+///  A key group contains a list of public keys that you can use with [CloudFront signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html).
 open class KeyGroupKeyGroupConfig {
     Comment: (String|Mapping)?
     Items: Listing<String|Mapping>
     Name: String|Mapping
 }
 
-/// Resource Type definition for AWS::CloudFront::KeyGroup
+/// A key group.
+///
+///  A key group contains a list of public keys that you can use with [CloudFront signed URLs and signed cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html).
 open class KeyGroup extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::KeyGroup"
 
 
-    /// 
+    /// The key group configuration.
     hidden KeyGroupConfig: KeyGroupKeyGroupConfig
 
     Properties {

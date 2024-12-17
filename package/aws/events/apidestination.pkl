@@ -12,7 +12,7 @@ open class ApiDestination extends cloudformation.Resource {
 
 
     /// The arn of the connection.
-    hidden ConnectionArn: String|Mapping
+    hidden ConnectionArn: String(matches(Regex(#"^arn:aws([a-z]|\-)*:events:([a-z]|\d|\-)*:([0-9]{12})?:connection/[\.\-_A-Za-z0-9]+/[\-A-Za-z0-9]+$"#)))|Mapping
 
     /// 
     hidden Description: (String|Mapping)?
@@ -21,13 +21,13 @@ open class ApiDestination extends cloudformation.Resource {
     hidden HttpMethod: ApiDestinationHttpMethod|Mapping
 
     /// Url endpoint to invoke.
-    hidden InvocationEndpoint: String|Mapping
+    hidden InvocationEndpoint: String(matches(Regex(#"^((%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@\x26=+$,A-Za-z0-9])+)([).!';/?:,])?$"#)))|Mapping
 
     /// 
     hidden InvocationRateLimitPerSecond: (Int|Mapping)?
 
     /// Name of the apiDestination.
-    hidden Name: (String|Mapping)?
+    hidden Name: (String(matches(Regex(#"[\.\-_A-Za-z0-9]+"#)))|Mapping)?
 
     Properties {
         ["ConnectionArn"] = if (ConnectionArn == null) null else ConnectionArn

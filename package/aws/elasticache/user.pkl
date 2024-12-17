@@ -23,7 +23,7 @@ open class User extends cloudformation.Resource {
     /// 
     hidden AuthenticationMode: (Dynamic)?
 
-    /// Must be redis.
+    /// The target cache engine for the user.
     hidden Engine: UserEngine|Mapping
 
     /// Indicates a password is not required for this user account.
@@ -55,4 +55,4 @@ open class User extends cloudformation.Resource {
 }
 
 
-typealias UserEngine = "redis"
+typealias UserEngine = "redis"|"valkey"

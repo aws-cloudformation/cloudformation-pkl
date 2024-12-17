@@ -30,7 +30,7 @@ open class Bucket extends cloudformation.Resource {
     hidden BucketName: String(matches(Regex(#"^[a-z0-9][a-z0-9-]{1,52}[a-z0-9]$"#)))|Mapping
 
     /// The ID of the bundle to use for the bucket.
-    hidden BundleId: BucketBundleId|Mapping
+    hidden BundleId: String|Mapping
 
     /// Specifies whether to enable or disable versioning of objects in the bucket.
     hidden ObjectVersioning: (Boolean|Mapping)?
@@ -55,6 +55,3 @@ open class Bucket extends cloudformation.Resource {
     }
 
 }
-
-
-typealias BucketBundleId = "small_1_0"|"medium_1_0"|"large_1_0"

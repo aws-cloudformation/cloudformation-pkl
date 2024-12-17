@@ -33,19 +33,19 @@ open class RotationSchedule extends cloudformation.Resource {
     Type = "AWS::SecretsManager::RotationSchedule"
 
 
-    /// 
+    /// Creates a new Lambda rotation function based on one of the Secrets Manager rotation function templates. To use a rotation function that already exists, specify RotationLambdaARN instead.
     hidden HostedRotationLambda: (RotationScheduleHostedRotationLambda)?
 
-    /// 
+    /// Specifies whether to rotate the secret immediately or wait until the next scheduled rotation window.
     hidden RotateImmediatelyOnUpdate: (Boolean|Mapping)?
 
-    /// 
+    /// The ARN of an existing Lambda rotation function. To specify a rotation function that is also defined in this template, use the Ref function.
     hidden RotationLambdaARN: (String|Mapping)?
 
-    /// 
+    /// A structure that defines the rotation configuration for this secret.
     hidden RotationRules: (RotationScheduleRotationRules)?
 
-    /// 
+    /// The ARN or name of the secret to rotate.
     hidden SecretId: String|Mapping
 
     Properties {

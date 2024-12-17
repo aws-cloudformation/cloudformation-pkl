@@ -26,8 +26,8 @@ typealias CampaignCompression = String|Mapping
 
 /// 
 open class CampaignConditionBasedCollectionScheme {
-    ConditionLanguageVersion: (Int|Mapping)?
-    Expression: String|Mapping
+    ConditionLanguageVersion: (CampaignLanguageVersion)?
+    Expression: CampaignEventExpression
     MinimumTriggerIntervalMs: (Number|Mapping)?
     TriggerMode: (CampaignTriggerMode)?
 }
@@ -59,7 +59,36 @@ open class CampaignDataDestinationConfigTimestreamConfig {
 typealias CampaignDataFormat = String|Mapping
 
 
+/// 
+open class CampaignDataPartition {
+    Id: CampaignDataPartitionId
+    StorageOptions: CampaignDataPartitionStorageOptions
+    UploadOptions: (CampaignDataPartitionUploadOptions)?
+}
+
+typealias CampaignDataPartitionId = String|Mapping
+
+
+/// 
+open class CampaignDataPartitionStorageOptions {
+    MaximumSize: CampaignStorageMaximumSize
+    MinimumTimeToLive: CampaignStorageMinimumTimeToLive
+    StorageLocation: CampaignStorageLocation
+}
+
+/// 
+open class CampaignDataPartitionUploadOptions {
+    ConditionLanguageVersion: (CampaignLanguageVersion)?
+    Expression: CampaignEventExpression
+}
+
 typealias CampaignDiagnosticsMode = String|Mapping
+
+
+typealias CampaignEventExpression = String|Mapping
+
+
+typealias CampaignLanguageVersion = Int|Mapping
 
 
 /// 
@@ -99,6 +128,7 @@ open class CampaignSignalFetchInformation {
 
 /// 
 open class CampaignSignalInformation {
+    DataPartitionId: (CampaignDataPartitionId)?
     MaxSampleCount: (Number|Mapping)?
     MinimumSamplingIntervalMs: (Number|Mapping)?
     Name: String(matches(Regex(#"^[\w|*|-]+(\.[\w|*|-]+)*$"#)))|Mapping
@@ -108,6 +138,33 @@ typealias CampaignSpoolingMode = String|Mapping
 
 
 typealias CampaignStorageCompressionFormat = String|Mapping
+
+
+typealias CampaignStorageLocation = String|Mapping
+
+
+/// 
+open class CampaignStorageMaximumSize {
+    Unit: CampaignStorageMaximumSizeUnit
+    Value: CampaignStorageMaximumSizeValue
+}
+
+typealias CampaignStorageMaximumSizeUnit = String|Mapping
+
+
+typealias CampaignStorageMaximumSizeValue = Int|Mapping
+
+
+/// 
+open class CampaignStorageMinimumTimeToLive {
+    Unit: CampaignStorageMinimumTimeToLiveUnit
+    Value: CampaignStorageMinimumTimeToLiveValue
+}
+
+typealias CampaignStorageMinimumTimeToLiveUnit = String|Mapping
+
+
+typealias CampaignStorageMinimumTimeToLiveValue = Int|Mapping
 
 
 /// 
@@ -169,6 +226,9 @@ open class Campaign extends cloudformation.Resource {
     hidden DataExtraDimensions: (Listing<String|Mapping>)?
 
     /// 
+    hidden DataPartitions: (Listing<CampaignDataPartition>)?
+
+    /// 
     hidden Description: (String(matches(Regex(#"^[^\u0000-\u001F\u007F]+$"#)))|Mapping)?
 
     /// 
@@ -213,6 +273,7 @@ open class Campaign extends cloudformation.Resource {
         ["Compression"] = if (Compression == null) null else Compression
         ["DataDestinationConfigs"] = if (DataDestinationConfigs == null) null else DataDestinationConfigs
         ["DataExtraDimensions"] = if (DataExtraDimensions == null) null else DataExtraDimensions
+        ["DataPartitions"] = if (DataPartitions == null) null else DataPartitions
         ["Description"] = if (Description == null) null else Description
         ["DiagnosticsMode"] = if (DiagnosticsMode == null) null else DiagnosticsMode
         ["ExpiryTime"] = if (ExpiryTime == null) null else ExpiryTime

@@ -37,6 +37,7 @@ open class MembershipProtectedQueryS3OutputConfiguration {
     Bucket: String|Mapping
     KeyPrefix: (String|Mapping)?
     ResultFormat: MembershipResultFormat
+    SingleFileOutput: (Boolean|Mapping)?
 }
 
 typealias MembershipResultFormat = String|Mapping

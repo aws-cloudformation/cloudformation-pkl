@@ -5,37 +5,48 @@ module aws.ram.resourceshare
 
 import "../../cloudformation.pkl"
 
-/// 
+/// A key-value pair to associate with a resource.
 open class ResourceShareTag {
     Key: String|Mapping
     Value: String|Mapping
 }
 
-/// Resource Type definition for AWS::RAM::ResourceShare
+/// Resource type definition for AWS::RAM::ResourceShare
 open class ResourceShare extends cloudformation.Resource {
 
     Type = "AWS::RAM::ResourceShare"
 
 
-    /// 
+    /// Specifies whether principals outside your organization in AWS Organizations can be associated with a resource share. A value of `true` lets you share with individual AWS accounts that are not in your organization. A value of `false` only has meaning if your account is a member of an AWS Organization. The default value is `true`.
     hidden AllowExternalPrincipals: (Boolean|Mapping)?
 
-    /// 
+    /// Specifies the name of the resource share.
     hidden Name: String|Mapping
 
-    /// 
+    /// Specifies the [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of the AWS RAM permission to associate with the resource share. If you do not specify an ARN for the permission, AWS RAM automatically attaches the default version of the permission for each resource type. You can associate only one permission with each resource type included in the resource share.
     hidden PermissionArns: (Listing<String|Mapping>)?
 
+    /// Specifies the principals to associate with the resource share. The possible values are:
+    ///
     /// 
+    /// - An AWS account ID
+    /// 
+    /// - An Amazon Resource Name (ARN) of an organization in AWS Organizations
+    /// 
+    /// - An ARN of an organizational unit (OU) in AWS Organizations
+    /// 
+    /// - An ARN of an IAM role
+    /// 
+    /// - An ARN of an IAM user
     hidden Principals: (Listing<String|Mapping>)?
 
-    /// 
+    /// Specifies a list of one or more ARNs of the resources to associate with the resource share.
     hidden ResourceArns: (Listing<String|Mapping>)?
 
-    /// 
+    /// Specifies from which source accounts the service principal has access to the resources in this resource share.
     hidden Sources: (Listing<String|Mapping>)?
 
-    /// 
+    /// Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources associated with the resource share.
     hidden Tags: (Listing<ResourceShareTag>)?
 
     Properties {

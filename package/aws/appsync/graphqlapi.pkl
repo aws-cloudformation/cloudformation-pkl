@@ -29,7 +29,7 @@ open class GraphQLApiEnhancedMetricsConfig {
 
 /// 
 open class GraphQLApiLambdaAuthorizerConfig {
-    AuthorizerResultTtlInSeconds: (Number|Mapping)?
+    AuthorizerResultTtlInSeconds: (Int|Mapping)?
     AuthorizerUri: (String|Mapping)?
     IdentityValidationExpression: (String|Mapping)?
 }
@@ -69,57 +69,66 @@ open class GraphQLApi extends cloudformation.Resource {
     Type = "AWS::AppSync::GraphQLApi"
 
 
-    /// 
+    /// A list of additional authentication providers for the GraphqlApi API.
     hidden AdditionalAuthenticationProviders: (Listing<GraphQLApiAdditionalAuthenticationProvider>)?
 
-    /// 
+    /// The value that indicates whether the GraphQL API is a standard API (GRAPHQL) or merged API (MERGED).
     hidden ApiType: (String|Mapping)?
 
-    /// 
+    /// Security configuration for your GraphQL API
     hidden AuthenticationType: String|Mapping
 
-    /// 
+    /// Enables and controls the enhanced metrics feature. Enhanced metrics emit granular data on API usage and performance such as AppSync request and error counts, latency, and cache hits/misses. All enhanced metric data is sent to your CloudWatch account, and you can configure the types of data that will be sent.
     hidden EnhancedMetricsConfig: (GraphQLApiEnhancedMetricsConfig)?
 
-    /// 
-    hidden EnvironmentVariables: (Dynamic)?
+    /// A map containing the list of resources with their properties and environment variables.
+    hidden EnvironmentVariables: (GraphQLApiGraphQLApiEnvironmentVariables)?
 
-    /// 
+    /// Sets the value of the GraphQL API to enable (ENABLED) or disable (DISABLED) introspection. If no value is provided, the introspection configuration will be set to ENABLED by default. This field will produce an error if the operation attempts to use the introspection feature while this field is disabled.
     hidden IntrospectionConfig: (String|Mapping)?
 
-    /// 
+    /// A LambdaAuthorizerConfig holds configuration on how to authorize AWS AppSync API access when using the AWS_LAMBDA authorizer mode. Be aware that an AWS AppSync API may have only one Lambda authorizer configured at a time.
     hidden LambdaAuthorizerConfig: (GraphQLApiLambdaAuthorizerConfig)?
 
-    /// 
+    /// The Amazon CloudWatch Logs configuration.
     hidden LogConfig: (GraphQLApiLogConfig)?
 
-    /// 
+    /// The AWS Identity and Access Management service role ARN for a merged API. 
     hidden MergedApiExecutionRoleArn: (String|Mapping)?
 
-    /// 
+    /// The API name
     hidden Name: String|Mapping
 
-    /// 
+    /// The OpenID Connect configuration.
     hidden OpenIDConnectConfig: (GraphQLApiOpenIDConnectConfig)?
 
-    /// 
+    /// The owner contact information for an API resource.
     hidden OwnerContact: (String|Mapping)?
 
-    /// 
+    /// The maximum depth a query can have in a single request. Depth refers to the amount of nested levels allowed in the body of query.
     hidden QueryDepthLimit: (Int|Mapping)?
 
-    /// 
+    /// The maximum number of resolvers that can be invoked in a single request.
     hidden ResolverCountLimit: (Int|Mapping)?
 
+    /// An arbitrary set of tags (key-value pairs) for this GraphQL API.
+    ///
+    /// 
     /// 
     hidden Tags: (Listing<GraphQLApiTag>)?
 
+    /// Optional authorization configuration for using Amazon Cognito user pools with your GraphQL endpoint.
+    ///
+    /// 
     /// 
     hidden UserPoolConfig: (GraphQLApiUserPoolConfig)?
 
-    /// 
+    /// Sets the scope of the GraphQL API to public (GLOBAL) or private (PRIVATE). By default, the scope is set to Global if no value is provided.
     hidden Visibility: (String|Mapping)?
 
+    /// A flag indicating whether to use AWS X-Ray tracing for this GraphqlApi.
+    ///
+    /// 
     /// 
     hidden XrayEnabled: (Boolean|Mapping)?
 
@@ -145,3 +154,6 @@ open class GraphQLApi extends cloudformation.Resource {
     }
 
 }
+
+
+typealias GraphQLApiGraphQLApiEnvironmentVariables = Mapping<String, Any>

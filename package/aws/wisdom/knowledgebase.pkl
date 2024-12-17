@@ -11,8 +11,39 @@ open class KnowledgeBaseAppIntegrationsConfiguration {
     ObjectFields: (Listing<String|Mapping>)?
 }
 
+/// 
+open class KnowledgeBaseBedrockFoundationModelConfiguration {
+    ModelArn: String(matches(Regex(#"^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}::foundation-model\/anthropic.claude-3-haiku-20240307-v1:0$"#)))|Mapping
+    ParsingPrompt: (Dynamic)?
+}
+
+/// 
+open class KnowledgeBaseFixedSizeChunkingConfiguration {
+    MaxTokens: Number|Mapping
+    OverlapPercentage: Number|Mapping
+}
+
+/// 
+open class KnowledgeBaseHierarchicalChunkingConfiguration {
+    LevelConfigurations: Listing<KnowledgeBaseHierarchicalChunkingLevelConfiguration>
+    OverlapTokens: Number|Mapping
+}
+
+/// 
+open class KnowledgeBaseHierarchicalChunkingLevelConfiguration {
+    MaxTokens: Number|Mapping
+}
+
 typealias KnowledgeBaseKnowledgeBaseType = String|Mapping
 
+
+typealias KnowledgeBaseManagedSourceConfiguration = KnowledgeBaseManagedSourceConfiguration0
+
+
+/// 
+open class KnowledgeBaseManagedSourceConfiguration0 {
+    WebCrawlerConfiguration: KnowledgeBaseWebCrawlerConfiguration
+}
 
 /// 
 open class KnowledgeBaseRenderingConfiguration {
@@ -20,19 +51,62 @@ open class KnowledgeBaseRenderingConfiguration {
 }
 
 /// 
+open class KnowledgeBaseSeedUrl {
+    Url: (String(matches(Regex(#"^https?://[A-Za-z0-9][^\s]*$"#)))|Mapping)?
+}
+
+/// 
+open class KnowledgeBaseSemanticChunkingConfiguration {
+    BreakpointPercentileThreshold: Number|Mapping
+    BufferSize: Number|Mapping
+    MaxTokens: Number|Mapping
+}
+
+/// 
 open class KnowledgeBaseServerSideEncryptionConfiguration {
     KmsKeyId: (String|Mapping)?
 }
 
+typealias KnowledgeBaseSourceConfiguration = KnowledgeBaseSourceConfigurationAppIntegrationsConfiguration|KnowledgeBaseSourceConfigurationManagedSourceConfiguration
+
+
 /// 
-open class KnowledgeBaseSourceConfiguration {
-    AppIntegrations: (KnowledgeBaseAppIntegrationsConfiguration)?
+open class KnowledgeBaseSourceConfigurationAppIntegrationsConfiguration {
+    AppIntegrations: KnowledgeBaseAppIntegrationsConfiguration
+}
+
+/// 
+open class KnowledgeBaseSourceConfigurationManagedSourceConfiguration {
+    ManagedSourceConfiguration: KnowledgeBaseManagedSourceConfiguration
 }
 
 /// 
 open class KnowledgeBaseTag {
     Key: String(matches(Regex(#"^(?!aws:)[a-zA-Z+-=._:/]+$"#)))|Mapping
     Value: String|Mapping
+}
+
+typealias KnowledgeBaseUrlFilterList = Listing<(KnowledgeBaseUrlFilterPattern)?>
+
+
+typealias KnowledgeBaseUrlFilterPattern = String|Mapping
+
+
+/// 
+open class KnowledgeBaseVectorIngestionConfiguration {
+    ChunkingConfiguration: (Dynamic)?
+    ParsingConfiguration: (Dynamic)?
+}
+
+typealias WebCrawlerConfigurationScope = "HOST_ONLY"|"SUBDOMAINS"
+
+/// 
+open class KnowledgeBaseWebCrawlerConfiguration {
+    CrawlerLimits: (Dynamic)?
+    ExclusionFilters: (KnowledgeBaseUrlFilterList)?
+    InclusionFilters: (KnowledgeBaseUrlFilterList)?
+    Scope: (WebCrawlerConfigurationScope|Mapping)?
+    UrlConfiguration: Dynamic
 }
 
 /// Definition of AWS::Wisdom::KnowledgeBase Resource Type
@@ -62,6 +136,9 @@ open class KnowledgeBase extends cloudformation.Resource {
     /// 
     hidden Tags: (Listing<KnowledgeBaseTag>)?
 
+    /// 
+    hidden VectorIngestionConfiguration: (KnowledgeBaseVectorIngestionConfiguration)?
+
     Properties {
         ["Description"] = if (Description == null) null else Description
         ["KnowledgeBaseType"] = if (KnowledgeBaseType == null) null else KnowledgeBaseType
@@ -70,6 +147,7 @@ open class KnowledgeBase extends cloudformation.Resource {
         ["ServerSideEncryptionConfiguration"] = if (ServerSideEncryptionConfiguration == null) null else ServerSideEncryptionConfiguration
         ["SourceConfiguration"] = if (SourceConfiguration == null) null else SourceConfiguration
         ["Tags"] = if (Tags == null) null else Tags
+        ["VectorIngestionConfiguration"] = if (VectorIngestionConfiguration == null) null else VectorIngestionConfiguration
     }
 
 }

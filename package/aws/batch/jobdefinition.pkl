@@ -6,25 +6,18 @@ module aws.batch.jobdefinition
 import "../../cloudformation.pkl"
 
 /// 
-open class JobDefinitionAuthorizationConfig {
-    AccessPointId: (String|Mapping)?
-    Iam: (String|Mapping)?
-}
-
-/// 
 open class JobDefinitionContainerProperties {
     Command: (Listing<String|Mapping>)?
     Environment: (Listing<JobDefinitionEnvironment>)?
     EphemeralStorage: (JobDefinitionEphemeralStorage)?
     ExecutionRoleArn: (String|Mapping)?
-    FargatePlatformConfiguration: (JobDefinitionFargatePlatformConfiguration)?
+    FargatePlatformConfiguration: (Dynamic)?
     Image: String|Mapping
-    InstanceType: (String|Mapping)?
     JobRoleArn: (String|Mapping)?
     LinuxParameters: (JobDefinitionLinuxParameters)?
     LogConfiguration: (JobDefinitionLogConfiguration)?
     Memory: (Int|Mapping)?
-    MountPoints: (Listing<JobDefinitionMountPoints>)?
+    MountPoints: (Listing<JobDefinitionMountPoint>)?
     NetworkConfiguration: (JobDefinitionNetworkConfiguration)?
     Privileged: (Boolean|Mapping)?
     ReadonlyRootFilesystem: (Boolean|Mapping)?
@@ -35,7 +28,7 @@ open class JobDefinitionContainerProperties {
     Ulimits: (Listing<JobDefinitionUlimit>)?
     User: (String|Mapping)?
     Vcpus: (Int|Mapping)?
-    Volumes: (Listing<JobDefinitionVolumes>)?
+    Volumes: (Listing<JobDefinitionVolume>)?
 }
 
 /// 
@@ -43,6 +36,21 @@ open class JobDefinitionDevice {
     ContainerPath: (String|Mapping)?
     HostPath: (String|Mapping)?
     Permissions: (Listing<String|Mapping>)?
+}
+
+/// 
+open class JobDefinitionEFSAuthorizationConfig {
+    AccessPointId: (String|Mapping)?
+    Iam: (String|Mapping)?
+}
+
+/// 
+open class JobDefinitionEFSVolumeConfiguration {
+    AuthorizationConfig: (JobDefinitionEFSAuthorizationConfig)?
+    FileSystemId: String|Mapping
+    RootDirectory: (String|Mapping)?
+    TransitEncryption: (String|Mapping)?
+    TransitEncryptionPort: (Int|Mapping)?
 }
 
 /// 
@@ -61,16 +69,7 @@ open class JobDefinitionEcsTaskProperties {
     PlatformVersion: (String|Mapping)?
     RuntimePlatform: (JobDefinitionRuntimePlatform)?
     TaskRoleArn: (String|Mapping)?
-    Volumes: (Listing<JobDefinitionVolumes>)?
-}
-
-/// 
-open class JobDefinitionEfsVolumeConfiguration {
-    AuthorizationConfig: (JobDefinitionAuthorizationConfig)?
-    FileSystemId: String|Mapping
-    RootDirectory: (String|Mapping)?
-    TransitEncryption: (String|Mapping)?
-    TransitEncryptionPort: (Int|Mapping)?
+    Volumes: (Listing<JobDefinitionVolume>)?
 }
 
 /// 
@@ -92,10 +91,14 @@ open class JobDefinitionEksContainerEnvironmentVariable {
     Value: (String|Mapping)?
 }
 
+typealias JobDefinitionEksContainerResourceRequirementsLimits = Mapping<String, Any>
+
+typealias JobDefinitionEksContainerResourceRequirementsRequests = Mapping<String, Any>
+
 /// 
 open class JobDefinitionEksContainerResourceRequirements {
-    Limits: (Dynamic)?
-    Requests: (Dynamic)?
+    Limits: (JobDefinitionEksContainerResourceRequirementsLimits)?
+    Requests: (JobDefinitionEksContainerResourceRequirementsRequests)?
 }
 
 /// 
@@ -126,9 +129,29 @@ open class JobDefinitionEksHostPath {
     Path: (String|Mapping)?
 }
 
+typealias JobDefinitionEksMetadataLabels = Mapping<String, Any>
+
+/// 
+open class JobDefinitionEksMetadata {
+    Labels: (JobDefinitionEksMetadataLabels)?
+}
+
+/// 
+open class JobDefinitionEksPodProperties {
+    Containers: (Listing<JobDefinitionEksContainer>)?
+    DnsPolicy: (String|Mapping)?
+    HostNetwork: (Boolean|Mapping)?
+    ImagePullSecrets: (Listing<JobDefinitionImagePullSecret>)?
+    InitContainers: (Listing<JobDefinitionEksContainer>)?
+    Metadata: (JobDefinitionEksMetadata)?
+    ServiceAccountName: (String|Mapping)?
+    ShareProcessNamespace: (Boolean|Mapping)?
+    Volumes: (Listing<JobDefinitionEksVolume>)?
+}
+
 /// 
 open class JobDefinitionEksProperties {
-    PodProperties: (JobDefinitionPodProperties)?
+    PodProperties: (JobDefinitionEksPodProperties)?
 }
 
 /// 
@@ -165,13 +188,18 @@ open class JobDefinitionEvaluateOnExit {
 }
 
 /// 
-open class JobDefinitionFargatePlatformConfiguration {
-    PlatformVersion: (String|Mapping)?
+open class JobDefinitionHost {
+    SourcePath: (String|Mapping)?
 }
 
 /// 
 open class JobDefinitionImagePullSecret {
-    Name: String|Mapping
+    Name: (String|Mapping)?
+}
+
+/// 
+open class JobDefinitionJobTimeout {
+    AttemptDurationSeconds: (Int|Mapping)?
 }
 
 /// 
@@ -184,23 +212,60 @@ open class JobDefinitionLinuxParameters {
     Tmpfs: (Listing<JobDefinitionTmpfs>)?
 }
 
+typealias JobDefinitionLogConfigurationOptions = Mapping<String, Any>
+
 /// 
 open class JobDefinitionLogConfiguration {
     LogDriver: String|Mapping
-    Options: (Dynamic)?
+    Options: (JobDefinitionLogConfigurationOptions)?
     SecretOptions: (Listing<JobDefinitionSecret>)?
 }
 
 /// 
-open class JobDefinitionMetadata {
-    Labels: (Dynamic)?
-}
-
-/// 
-open class JobDefinitionMountPoints {
+open class JobDefinitionMountPoint {
     ContainerPath: (String|Mapping)?
     ReadOnly: (Boolean|Mapping)?
     SourceVolume: (String|Mapping)?
+}
+
+/// 
+open class JobDefinitionMultiNodeContainerProperties {
+    Command: (Listing<String|Mapping>)?
+    Environment: (Listing<JobDefinitionEnvironment>)?
+    EphemeralStorage: (JobDefinitionEphemeralStorage)?
+    ExecutionRoleArn: (String|Mapping)?
+    Image: String|Mapping
+    InstanceType: (String|Mapping)?
+    JobRoleArn: (String|Mapping)?
+    LinuxParameters: (JobDefinitionLinuxParameters)?
+    LogConfiguration: (JobDefinitionLogConfiguration)?
+    Memory: (Int|Mapping)?
+    MountPoints: (Listing<JobDefinitionMountPoint>)?
+    Privileged: (Boolean|Mapping)?
+    ReadonlyRootFilesystem: (Boolean|Mapping)?
+    RepositoryCredentials: (JobDefinitionRepositoryCredentials)?
+    ResourceRequirements: (Listing<JobDefinitionResourceRequirement>)?
+    RuntimePlatform: (JobDefinitionRuntimePlatform)?
+    Secrets: (Listing<JobDefinitionSecret>)?
+    Ulimits: (Listing<JobDefinitionUlimit>)?
+    User: (String|Mapping)?
+    Vcpus: (Int|Mapping)?
+    Volumes: (Listing<JobDefinitionVolume>)?
+}
+
+/// 
+open class JobDefinitionMultiNodeEcsProperties {
+    TaskProperties: Listing<JobDefinitionMultiNodeEcsTaskProperties>
+}
+
+/// 
+open class JobDefinitionMultiNodeEcsTaskProperties {
+    Containers: (Listing<JobDefinitionTaskContainerProperties>)?
+    ExecutionRoleArn: (String|Mapping)?
+    IpcMode: (String|Mapping)?
+    PidMode: (String|Mapping)?
+    TaskRoleArn: (String|Mapping)?
+    Volumes: (Listing<JobDefinitionVolume>)?
 }
 
 /// 
@@ -217,24 +282,11 @@ open class JobDefinitionNodeProperties {
 
 /// 
 open class JobDefinitionNodeRangeProperty {
-    Container: (JobDefinitionContainerProperties)?
-    EcsProperties: (JobDefinitionEcsProperties)?
+    Container: (JobDefinitionMultiNodeContainerProperties)?
+    EcsProperties: (JobDefinitionMultiNodeEcsProperties)?
     EksProperties: (JobDefinitionEksProperties)?
     InstanceTypes: (Listing<String|Mapping>)?
     TargetNodes: String|Mapping
-}
-
-/// 
-open class JobDefinitionPodProperties {
-    Containers: (Listing<JobDefinitionEksContainer>)?
-    DnsPolicy: (String|Mapping)?
-    HostNetwork: (Boolean|Mapping)?
-    ImagePullSecrets: (Listing<JobDefinitionImagePullSecret>)?
-    InitContainers: (Listing<JobDefinitionEksContainer>)?
-    Metadata: (JobDefinitionMetadata)?
-    ServiceAccountName: (String|Mapping)?
-    ShareProcessNamespace: (Boolean|Mapping)?
-    Volumes: (Listing<JobDefinitionEksVolume>)?
 }
 
 /// 
@@ -281,7 +333,7 @@ open class JobDefinitionTaskContainerProperties {
     Image: String|Mapping
     LinuxParameters: (JobDefinitionLinuxParameters)?
     LogConfiguration: (JobDefinitionLogConfiguration)?
-    MountPoints: (Listing<JobDefinitionMountPoints>)?
+    MountPoints: (Listing<JobDefinitionMountPoint>)?
     Name: (String|Mapping)?
     Privileged: (Boolean|Mapping)?
     ReadonlyRootFilesystem: (Boolean|Mapping)?
@@ -290,11 +342,6 @@ open class JobDefinitionTaskContainerProperties {
     Secrets: (Listing<JobDefinitionSecret>)?
     Ulimits: (Listing<JobDefinitionUlimit>)?
     User: (String|Mapping)?
-}
-
-/// 
-open class JobDefinitionTimeout {
-    AttemptDurationSeconds: (Int|Mapping)?
 }
 
 /// 
@@ -312,15 +359,10 @@ open class JobDefinitionUlimit {
 }
 
 /// 
-open class JobDefinitionVolumes {
-    EfsVolumeConfiguration: (JobDefinitionEfsVolumeConfiguration)?
-    Host: (JobDefinitionVolumesHost)?
+open class JobDefinitionVolume {
+    EfsVolumeConfiguration: (JobDefinitionEFSVolumeConfiguration)?
+    Host: (JobDefinitionHost)?
     Name: (String|Mapping)?
-}
-
-/// 
-open class JobDefinitionVolumesHost {
-    SourcePath: (String|Mapping)?
 }
 
 /// Resource Type definition for AWS::Batch::JobDefinition
@@ -345,7 +387,7 @@ open class JobDefinition extends cloudformation.Resource {
     hidden NodeProperties: (JobDefinitionNodeProperties)?
 
     /// 
-    hidden Parameters: (Dynamic)?
+    hidden Parameters: (JobDefinitionJobDefinitionParameters)?
 
     /// 
     hidden PlatformCapabilities: (Listing<String|Mapping>)?
@@ -359,11 +401,11 @@ open class JobDefinition extends cloudformation.Resource {
     /// 
     hidden SchedulingPriority: (Int|Mapping)?
 
-    /// 
-    hidden Tags: (Dynamic)?
+    /// A key-value pair to associate with a resource.
+    hidden Tags: (JobDefinitionJobDefinitionTags)?
 
     /// 
-    hidden Timeout: (JobDefinitionTimeout)?
+    hidden Timeout: (JobDefinitionJobTimeout)?
 
     /// 
     hidden TypeProperty: String|Mapping
@@ -385,3 +427,8 @@ open class JobDefinition extends cloudformation.Resource {
     }
 
 }
+
+
+typealias JobDefinitionJobDefinitionParameters = Mapping<String, Any>
+
+typealias JobDefinitionJobDefinitionTags = Mapping<String, Any>

@@ -12,13 +12,13 @@ open class UserPoolIdentityProvider extends cloudformation.Resource {
 
 
     /// 
-    hidden AttributeMapping: (Dynamic)?
+    hidden AttributeMapping: (UserPoolIdentityProviderUserPoolIdentityProviderAttributeMapping)?
 
     /// 
     hidden IdpIdentifiers: (Listing<String|Mapping>)?
 
     /// 
-    hidden ProviderDetails: (Dynamic)?
+    hidden ProviderDetails: UserPoolIdentityProviderUserPoolIdentityProviderProviderDetails
 
     /// 
     hidden ProviderName: String|Mapping
@@ -39,3 +39,8 @@ open class UserPoolIdentityProvider extends cloudformation.Resource {
     }
 
 }
+
+
+typealias UserPoolIdentityProviderUserPoolIdentityProviderAttributeMapping = Mapping<String, Any>
+
+typealias UserPoolIdentityProviderUserPoolIdentityProviderProviderDetails = Mapping<String, Any>

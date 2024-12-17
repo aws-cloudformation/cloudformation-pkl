@@ -17,10 +17,53 @@ open class AutoScalingGroupAcceleratorTotalMemoryMiBRequest {
     Min: (Int|Mapping)?
 }
 
+typealias AvailabilityZoneDistributionCapacityDistributionStrategy = "balanced-best-effort"|"balanced-only"
+
+/// ``AvailabilityZoneDistribution`` is a property of the [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html) resource.
+open class AutoScalingGroupAvailabilityZoneDistribution {
+    CapacityDistributionStrategy: (AvailabilityZoneDistributionCapacityDistributionStrategy|Mapping)?
+}
+
+typealias AvailabilityZoneImpairmentPolicyImpairedZoneHealthCheckBehavior = "IgnoreUnhealthy"|"ReplaceUnhealthy"
+
+/// Describes an Availability Zone impairment policy.
+open class AutoScalingGroupAvailabilityZoneImpairmentPolicy {
+    ImpairedZoneHealthCheckBehavior: AvailabilityZoneImpairmentPolicyImpairedZoneHealthCheckBehavior|Mapping
+    ZonalShiftEnabled: Boolean|Mapping
+}
+
 /// ``BaselineEbsBandwidthMbpsRequest`` is a property of the ``InstanceRequirements`` property of the [AWS::AutoScaling::AutoScalingGroup LaunchTemplateOverrides](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplateoverrides.html) property type that describes the minimum and maximum baseline bandwidth performance for an instance type, in Mbps.
 open class AutoScalingGroupBaselineEbsBandwidthMbpsRequest {
     Max: (Int|Mapping)?
     Min: (Int|Mapping)?
+}
+
+/// 
+open class AutoScalingGroupBaselinePerformanceFactorsRequest {
+    Cpu: (AutoScalingGroupCpuPerformanceFactorRequest)?
+}
+
+typealias AutoScalingGroupCapacityReservationIds = Listing<(String|Mapping)?>
+
+
+typealias AutoScalingGroupCapacityReservationResourceGroupArns = Listing<(String|Mapping)?>
+
+
+/// 
+open class AutoScalingGroupCapacityReservationSpecification {
+    CapacityReservationPreference: String|Mapping
+    CapacityReservationTarget: (AutoScalingGroupCapacityReservationTarget)?
+}
+
+/// 
+open class AutoScalingGroupCapacityReservationTarget {
+    CapacityReservationIds: (AutoScalingGroupCapacityReservationIds)?
+    CapacityReservationResourceGroupArns: (AutoScalingGroupCapacityReservationResourceGroupArns)?
+}
+
+/// 
+open class AutoScalingGroupCpuPerformanceFactorRequest {
+    References: (AutoScalingGroupPerformanceFactorReferenceSetRequest)?
 }
 
 /// ``InstanceMaintenancePolicy`` is a property of the [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html) resource.
@@ -51,6 +94,7 @@ open class AutoScalingGroupInstanceRequirements {
     AllowedInstanceTypes: (Listing<String|Mapping>)?
     BareMetal: (String|Mapping)?
     BaselineEbsBandwidthMbps: (AutoScalingGroupBaselineEbsBandwidthMbpsRequest)?
+    BaselinePerformanceFactors: (AutoScalingGroupBaselinePerformanceFactorsRequest)?
     BurstablePerformance: (String|Mapping)?
     CpuManufacturers: (Listing<String|Mapping>)?
     ExcludedInstanceTypes: (Listing<String|Mapping>)?
@@ -191,6 +235,14 @@ open class AutoScalingGroupNotificationConfiguration {
     TopicARN: Dynamic
 }
 
+/// 
+open class AutoScalingGroupPerformanceFactorReferenceRequest {
+    InstanceFamily: (String|Mapping)?
+}
+
+typealias AutoScalingGroupPerformanceFactorReferenceSetRequest = Listing<(AutoScalingGroupPerformanceFactorReferenceRequest)?>
+
+
 /// A structure that specifies a tag for the ``Tags`` property of [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html) resource.
 ///
 ///  For more information, see [Tag Auto Scaling groups and instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html) in the *Amazon EC2 Auto Scaling User Guide*. You can find a sample template snippet in the [Examples](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html#aws-resource-autoscaling-autoscalinggroup--examples) section of the ``AWS::AutoScaling::AutoScalingGroup`` resource.
@@ -208,6 +260,12 @@ open class AutoScalingGroupTagProperty {
 open class AutoScalingGroupTotalLocalStorageGBRequest {
     Max: (Number|Mapping)?
     Min: (Number|Mapping)?
+}
+
+/// Identifying information for a traffic source.
+open class AutoScalingGroupTrafficSourceIdentifier {
+    Identifier: String|Mapping
+    Type: String|Mapping
 }
 
 /// ``VCpuCountRequest`` is a property of the ``InstanceRequirements`` property of the [AWS::AutoScaling::AutoScalingGroup LaunchTemplateOverrides](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplateoverrides.html) property type that describes the minimum and maximum number of vCPUs for an instance type.
@@ -232,11 +290,20 @@ open class AutoScalingGroup extends cloudformation.Resource {
     ///   You cannot use a colon (:) in the name.
     hidden AutoScalingGroupName: (String|Mapping)?
 
+    /// The instance capacity distribution across Availability Zones.
+    hidden AvailabilityZoneDistribution: (AutoScalingGroupAvailabilityZoneDistribution)?
+
+    /// The Availability Zone impairment policy.
+    hidden AvailabilityZoneImpairmentPolicy: (AutoScalingGroupAvailabilityZoneImpairmentPolicy)?
+
     /// A list of Availability Zones where instances in the Auto Scaling group can be created. Used for launching into the default VPC subnet in each Availability Zone when not using the ``VPCZoneIdentifier`` property, or for attaching a network interface when an existing network interface ID is specified in a launch template.
     hidden AvailabilityZones: (Listing<String|Mapping>)?
 
     /// Indicates whether Capacity Rebalancing is enabled. Otherwise, Capacity Rebalancing is disabled. When you turn on Capacity Rebalancing, Amazon EC2 Auto Scaling attempts to launch a Spot Instance whenever Amazon EC2 notifies that a Spot Instance is at an elevated risk of interruption. After launching a new instance, it then terminates an old instance. For more information, see [Use Capacity Rebalancing to handle Amazon EC2 Spot Interruptions](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-capacity-rebalancing.html) in the in the *Amazon EC2 Auto Scaling User Guide*.
     hidden CapacityRebalance: (Boolean|Mapping)?
+
+    /// 
+    hidden CapacityReservationSpecification: (AutoScalingGroupCapacityReservationSpecification)?
 
     /// Reserved.
     hidden Context: (String|Mapping)?
@@ -273,7 +340,7 @@ open class AutoScalingGroup extends cloudformation.Resource {
 
     /// A comma-separated value string of one or more health check types.
     ///
-    ///  The valid values are ``EC2``, ``ELB``, and ``VPC_LATTICE``. ``EC2`` is the default health check and cannot be disabled. For more information, see [Health checks for instances in an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html) in the *Amazon EC2 Auto Scaling User Guide*.
+    ///  The valid values are ``EC2``, ``EBS``, ``ELB``, and ``VPC_LATTICE``. ``EC2`` is the default health check and cannot be disabled. For more information, see [Health checks for instances in an Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html) in the *Amazon EC2 Auto Scaling User Guide*.
     ///  Only specify ``EC2`` if you must clear a value that was previously set.
     hidden HealthCheckType: (String|Mapping)?
 
@@ -338,6 +405,9 @@ open class AutoScalingGroup extends cloudformation.Resource {
     /// The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS service on your behalf. By default, Amazon EC2 Auto Scaling uses a service-linked role named ``AWSServiceRoleForAutoScaling``, which it creates if it does not exist. For more information, see [Service-linked roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html) in the *Amazon EC2 Auto Scaling User Guide*.
     hidden ServiceLinkedRoleARN: (String|Mapping)?
 
+    /// 
+    hidden SkipZonalShiftValidation: (Boolean|Mapping)?
+
     /// One or more tags. You can tag your Auto Scaling group and propagate the tags to the Amazon EC2 instances it launches. Tags are not propagated to Amazon EBS volumes. To add tags to Amazon EBS volumes, specify the tags in a launch template but use caution. If the launch template specifies an instance tag with a key that is also specified for the Auto Scaling group, Amazon EC2 Auto Scaling overrides the value of that instance tag with the value specified by the Auto Scaling group. For more information, see [Tag Auto Scaling groups and instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-tagging.html) in the *Amazon EC2 Auto Scaling User Guide*.
     hidden Tags: (Listing<AutoScalingGroupTagProperty>)?
 
@@ -349,6 +419,9 @@ open class AutoScalingGroup extends cloudformation.Resource {
     ///  Valid values: ``Default`` | ``AllocationStrategy`` | ``ClosestToNextInstanceHour`` | ``NewestInstance`` | ``OldestInstance`` | ``OldestLaunchConfiguration`` | ``OldestLaunchTemplate`` | ``arn:aws:lambda:region:account-id:function:my-function:my-alias``
     hidden TerminationPolicies: (Listing<String|Mapping>)?
 
+    /// The traffic sources associated with this Auto Scaling group.
+    hidden TrafficSources: (Listing<AutoScalingGroupTrafficSourceIdentifier>)?
+
     /// A list of subnet IDs for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
     ///
     ///  If this resource specifies public subnets and is also in a VPC that is defined in the same stack template, you must use the [DependsOn attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) to declare a dependency on the [VPC-gateway attachment](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc-gateway-attachment.html).
@@ -358,8 +431,11 @@ open class AutoScalingGroup extends cloudformation.Resource {
 
     Properties {
         ["AutoScalingGroupName"] = if (AutoScalingGroupName == null) null else AutoScalingGroupName
+        ["AvailabilityZoneDistribution"] = if (AvailabilityZoneDistribution == null) null else AvailabilityZoneDistribution
+        ["AvailabilityZoneImpairmentPolicy"] = if (AvailabilityZoneImpairmentPolicy == null) null else AvailabilityZoneImpairmentPolicy
         ["AvailabilityZones"] = if (AvailabilityZones == null) null else AvailabilityZones
         ["CapacityRebalance"] = if (CapacityRebalance == null) null else CapacityRebalance
+        ["CapacityReservationSpecification"] = if (CapacityReservationSpecification == null) null else CapacityReservationSpecification
         ["Context"] = if (Context == null) null else Context
         ["Cooldown"] = if (Cooldown == null) null else Cooldown
         ["DefaultInstanceWarmup"] = if (DefaultInstanceWarmup == null) null else DefaultInstanceWarmup
@@ -383,9 +459,11 @@ open class AutoScalingGroup extends cloudformation.Resource {
         ["NotificationConfigurations"] = if (NotificationConfigurations == null) null else NotificationConfigurations
         ["PlacementGroup"] = if (PlacementGroup == null) null else PlacementGroup
         ["ServiceLinkedRoleARN"] = if (ServiceLinkedRoleARN == null) null else ServiceLinkedRoleARN
+        ["SkipZonalShiftValidation"] = if (SkipZonalShiftValidation == null) null else SkipZonalShiftValidation
         ["Tags"] = if (Tags == null) null else Tags
         ["TargetGroupARNs"] = if (TargetGroupARNs == null) null else TargetGroupARNs
         ["TerminationPolicies"] = if (TerminationPolicies == null) null else TerminationPolicies
+        ["TrafficSources"] = if (TrafficSources == null) null else TrafficSources
         ["VPCZoneIdentifier"] = if (VPCZoneIdentifier == null) null else VPCZoneIdentifier
     }
 

@@ -29,6 +29,7 @@ open class GlobalTableGlobalSecondaryIndex {
     IndexName: String|Mapping
     KeySchema: Listing<GlobalTableKeySchema>
     Projection: GlobalTableProjection
+    WarmThroughput: (GlobalTableWarmThroughput)?
     WriteOnDemandThroughputSettings: (GlobalTableWriteOnDemandThroughputSettings)?
     WriteProvisionedThroughputSettings: (GlobalTableWriteProvisionedThroughputSettings)?
 }
@@ -148,6 +149,12 @@ open class GlobalTableTimeToLiveSpecification {
 }
 
 /// 
+open class GlobalTableWarmThroughput {
+    ReadUnitsPerSecond: (Int|Mapping)?
+    WriteUnitsPerSecond: (Int|Mapping)?
+}
+
+/// 
 open class GlobalTableWriteOnDemandThroughputSettings {
     MaxWriteRequestUnits: (Int|Mapping)?
 }
@@ -194,6 +201,9 @@ open class GlobalTable extends cloudformation.Resource {
     hidden TimeToLiveSpecification: (GlobalTableTimeToLiveSpecification)?
 
     /// 
+    hidden WarmThroughput: (GlobalTableWarmThroughput)?
+
+    /// 
     hidden WriteOnDemandThroughputSettings: (GlobalTableWriteOnDemandThroughputSettings)?
 
     /// 
@@ -210,6 +220,7 @@ open class GlobalTable extends cloudformation.Resource {
         ["StreamSpecification"] = if (StreamSpecification == null) null else StreamSpecification
         ["TableName"] = if (TableName == null) null else TableName
         ["TimeToLiveSpecification"] = if (TimeToLiveSpecification == null) null else TimeToLiveSpecification
+        ["WarmThroughput"] = if (WarmThroughput == null) null else WarmThroughput
         ["WriteOnDemandThroughputSettings"] = if (WriteOnDemandThroughputSettings == null) null else WriteOnDemandThroughputSettings
         ["WriteProvisionedThroughputSettings"] = if (WriteProvisionedThroughputSettings == null) null else WriteProvisionedThroughputSettings
     }

@@ -27,6 +27,15 @@ open class WorkgroupNetworkInterface {
 }
 
 /// 
+open class WorkgroupPerformanceTarget {
+    Level: (Int|Mapping)?
+    Status: (WorkgroupPerformanceTargetStatus)?
+}
+
+typealias WorkgroupPerformanceTargetStatus = String|Mapping
+
+
+/// 
 open class WorkgroupTag {
     Key: String|Mapping
     Value: String|Mapping
@@ -48,6 +57,7 @@ open class WorkgroupWorkgroup {
     EnhancedVpcRouting: (Boolean|Mapping)?
     MaxCapacity: (Int|Mapping)?
     NamespaceName: (String(matches(Regex(#"^[a-z0-9-]+$"#)))|Mapping)?
+    PricePerformanceTarget: (WorkgroupPerformanceTarget)?
     PubliclyAccessible: (Boolean|Mapping)?
     SecurityGroupIds: (Listing<String|Mapping>)?
     Status: (WorkgroupWorkgroupStatus)?
@@ -84,6 +94,9 @@ open class Workgroup extends cloudformation.Resource {
     /// The custom port to use when connecting to a workgroup. Valid port ranges are 5431-5455 and 8191-8215. The default is 5439.
     hidden Port: (Int|Mapping)?
 
+    /// A property that represents the price performance target settings for the workgroup.
+    hidden PricePerformanceTarget: (Dynamic)?
+
     /// A value that specifies whether the workgroup can be accessible from a public network.
     hidden PubliclyAccessible: (Boolean|Mapping)?
 
@@ -106,6 +119,7 @@ open class Workgroup extends cloudformation.Resource {
         ["MaxCapacity"] = if (MaxCapacity == null) null else MaxCapacity
         ["NamespaceName"] = if (NamespaceName == null) null else NamespaceName
         ["Port"] = if (Port == null) null else Port
+        ["PricePerformanceTarget"] = if (PricePerformanceTarget == null) null else PricePerformanceTarget
         ["PubliclyAccessible"] = if (PubliclyAccessible == null) null else PubliclyAccessible
         ["SecurityGroupIds"] = if (SecurityGroupIds == null) null else SecurityGroupIds
         ["SubnetIds"] = if (SubnetIds == null) null else SubnetIds

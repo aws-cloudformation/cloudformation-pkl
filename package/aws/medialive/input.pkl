@@ -7,12 +7,21 @@ import "../../cloudformation.pkl"
 
 /// 
 open class InputInputDestinationRequest {
+    Network: (String|Mapping)?
+    NetworkRoutes: (Listing<InputInputRequestDestinationRoute>)?
+    StaticIpAddress: (String|Mapping)?
     StreamName: (String|Mapping)?
 }
 
 /// 
 open class InputInputDeviceSettings {
     Id: (String|Mapping)?
+}
+
+/// 
+open class InputInputRequestDestinationRoute {
+    Cidr: (String|Mapping)?
+    Gateway: (String|Mapping)?
 }
 
 /// 
@@ -31,6 +40,17 @@ open class InputInputVpcRequest {
 /// 
 open class InputMediaConnectFlowRequest {
     FlowArn: (String|Mapping)?
+}
+
+/// 
+open class InputMulticastSettingsCreateRequest {
+    Sources: (Listing<InputMulticastSourceCreateRequest>)?
+}
+
+/// 
+open class InputMulticastSourceCreateRequest {
+    SourceIp: (String|Mapping)?
+    Url: (String|Mapping)?
 }
 
 /// 
@@ -66,10 +86,16 @@ open class Input extends cloudformation.Resource {
     hidden InputDevices: (Listing<InputInputDeviceSettings>)?
 
     /// 
+    hidden InputNetworkLocation: (String|Mapping)?
+
+    /// 
     hidden InputSecurityGroups: (Listing<String|Mapping>)?
 
     /// 
     hidden MediaConnectFlows: (Listing<InputMediaConnectFlowRequest>)?
+
+    /// 
+    hidden MulticastSettings: (InputMulticastSettingsCreateRequest)?
 
     /// 
     hidden Name: (String|Mapping)?
@@ -95,8 +121,10 @@ open class Input extends cloudformation.Resource {
     Properties {
         ["Destinations"] = if (Destinations == null) null else Destinations
         ["InputDevices"] = if (InputDevices == null) null else InputDevices
+        ["InputNetworkLocation"] = if (InputNetworkLocation == null) null else InputNetworkLocation
         ["InputSecurityGroups"] = if (InputSecurityGroups == null) null else InputSecurityGroups
         ["MediaConnectFlows"] = if (MediaConnectFlows == null) null else MediaConnectFlows
+        ["MulticastSettings"] = if (MulticastSettings == null) null else MulticastSettings
         ["Name"] = if (Name == null) null else Name
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["Sources"] = if (Sources == null) null else Sources

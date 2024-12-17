@@ -46,6 +46,15 @@ open class ComputeEnvironmentEksConfiguration {
 open class ComputeEnvironmentLaunchTemplateSpecification {
     LaunchTemplateId: (String|Mapping)?
     LaunchTemplateName: (String|Mapping)?
+    Overrides: (Listing<ComputeEnvironmentLaunchTemplateSpecificationOverride>)?
+    Version: (String|Mapping)?
+}
+
+/// 
+open class ComputeEnvironmentLaunchTemplateSpecificationOverride {
+    LaunchTemplateId: (String|Mapping)?
+    LaunchTemplateName: (String|Mapping)?
+    TargetInstanceTypes: (Listing<String|Mapping>)?
     Version: (String|Mapping)?
 }
 

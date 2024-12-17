@@ -11,6 +11,10 @@ typealias FirewallRuleBlockOverrideDnsType = "CNAME"
 
 typealias FirewallRuleBlockResponse = "NODATA"|"NXDOMAIN"|"OVERRIDE"
 
+typealias FirewallRuleConfidenceThreshold = "LOW"|"MEDIUM"|"HIGH"
+
+typealias FirewallRuleDnsThreatProtection = "DGA"|"DNS_TUNNELING"
+
 typealias FirewallRuleFirewallDomainRedirectionAction = "INSPECT_REDIRECTION_DOMAIN"|"TRUST_REDIRECTION_DOMAIN"
 
 /// Firewall Rule associating the Rule Group to a Domain List
@@ -20,8 +24,11 @@ open class FirewallRuleGroupFirewallRule {
     BlockOverrideDomain: (String|Mapping)?
     BlockOverrideTtl: (Int|Mapping)?
     BlockResponse: (FirewallRuleBlockResponse|Mapping)?
-    FirewallDomainListId: String|Mapping
+    ConfidenceThreshold: (FirewallRuleConfidenceThreshold|Mapping)?
+    DnsThreatProtection: (FirewallRuleDnsThreatProtection|Mapping)?
+    FirewallDomainListId: (String|Mapping)?
     FirewallDomainRedirectionAction: (FirewallRuleFirewallDomainRedirectionAction|Mapping)?
+    FirewallThreatProtectionId: (String|Mapping)?
     Priority: Int|Mapping
     Qtype: (String|Mapping)?
 }

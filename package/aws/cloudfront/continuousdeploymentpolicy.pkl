@@ -7,7 +7,7 @@ import "../../cloudformation.pkl"
 
 typealias ContinuousDeploymentPolicyConfigType = "SingleWeight"|"SingleHeader"
 
-/// 
+/// Contains the configuration for a continuous deployment policy.
 open class ContinuousDeploymentPolicyContinuousDeploymentPolicyConfig {
     Enabled: Boolean|Mapping
     SingleHeaderPolicyConfig: (Dynamic)?
@@ -17,19 +17,19 @@ open class ContinuousDeploymentPolicyContinuousDeploymentPolicyConfig {
     Type: (ContinuousDeploymentPolicyConfigType|Mapping)?
 }
 
-/// 
+/// Session stickiness provides the ability to define multiple requests from a single viewer as a single session. This prevents the potentially inconsistent experience of sending some of a given user's requests to your staging distribution, while others are sent to your primary distribution. Define the session duration using TTL values.
 open class ContinuousDeploymentPolicySessionStickinessConfig {
     IdleTTL: Int|Mapping
     MaximumTTL: Int|Mapping
 }
 
-/// 
+/// Determines which HTTP requests are sent to the staging distribution.
 open class ContinuousDeploymentPolicySingleHeaderConfig {
     Header: String|Mapping
     Value: String|Mapping
 }
 
-/// 
+/// This configuration determines the percentage of HTTP requests that are sent to the staging distribution.
 open class ContinuousDeploymentPolicySingleWeightConfig {
     SessionStickinessConfig: (ContinuousDeploymentPolicySessionStickinessConfig)?
     Weight: Number|Mapping
@@ -37,20 +37,23 @@ open class ContinuousDeploymentPolicySingleWeightConfig {
 
 typealias TrafficConfigType = "SingleWeight"|"SingleHeader"
 
-/// 
+/// The traffic configuration of your continuous deployment.
 open class ContinuousDeploymentPolicyTrafficConfig {
     SingleHeaderConfig: (ContinuousDeploymentPolicySingleHeaderConfig)?
     SingleWeightConfig: (ContinuousDeploymentPolicySingleWeightConfig)?
     Type: TrafficConfigType|Mapping
 }
 
-/// Resource Type definition for AWS::CloudFront::ContinuousDeploymentPolicy
+/// Creates a continuous deployment policy that routes a subset of production traffic from a primary distribution to a staging distribution.
+///
+///  After you create and update a staging distribution, you can use a continuous deployment policy to incrementally move traffic to the staging distribution. This enables you to test changes to a distribution's configuration before moving all of your production traffic to the new configuration.
+///  For more information, see [Using CloudFront continuous deployment to safely test CDN configuration changes](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/continuous-deployment.html) in the *Amazon CloudFront Developer Guide*.
 open class ContinuousDeploymentPolicy extends cloudformation.Resource {
 
     Type = "AWS::CloudFront::ContinuousDeploymentPolicy"
 
 
-    /// 
+    /// Contains the configuration for a continuous deployment policy.
     hidden ContinuousDeploymentPolicyConfig: ContinuousDeploymentPolicyContinuousDeploymentPolicyConfig
 
     Properties {

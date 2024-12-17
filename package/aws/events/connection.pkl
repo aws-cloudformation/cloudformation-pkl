@@ -7,28 +7,29 @@ import "../../cloudformation.pkl"
 
 /// 
 open class ConnectionApiKeyAuthParameters {
-    ApiKeyName: String|Mapping
-    ApiKeyValue: String|Mapping
+    ApiKeyName: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
+    ApiKeyValue: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
 }
 
 /// 
 open class ConnectionAuthParameters {
     ApiKeyAuthParameters: (ConnectionApiKeyAuthParameters)?
     BasicAuthParameters: (ConnectionBasicAuthParameters)?
+    ConnectivityParameters: (ConnectionConnectivityParameters)?
     InvocationHttpParameters: (ConnectionConnectionHttpParameters)?
     OAuthParameters: (ConnectionOAuthParameters)?
 }
 
 /// 
 open class ConnectionBasicAuthParameters {
-    Password: String|Mapping
-    Username: String|Mapping
+    Password: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
+    Username: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
 }
 
 /// 
 open class ConnectionClientParameters {
-    ClientID: String|Mapping
-    ClientSecret: String|Mapping
+    ClientID: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
+    ClientSecret: String(matches(Regex(#"^[ \t]*[^\x00-\x1F\x7F]+([ \t]+[^\x00-\x1F\x7F]+)*[ \t]*$"#)))|Mapping
 }
 
 /// 
@@ -38,11 +39,16 @@ open class ConnectionConnectionHttpParameters {
     QueryStringParameters: (Listing<ConnectionParameter>)?
 }
 
+/// 
+open class ConnectionConnectivityParameters {
+    ResourceParameters: ConnectionResourceParameters
+}
+
 typealias OAuthParametersHttpMethod = "GET"|"POST"|"PUT"
 
 /// 
 open class ConnectionOAuthParameters {
-    AuthorizationEndpoint: String|Mapping
+    AuthorizationEndpoint: String(matches(Regex(#"^((%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@\x26=+$,A-Za-z0-9])+)([).!';/?:,])?$"#)))|Mapping
     ClientParameters: ConnectionClientParameters
     HttpMethod: OAuthParametersHttpMethod|Mapping
     OAuthHttpParameters: (ConnectionConnectionHttpParameters)?
@@ -53,6 +59,12 @@ open class ConnectionParameter {
     IsValueSecret: (Boolean|Mapping)?
     Key: String|Mapping
     Value: String|Mapping
+}
+
+/// 
+open class ConnectionResourceParameters {
+    ResourceAssociationArn: (String(matches(Regex(#"^arn:[a-z0-9\-]+:vpc-lattice:[a-zA-Z0-9\-]+:\d{12}:servicenetworkresourceassociation/snra-[0-9a-z]{17}$"#)))|Mapping)?
+    ResourceConfigurationArn: String(matches(Regex(#"^arn:[a-z0-9f\-]+:vpc-lattice:[a-zA-Z0-9\-]+:\d{12}:resourceconfiguration/rcfg-[0-9a-z]{17}$"#)))|Mapping
 }
 
 /// Resource Type definition for AWS::Events::Connection.
@@ -70,13 +82,17 @@ open class Connection extends cloudformation.Resource {
     /// Description of the connection.
     hidden Description: (String|Mapping)?
 
+    /// The private resource the HTTP request will be sent to.
+    hidden InvocationConnectivityParameters: (Dynamic)?
+
     /// Name of the connection.
-    hidden Name: (String|Mapping)?
+    hidden Name: (String(matches(Regex(#"[\.\-_A-Za-z0-9]+"#)))|Mapping)?
 
     Properties {
         ["AuthParameters"] = if (AuthParameters == null) null else AuthParameters
         ["AuthorizationType"] = if (AuthorizationType == null) null else AuthorizationType
         ["Description"] = if (Description == null) null else Description
+        ["InvocationConnectivityParameters"] = if (InvocationConnectivityParameters == null) null else InvocationConnectivityParameters
         ["Name"] = if (Name == null) null else Name
     }
 

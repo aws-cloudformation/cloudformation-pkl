@@ -20,6 +20,9 @@ open class MicrosoftTeamsChannelConfiguration extends cloudformation.Resource {
     /// The name of the configuration
     hidden ConfigurationName: String(matches(Regex(#"^[A-Za-z0-9-_]+$"#)))|Mapping
 
+    /// ARNs of Custom Actions to associate with notifications in the provided chat channel.
+    hidden CustomizationResourceArns: (Listing<String|Mapping>)?
+
     /// The list of IAM policy ARNs that are applied as channel guardrails. The AWS managed 'AdministratorAccess' policy is applied as a default if this is not set.
     hidden GuardrailPolicies: (Listing<String|Mapping>)?
 
@@ -49,6 +52,7 @@ open class MicrosoftTeamsChannelConfiguration extends cloudformation.Resource {
 
     Properties {
         ["ConfigurationName"] = if (ConfigurationName == null) null else ConfigurationName
+        ["CustomizationResourceArns"] = if (CustomizationResourceArns == null) null else CustomizationResourceArns
         ["GuardrailPolicies"] = if (GuardrailPolicies == null) null else GuardrailPolicies
         ["IamRoleArn"] = if (IamRoleArn == null) null else IamRoleArn
         ["LoggingLevel"] = if (LoggingLevel == null) null else LoggingLevel

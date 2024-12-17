@@ -37,6 +37,9 @@ open class MetricFilter extends cloudformation.Resource {
     Type = "AWS::Logs::MetricFilter"
 
 
+    /// 
+    hidden ApplyOnTransformedLogs: (Boolean|Mapping)?
+
     /// The name of the metric filter.
     hidden FilterName: (String(matches(Regex(#"^[^:*]{1,512}"#)))|Mapping)?
 
@@ -50,6 +53,7 @@ open class MetricFilter extends cloudformation.Resource {
     hidden MetricTransformations: Listing<MetricFilterMetricTransformation>
 
     Properties {
+        ["ApplyOnTransformedLogs"] = if (ApplyOnTransformedLogs == null) null else ApplyOnTransformedLogs
         ["FilterName"] = if (FilterName == null) null else FilterName
         ["FilterPattern"] = if (FilterPattern == null) null else FilterPattern
         ["LogGroupName"] = if (LogGroupName == null) null else LogGroupName

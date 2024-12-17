@@ -176,6 +176,9 @@ open class Project extends cloudformation.Resource {
     hidden Artifacts: ProjectArtifacts
 
     /// 
+    hidden AutoRetryLimit: (Int|Mapping)?
+
+    /// 
     hidden BadgeEnabled: (Boolean|Mapping)?
 
     /// 
@@ -246,6 +249,7 @@ open class Project extends cloudformation.Resource {
 
     Properties {
         ["Artifacts"] = if (Artifacts == null) null else Artifacts
+        ["AutoRetryLimit"] = if (AutoRetryLimit == null) null else AutoRetryLimit
         ["BadgeEnabled"] = if (BadgeEnabled == null) null else BadgeEnabled
         ["BuildBatchConfig"] = if (BuildBatchConfig == null) null else BuildBatchConfig
         ["Cache"] = if (Cache == null) null else Cache

@@ -24,6 +24,11 @@ open class SpotFleetBaselineEbsBandwidthMbpsRequest {
 }
 
 /// 
+open class SpotFleetBaselinePerformanceFactorsRequest {
+    Cpu: (SpotFleetCpuPerformanceFactorRequest)?
+}
+
+/// 
 open class SpotFleetBlockDeviceMapping {
     DeviceName: String|Mapping
     Ebs: (SpotFleetEbsBlockDevice)?
@@ -39,6 +44,11 @@ open class SpotFleetClassicLoadBalancer {
 /// 
 open class SpotFleetClassicLoadBalancersConfig {
     ClassicLoadBalancers: Listing<SpotFleetClassicLoadBalancer>
+}
+
+/// 
+open class SpotFleetCpuPerformanceFactorRequest {
+    References: (Listing<SpotFleetPerformanceFactorReferenceRequest>)?
 }
 
 typealias EbsBlockDeviceVolumeType = "gp2"|"gp3"|"io1"|"io2"|"sc1"|"st1"|"standard"
@@ -100,7 +110,7 @@ typealias InstanceRequirementsRequestBareMetal = "included"|"required"|"excluded
 
 typealias InstanceRequirementsRequestBurstablePerformance = "included"|"required"|"excluded"
 
-typealias InstanceRequirementsRequestCpuManufacturers = "intel"|"amd"|"amazon-web-services"
+typealias InstanceRequirementsRequestCpuManufacturers = "intel"|"amd"|"amazon-web-services"|"apple"
 
 typealias InstanceRequirementsRequestInstanceGenerations = "current"|"previous"
 
@@ -118,6 +128,7 @@ open class SpotFleetInstanceRequirementsRequest {
     AllowedInstanceTypes: (Listing<String|Mapping>)?
     BareMetal: (InstanceRequirementsRequestBareMetal|Mapping)?
     BaselineEbsBandwidthMbps: (SpotFleetBaselineEbsBandwidthMbpsRequest)?
+    BaselinePerformanceFactors: (SpotFleetBaselinePerformanceFactorsRequest)?
     BurstablePerformance: (InstanceRequirementsRequestBurstablePerformance|Mapping)?
     CpuManufacturers: (Listing<InstanceRequirementsRequestCpuManufacturers|Mapping>)?
     ExcludedInstanceTypes: (Listing<String|Mapping>)?
@@ -181,6 +192,11 @@ open class SpotFleetNetworkBandwidthGbpsRequest {
 open class SpotFleetNetworkInterfaceCountRequest {
     Max: (Int|Mapping)?
     Min: (Int|Mapping)?
+}
+
+/// 
+open class SpotFleetPerformanceFactorReferenceRequest {
+    InstanceFamily: (String|Mapping)?
 }
 
 /// 

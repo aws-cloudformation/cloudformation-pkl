@@ -48,6 +48,9 @@ open class Portal extends cloudformation.Resource {
     hidden CustomerManagedKey: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:kms:[a-zA-Z0-9\-]*:[a-zA-Z0-9]{1,12}:key\/[a-zA-Z0-9-]+$"#)))|Mapping)?
 
     /// 
+    hidden DataProtectionSettingsArn: (String(matches(Regex(#"^arn:[\w+=\/,.@-]+:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]*:[a-zA-Z0-9]{1,12}:[a-zA-Z]+(\/[a-fA-F0-9\-]{36})+$"#)))|Mapping)?
+
+    /// 
     hidden DisplayName: (String(matches(Regex(#"^.+$"#)))|Mapping)?
 
     /// 
@@ -79,6 +82,7 @@ open class Portal extends cloudformation.Resource {
         ["AuthenticationType"] = if (AuthenticationType == null) null else AuthenticationType
         ["BrowserSettingsArn"] = if (BrowserSettingsArn == null) null else BrowserSettingsArn
         ["CustomerManagedKey"] = if (CustomerManagedKey == null) null else CustomerManagedKey
+        ["DataProtectionSettingsArn"] = if (DataProtectionSettingsArn == null) null else DataProtectionSettingsArn
         ["DisplayName"] = if (DisplayName == null) null else DisplayName
         ["InstanceType"] = if (InstanceType == null) null else InstanceType
         ["IpAccessSettingsArn"] = if (IpAccessSettingsArn == null) null else IpAccessSettingsArn

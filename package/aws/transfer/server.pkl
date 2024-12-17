@@ -60,6 +60,9 @@ typealias ServerSetStatOption = String|Mapping
 typealias ServerSftpAuthenticationMethods = String|Mapping
 
 
+typealias ServerState = String|Mapping
+
+
 /// 
 open class ServerTag {
     Key: String|Mapping

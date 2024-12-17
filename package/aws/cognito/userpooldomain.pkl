@@ -23,11 +23,15 @@ open class UserPoolDomain extends cloudformation.Resource {
     hidden Domain: String|Mapping
 
     /// 
+    hidden ManagedLoginVersion: (Int|Mapping)?
+
+    /// 
     hidden UserPoolId: String|Mapping
 
     Properties {
         ["CustomDomainConfig"] = if (CustomDomainConfig == null) null else CustomDomainConfig
         ["Domain"] = if (Domain == null) null else Domain
+        ["ManagedLoginVersion"] = if (ManagedLoginVersion == null) null else ManagedLoginVersion
         ["UserPoolId"] = if (UserPoolId == null) null else UserPoolId
     }
 

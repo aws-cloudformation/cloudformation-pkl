@@ -8,6 +8,9 @@ import "../../cloudformation.pkl"
 typealias DeliveryArn = String|Mapping
 
 
+typealias DeliveryFieldHeader = String|Mapping
+
+
 /// A key-value pair to associate with a resource.
 open class DeliveryTag {
     Key: String|Mapping
@@ -31,12 +34,28 @@ open class Delivery extends cloudformation.Resource {
     /// The name of the delivery source that is associated with this delivery.
     hidden DeliverySourceName: String(matches(Regex(#"[\w-]*$"#)))|Mapping
 
+    /// The field delimiter to use between record fields when the final output format of a delivery is in Plain , W3C , or Raw format.
+    hidden FieldDelimiter: (String|Mapping)?
+
+    /// The list of record fields to be delivered to the destination, in order. If the delivery's log source has mandatory fields, they must be included in this list.
+    hidden RecordFields: (Listing<DeliveryFieldHeader>)?
+
+    /// This parameter causes the S3 objects that contain delivered logs to use a prefix structure that allows for integration with Apache Hive.
+    hidden S3EnableHiveCompatiblePath: (Boolean|Mapping)?
+
+    /// This string allows re-configuring the S3 object prefix to contain either static or variable sections. The valid variables to use in the suffix path will vary by each log source. See ConfigurationTemplate$allowedSuffixPathFields for more info on what values are supported in the suffix path for each log source.
+    hidden S3SuffixPath: (String|Mapping)?
+
     /// The tags that have been assigned to this delivery.
     hidden Tags: (Listing<DeliveryTag>)?
 
     Properties {
         ["DeliveryDestinationArn"] = if (DeliveryDestinationArn == null) null else DeliveryDestinationArn
         ["DeliverySourceName"] = if (DeliverySourceName == null) null else DeliverySourceName
+        ["FieldDelimiter"] = if (FieldDelimiter == null) null else FieldDelimiter
+        ["RecordFields"] = if (RecordFields == null) null else RecordFields
+        ["S3EnableHiveCompatiblePath"] = if (S3EnableHiveCompatiblePath == null) null else S3EnableHiveCompatiblePath
+        ["S3SuffixPath"] = if (S3SuffixPath == null) null else S3SuffixPath
         ["Tags"] = if (Tags == null) null else Tags
     }
 

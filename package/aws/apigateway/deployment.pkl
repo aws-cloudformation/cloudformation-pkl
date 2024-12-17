@@ -86,19 +86,19 @@ open class Deployment extends cloudformation.Resource {
     Type = "AWS::ApiGateway::Deployment"
 
 
-    /// The input configuration for a canary deployment.
+    /// 
     hidden DeploymentCanarySettings: (DeploymentDeploymentCanarySettings)?
 
-    /// The description for the Deployment resource to create.
+    /// 
     hidden Description: (String|Mapping)?
 
-    /// The string identifier of the associated RestApi.
+    /// 
     hidden RestApiId: String|Mapping
 
     /// The description of the Stage resource for the Deployment resource to create. To specify a stage description, you must also provide a stage name.
     hidden StageDescription: (DeploymentStageDescription)?
 
-    /// The name of the Stage resource for the Deployment resource to create.
+    /// 
     hidden StageName: (String|Mapping)?
 
     Properties {

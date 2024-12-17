@@ -5,6 +5,17 @@ module aws.iotsitewise.portal
 
 import "../../cloudformation.pkl"
 
+typealias PortalPortalTools = Listing<(String|Mapping)?>
+
+
+typealias PortalPortalTypeConfiguration = Mapping<String, Any>
+
+
+/// Container associated a certain PortalType.
+open class PortalPortalTypeEntry {
+    PortalTools: PortalPortalTools
+}
+
 /// To add or update tag, provide both key and value. To delete tag, provide only tag key to be deleted.
 open class PortalTag {
     Key: String|Mapping
@@ -35,6 +46,12 @@ open class Portal extends cloudformation.Resource {
     /// A friendly name for the portal.
     hidden PortalName: String|Mapping
 
+    /// The type of portal
+    hidden PortalType: (PortalPortalType|Mapping)?
+
+    /// 
+    hidden PortalTypeConfiguration: (PortalPortalTypeConfiguration)?
+
     /// The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf.
     hidden RoleArn: String|Mapping
 
@@ -48,8 +65,13 @@ open class Portal extends cloudformation.Resource {
         ["PortalContactEmail"] = if (PortalContactEmail == null) null else PortalContactEmail
         ["PortalDescription"] = if (PortalDescription == null) null else PortalDescription
         ["PortalName"] = if (PortalName == null) null else PortalName
+        ["PortalType"] = if (PortalType == null) null else PortalType
+        ["PortalTypeConfiguration"] = if (PortalTypeConfiguration == null) null else PortalTypeConfiguration
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["Tags"] = if (Tags == null) null else Tags
     }
 
 }
+
+
+typealias PortalPortalType = "SITEWISE_PORTAL_V1"|"SITEWISE_PORTAL_V2"

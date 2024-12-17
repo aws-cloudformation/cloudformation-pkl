@@ -43,6 +43,9 @@ open class DeliveryDestination extends cloudformation.Resource {
     /// The name of this delivery destination.
     hidden Name: String(matches(Regex(#"[\w-]*$"#)))|Mapping
 
+    /// The format of the logs that are sent to this delivery destination.
+    hidden OutputFormat: (String(matches(Regex(#"^[0-9A-Za-z]+$"#)))|Mapping)?
+
     /// The tags that have been assigned to this delivery destination.
     hidden Tags: (Listing<DeliveryDestinationTag>)?
 
@@ -50,6 +53,7 @@ open class DeliveryDestination extends cloudformation.Resource {
         ["DeliveryDestinationPolicy"] = if (DeliveryDestinationPolicy == null) null else DeliveryDestinationPolicy
         ["DestinationResourceArn"] = if (DestinationResourceArn == null) null else DestinationResourceArn
         ["Name"] = if (Name == null) null else Name
+        ["OutputFormat"] = if (OutputFormat == null) null else OutputFormat
         ["Tags"] = if (Tags == null) null else Tags
     }
 

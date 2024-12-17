@@ -189,6 +189,9 @@ open class Application extends cloudformation.Resource {
     /// The name of the resource group.
     hidden ResourceGroupName: String(matches(Regex(#"[a-zA-Z0-9.-_]*"#)))|Mapping
 
+    /// Application Insights sends notifications to this SNS topic whenever there is a problem update in the associated application.
+    hidden SNSNotificationArn: (String(matches(Regex(#"^arn:aws(-[\w]+)*:[\w\d-]+:([\w\d-]*)?:[\w\d_-]*([:/].+)*$"#)))|Mapping)?
+
     /// The tags of Application Insights application.
     hidden Tags: (Listing<ApplicationTag>)?
 
@@ -203,6 +206,7 @@ open class Application extends cloudformation.Resource {
         ["OpsCenterEnabled"] = if (OpsCenterEnabled == null) null else OpsCenterEnabled
         ["OpsItemSNSTopicArn"] = if (OpsItemSNSTopicArn == null) null else OpsItemSNSTopicArn
         ["ResourceGroupName"] = if (ResourceGroupName == null) null else ResourceGroupName
+        ["SNSNotificationArn"] = if (SNSNotificationArn == null) null else SNSNotificationArn
         ["Tags"] = if (Tags == null) null else Tags
     }
 

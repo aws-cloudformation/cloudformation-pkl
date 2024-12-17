@@ -18,6 +18,9 @@ open class SubscriptionFilter extends cloudformation.Resource {
     Type = "AWS::Logs::SubscriptionFilter"
 
 
+    /// 
+    hidden ApplyOnTransformedLogs: (Boolean|Mapping)?
+
     /// The Amazon Resource Name (ARN) of the destination.
     hidden DestinationArn: String|Mapping
 
@@ -37,6 +40,7 @@ open class SubscriptionFilter extends cloudformation.Resource {
     hidden RoleArn: (String|Mapping)?
 
     Properties {
+        ["ApplyOnTransformedLogs"] = if (ApplyOnTransformedLogs == null) null else ApplyOnTransformedLogs
         ["DestinationArn"] = if (DestinationArn == null) null else DestinationArn
         ["Distribution"] = if (Distribution == null) null else Distribution
         ["FilterName"] = if (FilterName == null) null else FilterName

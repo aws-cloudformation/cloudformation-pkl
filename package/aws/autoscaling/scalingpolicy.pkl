@@ -11,6 +11,7 @@ open class ScalingPolicyCustomizedMetricSpecification {
     MetricName: (String|Mapping)?
     Metrics: (Listing<ScalingPolicyTargetTrackingMetricDataQuery>)?
     Namespace: (String|Mapping)?
+    Period: (Int|Mapping)?
     Statistic: (String|Mapping)?
     Unit: (String|Mapping)?
 }
@@ -124,12 +125,14 @@ open class ScalingPolicyTargetTrackingMetricDataQuery {
     Id: String|Mapping
     Label: (String|Mapping)?
     MetricStat: (ScalingPolicyTargetTrackingMetricStat)?
+    Period: (Int|Mapping)?
     ReturnData: (Boolean|Mapping)?
 }
 
 /// 
 open class ScalingPolicyTargetTrackingMetricStat {
     Metric: ScalingPolicyMetric
+    Period: (Int|Mapping)?
     Stat: String|Mapping
     Unit: (String|Mapping)?
 }

@@ -5,6 +5,11 @@ module aws.rds.globalcluster
 
 import "../../cloudformation.pkl"
 
+/// 
+open class GlobalClusterGlobalEndpoint {
+    Address: (String|Mapping)?
+}
+
 /// A key-value pair to associate with a resource.
 open class GlobalClusterTag {
     Key: String|Mapping
@@ -34,6 +39,9 @@ open class GlobalCluster extends cloudformation.Resource {
     /// The cluster identifier of the new global database cluster. This parameter is stored as a lowercase string.
     hidden GlobalClusterIdentifier: (String(matches(Regex(#"^[a-zA-Z]{1}(?:-?[a-zA-Z0-9]){0,62}$"#)))|Mapping)?
 
+    /// 
+    hidden GlobalEndpoint: (GlobalClusterGlobalEndpoint)?
+
     /// The Amazon Resource Name (ARN) to use as the primary cluster of the global database. This parameter is optional. This parameter is stored as a lowercase string.
     hidden SourceDBClusterIdentifier: (String|Mapping)?
 
@@ -51,6 +59,7 @@ open class GlobalCluster extends cloudformation.Resource {
         ["EngineLifecycleSupport"] = if (EngineLifecycleSupport == null) null else EngineLifecycleSupport
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["GlobalClusterIdentifier"] = if (GlobalClusterIdentifier == null) null else GlobalClusterIdentifier
+        ["GlobalEndpoint"] = if (GlobalEndpoint == null) null else GlobalEndpoint
         ["SourceDBClusterIdentifier"] = if (SourceDBClusterIdentifier == null) null else SourceDBClusterIdentifier
         ["StorageEncrypted"] = if (StorageEncrypted == null) null else StorageEncrypted
         ["Tags"] = if (Tags == null) null else Tags

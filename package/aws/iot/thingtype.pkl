@@ -5,6 +5,15 @@ module aws.iot.thingtype
 
 import "../../cloudformation.pkl"
 
+typealias PropagatingAttributeConnectionAttribute = "iot:ClientId"|"iot:Thing.ThingName"
+
+/// 
+open class ThingTypePropagatingAttribute {
+    ConnectionAttribute: (PropagatingAttributeConnectionAttribute|Mapping)?
+    ThingAttribute: (String(matches(Regex(#"[a-zA-Z0-9_.,@/:#-]+"#)))|Mapping)?
+    UserPropertyKey: String(matches(Regex(#"[a-zA-Z0-9:$.]+"#)))|Mapping
+}
+
 /// A key-value pair to associate with a resource.
 open class ThingTypeTag {
     Key: String(matches(Regex(#"^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$"#)))|Mapping

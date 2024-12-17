@@ -8,6 +8,11 @@ import "../../cloudformation.pkl"
 typealias ExperimentTemplateActionId = String|Mapping
 
 
+/// 
+open class ExperimentTemplateCloudWatchDashboard {
+    DashboardIdentifier: String|Mapping
+}
+
 typealias ExperimentTemplateExperimentTemplateActionParameters = Mapping<String, Any>
 
 typealias ExperimentTemplateExperimentTemplateActionTargets = Mapping<String, Any>
@@ -50,6 +55,14 @@ typealias ExperimentTemplateExperimentOptionsEmptyTargetResolutionMode = "fail"|
 open class ExperimentTemplateExperimentTemplateExperimentOptions {
     AccountTargeting: (ExperimentTemplateExperimentOptionsAccountTargeting|Mapping)?
     EmptyTargetResolutionMode: (ExperimentTemplateExperimentOptionsEmptyTargetResolutionMode|Mapping)?
+}
+
+/// 
+open class ExperimentTemplateExperimentTemplateExperimentReportConfiguration {
+    DataSources: (Dynamic)?
+    Outputs: Dynamic
+    PostExperimentDuration: (String|Mapping)?
+    PreExperimentDuration: (String|Mapping)?
 }
 
 typealias ExperimentTemplateExperimentTemplateId = String|Mapping
@@ -143,6 +156,9 @@ open class ExperimentTemplate extends cloudformation.Resource {
     hidden ExperimentOptions: (ExperimentTemplateExperimentTemplateExperimentOptions)?
 
     /// 
+    hidden ExperimentReportConfiguration: (ExperimentTemplateExperimentTemplateExperimentReportConfiguration)?
+
+    /// 
     hidden LogConfiguration: (ExperimentTemplateExperimentTemplateLogConfiguration)?
 
     /// 
@@ -161,6 +177,7 @@ open class ExperimentTemplate extends cloudformation.Resource {
         ["Actions"] = if (Actions == null) null else Actions
         ["Description"] = if (Description == null) null else Description
         ["ExperimentOptions"] = if (ExperimentOptions == null) null else ExperimentOptions
+        ["ExperimentReportConfiguration"] = if (ExperimentReportConfiguration == null) null else ExperimentReportConfiguration
         ["LogConfiguration"] = if (LogConfiguration == null) null else LogConfiguration
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["StopConditions"] = if (StopConditions == null) null else StopConditions

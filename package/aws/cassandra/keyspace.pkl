@@ -30,6 +30,9 @@ open class Keyspace extends cloudformation.Resource {
     Type = "AWS::Cassandra::Keyspace"
 
 
+    /// Indicates whether client-side timestamps are enabled (true) or disabled (false) for all tables in the keyspace. To add a Region to a single-Region keyspace with at least one table, the value must be set to true. After you enabled client-side timestamps for a table, you can?t disable it again.
+    hidden ClientSideTimestampsEnabled: (Boolean|Mapping)?
+
     /// Name for Cassandra keyspace
     hidden KeyspaceName: (String(matches(Regex(#"^[a-zA-Z0-9][a-zA-Z0-9_]{1,47}$"#)))|Mapping)?
 
@@ -40,6 +43,7 @@ open class Keyspace extends cloudformation.Resource {
     hidden Tags: (Listing<KeyspaceTag>)?
 
     Properties {
+        ["ClientSideTimestampsEnabled"] = if (ClientSideTimestampsEnabled == null) null else ClientSideTimestampsEnabled
         ["KeyspaceName"] = if (KeyspaceName == null) null else KeyspaceName
         ["ReplicationSpecification"] = if (ReplicationSpecification == null) null else ReplicationSpecification
         ["Tags"] = if (Tags == null) null else Tags

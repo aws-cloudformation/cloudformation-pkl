@@ -31,7 +31,7 @@ open class Application extends cloudformation.Resource {
 
 
     /// 
-    hidden Definition: ApplicationDefinition
+    hidden Definition: (ApplicationDefinition)?
 
     /// 
     hidden Description: (String|Mapping)?

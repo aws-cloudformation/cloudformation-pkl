@@ -29,7 +29,7 @@ open class CustomerGateway extends cloudformation.Resource {
     hidden BgpAsnExtended: (Number|Mapping)?
 
     /// The Amazon Resource Name (ARN) for the customer gateway certificate.
-    hidden CertificateArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z-]*)?:acm:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:certificate\/[a-zA-Z0-9-_]+$"#)))|Mapping)?
+    hidden CertificateArn: (String(matches(Regex(#"^arn:(aws[a-zA-Z-]*)?:acm:[a-z]{2}((-gov)|(-iso([a-z]{1})?))?-[a-z]+-\d{1}:\d{12}:certificate\/[a-zA-Z0-9-_]+$"#)))|Mapping)?
 
     /// The name of customer gateway device.
     hidden DeviceName: (String|Mapping)?
