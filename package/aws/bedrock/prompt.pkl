@@ -5,6 +5,50 @@ module aws.bedrock.prompt
 
 import "../../cloudformation.pkl"
 
+typealias PromptAnyToolChoice = Dynamic
+
+
+typealias PromptAutoToolChoice = Dynamic
+
+
+/// Configuration for chat prompt template
+open class PromptChatPromptTemplateConfiguration {
+    InputVariables: (Listing<PromptPromptInputVariable>)?
+    Messages: Listing<PromptMessage>
+    System: (Listing<PromptSystemContentBlock>)?
+    ToolConfiguration: (PromptToolConfiguration)?
+}
+
+typealias PromptContentBlock = PromptContentBlockText
+
+
+/// 
+open class PromptContentBlockText {
+    Text: String|Mapping
+}
+
+typealias PromptConversationRole = String|Mapping
+
+
+/// Chat prompt Message
+open class PromptMessage {
+    Content: Listing<PromptContentBlock>
+    Role: PromptConversationRole
+}
+
+/// Target Agent to invoke with Prompt
+open class PromptPromptAgentResource {
+    AgentIdentifier: String(matches(Regex(#"^arn:aws(-[^:]+)?:bedrock:[a-z0-9-]{1,20}:[0-9]{12}:agent-alias/[0-9a-zA-Z]{10}/[0-9a-zA-Z]{10}$"#)))|Mapping
+}
+
+typealias PromptPromptGenAiResource = PromptPromptGenAiResourceAgent
+
+
+/// 
+open class PromptPromptGenAiResourceAgent {
+    Agent: PromptPromptAgentResource
+}
+
 typealias PromptPromptInferenceConfiguration = PromptPromptInferenceConfigurationText
 
 
@@ -26,8 +70,13 @@ open class PromptPromptModelInferenceConfiguration {
     TopP: (Number|Mapping)?
 }
 
-typealias PromptPromptTemplateConfiguration = PromptPromptTemplateConfigurationText
+typealias PromptPromptTemplateConfiguration = PromptPromptTemplateConfigurationText|PromptPromptTemplateConfigurationChat
 
+
+/// 
+open class PromptPromptTemplateConfigurationChat {
+    Chat: PromptChatPromptTemplateConfiguration
+}
 
 /// 
 open class PromptPromptTemplateConfigurationText {
@@ -39,11 +88,25 @@ typealias PromptPromptTemplateType = String|Mapping
 
 /// Prompt variant
 open class PromptPromptVariant {
+    GenAiResource: (PromptPromptGenAiResource)?
     InferenceConfiguration: (PromptPromptInferenceConfiguration)?
     ModelId: (String(matches(Regex(#"^(arn:aws(-[^:]{1,12})?:(bedrock|sagemaker):[a-z0-9-]{1,20}:([0-9]{12})?:([a-z-]+/)?)?([a-zA-Z0-9.-]{1,63}){0,2}(([:][a-z0-9-]{1,63}){0,2})?(/[a-z0-9]{1,12})?$"#)))|Mapping)?
     Name: String(matches(Regex(#"^([0-9a-zA-Z][_-]?){1,100}$"#)))|Mapping
     TemplateConfiguration: PromptPromptTemplateConfiguration
     TemplateType: PromptPromptTemplateType
+}
+
+/// Specific Tool choice
+open class PromptSpecificToolChoice {
+    Name: String(matches(Regex(#"^[a-zA-Z][a-zA-Z0-9_]*$"#)))|Mapping
+}
+
+typealias PromptSystemContentBlock = PromptSystemContentBlockText
+
+
+/// 
+open class PromptSystemContentBlockText {
+    Text: String|Mapping
 }
 
 typealias PromptTagsMap = Mapping<String, Any>
@@ -61,6 +124,53 @@ open class PromptTextS3Location {
     Bucket: String(matches(Regex(#"^[a-z0-9][\.\-a-z0-9]{1,61}[a-z0-9]$"#)))|Mapping
     Key: String|Mapping
     Version: (String|Mapping)?
+}
+
+typealias PromptTool = PromptToolToolSpec
+
+
+typealias PromptToolChoice = PromptToolChoiceAuto|PromptToolChoiceAny|PromptToolChoiceTool
+
+
+/// 
+open class PromptToolChoiceAny {
+    Any: PromptAnyToolChoice
+}
+
+/// 
+open class PromptToolChoiceAuto {
+    Auto: PromptAutoToolChoice
+}
+
+/// 
+open class PromptToolChoiceTool {
+    Tool: PromptSpecificToolChoice
+}
+
+/// Tool configuration
+open class PromptToolConfiguration {
+    ToolChoice: (PromptToolChoice)?
+    Tools: Listing<PromptTool>
+}
+
+typealias PromptToolInputSchema = PromptToolInputSchemaJson
+
+
+/// Tool input schema json
+open class PromptToolInputSchemaJson {
+    Json: Dynamic
+}
+
+/// Tool specification
+open class PromptToolSpecification {
+    Description: (String|Mapping)?
+    InputSchema: PromptToolInputSchema
+    Name: String(matches(Regex(#"^[a-zA-Z][a-zA-Z0-9_]*$"#)))|Mapping
+}
+
+/// 
+open class PromptToolToolSpec {
+    ToolSpec: PromptToolSpecification
 }
 
 /// Definition of AWS::Bedrock::Prompt Resource Type

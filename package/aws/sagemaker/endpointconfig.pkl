@@ -116,7 +116,6 @@ open class EndpointConfigManagedInstanceScaling {
 
 /// 
 open class EndpointConfigProductionVariant {
-    AcceleratorType: (String|Mapping)?
     ContainerStartupHealthCheckTimeoutInSeconds: (Int|Mapping)?
     EnableSSMAccess: (Boolean|Mapping)?
     InitialInstanceCount: (Int|Mapping)?

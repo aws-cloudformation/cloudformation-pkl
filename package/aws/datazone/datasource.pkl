@@ -11,7 +11,7 @@ typealias DataSourceAccountId = String|Mapping
 typealias DataSourceDataAccessRole = String|Mapping
 
 
-typealias DataSourceDataSourceConfigurationInput = DataSourceDataSourceConfigurationInputGlueRunConfiguration|DataSourceDataSourceConfigurationInputRedshiftRunConfiguration
+typealias DataSourceDataSourceConfigurationInput = DataSourceDataSourceConfigurationInputGlueRunConfiguration|DataSourceDataSourceConfigurationInputRedshiftRunConfiguration|DataSourceDataSourceConfigurationInputSageMakerRunConfiguration
 
 
 /// 
@@ -22,6 +22,11 @@ open class DataSourceDataSourceConfigurationInputGlueRunConfiguration {
 /// 
 open class DataSourceDataSourceConfigurationInputRedshiftRunConfiguration {
     RedshiftRunConfiguration: (DataSourceRedshiftRunConfigurationInput)?
+}
+
+/// 
+open class DataSourceDataSourceConfigurationInputSageMakerRunConfiguration {
+    SageMakerRunConfiguration: (DataSourceSageMakerRunConfigurationInput)?
 }
 
 typealias DataSourceDataSourceStatus = String|Mapping
@@ -111,6 +116,11 @@ open class DataSourceRelationalFilterConfiguration {
 typealias DataSourceRelationalFilterConfigurations = Listing<(DataSourceRelationalFilterConfiguration)?>
 
 
+/// The configuration details of the Amazon SageMaker data source.
+open class DataSourceSageMakerRunConfigurationInput {
+    TrackingAssets: DataSourceTrackingAssets
+}
+
 /// The schedule of the data source runs.
 open class DataSourceScheduleConfiguration {
     Schedule: (String(matches(Regex(#"cron\((\b[0-5]?[0-9]\b) (\b2[0-3]\b|\b[0-1]?[0-9]\b) (.*){1,5} (.*){1,5} (.*){1,5} (.*){1,5}\)"#)))|Mapping)?
@@ -118,6 +128,9 @@ open class DataSourceScheduleConfiguration {
 }
 
 typealias DataSourceTimezone = String|Mapping
+
+
+typealias DataSourceTrackingAssets = Mapping<String, Any>
 
 
 typealias DataSourceTypeRevision = String|Mapping

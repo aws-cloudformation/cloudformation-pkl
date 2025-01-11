@@ -78,13 +78,13 @@ open class DataAccessor extends cloudformation.Resource {
     hidden ActionConfigurations: Listing<DataAccessorActionConfiguration>
 
     /// 
-    hidden ApplicationId: (String(matches(Regex(#"^[a-zA-Z0-9][a-zA-Z0-9-]{35}$"#)))|Mapping)?
+    hidden ApplicationId: String(matches(Regex(#"^[a-zA-Z0-9][a-zA-Z0-9-]{35}$"#)))|Mapping
 
     /// 
     hidden DisplayName: String(matches(Regex(#"^[a-zA-Z0-9][a-zA-Z0-9_-]*$"#)))|Mapping
 
     /// 
-    hidden Principal: String(matches(Regex(#"^arn:aws:iam::[0-9]{12}:role/.+"#)))|Mapping
+    hidden Principal: String(matches(Regex(#"^arn:aws:iam::[0-9]{12}:role/[a-zA-Z0-9_/+=,.@-]+$"#)))|Mapping
 
     /// 
     hidden Tags: (Listing<DataAccessorTag>)?

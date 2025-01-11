@@ -25,6 +25,7 @@ open class DomainClusterConfig {
     InstanceCount: (Int|Mapping)?
     InstanceType: (String|Mapping)?
     MultiAZWithStandbyEnabled: (Boolean|Mapping)?
+    NodeOptions: (Listing<DomainNodeOption>)?
     WarmCount: (Int|Mapping)?
     WarmEnabled: (Boolean|Mapping)?
     WarmType: (String|Mapping)?
@@ -104,6 +105,21 @@ open class DomainMasterUserOptions {
     MasterUserARN: (String|Mapping)?
     MasterUserName: (String|Mapping)?
     MasterUserPassword: (String|Mapping)?
+}
+
+/// 
+open class DomainNodeConfig {
+    Count: (Int|Mapping)?
+    Enabled: (Boolean|Mapping)?
+    Type: (String|Mapping)?
+}
+
+typealias NodeOptionNodeType = "coordinator"
+
+/// 
+open class DomainNodeOption {
+    NodeConfig: (DomainNodeConfig)?
+    NodeType: (NodeOptionNodeType|Mapping)?
 }
 
 /// 

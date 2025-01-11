@@ -38,12 +38,6 @@ open class LogicallyAirGappedBackupVault extends cloudformation.Resource {
     /// 
     hidden Notifications: (LogicallyAirGappedBackupVaultNotificationObjectType)?
 
-    /// 
-    hidden VaultState: (String|Mapping)?
-
-    /// 
-    hidden VaultType: (String|Mapping)?
-
     Properties {
         ["AccessPolicy"] = if (AccessPolicy == null) null else AccessPolicy
         ["BackupVaultName"] = if (BackupVaultName == null) null else BackupVaultName
@@ -51,8 +45,6 @@ open class LogicallyAirGappedBackupVault extends cloudformation.Resource {
         ["MaxRetentionDays"] = if (MaxRetentionDays == null) null else MaxRetentionDays
         ["MinRetentionDays"] = if (MinRetentionDays == null) null else MinRetentionDays
         ["Notifications"] = if (Notifications == null) null else Notifications
-        ["VaultState"] = if (VaultState == null) null else VaultState
-        ["VaultType"] = if (VaultType == null) null else VaultType
     }
 
 }

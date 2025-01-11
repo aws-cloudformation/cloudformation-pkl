@@ -8,6 +8,15 @@ import "../../cloudformation.pkl"
 typealias DataProviderDmsSslModeValue = String|Mapping
 
 
+typealias DataProviderMongoDbAuthMechanism = String|Mapping
+
+
+typealias DataProviderMongoDbAuthType = String|Mapping
+
+
+typealias DataProviderMongoDbSslModeValue = String|Mapping
+
+
 /// A key-value pair to associate with a resource.
 open class DataProviderTag {
     Key: String|Mapping
@@ -54,4 +63,4 @@ open class DataProvider extends cloudformation.Resource {
 }
 
 
-typealias DataProviderEngine = "postgres"|"mysql"|"oracle"|"sqlserver"|"aurora"|"aurora_postgresql"
+typealias DataProviderEngine = "aurora"|"aurora_postgresql"|"mysql"|"oracle"|"postgres"|"sqlserver"|"redshift"|"mariadb"|"mongodb"|"docdb"

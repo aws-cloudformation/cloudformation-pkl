@@ -74,6 +74,9 @@ open class App extends cloudformation.Resource {
     /// 
     hidden PermissionModel: (AppPermissionModel)?
 
+    /// Amazon Resource Name (ARN) of the Regulatory Policy.
+    hidden RegulatoryPolicyArn: (String(matches(Regex(#"^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]):[0-9]{12}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)))|Mapping)?
+
     /// Amazon Resource Name (ARN) of the Resiliency Policy.
     hidden ResiliencyPolicyArn: (String(matches(Regex(#"^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]):[0-9]{12}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$"#)))|Mapping)?
 
@@ -90,6 +93,7 @@ open class App extends cloudformation.Resource {
         ["EventSubscriptions"] = if (EventSubscriptions == null) null else EventSubscriptions
         ["Name"] = if (Name == null) null else Name
         ["PermissionModel"] = if (PermissionModel == null) null else PermissionModel
+        ["RegulatoryPolicyArn"] = if (RegulatoryPolicyArn == null) null else RegulatoryPolicyArn
         ["ResiliencyPolicyArn"] = if (ResiliencyPolicyArn == null) null else ResiliencyPolicyArn
         ["ResourceMappings"] = if (ResourceMappings == null) null else ResourceMappings
         ["Tags"] = if (Tags == null) null else Tags

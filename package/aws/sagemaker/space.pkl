@@ -16,6 +16,7 @@ open class SpaceCodeRepository {
 /// 
 open class SpaceCustomFileSystem {
     EFSFileSystem: (SpaceEFSFileSystem)?
+    FSxLustreFileSystem: (SpaceFSxLustreFileSystem)?
 }
 
 typealias SpaceCustomFileSystems = Listing<(SpaceCustomFileSystem)?>
@@ -36,6 +37,11 @@ open class SpaceEFSFileSystem {
 /// Properties related to the space's Amazon Elastic Block Store volume.
 open class SpaceEbsStorageSettings {
     EbsVolumeSizeInGb: SpaceSpaceEbsVolumeSizeInGb
+}
+
+/// 
+open class SpaceFSxLustreFileSystem {
+    FileSystemId: String(matches(Regex(#"^(fs-[0-9a-f]{8,})$"#)))|Mapping
 }
 
 /// The JupyterServer app settings.

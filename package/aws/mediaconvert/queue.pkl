@@ -12,6 +12,9 @@ open class Queue extends cloudformation.Resource {
 
 
     /// 
+    hidden ConcurrentJobs: (Int|Mapping)?
+
+    /// 
     hidden Description: (String|Mapping)?
 
     /// 
@@ -27,6 +30,7 @@ open class Queue extends cloudformation.Resource {
     hidden Tags: (Dynamic)?
 
     Properties {
+        ["ConcurrentJobs"] = if (ConcurrentJobs == null) null else ConcurrentJobs
         ["Description"] = if (Description == null) null else Description
         ["Name"] = if (Name == null) null else Name
         ["PricingPlan"] = if (PricingPlan == null) null else PricingPlan

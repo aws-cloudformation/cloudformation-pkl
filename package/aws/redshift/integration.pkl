@@ -32,13 +32,13 @@ open class Integration extends cloudformation.Resource {
     /// An KMS key identifier for the key to use to encrypt the integration. If you don't specify an encryption key, the default AWS owned KMS key is used.
     hidden KMSKeyId: (String|Mapping)?
 
-    /// The Amazon Resource Name (ARN) of the database to use as the source for replication, for example, arn:aws:dynamodb:us-east-2:123412341234:table/dynamotable
+    /// The Amazon Resource Name (ARN) of the database to use as the source for replication
     hidden SourceArn: String|Mapping
 
     /// An array of key-value pairs to apply to this resource.
     hidden Tags: (Listing<IntegrationTag>)?
 
-    /// The Amazon Resource Name (ARN) of the Redshift data warehouse to use as the target for replication, for example, arn:aws:redshift:us-east-2:123412341234:namespace:e43aab3e-10a3-4ec4-83d4-f227ff9bfbcf
+    /// The Amazon Resource Name (ARN) of the Redshift data warehouse to use as the target for replication
     hidden TargetArn: String|Mapping
 
     Properties {

@@ -26,6 +26,9 @@ open class VPCCidrBlock extends cloudformation.Resource {
     /// An IPv6 CIDR block from the IPv6 address pool.
     hidden Ipv6CidrBlock: (String|Mapping)?
 
+    /// The name of the location from which we advertise the IPV6 CIDR block.
+    hidden Ipv6CidrBlockNetworkBorderGroup: (String|Mapping)?
+
     /// The ID of the IPv6 IPAM pool to Associate a CIDR from to a VPC.
     hidden Ipv6IpamPoolId: (String|Mapping)?
 
@@ -44,6 +47,7 @@ open class VPCCidrBlock extends cloudformation.Resource {
         ["Ipv4IpamPoolId"] = if (Ipv4IpamPoolId == null) null else Ipv4IpamPoolId
         ["Ipv4NetmaskLength"] = if (Ipv4NetmaskLength == null) null else Ipv4NetmaskLength
         ["Ipv6CidrBlock"] = if (Ipv6CidrBlock == null) null else Ipv6CidrBlock
+        ["Ipv6CidrBlockNetworkBorderGroup"] = if (Ipv6CidrBlockNetworkBorderGroup == null) null else Ipv6CidrBlockNetworkBorderGroup
         ["Ipv6IpamPoolId"] = if (Ipv6IpamPoolId == null) null else Ipv6IpamPoolId
         ["Ipv6NetmaskLength"] = if (Ipv6NetmaskLength == null) null else Ipv6NetmaskLength
         ["Ipv6Pool"] = if (Ipv6Pool == null) null else Ipv6Pool

@@ -70,6 +70,7 @@ open class AgentFunction {
     Description: (String|Mapping)?
     Name: String(matches(Regex(#"^([0-9a-zA-Z][_-]?){1,100}$"#)))|Mapping
     Parameters: (AgentParameterMap)?
+    RequireConfirmation: (AgentRequireConfirmation)?
 }
 
 /// Schema of Functions
@@ -125,6 +126,9 @@ typealias AgentPromptState = String|Mapping
 
 
 typealias AgentPromptType = String|Mapping
+
+
+typealias AgentRequireConfirmation = String|Mapping
 
 
 /// The identifier for the S3 resource.

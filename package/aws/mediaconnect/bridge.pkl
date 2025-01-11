@@ -25,6 +25,7 @@ open class BridgeBridgeNetworkOutput {
 /// The source of the bridge. A network source originates at your premises.
 open class BridgeBridgeNetworkSource {
     MulticastIp: String|Mapping
+    MulticastSourceSettings: (BridgeMulticastSourceSettings)?
     Name: String|Mapping
     NetworkName: String|Mapping
     Port: Int|Mapping
@@ -67,6 +68,11 @@ typealias BridgeFailoverModeEnum = String|Mapping
 open class BridgeIngressGatewayBridge {
     MaxBitrate: Int|Mapping
     MaxOutputs: Int|Mapping
+}
+
+/// The settings related to the multicast source.
+open class BridgeMulticastSourceSettings {
+    MulticastSourceIp: (String|Mapping)?
 }
 
 typealias BridgeProtocolEnum = String|Mapping

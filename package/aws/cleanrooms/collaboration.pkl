@@ -11,12 +11,29 @@ typealias CollaborationAnalyticsEngine = String|Mapping
 typealias CollaborationCollaborationQueryLogStatus = String|Mapping
 
 
+typealias CollaborationCustomMLMemberAbilities = Listing<(CollaborationCustomMLMemberAbility)?>
+
+
+typealias CollaborationCustomMLMemberAbility = String|Mapping
+
+
 /// 
 open class CollaborationDataEncryptionMetadata {
     AllowCleartext: Boolean|Mapping
     AllowDuplicates: Boolean|Mapping
     AllowJoinsOnColumnsWithDifferentNames: Boolean|Mapping
     PreserveNulls: Boolean|Mapping
+}
+
+/// 
+open class CollaborationMLMemberAbilities {
+    CustomMLMemberAbilities: CollaborationCustomMLMemberAbilities
+}
+
+/// 
+open class CollaborationMLPaymentConfig {
+    ModelInference: (CollaborationModelInferencePaymentConfig)?
+    ModelTraining: (CollaborationModelTrainingPaymentConfig)?
 }
 
 typealias CollaborationMemberAbilities = Listing<(CollaborationMemberAbility)?>
@@ -29,6 +46,7 @@ typealias CollaborationMemberAbility = String|Mapping
 open class CollaborationMemberSpecification {
     AccountId: String(matches(Regex(#"^\d+$"#)))|Mapping
     DisplayName: CollaborationName
+    MLMemberAbilities: (CollaborationMLMemberAbilities)?
     MemberAbilities: CollaborationMemberAbilities
     PaymentConfiguration: (CollaborationPaymentConfiguration)?
 }
@@ -36,11 +54,22 @@ open class CollaborationMemberSpecification {
 typealias CollaborationMemberStatus = String|Mapping
 
 
+/// 
+open class CollaborationModelInferencePaymentConfig {
+    IsResponsible: Boolean|Mapping
+}
+
+/// 
+open class CollaborationModelTrainingPaymentConfig {
+    IsResponsible: Boolean|Mapping
+}
+
 typealias CollaborationName = String|Mapping
 
 
 /// 
 open class CollaborationPaymentConfiguration {
+    MachineLearning: (CollaborationMLPaymentConfig)?
     QueryCompute: CollaborationQueryComputePaymentConfig
 }
 
@@ -66,6 +95,9 @@ open class Collaboration extends cloudformation.Resource {
 
     /// 
     hidden CreatorDisplayName: CollaborationName
+
+    /// 
+    hidden CreatorMLMemberAbilities: (CollaborationMLMemberAbilities)?
 
     /// 
     hidden CreatorMemberAbilities: CollaborationMemberAbilities
@@ -94,6 +126,7 @@ open class Collaboration extends cloudformation.Resource {
     Properties {
         ["AnalyticsEngine"] = if (AnalyticsEngine == null) null else AnalyticsEngine
         ["CreatorDisplayName"] = if (CreatorDisplayName == null) null else CreatorDisplayName
+        ["CreatorMLMemberAbilities"] = if (CreatorMLMemberAbilities == null) null else CreatorMLMemberAbilities
         ["CreatorMemberAbilities"] = if (CreatorMemberAbilities == null) null else CreatorMemberAbilities
         ["CreatorPaymentConfiguration"] = if (CreatorPaymentConfiguration == null) null else CreatorPaymentConfiguration
         ["DataEncryptionMetadata"] = if (DataEncryptionMetadata == null) null else DataEncryptionMetadata

@@ -18,7 +18,7 @@ open class Permission extends cloudformation.Resource {
     hidden ApplicationId: String(matches(Regex(#"^[a-zA-Z0-9][a-zA-Z0-9-]{35}$"#)))|Mapping
 
     /// 
-    hidden Principal: String(matches(Regex(#"^arn:aws:iam::[0-9]{12}:role/.+"#)))|Mapping
+    hidden Principal: String(matches(Regex(#"^arn:aws:iam::[0-9]{12}:role/[a-zA-Z0-9_/+=,.@-]+$"#)))|Mapping
 
     /// 
     hidden StatementId: String(matches(Regex(#"^[a-zA-Z0-9_-]+$"#)))|Mapping

@@ -14,9 +14,15 @@ open class BridgeSourceBridgeFlowSource {
 /// The source of the bridge. A network source originates at your premises.
 open class BridgeSourceBridgeNetworkSource {
     MulticastIp: String|Mapping
+    MulticastSourceSettings: (BridgeSourceMulticastSourceSettings)?
     NetworkName: String|Mapping
     Port: Int|Mapping
     Protocol: BridgeSourceProtocolEnum
+}
+
+/// The settings related to the multicast source.
+open class BridgeSourceMulticastSourceSettings {
+    MulticastSourceIp: (String|Mapping)?
 }
 
 typealias BridgeSourceProtocolEnum = String|Mapping

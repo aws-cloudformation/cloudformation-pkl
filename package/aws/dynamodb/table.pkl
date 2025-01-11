@@ -90,6 +90,7 @@ open class TableOnDemandThroughput {
 /// The settings used to enable point in time recovery.
 open class TablePointInTimeRecoverySpecification {
     PointInTimeRecoveryEnabled: (Boolean|Mapping)?
+    RecoveryPeriodInDays: (Int|Mapping)?
 }
 
 /// Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.

@@ -186,6 +186,7 @@ open class ServiceServiceManagedEBSVolumeConfiguration {
     SnapshotId: (String|Mapping)?
     TagSpecifications: (Listing<ServiceEBSTagSpecification>)?
     Throughput: (Int|Mapping)?
+    VolumeInitializationRate: (Int|Mapping)?
     VolumeType: (String|Mapping)?
 }
 
@@ -253,7 +254,7 @@ open class Service extends cloudformation.Resource {
     /// The capacity provider strategy to use for the service.
     ///
     ///  If a ``capacityProviderStrategy`` is specified, the ``launchType`` parameter must be omitted. If no ``capacityProviderStrategy`` or ``launchType`` is specified, the ``defaultCapacityProviderStrategy`` for the cluster is used.
-    ///  A capacity provider strategy may contain a maximum of 6 capacity providers.
+    ///  A capacity provider strategy can contain a maximum of 20 capacity providers.
     hidden CapacityProviderStrategy: (Listing<ServiceCapacityProviderStrategyItem>)?
 
     /// The short name or full Amazon Resource Name (ARN) of the cluster that you run your service on. If you do not specify a cluster, the default cluster is assumed.

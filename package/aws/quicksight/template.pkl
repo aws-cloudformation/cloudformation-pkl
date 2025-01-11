@@ -98,10 +98,10 @@ open class TemplateAxisDisplayMinMaxRange {
 
 /// 
 open class TemplateAxisDisplayOptions {
-    AxisLineVisibility: (TemplateVisibility)?
+    AxisLineVisibility: (Dynamic|Mapping)?
     AxisOffset: (String|Mapping)?
     DataOptions: (TemplateAxisDataOptions)?
-    GridLineVisibility: (TemplateVisibility)?
+    GridLineVisibility: (Dynamic|Mapping)?
     ScrollbarOptions: (TemplateScrollBarOptions)?
     TickLabelOptions: (TemplateAxisTickLabelOptions)?
 }
@@ -266,8 +266,8 @@ typealias TemplateBoxPlotFillStyle = String|Mapping
 
 /// 
 open class TemplateBoxPlotOptions {
-    AllDataPointsVisibility: (TemplateVisibility)?
-    OutlierVisibility: (TemplateVisibility)?
+    AllDataPointsVisibility: (Dynamic|Mapping)?
+    OutlierVisibility: (Dynamic|Mapping)?
     StyleOptions: (TemplateBoxPlotStyleOptions)?
 }
 
@@ -373,8 +373,8 @@ open class TemplateCategoryInnerFilter {
 /// 
 open class TemplateChartAxisLabelOptions {
     AxisLabelOptions: (Listing<TemplateAxisLabelOptions>)?
-    SortIconVisibility: (TemplateVisibility)?
-    Visibility: (TemplateVisibility)?
+    SortIconVisibility: (Dynamic|Mapping)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -457,7 +457,7 @@ open class TemplateColumnTooltipItem {
     Column: TemplateColumnIdentifier
     Label: (String|Mapping)?
     TooltipTarget: (TemplateTooltipTarget)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -736,16 +736,16 @@ typealias TemplateDataLabelContent = String|Mapping
 
 /// 
 open class TemplateDataLabelOptions {
-    CategoryLabelVisibility: (TemplateVisibility)?
+    CategoryLabelVisibility: (Dynamic|Mapping)?
     DataLabelTypes: (Listing<TemplateDataLabelType>)?
     LabelColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     LabelContent: (TemplateDataLabelContent)?
     LabelFontConfiguration: (TemplateFontConfiguration)?
-    MeasureLabelVisibility: (TemplateVisibility)?
+    MeasureLabelVisibility: (Dynamic|Mapping)?
     Overlap: (TemplateDataLabelOverlap)?
     Position: (TemplateDataLabelPosition)?
-    TotalsVisibility: (TemplateVisibility)?
-    Visibility: (TemplateVisibility)?
+    TotalsVisibility: (Dynamic|Mapping)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateDataLabelOverlap = String|Mapping
@@ -774,7 +774,7 @@ open class TemplateDataPathColor {
 open class TemplateDataPathLabelType {
     FieldId: (String|Mapping)?
     FieldValue: (String|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -818,7 +818,7 @@ typealias TemplateDateAggregationFunction = String|Mapping
 
 /// 
 open class TemplateDateAxisOptions {
-    MissingDateVisibility: (TemplateVisibility)?
+    MissingDateVisibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1025,7 +1025,7 @@ open class TemplateDimensionField {
 
 /// 
 open class TemplateDonutCenterOptions {
-    LabelVisibility: (TemplateVisibility)?
+    LabelVisibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1083,7 +1083,7 @@ open class TemplateExplicitHierarchy {
 
 /// 
 open class TemplateFieldBasedTooltip {
-    AggregationVisibility: (TemplateVisibility)?
+    AggregationVisibility: (Dynamic|Mapping)?
     TooltipFields: (Listing<TemplateTooltipItem>)?
     TooltipTitleType: (TemplateTooltipTitleType)?
 }
@@ -1091,7 +1091,7 @@ open class TemplateFieldBasedTooltip {
 /// 
 open class TemplateFieldLabelType {
     FieldId: (String|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1118,7 +1118,7 @@ open class TemplateFieldTooltipItem {
     FieldId: String|Mapping
     Label: (String|Mapping)?
     TooltipTarget: (TemplateTooltipTarget)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1409,7 +1409,7 @@ open class TemplateFreeFormLayoutElement {
     LoadingAnimation: (TemplateLoadingAnimation)?
     RenderingRules: (Listing<TemplateSheetElementRenderingRule>)?
     SelectedBorderStyle: (TemplateFreeFormLayoutElementBorderStyle)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
     Width: String|Mapping
     XAxisLocation: String|Mapping
     YAxisLocation: String|Mapping
@@ -1418,13 +1418,13 @@ open class TemplateFreeFormLayoutElement {
 /// 
 open class TemplateFreeFormLayoutElementBackgroundStyle {
     Color: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplateFreeFormLayoutElementBorderStyle {
     Color: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1456,13 +1456,13 @@ open class TemplateFunnelChartConfiguration {
 
 /// 
 open class TemplateFunnelChartDataLabelOptions {
-    CategoryLabelVisibility: (TemplateVisibility)?
+    CategoryLabelVisibility: (Dynamic|Mapping)?
     LabelColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     LabelFontConfiguration: (TemplateFontConfiguration)?
     MeasureDataLabelStyle: (TemplateFunnelChartMeasureDataLabelStyle)?
-    MeasureLabelVisibility: (TemplateVisibility)?
+    MeasureLabelVisibility: (Dynamic|Mapping)?
     Position: (TemplateDataLabelPosition)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1628,7 +1628,7 @@ open class TemplateGeospatialPointLayer {
 
 /// 
 open class TemplateGeospatialPointStyle {
-    CircleSymbolStyle: (TemplateGeospatialCircleSymbolStyle)?
+    CircleSymbolStyle: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1650,9 +1650,9 @@ open class TemplateGeospatialPolygonStyle {
 
 /// 
 open class TemplateGeospatialPolygonSymbolStyle {
-    FillColor: (TemplateGeospatialColor)?
-    StrokeColor: (TemplateGeospatialColor)?
-    StrokeWidth: (TemplateGeospatialLineWidth)?
+    FillColor: (Dynamic|Mapping)?
+    StrokeColor: (Dynamic|Mapping)?
+    StrokeWidth: (Dynamic|Mapping)?
 }
 
 typealias TemplateGeospatialSelectedPointStyle = String|Mapping
@@ -1661,7 +1661,7 @@ typealias TemplateGeospatialSelectedPointStyle = String|Mapping
 /// Describes the properties for a solid color
 open class TemplateGeospatialSolidColor {
     Color: String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping
-    State: (TemplateGeospatialColorState)?
+    State: (Dynamic|Mapping)?
 }
 
 /// 
@@ -1981,9 +1981,9 @@ open class TemplateKPISortConfiguration {
 /// 
 open class TemplateKPISparklineOptions {
     Color: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
-    TooltipVisibility: (TemplateVisibility)?
+    TooltipVisibility: (Dynamic|Mapping)?
     Type: TemplateKPISparklineType
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateKPISparklineType = String|Mapping
@@ -2018,7 +2018,7 @@ typealias TemplateKPIVisualStandardLayoutType = String|Mapping
 open class TemplateLabelOptions {
     CustomLabel: (String|Mapping)?
     FontConfiguration: (TemplateFontConfiguration)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2043,7 +2043,7 @@ typealias TemplateLayerCustomActionTrigger = String|Mapping
 
 /// 
 open class TemplateLayerMapVisual {
-    ChartConfiguration: (TemplateGeospatialLayerMapConfiguration)?
+    ChartConfiguration: (Dynamic|Mapping)?
     DataSetIdentifier: String|Mapping
     Subtitle: (TemplateVisualSubtitleLabelOptions)?
     Title: (TemplateVisualTitleLabelOptions)?
@@ -2072,7 +2072,7 @@ open class TemplateLegendOptions {
     Position: (TemplateLegendPosition)?
     Title: (TemplateLabelOptions)?
     ValueFontConfiguration: (TemplateFontConfiguration)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
     Width: (String|Mapping)?
 }
 
@@ -2130,7 +2130,7 @@ typealias TemplateLineChartLineStyle = String|Mapping
 open class TemplateLineChartLineStyleSettings {
     LineInterpolation: (TemplateLineInterpolation)?
     LineStyle: (TemplateLineChartLineStyle)?
-    LineVisibility: (TemplateVisibility)?
+    LineVisibility: (Dynamic|Mapping)?
     LineWidth: (String|Mapping)?
 }
 
@@ -2142,7 +2142,7 @@ open class TemplateLineChartMarkerStyleSettings {
     MarkerColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     MarkerShape: (TemplateLineChartMarkerShape)?
     MarkerSize: (String|Mapping)?
-    MarkerVisibility: (TemplateVisibility)?
+    MarkerVisibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2193,17 +2193,17 @@ open class TemplateListControlDisplayOptions {
 
 /// 
 open class TemplateListControlSearchOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplateListControlSelectAllOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplateLoadingAnimation {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2228,7 +2228,7 @@ open class TemplateMappedDataSetParameter {
 
 /// 
 open class TemplateMaximumLabelType {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2262,7 +2262,7 @@ open class TemplateMetricComparisonComputation {
 
 /// 
 open class TemplateMinimumLabelType {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2417,13 +2417,13 @@ typealias TemplatePanelBorderStyle = String|Mapping
 /// 
 open class TemplatePanelConfiguration {
     BackgroundColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
-    BackgroundVisibility: (TemplateVisibility)?
+    BackgroundVisibility: (Dynamic|Mapping)?
     BorderColor: (String(matches(Regex(#"^#[A-F0-9]{6}(?:[A-F0-9]{2})?$"#)))|Mapping)?
     BorderStyle: (TemplatePanelBorderStyle)?
     BorderThickness: (String|Mapping)?
-    BorderVisibility: (TemplateVisibility)?
+    BorderVisibility: (Dynamic|Mapping)?
     GutterSpacing: (String|Mapping)?
-    GutterVisibility: (TemplateVisibility)?
+    GutterVisibility: (Dynamic|Mapping)?
     Title: (TemplatePanelTitleOptions)?
 }
 
@@ -2431,7 +2431,7 @@ open class TemplatePanelConfiguration {
 open class TemplatePanelTitleOptions {
     FontConfiguration: (TemplateFontConfiguration)?
     HorizontalTextAlignment: (TemplateHorizontalTextAlignment)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplatePaperOrientation = String|Mapping
@@ -2687,7 +2687,7 @@ open class TemplatePivotTableFieldCollapseStateTarget {
 open class TemplatePivotTableFieldOption {
     CustomLabel: (String|Mapping)?
     FieldId: String|Mapping
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -2713,9 +2713,9 @@ typealias TemplatePivotTableMetricPlacement = String|Mapping
 /// 
 open class TemplatePivotTableOptions {
     CellStyle: (TemplateTableCellStyle)?
-    CollapsedRowDimensionsVisibility: (TemplateVisibility)?
+    CollapsedRowDimensionsVisibility: (Dynamic|Mapping)?
     ColumnHeaderStyle: (TemplateTableCellStyle)?
-    ColumnNamesVisibility: (TemplateVisibility)?
+    ColumnNamesVisibility: (Dynamic|Mapping)?
     DefaultCellWidth: (String|Mapping)?
     MetricPlacement: (TemplatePivotTableMetricPlacement)?
     RowAlternateColorOptions: (TemplateRowAlternateColorOptions)?
@@ -2723,20 +2723,20 @@ open class TemplatePivotTableOptions {
     RowHeaderStyle: (TemplateTableCellStyle)?
     RowsLabelOptions: (TemplatePivotTableRowsLabelOptions)?
     RowsLayout: (TemplatePivotTableRowsLayout)?
-    SingleMetricVisibility: (TemplateVisibility)?
-    ToggleButtonsVisibility: (TemplateVisibility)?
+    SingleMetricVisibility: (Dynamic|Mapping)?
+    ToggleButtonsVisibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplatePivotTablePaginatedReportOptions {
-    OverflowColumnHeaderVisibility: (TemplateVisibility)?
-    VerticalOverflowVisibility: (TemplateVisibility)?
+    OverflowColumnHeaderVisibility: (Dynamic|Mapping)?
+    VerticalOverflowVisibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplatePivotTableRowsLabelOptions {
     CustomLabel: (String|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplatePivotTableRowsLayout = String|Mapping
@@ -2784,7 +2784,7 @@ open class TemplatePivotTotalOptions {
     ScrollStatus: (TemplateTableTotalsScrollStatus)?
     TotalAggregationOptions: (Listing<TemplateTotalAggregationOption>)?
     TotalCellStyle: (TemplateTableCellStyle)?
-    TotalsVisibility: (TemplateVisibility)?
+    TotalsVisibility: (Dynamic|Mapping)?
     ValueCellStyle: (TemplateTableCellStyle)?
 }
 
@@ -2855,7 +2855,7 @@ typealias TemplatePrimaryValueDisplayType = String|Mapping
 
 /// 
 open class TemplateProgressBarOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateQueryExecutionMode = String|Mapping
@@ -2875,7 +2875,7 @@ open class TemplateRadarChartAggregatedFieldWells {
 
 /// 
 open class TemplateRadarChartAreaStyleSettings {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateRadarChartAxesRangeScale = String|Mapping
@@ -2883,7 +2883,7 @@ typealias TemplateRadarChartAxesRangeScale = String|Mapping
 
 /// 
 open class TemplateRadarChartConfiguration {
-    AlternateBandColorsVisibility: (TemplateVisibility)?
+    AlternateBandColorsVisibility: (Dynamic|Mapping)?
     AlternateBandEvenColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     AlternateBandOddColor: (String(matches(Regex(#"^#[A-F0-9]{6}$"#)))|Mapping)?
     AxesRangeScale: (TemplateRadarChartAxesRangeScale)?
@@ -2934,7 +2934,7 @@ open class TemplateRadarChartVisual {
 
 /// 
 open class TemplateRangeEndsLabelType {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3152,13 +3152,13 @@ open class TemplateScatterPlotVisual {
 
 /// 
 open class TemplateScrollBarOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
     VisibleRange: (TemplateVisibleRangeOptions)?
 }
 
 /// 
 open class TemplateSecondaryValueOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3257,7 +3257,7 @@ typealias TemplateSheetControlDateTimePickerType = String|Mapping
 /// 
 open class TemplateSheetControlInfoIconLabelOptions {
     InfoIconText: (String|Mapping)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3294,7 +3294,7 @@ open class TemplateSheetDefinition {
 
 /// 
 open class TemplateSheetElementConfigurationOverrides {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3335,7 +3335,7 @@ open class TemplateSheetImageStaticFileSource {
 /// 
 open class TemplateSheetImageTooltipConfiguration {
     TooltipText: (TemplateSheetImageTooltipText)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3493,7 +3493,7 @@ open class TemplateSubtotalOptions {
     MetricHeaderCellStyle: (TemplateTableCellStyle)?
     StyleTargets: (Listing<TemplateTableStyleTarget>)?
     TotalCellStyle: (TemplateTableCellStyle)?
-    TotalsVisibility: (TemplateVisibility)?
+    TotalsVisibility: (Dynamic|Mapping)?
     ValueCellStyle: (TemplateTableCellStyle)?
 }
 
@@ -3536,7 +3536,7 @@ open class TemplateTableCellStyle {
     HorizontalTextAlignment: (TemplateHorizontalTextAlignment)?
     TextWrap: (TemplateTextWrap)?
     VerticalTextAlignment: (TemplateVerticalTextAlignment)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3597,7 +3597,7 @@ open class TemplateTableFieldOption {
     CustomLabel: (String|Mapping)?
     FieldId: String|Mapping
     URLStyling: (TemplateTableFieldURLConfiguration)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
     Width: (String|Mapping)?
 }
 
@@ -3638,8 +3638,8 @@ typealias TemplateTableOrientation = String|Mapping
 
 /// 
 open class TemplateTablePaginatedReportOptions {
-    OverflowColumnHeaderVisibility: (TemplateVisibility)?
-    VerticalOverflowVisibility: (TemplateVisibility)?
+    OverflowColumnHeaderVisibility: (Dynamic|Mapping)?
+    VerticalOverflowVisibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3776,7 +3776,7 @@ open class TemplateTextConditionalFormat {
 
 /// 
 open class TemplateTextControlPlaceholderOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3792,7 +3792,7 @@ typealias TemplateTextWrap = String|Mapping
 /// 
 open class TemplateThousandSeparatorOptions {
     Symbol: (TemplateNumericSeparatorSymbol)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3858,7 +3858,7 @@ open class TemplateTooltipItem {
 open class TemplateTooltipOptions {
     FieldBasedTooltip: (TemplateFieldBasedTooltip)?
     SelectedTooltipType: (TemplateSelectedTooltipType)?
-    TooltipVisibility: (TemplateVisibility)?
+    TooltipVisibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateTooltipTarget = String|Mapping
@@ -3931,7 +3931,7 @@ open class TemplateTotalOptions {
     ScrollStatus: (TemplateTableTotalsScrollStatus)?
     TotalAggregationOptions: (Listing<TemplateTotalAggregationOption>)?
     TotalCellStyle: (TemplateTableCellStyle)?
-    TotalsVisibility: (TemplateVisibility)?
+    TotalsVisibility: (Dynamic|Mapping)?
 }
 
 /// 
@@ -3978,7 +3978,7 @@ open class TemplateTreeMapVisual {
 
 /// 
 open class TemplateTrendArrowOptions {
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 typealias TemplateURLTargetConfiguration = String|Mapping
@@ -4077,13 +4077,13 @@ open class TemplateVisualPalette {
 /// 
 open class TemplateVisualSubtitleLabelOptions {
     FormatText: (TemplateLongFormatText)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 
 open class TemplateVisualTitleLabelOptions {
     FormatText: (TemplateShortFormatText)?
-    Visibility: (TemplateVisibility)?
+    Visibility: (Dynamic|Mapping)?
 }
 
 /// 

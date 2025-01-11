@@ -55,6 +55,7 @@ open class BrokerTagsEntry {
 open class BrokerUser {
     ConsoleAccess: (Boolean|Mapping)?
     Groups: (Listing<String|Mapping>)?
+    JolokiaApiAccess: (String|Mapping)?
     Password: String|Mapping
     ReplicationUser: (Boolean|Mapping)?
     Username: String|Mapping
