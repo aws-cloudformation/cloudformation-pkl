@@ -15,10 +15,19 @@ open class KnowledgeBaseEmbeddingModelConfiguration {
     BedrockEmbeddingModelConfiguration: (KnowledgeBaseBedrockEmbeddingModelConfiguration)?
 }
 
+typealias KnowledgeBaseKendraIndexArn = String|Mapping
+
+
+/// Configurations for a Kendra knowledge base
+open class KnowledgeBaseKendraKnowledgeBaseConfiguration {
+    KendraIndexArn: KnowledgeBaseKendraIndexArn
+}
+
 /// Contains details about the embeddings model used for the knowledge base.
 open class KnowledgeBaseKnowledgeBaseConfiguration {
+    KendraKnowledgeBaseConfiguration: (KnowledgeBaseKendraKnowledgeBaseConfiguration)?
     Type: KnowledgeBaseKnowledgeBaseType
-    VectorKnowledgeBaseConfiguration: KnowledgeBaseVectorKnowledgeBaseConfiguration
+    VectorKnowledgeBaseConfiguration: (KnowledgeBaseVectorKnowledgeBaseConfiguration)?
 }
 
 typealias KnowledgeBaseKnowledgeBaseStatus = String|Mapping
@@ -50,7 +59,7 @@ open class KnowledgeBaseMongoDbAtlasFieldMapping {
 
 /// Contains the storage configuration of the knowledge base in Amazon OpenSearch Service.
 open class KnowledgeBaseOpenSearchServerlessConfiguration {
-    CollectionArn: String(matches(Regex(#"^arn:aws:aoss:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:collection/[a-z0-9-]{3,32}$"#)))|Mapping
+    CollectionArn: String(matches(Regex(#"^arn:aws(|-cn|-us-gov|-iso):aoss:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:collection/[a-z0-9-]{3,32}$"#)))|Mapping
     FieldMapping: KnowledgeBaseOpenSearchServerlessFieldMapping
     VectorIndexName: String(matches(Regex(#"^.*$"#)))|Mapping
 }
@@ -108,6 +117,11 @@ open class KnowledgeBaseRedisEnterpriseCloudFieldMapping {
     VectorField: String(matches(Regex(#"^.*$"#)))|Mapping
 }
 
+/// An Amazon S3 location.
+open class KnowledgeBaseS3Location {
+    URI: String(matches(Regex(#"^s3://.{1,128}$"#)))|Mapping
+}
+
 /// The vector store service in which the knowledge base is stored.
 open class KnowledgeBaseStorageConfiguration {
     MongoDbAtlasConfiguration: (KnowledgeBaseMongoDbAtlasConfiguration)?
@@ -117,6 +131,23 @@ open class KnowledgeBaseStorageConfiguration {
     Type: KnowledgeBaseKnowledgeBaseStorageType
 }
 
+/// Configurations for supplemental data storage.
+open class KnowledgeBaseSupplementalDataStorageConfiguration {
+    SupplementalDataStorageLocations: KnowledgeBaseSupplementalDataStorageLocations
+}
+
+/// Supplemental data storage location.
+open class KnowledgeBaseSupplementalDataStorageLocation {
+    S3Location: (KnowledgeBaseS3Location)?
+    SupplementalDataStorageLocationType: KnowledgeBaseSupplementalDataStorageLocationType
+}
+
+typealias KnowledgeBaseSupplementalDataStorageLocationType = String|Mapping
+
+
+typealias KnowledgeBaseSupplementalDataStorageLocations = Listing<(KnowledgeBaseSupplementalDataStorageLocation)?>
+
+
 typealias KnowledgeBaseTagsMap = Mapping<String, Any>
 
 
@@ -124,6 +155,7 @@ typealias KnowledgeBaseTagsMap = Mapping<String, Any>
 open class KnowledgeBaseVectorKnowledgeBaseConfiguration {
     EmbeddingModelArn: String(matches(Regex(#"^(arn:aws(-[^:]+)?:[a-z0-9-]+:[a-z0-9-]{1,20}:[0-9]{0,12}:[a-zA-Z0-9-:/._+]+)$"#)))|Mapping
     EmbeddingModelConfiguration: (KnowledgeBaseEmbeddingModelConfiguration)?
+    SupplementalDataStorageConfiguration: (KnowledgeBaseSupplementalDataStorageConfiguration)?
 }
 
 /// Definition of AWS::Bedrock::KnowledgeBase Resource Type
@@ -145,7 +177,7 @@ open class KnowledgeBase extends cloudformation.Resource {
     hidden RoleArn: String(matches(Regex(#"^arn:aws(-[^:]+)?:iam::([0-9]{12})?:role/.+$"#)))|Mapping
 
     /// 
-    hidden StorageConfiguration: KnowledgeBaseStorageConfiguration
+    hidden StorageConfiguration: (KnowledgeBaseStorageConfiguration)?
 
     /// 
     hidden Tags: (KnowledgeBaseTagsMap)?

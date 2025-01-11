@@ -29,6 +29,7 @@ open class UserProfileCodeRepository {
 /// 
 open class UserProfileCustomFileSystemConfig {
     EFSFileSystemConfig: (UserProfileEFSFileSystemConfig)?
+    FSxLustreFileSystemConfig: (UserProfileFSxLustreFileSystemConfig)?
 }
 
 /// A custom SageMaker image.
@@ -57,6 +58,12 @@ open class UserProfileDefaultSpaceStorageSettings {
 
 /// 
 open class UserProfileEFSFileSystemConfig {
+    FileSystemId: String(matches(Regex(#"^(fs-[0-9a-f]{8,})$"#)))|Mapping
+    FileSystemPath: (String(matches(Regex(#"^\/\S*$"#)))|Mapping)?
+}
+
+/// 
+open class UserProfileFSxLustreFileSystemConfig {
     FileSystemId: String(matches(Regex(#"^(fs-[0-9a-f]{8,})$"#)))|Mapping
     FileSystemPath: (String(matches(Regex(#"^\/\S*$"#)))|Mapping)?
 }

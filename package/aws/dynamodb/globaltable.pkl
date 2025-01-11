@@ -58,6 +58,7 @@ open class GlobalTableLocalSecondaryIndex {
 /// 
 open class GlobalTablePointInTimeRecoverySpecification {
     PointInTimeRecoveryEnabled: (Boolean|Mapping)?
+    RecoveryPeriodInDays: (Int|Mapping)?
 }
 
 /// 
@@ -186,6 +187,9 @@ open class GlobalTable extends cloudformation.Resource {
     hidden LocalSecondaryIndexes: (Listing<GlobalTableLocalSecondaryIndex>)?
 
     /// 
+    hidden PointInTimeRecoverySpecification: (GlobalTablePointInTimeRecoverySpecification)?
+
+    /// 
     hidden Replicas: Listing<GlobalTableReplicaSpecification>
 
     /// 
@@ -215,6 +219,7 @@ open class GlobalTable extends cloudformation.Resource {
         ["GlobalSecondaryIndexes"] = if (GlobalSecondaryIndexes == null) null else GlobalSecondaryIndexes
         ["KeySchema"] = if (KeySchema == null) null else KeySchema
         ["LocalSecondaryIndexes"] = if (LocalSecondaryIndexes == null) null else LocalSecondaryIndexes
+        ["PointInTimeRecoverySpecification"] = if (PointInTimeRecoverySpecification == null) null else PointInTimeRecoverySpecification
         ["Replicas"] = if (Replicas == null) null else Replicas
         ["SSESpecification"] = if (SSESpecification == null) null else SSESpecification
         ["StreamSpecification"] = if (StreamSpecification == null) null else StreamSpecification

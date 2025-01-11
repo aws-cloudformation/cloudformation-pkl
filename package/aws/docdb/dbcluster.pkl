@@ -54,7 +54,13 @@ open class DBCluster extends cloudformation.Resource {
     hidden KmsKeyId: (String|Mapping)?
 
     /// 
+    hidden ManageMasterUserPassword: (Boolean|Mapping)?
+
+    /// 
     hidden MasterUserPassword: (String|Mapping)?
+
+    /// 
+    hidden MasterUserSecretKmsKeyId: (String|Mapping)?
 
     /// 
     hidden MasterUsername: (String|Mapping)?
@@ -73,6 +79,9 @@ open class DBCluster extends cloudformation.Resource {
 
     /// 
     hidden RestoreType: (String|Mapping)?
+
+    /// 
+    hidden RotateMasterUserPassword: (Boolean|Mapping)?
 
     /// 
     hidden ServerlessV2ScalingConfiguration: (DBClusterServerlessV2ScalingConfiguration)?
@@ -109,13 +118,16 @@ open class DBCluster extends cloudformation.Resource {
         ["EnableCloudwatchLogsExports"] = if (EnableCloudwatchLogsExports == null) null else EnableCloudwatchLogsExports
         ["EngineVersion"] = if (EngineVersion == null) null else EngineVersion
         ["KmsKeyId"] = if (KmsKeyId == null) null else KmsKeyId
+        ["ManageMasterUserPassword"] = if (ManageMasterUserPassword == null) null else ManageMasterUserPassword
         ["MasterUserPassword"] = if (MasterUserPassword == null) null else MasterUserPassword
+        ["MasterUserSecretKmsKeyId"] = if (MasterUserSecretKmsKeyId == null) null else MasterUserSecretKmsKeyId
         ["MasterUsername"] = if (MasterUsername == null) null else MasterUsername
         ["Port"] = if (Port == null) null else Port
         ["PreferredBackupWindow"] = if (PreferredBackupWindow == null) null else PreferredBackupWindow
         ["PreferredMaintenanceWindow"] = if (PreferredMaintenanceWindow == null) null else PreferredMaintenanceWindow
         ["RestoreToTime"] = if (RestoreToTime == null) null else RestoreToTime
         ["RestoreType"] = if (RestoreType == null) null else RestoreType
+        ["RotateMasterUserPassword"] = if (RotateMasterUserPassword == null) null else RotateMasterUserPassword
         ["ServerlessV2ScalingConfiguration"] = if (ServerlessV2ScalingConfiguration == null) null else ServerlessV2ScalingConfiguration
         ["SnapshotIdentifier"] = if (SnapshotIdentifier == null) null else SnapshotIdentifier
         ["SourceDBClusterIdentifier"] = if (SourceDBClusterIdentifier == null) null else SourceDBClusterIdentifier

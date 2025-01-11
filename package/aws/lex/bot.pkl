@@ -478,6 +478,14 @@ open class BotPromptSpecification {
 typealias BotQueryFilterString = String|Mapping
 
 
+typealias BotReplicaRegion = String|Mapping
+
+
+/// Parameter used to create a replication of the source bot in the secondary region.
+open class BotReplication {
+    ReplicaRegions: Listing<BotReplicaRegion>
+}
+
 /// A list of message groups that Amazon Lex uses to respond the user input.
 open class BotResponseSpecification {
     AllowInterrupt: (Boolean|Mapping)?
@@ -746,6 +754,9 @@ open class Bot extends cloudformation.Resource {
     hidden Name: BotName
 
     /// 
+    hidden Replication: (BotReplication)?
+
+    /// 
     hidden RoleArn: BotRoleArn
 
     /// 
@@ -763,6 +774,7 @@ open class Bot extends cloudformation.Resource {
         ["Description"] = if (Description == null) null else Description
         ["IdleSessionTTLInSeconds"] = if (IdleSessionTTLInSeconds == null) null else IdleSessionTTLInSeconds
         ["Name"] = if (Name == null) null else Name
+        ["Replication"] = if (Replication == null) null else Replication
         ["RoleArn"] = if (RoleArn == null) null else RoleArn
         ["TestBotAliasSettings"] = if (TestBotAliasSettings == null) null else TestBotAliasSettings
         ["TestBotAliasTags"] = if (TestBotAliasTags == null) null else TestBotAliasTags

@@ -59,6 +59,7 @@ open class CanaryTag {
 
 /// 
 open class CanaryVPCConfig {
+    Ipv6AllowedForDualStack: (Boolean|Mapping)?
     SecurityGroupIds: Listing<String|Mapping>
     SubnetIds: Listing<String|Mapping>
     VpcId: (String|Mapping)?

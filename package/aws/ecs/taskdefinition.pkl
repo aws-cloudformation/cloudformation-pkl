@@ -389,7 +389,7 @@ open class TaskDefinition extends cloudformation.Resource {
     ///  This option requires Linux platform ``1.4.0`` or later.
     hidden Cpu: (String|Mapping)?
 
-    /// 
+    /// Enables fault injection and allows for fault injection requests to be accepted from the task's containers. The default value is ``false``.
     hidden EnableFaultInjection: (Boolean|Mapping)?
 
     /// The ephemeral storage settings to use for tasks run with the task definition.

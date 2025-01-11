@@ -33,6 +33,14 @@ open class MailManagerRuleSetDeliverToMailboxAction {
     RoleArn: String(matches(Regex(#"^[a-zA-Z0-9:_/+=,@.#-]+$"#)))|Mapping
 }
 
+/// 
+open class MailManagerRuleSetDeliverToQBusinessAction {
+    ActionFailurePolicy: (MailManagerRuleSetActionFailurePolicy)?
+    ApplicationId: String(matches(Regex(#"^[a-z0-9-]+$"#)))|Mapping
+    IndexId: String(matches(Regex(#"^[a-z0-9-]+$"#)))|Mapping
+    RoleArn: String(matches(Regex(#"^[a-zA-Z0-9:_/+=,@.#-]+$"#)))|Mapping
+}
+
 typealias MailManagerRuleSetDropAction = Dynamic
 
 
@@ -59,7 +67,7 @@ open class MailManagerRuleSetRule {
     Unless: (Listing<MailManagerRuleSetRuleCondition>)?
 }
 
-typealias MailManagerRuleSetRuleAction = MailManagerRuleSetRuleActionDrop|MailManagerRuleSetRuleActionRelay|MailManagerRuleSetRuleActionArchive|MailManagerRuleSetRuleActionWriteToS3|MailManagerRuleSetRuleActionSend|MailManagerRuleSetRuleActionAddHeader|MailManagerRuleSetRuleActionReplaceRecipient|MailManagerRuleSetRuleActionDeliverToMailbox
+typealias MailManagerRuleSetRuleAction = MailManagerRuleSetRuleActionDrop|MailManagerRuleSetRuleActionRelay|MailManagerRuleSetRuleActionArchive|MailManagerRuleSetRuleActionWriteToS3|MailManagerRuleSetRuleActionSend|MailManagerRuleSetRuleActionAddHeader|MailManagerRuleSetRuleActionReplaceRecipient|MailManagerRuleSetRuleActionDeliverToMailbox|MailManagerRuleSetRuleActionDeliverToQBusiness
 
 
 /// 
@@ -75,6 +83,11 @@ open class MailManagerRuleSetRuleActionArchive {
 /// 
 open class MailManagerRuleSetRuleActionDeliverToMailbox {
     DeliverToMailbox: MailManagerRuleSetDeliverToMailboxAction
+}
+
+/// 
+open class MailManagerRuleSetRuleActionDeliverToQBusiness {
+    DeliverToQBusiness: MailManagerRuleSetDeliverToQBusinessAction
 }
 
 /// 

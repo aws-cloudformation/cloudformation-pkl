@@ -29,6 +29,7 @@ open class DomainCodeRepository {
 /// 
 open class DomainCustomFileSystemConfig {
     EFSFileSystemConfig: (DomainEFSFileSystemConfig)?
+    FSxLustreFileSystemConfig: (DomainFSxLustreFileSystemConfig)?
 }
 
 /// A custom SageMaker image.
@@ -87,6 +88,12 @@ open class DomainDomainSettings {
 
 /// 
 open class DomainEFSFileSystemConfig {
+    FileSystemId: String(matches(Regex(#"^(fs-[0-9a-f]{8,})$"#)))|Mapping
+    FileSystemPath: (String(matches(Regex(#"^\/\S*$"#)))|Mapping)?
+}
+
+/// 
+open class DomainFSxLustreFileSystemConfig {
     FileSystemId: String(matches(Regex(#"^(fs-[0-9a-f]{8,})$"#)))|Mapping
     FileSystemPath: (String(matches(Regex(#"^\/\S*$"#)))|Mapping)?
 }

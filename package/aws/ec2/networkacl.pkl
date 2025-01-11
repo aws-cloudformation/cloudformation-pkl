@@ -12,6 +12,8 @@ open class NetworkAclTag {
 }
 
 /// Specifies a network ACL for your VPC.
+///
+///  To add a network ACL entry, see [AWS::EC2::NetworkAclEntry](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-networkaclentry.html).
 open class NetworkAcl extends cloudformation.Resource {
 
     Type = "AWS::EC2::NetworkAcl"

@@ -6,7 +6,24 @@ module aws.cleanrooms.membership
 import "../../cloudformation.pkl"
 
 /// 
+open class MembershipMembershipMLPaymentConfig {
+    ModelInference: (MembershipMembershipModelInferencePaymentConfig)?
+    ModelTraining: (MembershipMembershipModelTrainingPaymentConfig)?
+}
+
+/// 
+open class MembershipMembershipModelInferencePaymentConfig {
+    IsResponsible: Boolean|Mapping
+}
+
+/// 
+open class MembershipMembershipModelTrainingPaymentConfig {
+    IsResponsible: Boolean|Mapping
+}
+
+/// 
 open class MembershipMembershipPaymentConfiguration {
+    MachineLearning: (MembershipMembershipMLPaymentConfig)?
     QueryCompute: MembershipMembershipQueryComputePaymentConfig
 }
 

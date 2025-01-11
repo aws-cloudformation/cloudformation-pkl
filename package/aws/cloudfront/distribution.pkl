@@ -97,6 +97,7 @@ open class DistributionDefaultCacheBehavior {
 /// A distribution configuration.
 open class DistributionDistributionConfig {
     Aliases: (Listing<String|Mapping>)?
+    AnycastIpListId: (String|Mapping)?
     CNAMEs: (Listing<String|Mapping>)?
     CacheBehaviors: (Listing<DistributionCacheBehavior>)?
     Comment: (String|Mapping)?
@@ -143,7 +144,10 @@ open class DistributionGeoRestriction {
     RestrictionType: String|Mapping
 }
 
-/// 
+/// Amazon CloudFront supports gRPC, an open-source remote procedure call (RPC) framework built on HTTP/2. gRPC offers bi-directional streaming and binary protocol that buffers payloads, making it suitable for applications that require low latency communications.
+///
+///  To enable your distribution to handle gRPC requests, you must include HTTP/2 as one of the supported ``HTTP`` versions and allow ``HTTP`` methods, including ``POST``.
+///  For more information, see [Using gRPC with CloudFront distributions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-using-grpc.html) in the *Amazon CloudFront Developer Guide*.
 open class DistributionGrpcConfig {
     Enabled: Boolean|Mapping
 }
@@ -174,7 +178,9 @@ open class DistributionLegacyS3Origin {
     OriginAccessIdentity: (String|Mapping)?
 }
 
-/// A complex type that controls whether access logs are written for the distribution.
+/// A complex type that specifies whether access logs are written for the distribution.
+///
+///   If you already enabled standard logging (legacy) and you want to enable standard logging (v2) to send your access logs to Amazon S3, we recommend that you specify a *different* Amazon S3 bucket or use a *separate path* in the same bucket (for example, use a log prefix or partitioning). This helps you keep track of which log files are associated with which logging subscription and prevents log files from overwriting each other. For more information, see [Standard logging (access logs)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html) in the *Amazon CloudFront Developer Guide*.
 open class DistributionLogging {
     Bucket: (String|Mapping)?
     IncludeCookies: (Boolean|Mapping)?
@@ -213,7 +219,9 @@ open class DistributionOriginCustomHeader {
     HeaderValue: String|Mapping
 }
 
-/// An origin group includes two origins (a primary origin and a second origin to failover to) and a failover criteria that you specify. You create an origin group to support origin failover in CloudFront. When you create or update a distribution, you can specify the origin group instead of a single origin, and CloudFront will failover from the primary origin to the second origin under the failover conditions that you've chosen.
+/// An origin group includes two origins (a primary origin and a secondary origin to failover to) and a failover criteria that you specify. You create an origin group to support origin failover in CloudFront. When you create or update a distribution, you can specify the origin group instead of a single origin, and CloudFront will failover from the primary origin to the secondary origin under the failover conditions that you've chosen.
+///
+///  Optionally, you can choose selection criteria for your origin group to specify how your origins are selected when your distribution routes viewer requests.
 open class DistributionOriginGroup {
     FailoverCriteria: DistributionOriginGroupFailoverCriteria
     Id: String|Mapping
